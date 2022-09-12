@@ -1,0 +1,77 @@
+
+
+.title{
+    --color : black;
+    size: large;
+    font-weight: bold;
+    text-align: center;
+}
+
+.iconBack{
+  color: black;
+  width: 40px; font-size: 24px;
+}
+
+ion-col{
+  background-color: linear-gradient(90deg, rgb(0, 93, 206) 0%, rgb(145, 185, 255) 35%, rgb(0, 93, 206) 100%);
+}
+
+
+img{
+  display: block;
+  margin: 0px auto;
+ }
+
+.search{
+  --icon-color : black;
+}
+
+ion-label h2{
+  font-size: 11px;
+  margin-top: 5px; margin-bottom: 0px;
+}
+ion-label h3{
+  font-size: 10px;
+  margin-top: 5px; margin-bottom: 0px;
+}
+ion-label p{
+  font-size: 10px;
+}
+/* Core CSS required for Ionic components to work properly */
+@import '~@ionic/angular/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+
+/* Optional CSS utils that can be commented out */
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+/*:root {
+  --ion-color-rose: #fecdd3;
+  --ion-color-rose-rgb: 254,205,211;
+  --ion-color-rose-contrast: #000000;
+  --ion-color-rose-contrast-rgb: 0,0,0;
+  --ion-color-rose-shade: #e0b4ba;
+  --ion-color-rose-tint: #fed2d7;
+}*/
+
+
+
+.ion-color-rose {
+  --ion-color-base: var(--ion-color-rose);
+  --ion-color-base-rgb: var(--ion-color-rose-rgb);
+  --ion-color-contrast: var(--ion-color-rose-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
+  --ion-color-shade: var(--ion-color-rose-shade);
+  --ion-color-tint: var(--ion-color-rose-tint);
+}
+
+div[slot="content"] {
+  background: rgba(var(--ion-color-rose-rgb), 0.25)
+}

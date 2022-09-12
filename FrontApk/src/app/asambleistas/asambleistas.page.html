@@ -1,0 +1,55 @@
+<ion-header >
+  <ion-toolbar >
+    <ion-buttons slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Asambleístas</ion-title>
+    <ion-buttons [routerLink]="['/']" slot="end" >
+      <ion-icon class="iconBack"  name="arrow-back"></ion-icon>
+    </ion-buttons>
+    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar class="search" placeholder="Buscar asambleísta" animated (ionChange)="buscar($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col style="margin-top: 3px;" size="4" size-lg="2" size-md="3" size-sm="4" size-xs="4" clas="itemList" *ngFor="let item of assambly | filtro: textoBuscar ">
+        <div>
+          <img src="../../assets/imgs/icons8-usuario-30.png" />
+        </div>
+        <ion-label>
+          <h2 style="text-align: center; font-weight: bold;">{{item.lastName}} {{item.firstName}}</h2>
+          <h3 style="text-align: center;">{{item.jurisdiction}}</h3>
+          <p style="text-align: center;">Activo</p>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <!--ion-list>
+      <ion-item lines="full" clas="itemList" *ngFor="let item of assambly | filtro: textoBuscar ">
+        <ion-avatar slot="start">
+          <img src="../../assets/imgs/icons8-usuario-30.png" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item.lastName}} {{item.firstName}}</h2>
+          <h3>{{item.jurisdiction}}</h3>
+          <p>Activo</p>
+        </ion-label>
+      </ion-item>
+
+    </ion-list-->
+
+
+
+    <!--ion-infinite-scroll threshold="100px" (ionInfinite)="getAssambly($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Cargando...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll-->
+  </ion-content>

@@ -1,0 +1,128 @@
+<ion-header  [translucent]="true">
+  <ion-toolbar >
+    <ion-buttons slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></ion-img>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div class="gallery">
+    <ion-img src="../../assets/imgs/back_02_home_rc.jpg" ></ion-img>
+    <ion-img src="../../assets/imgs/logo_rc_200px.png" id="stilo"></ion-img>
+    <ion-img src="../../assets/imgs/papaitocorrea.png" id="stilo2" > </ion-img>
+    <!--ion-img src="../../assets/imgs/adespertar.png"></ion-img-->
+    <p id="stilo3">"Sabías que estábamos mejor"</p>
+  </div>
+
+  <div >
+
+    <div class="slides ion-margin-bottom">
+      <ion-slides [options]="slidesOptions">
+        <ion-slide>
+          <ion-card>
+            <ion-card-header>
+              <!--div class="main">
+                <img src="../../assets/imgs/logo_rc_200px.png">
+              </!div-->
+              <img class="files" src="../../assets/imgs/ultimasNoticias.png">
+            </ion-card-header>
+            <!--ion-card-content class="ion-text-left">
+              <ion-card-title class="ion-margin-bottom"></ion-card-title>
+              <ion-card-subtitle class="ion-text-right"></ion-card-subtitle>
+              <ion-progress-bar value="0.5" color="custom"></ion-progress-bar>
+            </!ion-card-content-->
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+            <ion-card-header>
+              <!--div class="main">
+                <img src="../../assets/imgs/logo_rc_200px.png">
+              </!div-->
+              <img class="files" src="../../assets/imgs/Preguntas.png">
+            </ion-card-header>
+            <!--ion-card-content class="ion-text-left">
+              <ion-card-title class="ion-margin-bottom"></ion-card-title>
+              <ion-card-subtitle class="ion-text-right"></ion-card-subtitle>
+              <ion-progress-bar value="0.5" color="custom"></ion-progress-bar>
+            </!ion-card-content-->
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide >
+          <ion-card [routerLink]="['../tabs']">
+            <ion-card-header>
+              <!--div class="main">
+                <img src="../../assets/imgs/logo_rc_200px.png">
+              </!div-->
+              <img class="files" src="../../assets/imgs/Asambleistas.png">
+            </ion-card-header>
+            <!--ion-card-content class="ion-text-left">
+              <ion-card-title class="ion-margin-bottom"></ion-card-title>
+              <ion-card-subtitle class="ion-text-right"></ion-card-subtitle>
+              <ion-progress-bar value="0.5" color="custom"></ion-progress-bar>
+            </!ion-card-content-->
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+            <ion-card-header>
+              <!--div class="main">
+                <img src="../../assets/imgs/logo_rc_200px.png">
+              </!div-->
+              <img class="files" src="../../assets/imgs/masLeidos.png">
+            </ion-card-header>
+            <!--ion-card-content class="ion-text-left">
+              <ion-card-title class="ion-margin-bottom"></ion-card-title>
+              <ion-card-subtitle class="ion-text-right"></ion-card-subtitle>
+              <ion-progress-bar value="0.5" color="custom"></ion-progress-bar>
+            </!ion-card-content-->
+          </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+          <ion-card>
+            <ion-card-header>
+              <!--div class="main">
+                <img src="../../assets/imgs/logo_rc_200px.png">
+              </!div-->
+              <img class="files" src="../../assets/imgs/enVivo.png">
+            </ion-card-header>
+            <!--ion-card-content class="ion-text-left">
+              <ion-card-title class="ion-margin-bottom"></ion-card-title>
+              <ion-card-subtitle class="ion-text-right"></ion-card-subtitle>
+              <ion-progress-bar value="0.5" color="custom"></ion-progress-bar>
+            </!ion-card-content-->
+          </ion-card>
+        </ion-slide>
+  
+        <!--ion-slide>
+          <ion-card>
+            <ion-card-header>
+              <div class="main">
+                <img src="https://www.freeiconspng.com/uploads/google-drive-icon-18.png">
+              </div>
+              <img class="files" src="https://i.ibb.co/jD8ypLq/files.jpg">
+            </ion-card-header>
+            <ion-card-content class="ion-text-left">
+              <ion-card-title class="ion-margin-bottom">Google Drive</ion-card-title>
+              <ion-card-subtitle class="ion-text-right">10/50GB</ion-card-subtitle>
+              <ion-progress-bar value="0.4" color="warning"></ion-progress-bar>
+            </ion-card-content>
+          </ion-card>
+        </!--ion-slide-->
+  
+      </ion-slides>
+    </div>
+  </div>
+
+  <div>
+    <div class="gallery2">
+      <ion-img src="../../assets/imgs/logo_rc_200px.png"></ion-img>
+    </div>
+  </div>
+</ion-content>

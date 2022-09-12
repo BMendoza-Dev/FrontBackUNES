@@ -1,0 +1,54 @@
+
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Asambleístas</ion-title>
+    <ion-buttons [routerLink]="['/']" slot="end" >
+      <ion-icon style="width: 40px; font-size: 24px;" name="arrow-back"></ion-icon>
+    </ion-buttons>
+    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group multiple="true" expand="inset" >
+    <ion-accordion style="margin-top: 5px;"  *ngFor="let item of ambitoTerr" >
+      <ion-item (click)="ambTerri(item.name)" name="ambTerr" slot="header" color="rose">
+        <ion-label style="font-size: 14px;">{{item.name}}</ion-label>
+      </ion-item>
+      
+      <div  class="ion-padding" slot="content"  *ngFor="let item of asamTerritorial">
+        First Content
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+</ion-content>
+<!--ion-accordion-group expand="inset">
+  <ion-accordion value="first">
+    <ion-item slot="header" color="rose">
+      <ion-label>First Accordion</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      First Content
+    </div>
+  </ion-accordion>
+  <ion-accordion value="second">
+    <ion-item slot="header" color="rose">
+      <ion-label>Second Accordion</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      Second Content
+    </div>
+  </ion-accordion>
+  <ion-accordion value="third">
+    <ion-item slot="header" color="rose">
+      <ion-label>Third Accordion</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      Third Content
+    </div>
+  </ion-accordion>
+</ion-accordion-group-->
