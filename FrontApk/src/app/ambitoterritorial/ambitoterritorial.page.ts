@@ -21,11 +21,11 @@ export class AmbitoterritorialPage implements OnInit {
   }
   ionViewDidEnter(){
     this.getTerritorialList();
-    this.getAssambly();
+    //this.getAssambly();
   }
 
   getTerritorialList() {
-    this.showLoading();
+    //this.showLoading();
     this.rest.getTerritorialList().subscribe(response => {
       this.y=0;
       this.ambitoTerr=response;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.14.32.179</domain>
+        <domain includeSubdomains="true">10.15.5.171</domain>
+        <domain includeSubdomains="true">api.asambleanacional.gob.ec</domain>
+        <domain includeSubdomains="true">fiscalizacion.asambleanacional.gob.ec</domain>
+        <domain includeSubdomains="true">leyes.asambleanacional.gob.ec</domain>
+        <domain includeSubdomains="true">ppless.asambleanacional.gob.ec</domain>
+        <domain includeSubdomains="true">asambleanacional.gob.ec</domain>
+        <domain includeSubdomains="true">192.168.101.27</domain>
+        <domain includeSubdomains="true">186.42.121.153</domain>
+        <domain includeSubdomains="true">181.198.32.153</domain>
+    </domain-config>
+</network-security-config>

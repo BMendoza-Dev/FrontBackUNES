@@ -2,8 +2,8 @@
 
 @font-face {
     font-family: 'Gotham';
-    src: url('../../assets/Font/GothamPro-Black.woff') format('woff');
-  }     
+    src: url('../../assets/Font/Gotham-Bold.woff2') format('woff2');
+}     
   
 ion-toolbar{
     --background: rgb(255, 255, 255);
@@ -71,9 +71,9 @@ ion-content {
 }
 
 .gallery2 ion-img:nth-child(1){
-    grid-column: 3 / span 7;
+    grid-column: 4 / span 6;
     grid-row: 3 / span 3;
-    width: 120%;
+    width: 110%;
 }
 
 ion-card {
@@ -84,9 +84,9 @@ ion-card {
     padding: 15px;
     //background: rgba(255,255,255,.8);
     /*.main {width: 60px; height: 60px; border-radius: 50px; background: #FFFFFF; box-shadow:  7px 7px 20px #dbdfe2, -7px -7px 20px #ffffff; display: flex; align-items: center; justify-content: center; img { width: 30px;}
-    }
+    }*/
     .files {
-        padding-top: 14px;
-    } */
+        padding-top: 2px;
+    }
 }
 

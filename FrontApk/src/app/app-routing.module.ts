@@ -26,6 +26,14 @@ const routes: Routes = [
   {
     path: 'ambitoterritorial',
     loadChildren: () => import('./ambitoterritorial/ambitoterritorial.module').then( m => m.AmbitoterritorialPageModule)
+  },
+  {
+    path: 'ultimas',
+    loadChildren: () => import('./noticias/ultimas/ultimas.module').then( m => m.UltimasPageModule)
+  },
+  {
+    path: 'inf-ultimas',
+    loadChildren: () => import('./noticias/inf-ultimas/inf-ultimas.module').then( m => m.InfUltimasPageModule)
   }
 ];
 
