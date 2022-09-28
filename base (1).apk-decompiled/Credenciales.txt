@@ -1,0 +1,15 @@
+const environment = {
+    production: false,
+    urlRestApp: 'http://apiapp.asambleanacional.gob.ec',
+    appUsername: '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
+    appPassword: '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
+    isIosPlatform: false,
+    urlInspection: 'http://fiscalizacion.asambleanacional.gob.ec?vhf=1',
+    ulrLaw: 'https://www.asambleanacional.gob.ec/es/leyes-aprobadas',
+    urlPpless: 'https://leyes.asambleanacional.gob.ec?vhf=1',
+    urlTourVirtual: 'https://www.asambleanacional.gob.ec/tourvirtual/index.html',
+    urlTvOnline: 'http://181.198.32.153:8080/hls/stream.m3u8',
+    urlDiary: 'https://www.asambleanacional.gob.ec/es/agenda_de_comunicacion',
+    urlNews: 'https://www.asambleanacional.gob.ec/es/noticias/boletines-de-prensa',
+    urlRadioOnline: 'http://181.198.32.153:8000/laradio'
+};

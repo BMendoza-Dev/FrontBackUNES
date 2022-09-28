@@ -1,9 +1,6 @@
 
 
-@font-face {
-    font-family: 'Gotham';
-    src: url('../../assets/Font/Gotham-Bold.woff2') format('woff2');
-}     
+    
   
 ion-toolbar{
     --background: rgb(255, 255, 255);
@@ -58,7 +55,7 @@ ion-content {
     grid-row: 4 / span 4;
     line-height: 100%;
     font-size: 4vw;
-    font-family: "Gotham";
+    font-family: "Gotham-Bold";
     color: white;
     text-align: center;
     margin-top: 20%;

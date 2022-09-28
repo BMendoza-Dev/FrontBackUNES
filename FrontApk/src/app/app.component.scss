@@ -2,6 +2,31 @@ ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
+@font-face {
+  font-family: 'Gotham-Black';
+  src: url('../assets/Font/Gotham-Black.woff2') format('woff2');
+} 
+
+@font-face {
+  font-family: 'Gotham-Bold';
+  src: url('../assets/Font/Gotham-Bold.woff2') format('woff2');
+} 
+
+@font-face {
+  font-family: 'Gotham-Book';
+  src: url('../assets/Font/Gotham-Book.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Gotham-Medium';
+  src: url('../assets/Font/Gotham-Medium.woff2') format('woff2');
+} 
+
+@font-face {
+  font-family: 'Gotham-Ultra';
+  src: url('../assets/Font/Gotham-Ultra.woff2') format('woff2');
+} 
+
 ion-menu.md ion-content {
   --padding-start: 8px;
   --padding-end: 8px;
