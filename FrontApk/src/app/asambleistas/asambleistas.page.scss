@@ -3,8 +3,24 @@
 .title{
     --color : black;
     size: large;
-    font-weight: bold;
     text-align: center;
+    font-family: "Gotham-Bold";
+}
+
+h2{
+  text-align: center; 
+  font-weight: bold;
+  font-family: "Gotham-Bold";
+}
+
+h3{
+  text-align: center;
+  font-family: "Gotham-Medium";
+}
+
+p{
+  text-align: center;
+  font-family: "Gotham-Book";
 }
 
 .iconBack{

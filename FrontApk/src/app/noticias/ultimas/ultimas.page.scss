@@ -1,11 +1,41 @@
-.iconBack{
+  .iconBack{
     color: black;
     width: 40px; font-size: 24px;
   }
 
   .title{
     --color : black;
-    size: large;
-    font-weight: bold;
-    text-align: left;
-}
+    //size: large;
+    text-align: center;
+    font-family: "Gotham-Bold";
+    font-size: 15px;
+  }
+
+  .title2{
+    text-align: center;
+    margin-top: 5%; margin-bottom: 4%;
+    font-family: "Gotham-Book";
+    font-size: 20px;
+    color: #00FFFF;
+    margin-bottom: 5px;
+  }
+
+  .linea {
+  border-top: 1px solid #00FFFF;
+  height: 2px;
+  max-width: 100px;
+  padding: 0;
+  margin: 10px auto 0 auto;
+  background-color: #00FFFF;
+  height: 5px;
+  }
+
+  h4{
+    font-family: "Gotham-Bold";
+  }
+
+
+  ion-text{
+    font-family: "Gotham-Book";
+  }
+

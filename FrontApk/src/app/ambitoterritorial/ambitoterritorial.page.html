@@ -16,7 +16,7 @@
   <ion-accordion-group multiple="false" expand="inset" >
     <ion-accordion style="margin-top: 5px;"  *ngFor="let item of ambitoTerr" >
       <ion-item (click)="ambTerri(item.name)" name="ambTerr" slot="header" color="rose">
-        <ion-label style="font-size: 14px;">{{item.name}}</ion-label>
+        <ion-label class="provi">{{item.name}}</ion-label>
       </ion-item>
       
       <div  class="ion-padding" slot="content" >

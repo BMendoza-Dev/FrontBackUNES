@@ -1,8 +1,17 @@
 .title{
-    --color : black;
-    size: large;
-    font-weight: bold;
-    text-align: center;
+  --color : black;
+  size: large;
+  text-align: center;
+  font-family: "Gotham-Bold";
+}
+
+.provi{
+  font-family: "Gotham-Medium";
+  font-size: 14px;
+}
+
+.ion-padding{
+  font-family: "Gotham-Book";
 }
 
 /* Core CSS required for Ionic components to work properly */
