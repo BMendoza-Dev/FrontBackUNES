@@ -1,0 +1,56 @@
+    ion-toolbar{
+    --background: #00b9ec;
+    }
+
+    .iconBack{
+    color: white;
+    width: 40px; font-size: 24px;
+    }
+
+    .title{
+    --color : white;
+    //size: large;
+    text-align: center;
+    font-family: "Gotham-Bold";
+    font-size: 15px;
+    }
+
+    .title2{
+    text-align: center;
+    margin-top: 5%; margin-bottom: 4%;
+    font-family: "Gotham-Book";
+    font-size: 20px;
+    color: #00b9ec;
+    margin-bottom: 5px;
+    }
+
+    .linea {
+    border-top: 1px solid #00b9ec;
+    height: 2px;
+    max-width: 100px;
+    padding: 0;
+    margin: 10px auto 20px auto;
+    background-color: #00b9ec;
+    height: 5px;
+    }
+
+    .titleCard{
+        font-family: "Gotham-Bold";
+    }
+
+    .subtitleCard{
+        font-family: "Gotham-Medium";
+    }
+
+    .contentCard{
+        margin-top: 20px;
+        font-family: "Gotham-Book";
+        text-align: justify;
+    }
+
+    .tituloImagen{
+        margin-left: 10px;
+        font-family: "Gotham-Book";
+        font-size: 13px;
+    }
+      
