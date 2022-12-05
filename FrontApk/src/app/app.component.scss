@@ -1,3 +1,51 @@
+.menu-header-bg{
+  height: 180px;
+  width: 350px;
+  background: rgb(0, 93, 206);
+  background: linear-gradient(90deg, rgb(145, 185, 255) 0%, rgb(0, 93, 206) 100%);
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.377);
+  transform: rotate(-15deg);
+  border-radius: 10px 10px 10px 50px;
+  margin-left: -18px;
+  margin-top: -62px;
+  margin-bottom: 60px;
+}
+
+.menu-items {
+  margin: 0px;
+
+  ion-icon{
+    margin-right: 20px;
+    color: #86979f;
+  }
+
+  ion-item{
+    padding-left: 20px;
+    margin-bottom: 10px;
+  }
+
+  .active{
+    border-left: 5px solid;
+    color: #628cff;
+    padding-left: 15px;
+
+    ion-icon{
+      color: #628cff;
+    }
+  }
+}
+
+.header-content{
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+
+  
+}
+
+
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
@@ -34,9 +82,7 @@ ion-menu.md ion-content {
   --padding-bottom: 20px;
 }
 
-ion-menu.md ion-list {
-  padding: 20px 0;
-}
+
 
 ion-menu.md ion-note {
   margin-bottom: 30px;
@@ -88,6 +134,11 @@ ion-menu.md ion-item ion-icon {
 
 ion-menu.md ion-item ion-label {
   font-weight: 500;
+  font-family: 'Gotham-Book';
+}
+h4{
+  font-size: 13px;
+  font-family: 'Gotham-Medium';
 }
 
 ion-menu.ios ion-content {
@@ -142,3 +193,4 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+

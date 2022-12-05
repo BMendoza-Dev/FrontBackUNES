@@ -34,6 +34,14 @@ const routes: Routes = [
   {
     path: 'inf-ultimas',
     loadChildren: () => import('./noticias/inf-ultimas/inf-ultimas.module').then( m => m.InfUltimasPageModule)
+  },
+  {
+    path: 'agenda',
+    loadChildren: () => import('./menu/agenda/agenda.module').then( m => m.AgendaPageModule)
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./menu/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   }
 ];
 
