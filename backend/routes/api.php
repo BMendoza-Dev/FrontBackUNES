@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\CuentaController;
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+    
+Route::get('/Cuentas/{correo}', [CuentaController::class, 'validar']);
