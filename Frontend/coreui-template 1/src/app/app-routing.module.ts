@@ -24,6 +24,12 @@ const routes: Routes = [
         path: 'administrador',
         loadChildren:() => import('./views/Administrador/administrador.module').then((m) => m.AdministradorModule)
       },
+      {
+        path: 'asambleista',
+        loadChildren:() => import('./views/Asambleista/asambleista.module').then((m) => m.AsambleistaModule)
+      },
+
+
 
       {
         path: 'dashboard',

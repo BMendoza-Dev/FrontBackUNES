@@ -242,3 +242,27 @@ export const navItems: INavData[] = [
     ]
   },
 ];
+
+export const navItemsAdmin: INavData[] = [
+  {
+    title: true,
+    name: 'Administrador'
+  },
+  {
+    name: 'Cuentas',
+    url: '/administrador/cuentas',
+    iconComponent: { name: 'cil-user' }
+  },
+];
+
+export const navItemsAsamb: INavData[] = [
+  {
+    title: true,
+    name: 'Asambleista'
+  },
+  {
+    name: 'Cuentas',
+    url: '/asambleista/cuentas-asambleista',
+    iconComponent: { name: 'cil-user' }
+  },
+];

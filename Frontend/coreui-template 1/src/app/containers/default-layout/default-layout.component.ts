@@ -1,18 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { navItems } from './_nav';
+import { navItems, navItemsAdmin, navItemsAsamb } from './_nav';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements OnInit{
 
-  public navItems = navItems;
+  parentMessage = "message from parent";
 
+  public navItems = navItemsAdmin;
+  Rol=localStorage.getItem('rol');
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };
 
+  
+
   constructor() {}
+
+  ngOnInit(): void {
+    if(this.Rol == "Administrador"){
+      this.navItems = navItemsAdmin;
+    }else if(this.Rol == "Asambleista"){
+      this.navItems = navItemsAsamb;
+    }else if (this.Rol == "Delegado"){
+
+    }
+    
+  }
 }
