@@ -7,7 +7,10 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 
-const routes: Routes = [
+import {AdminLoginGuard} from './guards/admin-login.guard';
+import {AsambLoginGuard} from './guards/asamb-login.guard';
+
+export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -22,10 +25,12 @@ const routes: Routes = [
     children: [
       {
         path: 'administrador',
+        canActivate:[AdminLoginGuard],
         loadChildren:() => import('./views/Administrador/administrador.module').then((m) => m.AdministradorModule)
       },
       {
         path: 'asambleista',
+        canActivate:[AsambLoginGuard],
         loadChildren:() => import('./views/Asambleista/asambleista.module').then((m) => m.AsambleistaModule)
       },
 

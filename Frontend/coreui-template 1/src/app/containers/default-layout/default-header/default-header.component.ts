@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
@@ -7,7 +7,7 @@ import { ClassToggleService, HeaderComponent } from '@coreui/angular';
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
 })
-export class DefaultHeaderComponent extends HeaderComponent {
+export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   @Input() sidebarId: string = "sidebar";
   @Input() childMessage: string;
@@ -18,5 +18,16 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   constructor(private classToggler: ClassToggleService) {
     super();
+  }
+
+  ngOnInit(): void {
+    
+  }
+
+  salir(){
+    localStorage.removeItem('sesionLogin');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('color');
+    localStorage.removeItem('sesionLoginInicio');
   }
 }

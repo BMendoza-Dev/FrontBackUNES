@@ -26,24 +26,23 @@ export class LoginComponent implements OnInit{
         if(this.pass == this.arrayData['result'][0].password){
           localStorage.setItem('sesionLogin', this.arrayData['result'][0].id_cuenta);
           localStorage.setItem('rol', this.arrayData['result'][0].role.rol);
+          localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].role.rol);
           if(this.arrayData['result'][0].role.rol == "Administrador"){
-            debugger
             this.rutas.navigate(['/administrador/cuentas']);
           }else if(this.arrayData['result'][0].role.rol == "Asambleista"){
             localStorage.setItem('color', '1');
             this.rutas.navigate(['/asambleista/cuentas-asambleista']);
-            debugger
           }else if(this.arrayData['result'][0].role.rol == "Delegado"){
             localStorage.setItem('color', '1');
             this.rutas.navigate(['/delegado/']);
           }else{
             this.rutas.navigate(['/404']);
-            debugger
+            
           }
-          debugger
+          
         }
         this.arrayData['result'][0];
-        debugger
+        
     }).catch(error =>{
       console.log(error);
     })

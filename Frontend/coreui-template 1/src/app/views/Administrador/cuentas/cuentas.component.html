@@ -1,1 +1,126 @@
-<p>cuentas Administrador!</p>
+<c-row>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+            <strong>Crear Cuenta</strong>
+          </c-card-header>
+        <c-card-body>
+            <form #customStylesForm="ngForm"
+                  (ngSubmit)="onSubmit1()"
+                  [validated]="customStylesValidated"
+                  cForm
+                  class="row g-3 needs-validation"
+            >
+              <c-col md="4">
+                <label cLabel for="validationCustom01">First name</label>
+                <input cFormControl id="validationCustom01" required type="text" value="Mark" />
+                <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
+              </c-col>
+              <c-col md="4">
+                <label cLabel for="validationCustom02">Last name</label>
+                <input cFormControl id="validationCustom02" required type="text" value="Otto" />
+                <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
+              </c-col>
+              <c-col md="4">
+                <label cLabel for="validationCustomUsername">Username</label>
+                <c-input-group class="has-validation">
+                  <span cInputGroupText id="inputGroupPrepend">@</span>
+                  <input aria-describedby="inputGroupPrepend"
+                         cFormControl
+                         id="validationCustomUsername"
+                         required
+                         type="text"
+                  />
+                  <c-form-feedback [valid]="false">Please choose a username.</c-form-feedback>
+                </c-input-group>
+              </c-col>
+              <c-col md="6">
+                <label cLabel for="validationCustom03">City</label>
+                <input cFormControl id="validationCustom03" required type="text" />
+                <c-form-feedback [valid]="false">Please provide a valid city.</c-form-feedback>
+              </c-col>
+              <c-col md="3">
+                <label cLabel for="validationCustom04">State</label>
+                <select cSelect id="validationCustom04" required>
+                  <option value="">Choose...</option>
+                  <option>...</option>
+                </select>
+                <c-form-feedback [valid]="false">Please provide a valid State.</c-form-feedback>
+              </c-col>
+              <c-col md="3">
+                <label cLabel for="validationCustom05">Zip code</label>
+                <input cFormControl id="validationCustom05" required type="text" />
+                <c-form-feedback [valid]="false">Please provide a valid zip.</c-form-feedback>
+              </c-col>
+              <c-col xs="12">
+                <c-form-check>
+                  <input cFormCheckInput id="invalidCheck" name="invalidCheck" required type="checkbox" />
+                  <label cFormCheckLabel for="invalidCheck">Agree to terms and conditions</label>
+                </c-form-check>
+              </c-col>
+              <c-col xs="12">
+                <button cButton class="me-1" color="primary" type="submit">
+                  Submit form
+                </button>
+                <button (click)="onReset1()" cButton color="secondary" type="reset">
+                  Reset
+                </button>
+              </c-col>
+            </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+  
+  <c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-header>
+            <strong>Cuentas Registradas</strong>
+          </c-card-header>
+      <c-card-body>
+          <table cTable>
+            <thead cTableColor="light">
+            <tr>
+              <th scope="col">Nombres y Apellidos</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>CRUD</td>
+            </tr>
+            </tbody>
+          </table>
+        
+      </c-card-body>
+      <c-pagination style="margin-left: 2.5%;" aria-label="Page navigation example">
+        <c-page-item>
+          <a cPageLink routerLink="./">Previous</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">1</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">2</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">3</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">Next</a>
+        </c-page-item>
+      </c-pagination>
+    </c-card>
+  </c-col>
+
+
+  
+  
