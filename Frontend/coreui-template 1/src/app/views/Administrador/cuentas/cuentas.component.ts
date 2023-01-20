@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {AdministradorService} from './../../../servicios/administrador.service'
 @Component({
   selector: 'app-cuentas',
   templateUrl: './cuentas.component.html',
@@ -10,9 +10,23 @@ export class CuentasComponent implements OnInit {
   browserDefaultsValidated = false;
   tooltipValidated = false;
 
-  constructor() { }
+  constructor(private administradorService:AdministradorService, ) { }
 
-  ngOnInit(): void { }
+  dataTabla:any= [];
+
+  ngOnInit(): void {
+    this.cargarTabla();
+   }
+
+  cargarTabla(){
+    this.administradorService.cargarCuenta().then(data =>{
+      this.dataTabla = data;
+      this.dataTabla = this.dataTabla['result'];
+      debugger
+    }).catch(error =>{
+      console.log(error);
+    })
+  }
 
   onSubmit1() {
     this.customStylesValidated = true;

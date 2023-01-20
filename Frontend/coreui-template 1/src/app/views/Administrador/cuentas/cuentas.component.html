@@ -90,11 +90,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+            <tr *ngFor="let item of dataTabla">
+              <th scope="row">{{item.nombres}}</th>
+              <td>{{item.correo}}</td>
+              <td>{{item.role.rol}}</td>
+              <td>
+                <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
+                    Habilitado
+                  </c-badge>
+                <c-badge *ngIf="item.estado==0" class="ms-2" color="danger" >Deshabilitado</c-badge>
+             </td>
               <td>CRUD</td>
             </tr>
             </tbody>
