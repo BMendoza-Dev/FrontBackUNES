@@ -11,59 +11,37 @@
                   cForm
                   class="row g-3 needs-validation"
             >
-              <c-col md="4">
-                <label cLabel for="validationCustom01">First name</label>
-                <input cFormControl id="validationCustom01" required type="text" value="Mark" />
-                <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
-              </c-col>
-              <c-col md="4">
-                <label cLabel for="validationCustom02">Last name</label>
-                <input cFormControl id="validationCustom02" required type="text" value="Otto" />
-                <c-form-feedback [valid]="true">Looks good!</c-form-feedback>
-              </c-col>
-              <c-col md="4">
-                <label cLabel for="validationCustomUsername">Username</label>
-                <c-input-group class="has-validation">
-                  <span cInputGroupText id="inputGroupPrepend">@</span>
-                  <input aria-describedby="inputGroupPrepend"
-                         cFormControl
-                         id="validationCustomUsername"
-                         required
-                         type="text"
-                  />
-                  <c-form-feedback [valid]="false">Please choose a username.</c-form-feedback>
-                </c-input-group>
+              <c-col md="6">
+                <label cLabel for="validationCustom01">Nombres</label>
+                <input cFormControl id="validationCustom01" required type="text" value="" />
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
               </c-col>
               <c-col md="6">
-                <label cLabel for="validationCustom03">City</label>
-                <input cFormControl id="validationCustom03" required type="text" />
-                <c-form-feedback [valid]="false">Please provide a valid city.</c-form-feedback>
+                <label cLabel for="validationCustom02">Apellidos</label>
+                <input cFormControl id="validationCustom02" required type="text" value="" />
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <c-form-feedback [valid]="false">Por favor, ingrese apellidos</c-form-feedback>
               </c-col>
-              <c-col md="3">
-                <label cLabel for="validationCustom04">State</label>
-                <select cSelect id="validationCustom04" required>
-                  <option value="">Choose...</option>
-                  <option>...</option>
-                </select>
-                <c-form-feedback [valid]="false">Please provide a valid State.</c-form-feedback>
+              <c-col md="6">
+                <label cLabel  for="validationCustomUsername">Correo electrónico</label>
+                
+                  <input cFormControl id="validationCustomUsername" required type="email" placeholder="name@example.com"/>
+                  <c-form-feedback [valid]="false">Por favor, ingrese un correo electrónico</c-form-feedback>
+                  <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
               </c-col>
-              <c-col md="3">
-                <label cLabel for="validationCustom05">Zip code</label>
-                <input cFormControl id="validationCustom05" required type="text" />
-                <c-form-feedback [valid]="false">Please provide a valid zip.</c-form-feedback>
-              </c-col>
-              <c-col xs="12">
-                <c-form-check>
-                  <input cFormCheckInput id="invalidCheck" name="invalidCheck" required type="checkbox" />
-                  <label cFormCheckLabel for="invalidCheck">Agree to terms and conditions</label>
-                </c-form-check>
+              <c-col md="6">
+                <label cLabel for="validationCustom03">Contraseña</label>
+                <input cFormControl id="validationCustom03" required type="password" />
+                <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
               </c-col>
               <c-col xs="12">
                 <button cButton class="me-1" color="primary" type="submit">
-                  Submit form
+                  Aceptar
                 </button>
-                <button (click)="onReset1()" cButton color="secondary" type="reset">
-                  Reset
+                <button (click)="onReset1()" cButton color="secondary" type="reset"> 
+                  Reiniciar
                 </button>
               </c-col>
             </form>
@@ -84,7 +62,6 @@
             <tr>
               <th scope="col">Nombres y Apellidos</th>
               <th scope="col">Correo</th>
-              <th scope="col">Rol</th>
               <th scope="col">Estado</th>
               <th scope="col">Opciones</th>
             </tr>
@@ -93,14 +70,16 @@
             <tr *ngFor="let item of dataTabla">
               <th scope="row">{{item.nombres}}</th>
               <td>{{item.correo}}</td>
-              <td>{{item.role.rol}}</td>
               <td>
                 <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
                     Habilitado
                   </c-badge>
                 <c-badge *ngIf="item.estado==0" class="ms-2" color="danger" >Deshabilitado</c-badge>
              </td>
-              <td>CRUD</td>
+              <td>
+                <button type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
+              <button type="button" class="btn btn-ghost-danger botont"><svg cIcon name="cilTrash" size="x" width="20"></svg>&nbsp;Eliminar</button>
+              </td>
             </tr>
             </tbody>
           </table>

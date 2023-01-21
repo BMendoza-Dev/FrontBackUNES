@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { CuentasComponent } from './cuentas/cuentas.component';
 import { DocsComponentsModule } from '@docs-components/docs-components.module';
-
+import { IconModule } from '@coreui/icons-angular';
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -29,7 +29,7 @@ import {
   TableModule,
   TabsModule,
   TooltipModule,
-  UtilitiesModule
+  UtilitiesModule,
 } from '@coreui/angular';
 
 
@@ -63,7 +63,8 @@ import {
     TableModule,
     TabsModule,
     TooltipModule,
-    UtilitiesModule
+    UtilitiesModule,
+    IconModule
   ]
 })
 export class AdministradorModule { }

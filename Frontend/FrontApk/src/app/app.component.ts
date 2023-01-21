@@ -14,9 +14,9 @@ export class AppComponent {
   }
   
   goApp(){
-    this.restLogin.loginApp().subscribe(response => { 
-      
+    this.restLogin.loginApp().subscribe(response => {
       localStorage.setItem('token',  response['token']); 
+      debugger
     }, error => { console.error('Error login >>' + JSON.stringify(error)); });
   }
 
