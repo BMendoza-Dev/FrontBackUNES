@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\CuentaController;
-
+use App\Http\Controllers\PerfilesController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -23,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('Cuentas',[CuentaController::class, 'index']);
     
 Route::get('/Cuentas/{correo}', [CuentaController::class, 'validar']);
+
+
+Route::get('Perfiles',[PerfilesController::class, 'index']);
 

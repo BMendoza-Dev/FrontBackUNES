@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('cuentas', function (Blueprint $table) {
             $table->bigIncrements('id_cuenta');
             $table->unsignedBigInteger('id_rol');
+            $table->unsignedBigInteger('id_perfil');
             $table->string('nombres');
             $table->string('correo');
             $table->string('password');
             $table->string('imagen');
             $table->boolean('estado');
             $table->foreign('id_rol')->references('id_rol')->on('roles');
+            $table->foreign('id_perfil')->references('id_perfil')->on('perfiles');
         });
     }
 
@@ -32,6 +34,7 @@ return new class extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('cuentas');
     }
 };
