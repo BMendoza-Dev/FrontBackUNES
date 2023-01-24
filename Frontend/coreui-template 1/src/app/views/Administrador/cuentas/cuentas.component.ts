@@ -14,6 +14,37 @@ export class CuentasComponent implements OnInit {
 
   dataTabla:any= [];
 
+  keyword = 'name';
+  data = [
+    {
+      id: 1,
+      name: 'Georgia'
+    },
+     {
+       id: 2,
+       name: 'Usa'
+     },
+     {
+       id: 3,
+       name: 'England'
+     }
+  ];
+
+  selectEvent(item:any) {
+    item
+    debugger
+  }
+
+  onChangeSearch(val: any) {
+    val
+    debugger
+  }
+  
+  onFocused(e:any){
+    e
+    debugger
+  }
+
   ngOnInit(): void {
     this.cargarTabla();
    }

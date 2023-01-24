@@ -6,6 +6,7 @@ import { AdministradorRoutingModule } from './administrador-routing.module';
 import { CuentasComponent } from './cuentas/cuentas.component';
 import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { IconModule } from '@coreui/icons-angular';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -64,7 +65,8 @@ import {
     TabsModule,
     TooltipModule,
     UtilitiesModule,
-    IconModule
+    IconModule,
+    AutocompleteLibModule
   ]
 })
 export class AdministradorModule { }

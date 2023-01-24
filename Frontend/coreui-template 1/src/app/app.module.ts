@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
@@ -90,6 +90,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CardModule,
     FormsModule,
     HttpClientModule,
+    AutocompleteLibModule
   ],
   providers: [
     {
