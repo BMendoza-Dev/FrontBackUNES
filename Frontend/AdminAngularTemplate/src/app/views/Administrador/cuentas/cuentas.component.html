@@ -1,4 +1,45 @@
 <c-row>
+
+  <c-col xs="12"> 
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+          <strong style="font-size: 16px;">Crear Cuenta</strong>
+        </c-card-header>
+      <c-card-body>
+
+        
+          <form cForm class="row g-3" style="margin-left: 12%;">
+            <div class="col-sm-8" >
+              <ng-autocomplete 
+                [data]="data"
+                [searchKeyword]="keyword"
+                placeholder="Seleccione un asambleista"
+                (selected)='selectEvent($event)'
+                (inputChanged)='onChangeSearch($event)'
+                (inputFocused)='onFocused($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                [minQueryLength]="3" >
+              </ng-autocomplete>
+              
+              <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.name"></a>
+              </ng-template>
+              
+              <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div>
+            <div class="col-auto">
+              <button style="font-size: 14px;" cButton class="mb-3" type="submit">
+                Crear cuenta
+              </button>
+            </div>
+          </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+
     <!--c-col xs="12"> 
       <c-card class="mb-4">
         <c-card-header ngPreserveWhitespaces>
@@ -51,45 +92,7 @@
 
     
 
-    <c-col xs="12"> 
-      <c-card class="mb-4">
-        <c-card-header ngPreserveWhitespaces>
-            <strong style="font-size: 16px;">Crear Cuenta</strong>
-          </c-card-header>
-        <c-card-body>
-
-          
-            <form cForm class="row g-3" style="margin-left: 12%;">
-              <div class="col-sm-8" >
-                <ng-autocomplete 
-                  [data]="data"
-                  [searchKeyword]="keyword"
-                  placeholder="Seleccione un asambleista"
-                  (selected)='selectEvent($event)'
-                  (inputChanged)='onChangeSearch($event)'
-                  (inputFocused)='onFocused($event)'
-                  [itemTemplate]="itemTemplate"
-                  [notFoundTemplate]="notFoundTemplate"
-                  [minQueryLength]="3" >
-                </ng-autocomplete>
-                
-                <ng-template #itemTemplate let-item>
-                <a [innerHTML]="item.name"></a>
-                </ng-template>
-                
-                <ng-template #notFoundTemplate let-notFound>
-                <div [innerHTML]="notFound"></div>
-                </ng-template>
-              </div>
-              <div class="col-auto">
-                <button style="font-size: 14px;" cButton class="mb-3" type="submit">
-                  Crear cuenta
-                </button>
-              </div>
-            </form>
-        </c-card-body>
-      </c-card>
-    </c-col>
+    
     
   </c-row>
 
