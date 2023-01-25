@@ -14,8 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('perfiles', function (Blueprint $table) {
-            $table->bigIncrements('');
-            $table->id_perfiltimestamps();
+            $table->bigIncrements('id_perfil');
+            //$table->id_perfiltimestamps();
+            $table->boolean('active');
+            $table->integer('curul');
+            $table->string('firstName');
+            $table->string('jurisdiction');
+            $table->string('lastName');
+            $table->string('politicalParty');
+            $table->string('territorialDivision');
+            $table->string('usedFirstName');
+            $table->string('usedLastName');
+            $table->binary('imagen');
         });
     }
 

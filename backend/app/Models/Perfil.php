@@ -11,7 +11,7 @@ class Perfil extends Model
     
     protected $table = 'perfiles';
     protected $primaryKey = 'id_perfil';
-
+    public $timestamps = false;
     public function rcuenta(){
         return $this->hasMany('App\Models\Cuenta','id_cuenta');
      }
