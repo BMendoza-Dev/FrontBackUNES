@@ -24,17 +24,19 @@ class PerfilesController extends Controller
 
         $asambleistas= collect($request->json());
         $filtered = $asambleistas->whereIn('politicalParty', ["UNIÓN POR LA ESPERANZA"])->whereIn("active",[true]);
-        $request2 = Http::withHeaders([
-            'Content-Type' => 'application/jason',
-            'Authorization' => $token['token'],
-            'responseType' => 'blob',
-            ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/getPhoto/2308/');
-            $aux= collect($request2->json());
-            dd($aux);
-            return $request2->json();
+        
+
+            
+            
 
         foreach ($filtered as $asambleista) {
-
+            $aux=((string)$asambleista["id"]);
+           
+            $request2 = Http::withHeaders([
+                'Content-Type' => 'application/jason',
+                'Authorization' => $token['token'],
+                //'Content-Disposition'=> 'attachement',
+                ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/getPhoto/'.$aux);
             $Perfiles = new Perfil();
             $Perfiles->id_perfil=$asambleista["id"];
             $Perfiles->active=$asambleista["active"];
@@ -46,11 +48,13 @@ class PerfilesController extends Controller
             $Perfiles->territorialDivision=$asambleista["territorialDivision"];
             $Perfiles->usedFirstName=$asambleista["usedFirstName"];
             $Perfiles->usedLastName=$asambleista["usedLastName"];
+            $Perfiles->imagen=$request2;
             $Perfiles->save();
+         
         }
         
 
-       // dd($request);
+        dd($aux);
         return  $filtered->all();
 
     }

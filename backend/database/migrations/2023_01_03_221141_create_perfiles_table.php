@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('territorialDivision');
             $table->string('usedFirstName');
             $table->string('usedLastName');
-            $table->binary('imagen');
+            $table->longText('imagen');
         });
     }
 
