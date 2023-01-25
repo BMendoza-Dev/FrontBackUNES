@@ -1,13 +1,25 @@
-<c-row>
 
-  <c-col xs="12"> 
+  <c-col> <!--Input de crear Cuenta de asambleistas-->
+    <c-card style="margin-bottom: 1%;">
+      <c-nav xs="12" layout="justified" variant="pills">
+        <c-nav-item >
+          <span (click)="activiteNavAsi = false; activiteNavAsa = true"  [active]="activiteNavAsa" cNavLink>
+            Asambleistas
+          </span>
+        </c-nav-item>
+        <c-nav-item>
+          <span (click)="activiteNavAsi = true; activiteNavAsa = false" cNavLink [active]="activiteNavAsi"> Asistentes </span>
+        </c-nav-item>
+      </c-nav>
+    </c-card>
+  </c-col>
+<ng-container *ngIf="activiteNavAsa == true">
+  <c-col xs="12" *ngIf="habilitarCampos==false else cuentasCampos"> 
     <c-card class="mb-4">
       <c-card-header ngPreserveWhitespaces>
-          <strong style="font-size: 16px;">Crear Cuenta</strong>
+          <strong style="font-size: 16px;">Crear Cuenta Asambleista</strong>
         </c-card-header>
       <c-card-body>
-
-        
           <form cForm class="row g-3" style="margin-left: 12%;">
             <div class="col-sm-8" >
               <ng-autocomplete 
@@ -26,12 +38,12 @@
               <a [innerHTML]="item.name"></a>
               </ng-template>
               
-              <ng-template #notFoundTemplate let-notFound>
+              <ng-template #notFoundTemplate let-item>
               <div [innerHTML]="notFound"></div>
               </ng-template>
             </div>
             <div class="col-auto">
-              <button style="font-size: 14px;" cButton class="mb-3" type="submit">
+              <button style="font-size: 14px;" (click)="habilitarCampos = true" cButton class="mb-3" type="submit">
                 Crear cuenta
               </button>
             </div>
@@ -40,7 +52,9 @@
     </c-card>
   </c-col>
 
-    <!--c-col xs="12"> 
+
+  <ng-template #cuentasCampos>
+    <c-col xs="12"> 
       <c-card class="mb-4">
         <c-card-header ngPreserveWhitespaces>
             <strong>Crear Cuenta</strong>
@@ -52,6 +66,7 @@
                   cForm
                   class="row g-3 needs-validation"
             >
+            <!--Form Asambleista-->
               <c-col md="6">
                 <label cLabel for="validationCustom01">Nombres</label>
                 <input cFormControl id="validationCustom01" required type="text" value="" />
@@ -72,30 +87,107 @@
                   <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
               </c-col>
               <c-col md="6">
-                <label cLabel for="validationCustom03">Contraseña</label>
-                <input cFormControl id="validationCustom03" required type="password" />
-                <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
-                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <label cLabel for="validationCustomUsername">Contraseña</label>
+                <c-input-group class="has-validation">
+                  <input aria-describedby="inputGroupPrepend"
+                         cFormControl
+                         id="validationCustomUsername"
+                         required
+                         [type]="tipo"
+
+                  />
+                  <ng-template #Eyeslashfill>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                      <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                      <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                    </svg>
+                  </ng-template>
+                  <span (click)="cambiarIcon()" cInputGroupText id="inputGroupPrepend" >
+                    <svg *ngIf="tipo == 'password' else Eyeslashfill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                </span>
+                  <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
+                  <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                </c-input-group>
               </c-col>
               <c-col xs="12">
-                <button cButton class="me-1" color="primary" type="submit">
-                  Aceptar
-                </button>
-                <button (click)="onReset1()" cButton color="secondary" type="reset"> 
-                  Reiniciar
-                </button>
+                <c-form-check [switch]="true">
+                  <input cFormCheckInput (click)="activarCuentaDelegado()" type="checkbox" />
+                  <label cFormCheckLabel>Agregar una cuenta delegado del asambleista</label>
+                </c-form-check>
               </c-col>
-            </form>
+              <!--Form de delegados-->
+            <ng-container *ngIf="delegadoCuentaCampos == true">
+              <p class="text-medium-emphasis small">
+                A switch has the markup of a custom checkbox but uses the <code>switch</code> boolean
+                properly to render a toggle switch. Switches also support the <code>disabled</code>
+                attribute.
+              </p>
+              <c-col md="6">
+                <label cLabel for="validationCustom01">Nombres</label>
+                <input cFormControl id="validationCustom01" required type="text" value="" />
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
+              </c-col>
+              <c-col md="6">
+                <label cLabel for="validationCustom02">Apellidos</label>
+                <input cFormControl id="validationCustom02" required type="text" value="" />
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <c-form-feedback [valid]="false">Por favor, ingrese apellidos</c-form-feedback>
+              </c-col>
+              <c-col md="6">
+                <label cLabel  for="validationCustomUsername">Correo electrónico</label>
+                
+                  <input cFormControl id="validationCustomUsername" required type="email" placeholder="name@example.com"/>
+                  <c-form-feedback [valid]="false">Por favor, ingrese un correo electrónico</c-form-feedback>
+                  <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+              </c-col>
+              <c-col md="6">
+                <label cLabel for="validationCustomUsername">Contraseña</label>
+                <c-input-group class="has-validation">
+                  <input aria-describedby="inputGroupPrepend"
+                        cFormControl
+                        id="validationCustomUsername"
+                        required
+                        [type]="tipo"
+
+                  />
+                  <ng-template #Eyeslashfill>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                      <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                      <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                    </svg>
+                  </ng-template>
+                  <span (click)="cambiarIcon()" cInputGroupText id="inputGroupPrepend" >
+                    <svg *ngIf="tipo == 'password' else Eyeslashfill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                </span>
+                  <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
+                  <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                </c-input-group>
+              </c-col>
+            </ng-container>
+            <!--Botones-->
+            <c-col xs="12">
+              <button (click)="crearCuenta()" cButton class="me-1" color="success" type="submit">
+                Aceptar
+              </button>
+              <button (click)="onReset1()" cButton color="danger" type="reset"> 
+                Cancelar
+              </button>
+            </c-col>
+          </form>
         </c-card-body>
+
+        
       </c-card>
-    </!--c-col-->
-
-    
-
-    
-    
-  </c-row>
-
+      
+    </c-col>
+  </ng-template>
   
   <c-col xs="12">
     <c-card class="mb-4">
@@ -150,6 +242,144 @@
       </c-pagination>
     </c-card>
   </c-col>
+</ng-container>
+
+<ng-container *ngIf="activiteNavAsi == true">
+    <c-col xs="12"> 
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+            <strong>Crear Cuenta Asistente</strong>
+          </c-card-header>
+        <c-card-body>
+            <form #customStylesForm="ngForm"
+                  (ngSubmit)="onSubmit1()"
+                  [validated]="customStylesValidated"
+                  cForm
+                  class="row g-3 needs-validation"
+            >
+            <!--Form Asambleista-->
+              <c-col md="4">
+                <label cLabel for="validationCustom01">Nombres</label>
+                <input cFormControl id="validationCustom01" required type="text" value="" />
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
+              </c-col>
+              <c-col md="4">
+                <label cLabel for="validationCustom02">Apellidos</label>
+                <input cFormControl id="validationCustom02" required type="text" value="" />
+                <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                <c-form-feedback [valid]="false">Por favor, ingrese apellidos</c-form-feedback>
+              </c-col>
+              <c-col md="4">
+                <label cLabel  for="validationCustomUsername">Correo electrónico</label>
+                
+                  <input cFormControl id="validationCustomUsername" required type="email" placeholder="name@example.com"/>
+                  <c-form-feedback [valid]="false">Por favor, ingrese un correo electrónico</c-form-feedback>
+                  <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+              </c-col>
+              <c-col md="4">
+                <label cLabel for="validationCustomUsername">Contraseña</label>
+                <c-input-group class="has-validation">
+                  <input aria-describedby="inputGroupPrepend"
+                         cFormControl
+                         id="validationCustomUsername"
+                         required
+                         [type]="tipo"
+
+                  />
+                  <ng-template #Eyeslashfill>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                      <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                      <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                    </svg>
+                  </ng-template>
+                  <span (click)="cambiarIcon()" cInputGroupText id="inputGroupPrepend" >
+                    <svg *ngIf="tipo == 'password' else Eyeslashfill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                </span>
+                  <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
+                  <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+                </c-input-group>
+              </c-col>
+              <c-col md="4">
+                
+              </c-col>
+             
+            <!--Botones-->
+            <c-col xs="12">
+              <button (click)="crearCuenta()" cButton class="me-1" color="success" type="submit">
+                Aceptar
+              </button>
+              <button (click)="onReset1()" cButton color="danger" type="reset"> 
+                Cancelar
+              </button>
+            </c-col>
+          </form>
+        </c-card-body>
+
+        
+      </c-card>
+      
+    </c-col>
+  
+  <c-col xs="12">
+    <c-card class="mb-4">
+        <c-card-header>
+            <strong>Cuentas Registradas</strong>
+          </c-card-header>
+      <c-card-body>
+          <table cTable>
+            <thead cTableColor="light">
+            <tr>
+              <th scope="col">Nombres y Apellidos</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of dataTabla">
+              <th scope="row">{{item.nombres}}</th>
+              <td>{{item.correo}}</td>
+              <td>
+                <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
+                    Habilitado
+                  </c-badge>
+                <c-badge *ngIf="item.estado==0" class="ms-2" color="danger" >Deshabilitado</c-badge>
+             </td>
+              <td>
+                <button type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
+              <button type="button" class="btn btn-ghost-danger botont"><svg cIcon name="cilTrash" size="x" width="20"></svg>&nbsp;Eliminar</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        
+      </c-card-body>
+      <c-pagination style="margin-left: 2.5%;" aria-label="Page navigation example">
+        <c-page-item>
+          <a cPageLink routerLink="./">Previous</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">1</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">2</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">3</a>
+        </c-page-item>
+        <c-page-item>
+          <a cPageLink routerLink="./">Next</a>
+        </c-page-item>
+      </c-pagination>
+    </c-card>
+  </c-col>
+</ng-container>
+
+
 
 
   

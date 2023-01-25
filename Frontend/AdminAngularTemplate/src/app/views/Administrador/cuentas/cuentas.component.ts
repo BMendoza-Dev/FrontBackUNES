@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AdministradorService} from './../../../servicios/administrador.service'
+import {AdministradorService} from './../../../servicios/administrador.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cuentas',
   templateUrl: './cuentas.component.html',
@@ -13,8 +14,15 @@ export class CuentasComponent implements OnInit {
   constructor(private administradorService:AdministradorService, ) { }
 
   dataTabla:any= [];
-
+  notFound:any = "No se encuentra asambleista"
   keyword = 'name';
+  habilitarCampos:boolean = false;
+  idAsambleiApi:any = "";
+  tipo:string = "password";
+  iconSVG:string = "cilLowVision";
+  delegadoCuentaCampos:boolean=false;
+  activiteNavAsa:boolean=true;
+  activiteNavAsi:boolean=false;
   data = [
     {
       id: 1,
@@ -31,12 +39,11 @@ export class CuentasComponent implements OnInit {
   ];
 
   selectEvent(item:any) {
-    item
-    debugger
+    this.idAsambleiApi = item.id;
   }
 
   onChangeSearch(val: any) {
-    val
+    val;
     debugger
   }
   
@@ -45,7 +52,40 @@ export class CuentasComponent implements OnInit {
     debugger
   }
 
+  habilitar(){
+    if(this.idAsambleiApi != ""){
+      this.habilitarCampos = true;
+    }
+  }
+
+  cambiarIcon(){
+    if(this.tipo == "text"){
+      this.tipo = "password";
+
+    }else{
+      this.tipo = "text";
+    }
+  }
+
+  activarCuentaDelegado(){
+    if(this.delegadoCuentaCampos == true){
+      this.delegadoCuentaCampos = false;
+    }else{
+      this.delegadoCuentaCampos = true;
+    }
+    
+  }
+
+  
+
   ngOnInit(): void {
+    debugger
+    this.administradorService.verImagen().subscribe(response => {
+      debugger
+      
+        //this.territorialList = response;
+        //this.territorialListFiltered = this.territorialList;
+    }, error => { console.error('Error login >>' + JSON.stringify(error)); });
     this.cargarTabla();
    }
 
@@ -58,7 +98,23 @@ export class CuentasComponent implements OnInit {
       console.log(error);
     })
   }
-
+  
+  crearCuenta(){
+    Swal.fire({
+      title: 'Esta seguro que desea crear una cuenta?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+      denyButtonText: `No crear`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Guardado!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('No se a guardado la cuenta', '', 'info')
+      }
+    })
+  }
   onSubmit1() {
     this.customStylesValidated = true;
     console.log('Submit... 1');
@@ -66,6 +122,9 @@ export class CuentasComponent implements OnInit {
 
   onReset1() {
     this.customStylesValidated = false;
+    this.habilitarCampos = false;
+    this.idAsambleiApi = "";
+    this.delegadoCuentaCampos = false;
     console.log('Reset... 1');
   }
 
