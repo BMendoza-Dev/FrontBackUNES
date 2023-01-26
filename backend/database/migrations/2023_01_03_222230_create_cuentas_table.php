@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cuentas', function (Blueprint $table) {
-            $table->bigIncrements('id_cuenta');
-            $table->unsignedBigInteger('id_rol');
-            $table->unsignedBigInteger('id_perfil');
+            $table->id();
+       //     $table->unsignedBigInteger('id_rol');
+     //       $table->unsignedBigInteger('id_perfil');
             $table->string('nombres');
             $table->string('correo');
             $table->string('password');
             $table->string('imagen');
-            $table->boolean('estado');
-            $table->foreign('id_rol')->references('id_rol')->on('roles');
-            $table->foreign('id_perfil')->references('id_perfil')->on('perfiles');
+            $table->boolean('estado');          
+            $table->foreignId('ron_id')->references('id')->on('roles');
+            $table->foreignId('perfil_id')->references('id')->on('perfils');
         });
     }
 

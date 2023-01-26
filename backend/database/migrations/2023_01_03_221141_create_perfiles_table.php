@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perfiles', function (Blueprint $table) {
-            $table->bigIncrements('id_perfil');
+        Schema::create('perfils', function (Blueprint $table) {
+            $table->id();;
+          //  $table->unsignedBigInteger('id_imagen');
             //$table->id_perfiltimestamps();
             $table->boolean('active');
             $table->integer('curul');
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->string('territorialDivision');
             $table->string('usedFirstName');
             $table->string('usedLastName');
-            $table->longText('imagen');
+            $table->foreignId('imagen_id')->references('id')->on('imagenes');
         });
     }
 
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfiles');
+        Schema::dropIfExists('perfils');
     }
 };
