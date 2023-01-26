@@ -15,7 +15,12 @@ class CuentaController extends Controller
      */
     public function index()
     {
-        $datos=Cuenta::where('id',2)->with('rol')->get();
+        
+
+        $datos = Cuenta::whereHas('rol', function($q){
+            $q->where('id', 2);
+        })->with('rol')->get();
+      
         $num_rows = count($datos);
         if($num_rows!=0){
            return response()->json($datos);

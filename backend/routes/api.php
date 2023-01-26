@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('Cuentas',[CuentaController::class, 'index']);
+Route::get('Cuentas/Asambleistas',[CuentaController::class, 'index']);
     
 Route::get('/Cuentas/{correo}', [CuentaController::class, 'validar']);
 
