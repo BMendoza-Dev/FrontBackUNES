@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Perfil;
 class Imagenes extends Model
 {
-    use HasFactory;
+    //use HasFactory;
     public $timestamps = false;
     protected $fillable = ['id','imagen'];
     public function Imagen(){

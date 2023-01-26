@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('imagen');
             $table->boolean('estado');          
-            $table->foreignId('ron_id')->references('id')->on('roles');
+            $table->foreignId('rol_id')->references('id')->on('roles');
             $table->foreignId('perfil_id')->references('id')->on('perfils');
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cuenta;
 use App\Models\Perfil;
+use App\Models\Role;
 class CuentaController extends Controller
 {
     /**
@@ -14,10 +15,10 @@ class CuentaController extends Controller
      */
     public function index()
     {
-        $datos=Cuenta::where('id_rol',"2")->with('role')->get();
+        $datos=Cuenta::with('rol')->get();
         $num_rows = count($datos);
         if($num_rows!=0){
-           return response()->json(['result'=>$datos]);
+           return response()->json($datos);
        }else
            return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
     }

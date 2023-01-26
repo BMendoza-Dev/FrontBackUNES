@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Imagenes;
 class Perfil extends Model
 {
-    use HasFactory;
+   // use HasFactory;
     
     protected $fillable = [
         'active','curul','firstName','jurisdiction','lastName','politicalParty','territorialDivision','usedFirstName',
