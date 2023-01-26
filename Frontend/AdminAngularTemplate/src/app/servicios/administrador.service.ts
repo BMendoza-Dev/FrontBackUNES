@@ -20,7 +20,11 @@ export class AdministradorService {
     });
   }
 
-  verImagen(){
+  cargarPerfil(){
+    
+  }
+
+  /*verImagen(){
     let urlApp = 'http://apiapp.asambleanacional.gob.ec';
     const httpheaders = new HttpHeaders({
       'Content-Type': 'application/jason',
@@ -31,5 +35,5 @@ export class AdministradorService {
     return this.http.get(urlApp + 'assemblyMembersResource/getPhoto/2308', {headers: httpheaders});
     
     //return this.http.get(urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
-  }
+  }*/
 }

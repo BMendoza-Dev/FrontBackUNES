@@ -31,6 +31,10 @@ import {
   TabsModule,
   TooltipModule,
   UtilitiesModule,
+  
+  AlertModule,
+  ModalModule,
+  ToastModule,
 } from '@coreui/angular';
 
 
@@ -66,7 +70,10 @@ import {
     TooltipModule,
     UtilitiesModule,
     IconModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    AlertModule,
+    ModalModule,
+    ToastModule,
   ]
 })
 export class AdministradorModule { }
