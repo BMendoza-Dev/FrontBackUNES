@@ -39,8 +39,8 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)){
             $user=Auth::user();
             $token= $user->createToken('token')->plainTextToken;
-            $cookie = cookie('cookie_token',$token,60*24);
-            return response(['token'=>$token])->withoutCookie($cookie);
+            $cookie = cookie('cookie_token',$token,60*1);
+            return response(['token'=>$token, 'usuario'=>Auth::user()->with('rol')->get()])->withoutCookie($cookie);
         }else{
             return response("401");
         }
