@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Perfil;
 use App\Models\Imagen;
+use App\Models\User;
 class PerfilesController extends Controller
 {
     public function index()
@@ -15,6 +17,30 @@ class PerfilesController extends Controller
         if(!$validacion->isEmpty()){
             return response()->json("Perfiles Cargados en la base de datos.");;
         }
+
+        $Perfiles2 = new Perfil();
+        $Perfiles2->id=1;
+        $Perfiles2->active=1;
+        $Perfiles2->curul=0;
+        $Perfiles2->firstName='UNES';
+        $Perfiles2->jurisdiction='ECUADOR';
+        $Perfiles2->lastName='UNION POR LA ESPERANZA';
+        $Perfiles2->politicalParty='UNES';
+        $Perfiles2->territorialDivision='ECUADOR';
+        $Perfiles2->usedFirstName='UNION POR LA ESPERANZA';
+        $Perfiles2->usedLastName='UNION POR LA ESPERANZA';
+        $Perfiles2->Imagen()->create(['id'=>'1','imagen' => "foto unes" ]);
+        $Perfiles2->imagen_id=1;
+        $Perfiles2->save();
+
+        $user= new User();
+        $user->name='Super Admin';
+        $user->email='superadmin@hotmail.com';
+        $user->password=Hash::make('12345678');
+        $user->perfil_id=1;
+        $user->rol_id=1;
+        $user->save();
+
         $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
             'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
             'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
