@@ -28,6 +28,22 @@ class CuentaController extends Controller
            return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
     }
 
+    public function asistentes()
+    {
+        
+
+        $datos = Cuenta::whereHas('rol', function($q){
+            $q->where('id', 3);
+        })->with('rol')->get();
+      
+        $num_rows = count($datos);
+        if($num_rows!=0){
+           return response()->json($datos);
+       }else
+       
+           return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
