@@ -13,7 +13,7 @@ class PerfilesController extends Controller
     {
         $validacion= Perfil::get();
         if(!$validacion->isEmpty()){
-            return response()->json($validacion);
+            return response()->json("Perfiles Cargados en la base de datos.");;
         }
         $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
             'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',

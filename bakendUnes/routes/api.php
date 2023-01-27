@@ -30,12 +30,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('Login',[AuthController::class, 'Login']);
-
+Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);
-    Route::get('Perfiles',[PerfilesController::class, 'index']);
+    
 
     Route::post('Register',[AuthController::class, 'Register']);
     Route::post('Logout',[AuthController::class, 'Logout']);
