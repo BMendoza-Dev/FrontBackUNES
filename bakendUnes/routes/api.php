@@ -33,12 +33,16 @@ Route::post('Login',[AuthController::class, 'Login']);
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
+
+    Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
+
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);
     
 
     Route::post('Register',[AuthController::class, 'Register']);
     Route::post('Logout',[AuthController::class, 'Logout']);
+    Route::post('Update',[AuthController::class, 'Update']);
 });
 
 

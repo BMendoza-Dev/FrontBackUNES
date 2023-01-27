@@ -36,6 +36,7 @@ class PerfilesController extends Controller
         $user= new User();
         $user->name='Super Admin';
         $user->email='superadmin@hotmail.com';
+        $user->estado=1;
         $user->password=Hash::make('12345678');
         $user->perfil_id=1;
         $user->rol_id=1;
@@ -98,6 +99,11 @@ class PerfilesController extends Controller
         //dd($aux2);
         
         return response()->json("Perfiles Cargados en la base de datos.");;
+    }
+
+    public function ListarPerfiles (){
+        $validacion= Perfil::where('active',1)->get();
+        return response()->json($validacion);
     }
 }
 

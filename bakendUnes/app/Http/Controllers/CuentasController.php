@@ -59,4 +59,6 @@ class CuentasController extends Controller
             return response()->json(['mensaje'=>"Usuario no encontrado", 'code'=>'202']);
         }
     }
+
+    
 }

@@ -21,6 +21,7 @@ class AuthController extends Controller
 
         $user->name=$request->name;
         $user->email=$request->email;
+        $user->estado=$request->estado;
         $user->password=Hash::make($request->password);
         $user->perfil_id=$request->perfil_id;
         $user->rol_id=$request->rol_id;
@@ -54,7 +55,26 @@ class AuthController extends Controller
         return response(['menssage'=>'logout correcto'])->withCookie($cookie);
     }
 
-    public function UserPerfil(Request $request){
-        return response()->json(['menssage'=>'usuarios correcto']);
+    public function Update(Request $request){
+
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|email|unique:users',
+            'password'=>'required'    
+        ]);
+
+        $user = User::findOrFail($request->id);
+        $useractualizado= new User();
+
+        $useractualizado->name=$request->name;
+        $useractualizado->email=$request->email;
+        $useractualizado->estado=$request->estado;
+        $useractualizado->password=Hash::make($request->password);
+        $useractualizado->perfil_id=$request->perfil_id;
+        $useractualizado->rol_id=$request->rol_id;
+        $user->update($user);
+
+
+        return response()->json(['menssage'=>'usuarios actualizado correctamente']);
     }
 }
