@@ -18,4 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('login', function () {
+    return view('welcome');
+})->name('login');
+//Route::get('login', \App\Http\Livewire\Login::class)->name('login');
 Route::get('Perfiles',[PerfilesController::class,'index']);

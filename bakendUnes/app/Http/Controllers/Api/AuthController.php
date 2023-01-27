@@ -44,7 +44,7 @@ class AuthController extends Controller
             $cookie = cookie('cookie_token',$token,60*1);
             return response(['token'=>$token, 'usuario'=>$userAuth])->withoutCookie($cookie);
         }else{
-            return response("401");
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
         return response()->json(['menssage'=>'Login correcto']);
     }
