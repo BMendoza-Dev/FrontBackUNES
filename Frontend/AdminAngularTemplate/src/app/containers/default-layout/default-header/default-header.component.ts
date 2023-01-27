@@ -29,5 +29,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     localStorage.removeItem('rol');
     localStorage.removeItem('color');
     localStorage.removeItem('sesionLoginInicio');
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
   }
 }

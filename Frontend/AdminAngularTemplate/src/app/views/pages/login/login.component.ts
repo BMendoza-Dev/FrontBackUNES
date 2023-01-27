@@ -10,8 +10,8 @@ import {LoginService} from '../../../servicios/login.service'
 })
 export class LoginComponent implements OnInit{
 
-  correo:string="";
-  pass:string="";
+  email:string="";
+  password:string="";
   arrayData:any;
   constructor(public login:LoginService, public rutas:Router) { }
   
@@ -21,18 +21,30 @@ export class LoginComponent implements OnInit{
   }
 
   iniciarSesion(){
-    this.login.ValidarLogin(this.correo).then(data => {
+    let inputlogin ={
+      "email":this.email,
+      "password":this.password
+    }
+    this.login.ValidarLogin(inputlogin).then(data => {
         this.arrayData = data;
-        if(this.pass == this.arrayData['result'][0].password){
-          localStorage.setItem('sesionLogin', this.arrayData['result'][0].id_cuenta);
-          localStorage.setItem('rol', this.arrayData['result'][0].role.rol);
-          localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].role.rol);
-          if(this.arrayData['result'][0].role.rol == "Administrador"){
+        debugger
+        if(this.arrayData != 401){
+          debugger
+
+          localStorage.setItem('token', this.arrayData['token']);
+          localStorage.setItem('email', this.email);
+          localStorage.setItem('sesionLoginInicio', this.arrayData['usuario'][0]['rol'].id);
+          debugger
+          //localStorage.setItem('sesionLogin', this.arrayData['result'][0].id_cuenta);
+          //localStorage.setItem('rol', this.arrayData['result'][0].rol.rol);
+          //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
+          if(this.arrayData['usuario'][0]['rol'].id == 1){
+            debugger
             this.rutas.navigate(['/administrador/cuentas']);
-          }else if(this.arrayData['result'][0].role.rol == "Asambleista"){
+          }else if(this.arrayData['usuario'][0]['rol'].id == 2){
             localStorage.setItem('color', '1');
-            this.rutas.navigate(['/asambleista/cuentas-asambleista']);
-          }else if(this.arrayData['result'][0].role.rol == "Delegado"){
+            this.rutas.navigate(['/asambleista']);
+          }else if(this.arrayData['usuario'][0]['rol'].id == 3){
             localStorage.setItem('color', '1');
             this.rutas.navigate(['/delegado/']);
           }else{

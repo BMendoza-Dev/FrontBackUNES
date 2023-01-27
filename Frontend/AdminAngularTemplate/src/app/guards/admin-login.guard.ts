@@ -9,12 +9,12 @@ export class AdminLoginGuard implements CanActivate {
   constructor(private rutas:Router){}
   canActivate(){
     let inicio = localStorage.getItem('sesionLoginInicio');
-    let rol = localStorage.getItem('rol');
 
     if(!inicio){
       this.rutas.navigate(["/login"]);
       return false;
-    }else if(rol != "Administrador"){
+    }else if(inicio != "1"){
+      debugger
       return false;
     }
     return true;

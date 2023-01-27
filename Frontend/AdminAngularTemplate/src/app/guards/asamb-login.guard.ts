@@ -9,12 +9,11 @@ export class AsambLoginGuard implements CanActivate {
   constructor(private rutas:Router){}
   canActivate(){
     let inicio = localStorage.getItem('sesionLoginInicio');
-    let rol = localStorage.getItem('rol');
 
     if(!inicio){
       this.rutas.navigate(["/login"]);
       return false;
-    }else if(rol != "Asambleista"){
+    }else if(inicio != "2"){
       return false;
     }
     return true;

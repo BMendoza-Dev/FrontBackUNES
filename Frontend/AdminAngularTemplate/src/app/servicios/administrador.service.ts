@@ -8,10 +8,15 @@ export class AdministradorService {
 
   constructor(private http:HttpClient) { }
 
-  cargarCuenta(){
-    let  url = 'http://127.0.0.1:8000/api/Cuentas';
+  cargarCuentaAsambleista(){
+    let  url = 'http://127.0.0.1:8000/api/Asambleistas';
+    let token = localStorage.getItem("token");
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    debugger
     return new Promise ((resolve, reject) => {
-      this.http.get(url).subscribe(res => {
+      this.http.get(url, {headers: httpheaders}).subscribe(res => {
         resolve(res);{
         }
       }, error => {
@@ -20,8 +25,20 @@ export class AdministradorService {
     });
   }
 
-  cargarPerfil(){
-    
+  cargarPerfiles(){
+    let  url = 'http://127.0.0.1:8000/api/ListarPerfiles';
+    let token = localStorage.getItem("token");
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    return new Promise ((resolve, reject) => {
+      this.http.get(url,{headers: httpheaders}).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
   }
 
   /*verImagen(){

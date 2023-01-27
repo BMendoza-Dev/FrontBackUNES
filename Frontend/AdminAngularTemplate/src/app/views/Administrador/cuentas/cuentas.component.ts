@@ -7,14 +7,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cuentas.component.scss']
 })
 export class CuentasComponent implements OnInit {
-  customStylesValidated = false;
+  customStylesValidated1 = false;
   customStylesValidated2 = false;
+  customStylesValidated3 = false;
   browserDefaultsValidated = false;
   tooltipValidated = false;
 
   constructor(private administradorService:AdministradorService, ) { }
 
   ngOnInit(): void {
+    this.cargarPerfilesAsam();
     this.cargarTabla();
    }
 
@@ -23,17 +25,21 @@ export class CuentasComponent implements OnInit {
   //Input de Asambleista Cuenta
 
   activiteNavAsam:boolean=true;
-  nombreAsambleista:string; apellidoAsambleista:string; correoAsambleista:string; contrasenaAsambleista:string;
-  nombreAsisAsam:string; apellidoAsisAsam:string; correoAsisAsam:string; contrasenaAsisAsam:string;
+  nombreAsambleista:string = ""; apellidoAsambleista:string = ""; correoAsambleista:string = ""; contrasenaAsambleista:string = "";
+  nombreAsisAsam:string = ""; apellidoAsisAsam:string = ""; correoAsisAsam:string = ""; contrasenaAsisAsam:string = "";
   asamPerfil:boolean = false;
   notFound:any = "No se encuentra asambleista";
+
+  dataAsmbleista:any = []; datosAsambleistas:any; idPosicionDataAsam:any;
 
   //Funciones de Asambleista Cuenta
 
   idAsambleiApiAsam:string = "";
-  selectEvent(item:any) { // Evento para obtener valor del ng-autocomplete
+  selectEvent(item:any) { 
+    // Evento para obtener valor del ng-autocomplete
     this.idAsambleiApiAsam = item.id;
-    this.asamPerfil = true
+    this.asamPerfil = true;
+    this.idPosicionDataAsam = item.idPos;
     
   }
 
@@ -41,6 +47,8 @@ export class CuentasComponent implements OnInit {
   habilitar(){ // Habilitar los input de Cuenta Asambleistas
     if(this.idAsambleiApiAsam != "" && this.asamPerfil == true){
         this.habilitarCampos = true;
+        this.nombreAsambleista = this.dataAsmbleista[this.idPosicionDataAsam].firstName;
+        this.apellidoAsambleista = this.dataAsmbleista[this.idPosicionDataAsam].lastName;
     } 
   }
 
@@ -79,16 +87,16 @@ export class CuentasComponent implements OnInit {
   }
 
   cargarTabla(){ //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuenta().then(data =>{
+    this.administradorService.cargarCuentaAsambleista().then(data =>{
       this.dataTabla = data;
-      this.dataTabla = this.dataTabla['result'];
+      debugger
     }).catch(error =>{
       console.log(error);
     })
   }
 
   crearCuentaAsam(){ //Crear la cuenta con los inputs con valores de Asambleista
-    if( this.nombreAsambleista != undefined  &&  this.apellidoAsambleista != undefined && this.correoAsambleista != undefined && this.contrasenaAsambleista != undefined && this.delegadoCuentaCampos != true){
+    if( this.nombreAsambleista != ""  &&  this.apellidoAsambleista != "" && this.correoAsambleista != "" && this.contrasenaAsambleista != "" && this.delegadoCuentaCampos != true){
       
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
@@ -104,7 +112,7 @@ export class CuentasComponent implements OnInit {
           Swal.fire('No se a guardado la cuenta', '', 'info')
         }
       })
-    }else if(this.nombreAsisAsam != undefined && this.apellidoAsisAsam != undefined && this.correoAsisAsam != undefined && this.contrasenaAsisAsam != undefined ){
+    }else if(this.nombreAsisAsam != "" && this.apellidoAsisAsam != "" && this.correoAsisAsam != "" && this.contrasenaAsisAsam != "" ){
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
         showDenyButton: true,
@@ -120,10 +128,31 @@ export class CuentasComponent implements OnInit {
         }
       })
     }
-
-    
   }
 
+
+  onFocused(e:any){
+  }
+
+  cargarPerfilesAsam(){ //Carga los datos en el ng-autocomplete
+    var datoPrueba:any = [{id: '', name: '', idPos: ''}];
+    this.administradorService.cargarPerfiles().then(data =>{
+      this.dataAsmbleista = data;
+      debugger
+      for (var i = 0; i < this.dataAsmbleista.length; i++) {
+        datoPrueba.push({
+          "id" : this.dataAsmbleista[i].id,
+          "name" : this.dataAsmbleista[i].firstName + " " + " " +this.dataAsmbleista[i].lastName,
+          "idPos": i
+        });
+        
+    }
+      this.datosAsambleistas = datoPrueba;
+      
+    }).catch(error =>{
+      console.log(error);
+    })
+  }
   /*-----------------------------------------------------------------*/
 
   /*-----------------------------Form Cuenta Asistente------------------------------------*/
@@ -187,23 +216,18 @@ export class CuentasComponent implements OnInit {
   }
   /*-----------------------------------------------------------------*/
 
+
+  /*-----------------------------Form Modal Editar Cuenta Asambleista------------------------------------*/
+
+  editNombreAsambleista:string; editApellidoAsambleista:string; editCorreoAsambleista:string; editContrasenaAsambleista:string;
+
+
+   /*-----------------------------------------------------------------*/
+
   dataTabla:any= [];
   keyword = 'name';
   activiteNavAsis:boolean=false;
-  dataAsmbleista = [
-    {
-      id: 1,
-      name: 'Georgia'
-    },
-     {
-       id: 2,
-       name: 'Usa'
-     },
-     {
-       id: 3,
-       name: 'England'
-     }
-  ];
+ 
 
   
 
@@ -212,14 +236,11 @@ export class CuentasComponent implements OnInit {
     
   }
   
-  onFocused(e:any){
-    e
-    
-  }
+  
   
   
   onSubmit1() {
-    this.customStylesValidated = true;
+    this.customStylesValidated1 = true;
     console.log('Submit... 1');
   }
 
@@ -229,10 +250,19 @@ export class CuentasComponent implements OnInit {
   }
 
   onReset1() {
-    this.customStylesValidated = false;
+    this.customStylesValidated1 = false;
     this.habilitarCampos = false;
     this.idAsambleiApiAsam = "";
     this.delegadoCuentaCampos = false;
+    this.nombreAsambleista = ""; 
+    this.apellidoAsambleista = ""; 
+    this.correoAsambleista = ""; 
+    this.contrasenaAsambleista = "";
+    this.nombreAsisAsam = ""; 
+    this.apellidoAsisAsam = ""; 
+    this.correoAsisAsam = ""; 
+    this.contrasenaAsisAsam= "";
+
     console.log('Reset... 1');
   }
 
