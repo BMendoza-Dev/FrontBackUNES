@@ -246,11 +246,11 @@ export const navItems: INavData[] = [
 export const navItemsAdmin: INavData[] = [
   {
     title: true,
-    name: 'Administrador'
+    name: 'Admin'
   },
   {
     name: 'Cuentas',
-    url: '/administrador/cuentas',
+    url: '/admin/Cuentas',
     iconComponent: { name: 'cil-user' }
   },
 ];

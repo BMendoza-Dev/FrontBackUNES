@@ -53,4 +53,28 @@ export class AdministradorService {
     
     //return this.http.get(urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
   }*/
+
+  registerCuentaAsambleista(data:any){
+    let  url = 'http://127.0.0.1:8000/api/Register';
+    let token = localStorage.getItem("token");
+    var formData = new FormData(); 
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('rol_id', data.rol_id);
+    formData.append('perfil_id', data.perfil_id);
+    formData.append('estado', data.estado);
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    debugger
+    return new Promise ((resolve, reject) => {
+      this.http.post(url,formData, {headers: httpheaders}).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }

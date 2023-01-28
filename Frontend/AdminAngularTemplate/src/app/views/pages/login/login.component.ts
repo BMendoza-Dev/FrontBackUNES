@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit{
           //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
           if(this.arrayData['usuario'][0]['rol'].id == 1){
             debugger
-            this.rutas.navigate(['/administrador/cuentas']);
+            this.rutas.navigate(['/admin/Cuentas']);
           }else if(this.arrayData['usuario'][0]['rol'].id == 2){
             localStorage.setItem('color', '1');
             this.rutas.navigate(['/asambleista']);

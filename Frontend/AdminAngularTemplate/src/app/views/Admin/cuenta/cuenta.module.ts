@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
-import { AdministradorRoutingModule } from './administrador-routing.module';
-import { CuentasComponent } from './cuentas/cuentas.component';
+import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component';
+import { CuentaRoutingModule } from './cuenta-routing.module';
 import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { IconModule } from '@coreui/icons-angular';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -31,21 +32,26 @@ import {
   TabsModule,
   TooltipModule,
   UtilitiesModule,
-  
   AlertModule,
   ModalModule,
   ToastModule,
 } from '@coreui/angular';
-import { PruebasComponent } from './pruebas/pruebas.component';
-
+import { FormsAsamDeleComponent } from './forms-asam-dele/forms-asam-dele.component';
+import { TableAsambleistaComponent } from './table-asambleista/table-asambleista.component';
 
 @NgModule({
-  declarations: [CuentasComponent, PruebasComponent],
+  declarations: [
+    NgautoperfilComponent,
+    FormsAsamDeleComponent,
+    TableAsambleistaComponent
+  ],
   imports: [
     CommonModule,
-    AdministradorRoutingModule,
+    CuentaRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
+    DocsComponentsModule,
+    IconModule,
+    AutocompleteLibModule,
     ButtonGroupModule,
     ButtonModule,
     CardModule,
@@ -54,7 +60,6 @@ import { PruebasComponent } from './pruebas/pruebas.component';
     GridModule,
     ListGroupModule,
     SharedModule,
-    DocsComponentsModule,
     AccordionModule,
     BadgeModule,
     BreadcrumbModule,
@@ -70,11 +75,9 @@ import { PruebasComponent } from './pruebas/pruebas.component';
     TabsModule,
     TooltipModule,
     UtilitiesModule,
-    IconModule,
-    AutocompleteLibModule,
     AlertModule,
     ModalModule,
     ToastModule,
   ]
 })
-export class AdministradorModule { }
+export class CuentaModule { }

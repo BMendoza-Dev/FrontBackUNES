@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {AdministradorService} from './../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -7,13 +7,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cuentas.component.scss']
 })
 export class CuentasComponent implements OnInit {
+  
+  pruebas:string = "funco";
   customStylesValidated1 = false;
   customStylesValidated2 = false;
   customStylesValidated3 = false;
   browserDefaultsValidated = false;
   tooltipValidated = false;
 
-  constructor(private administradorService:AdministradorService, ) { }
+  constructor(private administradorService:AdministradorService ) { }
 
   ngOnInit(): void {
     this.cargarPerfilesAsam();
@@ -140,13 +142,18 @@ export class CuentasComponent implements OnInit {
       this.dataAsmbleista = data;
       debugger
       for (var i = 0; i < this.dataAsmbleista.length; i++) {
-        datoPrueba.push({
-          "id" : this.dataAsmbleista[i].id,
-          "name" : this.dataAsmbleista[i].firstName + " " + " " +this.dataAsmbleista[i].lastName,
-          "idPos": i
-        });
-        
+        if(this.dataAsmbleista[i].active == 1){
+          datoPrueba.push({
+            "id" : this.dataAsmbleista[i].id,
+            "name" : this.dataAsmbleista[i].firstName + " " + " " +this.dataAsmbleista[i].lastName,
+            "idPos": i
+          }); 
+        }
     }
+
+      delete datoPrueba[0];
+      delete datoPrueba[1];
+      debugger
       this.datosAsambleistas = datoPrueba;
       
     }).catch(error =>{

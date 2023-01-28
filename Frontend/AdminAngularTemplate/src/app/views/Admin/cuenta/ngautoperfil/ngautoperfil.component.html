@@ -1,0 +1,62 @@
+<c-col> <!--Input de crear Cuenta de asambleistas-->
+    <c-card style="margin-bottom: 1%;">
+      <c-nav xs="12" layout="justified" variant="pills">
+        <c-nav-item >
+          <span (click)="activiteNavAsis = false; activiteNavAsam = true"  [active]="activiteNavAsam" cNavLink>
+            Asambleistas
+          </span>
+        </c-nav-item>
+        <c-nav-item>
+          <span (click)="activiteNavAsis = true; activiteNavAsam = false" cNavLink [active]="activiteNavAsis"> Asistentes </span>
+        </c-nav-item>
+      </c-nav>
+    </c-card>
+  </c-col>
+
+  <ng-container *ngIf="activiteNavAsam == true">
+    <c-col xs="12" *ngIf="habilitarCampos==false else cuentasCampos"> 
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+            <strong style="font-size: 16px;">Crear Cuenta Asambleista</strong>
+          </c-card-header>
+        <c-card-body>
+            <form cForm class="row g-3" style="margin-left: 12%;">
+              <div class="col-sm-8" >
+                <ng-autocomplete 
+                  [data]="datosAsambleistas"
+                  [searchKeyword]="keyword"
+                  placeholder="Seleccione un asambleista"
+                  (selected)='selectEvent($event)'
+                  (inputChanged)='onChangeSearch($event)'
+                  (inputFocused)='onFocused($event)'
+                  (inputCleared)='onClear()'
+                  [itemTemplate]="itemTemplateAsam"
+                  [notFoundTemplate]="notFoundTemplateAsam"
+                  [minQueryLength]="3" 
+                  >
+                </ng-autocomplete>
+                
+                <ng-template #itemTemplateAsam let-item>
+                <a  [innerHTML]="item.name"></a>
+                </ng-template>
+                
+                <ng-template #notFoundTemplateAsam let-item>
+                <div [innerHTML]="notFound"></div>
+                </ng-template>
+              </div>
+              <div class="col-auto">
+                <button style="font-size: 14px;" (click)="habilitar()" cButton class="mb-3" type="submit">
+                  Crear cuenta
+                </button>
+              </div>
+            </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  
+    <ng-template #cuentasCampos>
+      <app-forms-asam-dele (habilitarCampos)="onMensaje($event)" [datosngautoperfil]="datosngautoperfil" ></app-forms-asam-dele>
+    </ng-template>
+  </ng-container>
+
+  <app-table-asambleista ></app-table-asambleista>
