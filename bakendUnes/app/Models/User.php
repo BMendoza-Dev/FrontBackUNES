@@ -19,6 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -49,5 +50,9 @@ class User extends Authenticatable
 
     public function Perfil(){
     	return $this->belongsTo(Perfil::class);
+    }
+
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
     }
 }

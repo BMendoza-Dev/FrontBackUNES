@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
+use App\Models\OauthAccessToken;
 use Cookie;
 class AuthController extends Controller
 {
@@ -41,6 +43,11 @@ class AuthController extends Controller
             $user=Auth::user();
             $userAuth= Auth::user()->where('email',$request->email)->with('rol')->get();
             $token= $user->createToken('token')->plainTextToken;
+
+            $tokenexpire= OauthAccessToken::where('tokenable_id',$userAuth[0]->id)->get()->last();
+            $tokenexpire->expires_at=Carbon :: now ( )->addHour(2);
+            $tokenexpire->update();
+
             $cookie = cookie('cookie_token',$token,60*1);
             return response(['token'=>$token, 'usuario'=>$userAuth])->withoutCookie($cookie);
         }else{
@@ -49,9 +56,13 @@ class AuthController extends Controller
         return response()->json(['menssage'=>'Login correcto']);
     }
 
-    public function Logout(){
+    public function Logout(Request $request){
+        
         $cookie = Cookie::forget('cookie_token');
-    //    $this->user->token()->revoke();
+        $userAuth= User::where('email',$request->email)->get();    
+        $token= OauthAccessToken::where('tokenable_id',$userAuth[0]->id)->get()->last();    
+         $token->expires_at= Carbon :: now ( ) -> toDateTimeString ( );
+         $token->update();
         return response(['menssage'=>'logout correcto'])->withCookie($cookie);
     }
 
@@ -72,7 +83,7 @@ class AuthController extends Controller
         $useractualizado->password=Hash::make($request->password);
         $useractualizado->perfil_id=$request->perfil_id;
         $useractualizado->rol_id=$request->rol_id;
-        $user->update($user);
+        $user->update($useractualizado);
 
 
         return response()->json(['menssage'=>'usuarios actualizado correctamente']);
