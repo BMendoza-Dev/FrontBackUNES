@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\OauthAccessToken;
 use Cookie;
+use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function Register(Request $request){
@@ -68,24 +69,20 @@ class AuthController extends Controller
 
     public function Update(Request $request){
 
-       
-        $request->validate([
-            'name'=>'required',
+        $validator = Validator::make($request->all(), [
             'email'=>'required|email|unique:users',
-           
         ]);
+        if (!$validator->fails()) {
+            $user->email=$request->email;
+        }
         $user = User::findOrFail($request->id);
-        //$useractualizado= new User();
-
         $user->name=$request->name;
-        $user->email=$request->email;
+        
         $user->estado=$request->estado;
         if(!$request->password==null){
             $user->password=Hash::make($request->password);
         }
-       
         $user->perfil_id=$request->perfil_id;
-       // $user->rol_id=$request->rol_id;
         $user->update();
 
 
