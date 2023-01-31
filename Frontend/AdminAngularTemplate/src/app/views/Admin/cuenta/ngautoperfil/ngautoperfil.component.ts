@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {AdministradorService} from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -10,7 +10,7 @@ export class NgautoperfilComponent  implements OnInit{
  
   constructor(private administradorService:AdministradorService ){}
 
-  @Output() cargartabla = new EventEmitter();
+  
 
   datosngautoperfil:any=[];
   dataAsmbleista:any = []; datosAsambleistas:any; activiteNavAsis:boolean=false; activiteNavAsam:boolean=true; nombreAsambleista:string = ""; apellidoAsambleista:string = ""; correoAsambleista:string = ""; contrasenaAsambleista:string = "";
@@ -19,19 +19,23 @@ export class NgautoperfilComponent  implements OnInit{
 
   ngOnInit(): void {
     this.cargarPerfilesAsam();
-    debugger
+  }
+
+  tableAsamUpdate(){
+
+    
   }
 
   ngOnDestroy():void{
     
-    debugger
+    
   }
 
   cargarPerfilesAsam(){ //Carga los datos en el ng-autocomplete
     var datoPrueba:any = [{id: '', name: '', idPos: ''}];
     this.administradorService.cargarPerfiles().then(data =>{
       this.dataAsmbleista = data;
-      debugger
+      
       for (var i = 0; i < this.dataAsmbleista.length; i++) {
         if(this.dataAsmbleista[i].active == 1){
           datoPrueba.push({
@@ -42,10 +46,13 @@ export class NgautoperfilComponent  implements OnInit{
         }
     }
 
+    
+
       delete datoPrueba[0];
       delete datoPrueba[1];
-      debugger
+      
       this.datosAsambleistas = datoPrueba;
+      
       
     }).catch(error =>{
       console.log(error);
@@ -61,10 +68,11 @@ export class NgautoperfilComponent  implements OnInit{
         this.datosngautoperfil.push(this.idAsambleiApiAsam);
         this.datosngautoperfil.push(this.dataAsmbleista[this.idPosicionDataAsam].firstName);
         this.datosngautoperfil.push(this.dataAsmbleista[this.idPosicionDataAsam].lastName);
+        
         this.dataAsmbleista = [];
         this.idAsambleiApiAsam = "";
 
-        debugger
+        
     } 
   }
 
@@ -74,7 +82,10 @@ export class NgautoperfilComponent  implements OnInit{
     this.idAsambleiApiAsam = item.id;
     this.asamPerfil = true;
     this.idPosicionDataAsam = item.idPos; 
+    
   }
+
+  
 
   onChangeSearch(val: any) {
     val;
@@ -85,15 +96,13 @@ export class NgautoperfilComponent  implements OnInit{
 
   onClear(){
     this.asamPerfil = false;
+    
   }
 
   onMensaje(habilitarCampos:any){
     this.habilitarCampos = habilitarCampos;
   }
 
-  onTabla(Evento:any){
-
-  }
 
 
 }

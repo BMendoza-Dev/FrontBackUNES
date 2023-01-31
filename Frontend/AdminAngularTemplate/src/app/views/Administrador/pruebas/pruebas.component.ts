@@ -49,7 +49,7 @@ export class PruebasComponent implements OnInit {
 
   crearCuentaAsam(){ //Crear la cuenta con los inputs con valores de Asambleista
     if( this.nombreAsambleista != ""  &&  this.apellidoAsambleista != "" && this.correoAsambleista != "" && this.contrasenaAsambleista != "" && this.delegadoCuentaCampos != true){
-      debugger
+      
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
         showDenyButton: true,

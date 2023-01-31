@@ -27,19 +27,19 @@ export class LoginComponent implements OnInit{
     }
     this.login.ValidarLogin(inputlogin).then(data => {
         this.arrayData = data;
-        debugger
+        
         if(this.arrayData != 401){
-          debugger
+          
 
           localStorage.setItem('token', this.arrayData['token']);
           localStorage.setItem('email', this.email);
           localStorage.setItem('sesionLoginInicio', this.arrayData['usuario'][0]['rol'].id);
-          debugger
+          
           //localStorage.setItem('sesionLogin', this.arrayData['result'][0].id_cuenta);
           //localStorage.setItem('rol', this.arrayData['result'][0].rol.rol);
           //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
           if(this.arrayData['usuario'][0]['rol'].id == 1){
-            debugger
+            
             this.rutas.navigate(['/admin/Cuentas']);
           }else if(this.arrayData['usuario'][0]['rol'].id == 2){
             localStorage.setItem('color', '1');

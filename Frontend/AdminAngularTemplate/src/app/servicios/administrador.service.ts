@@ -14,7 +14,24 @@ export class AdministradorService {
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer "+ token
     });
-    debugger
+    
+    return new Promise ((resolve, reject) => {
+      this.http.get(url, {headers: httpheaders}).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  cargarCuentaAsistente(){
+    let  url = 'http://127.0.0.1:8000/api/Asistentes';
+    let token = localStorage.getItem("token");
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    
     return new Promise ((resolve, reject) => {
       this.http.get(url, {headers: httpheaders}).subscribe(res => {
         resolve(res);{
@@ -54,7 +71,7 @@ export class AdministradorService {
     //return this.http.get(urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
   }*/
 
-  registerCuentaAsambleista(data:any){
+  registerCuentaAsambleistaAsistente(data:any){
     let  url = 'http://127.0.0.1:8000/api/Register';
     let token = localStorage.getItem("token");
     var formData = new FormData(); 
@@ -67,7 +84,32 @@ export class AdministradorService {
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer "+ token
     });
+    
+    return new Promise ((resolve, reject) => {
+      this.http.post(url,formData, {headers: httpheaders}).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  updateAsamAsisCuentas(data:any){
+    let  url = 'http://127.0.0.1:8000/api/Update';
+    let token = localStorage.getItem("token");
+    var formData = new FormData(); 
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('perfil_id', data.perfil_id);
+    formData.append('estado', data.estado);
+    formData.append('id', data.id);
     debugger
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    
     return new Promise ((resolve, reject) => {
       this.http.post(url,formData, {headers: httpheaders}).subscribe(res => {
         resolve(res);{

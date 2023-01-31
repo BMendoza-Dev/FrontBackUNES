@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {AdministradorService} from './../../../../servicios/administrador.service';
+import {LocalProyectService} from './../../../../servicios/local-proyect.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-forms-asam-dele',
@@ -12,31 +13,27 @@ export class FormsAsamDeleComponent implements OnInit {
   @Input() datosngautoperfil:any = [];
   @Output() habilitarCampos = new EventEmitter<boolean>();
   
+  constructor(private administradorService:AdministradorService, private locaServicio: LocalProyectService){}
   
-
-
-  constructor(private administradorService:AdministradorService){}
-   nombreAsambleista:string;
-   apellidoAsambleista:string;
+  nombre_apellidoAsambleista:string;
    idAsambleiApiAsam:string;
   customStylesValidated1 = false; iconEyeAsam:string = "password"; delegadoCuentaCampos:boolean=false;
-  correoAsambleista:string=""; contrasenaAsambleista:string=""; nombreAsisAsam:string = ""; apellidoAsisAsam:string = ""; correoAsisAsam:string = ""; contrasenaAsisAsam:string = "";
+  correoAsambleista:string=""; contrasenaAsambleista:string=""; nombre_apellidoAsisAsam:string= ""; correoAsisAsam:string = ""; contrasenaAsisAsam:string = "";
   iconEyeAsamAsis:string = "password";
 
   ngOnInit(): void {
-    this.nombreAsambleista= this.datosngautoperfil[1]; 
-   this.apellidoAsambleista = this.datosngautoperfil[2]; 
+    this.nombre_apellidoAsambleista= this.datosngautoperfil[1] + " " +this.datosngautoperfil[2] ; 
    this.idAsambleiApiAsam = this.datosngautoperfil[0];
-   debugger
+
+   
   }
 
   ngOnDestroy(): void {
-    this.nombreAsambleista = "";
-    this.apellidoAsambleista = "";
+    this.nombre_apellidoAsambleista = "";
     this.idAsambleiApiAsam = "";
     this.contrasenaAsambleista = "";
     this.correoAsambleista = "";
-    debugger
+    
   }
 
   cambiarIconAsam(){ //Cambio de Icono en el Password Input Asambleista
@@ -76,28 +73,28 @@ export class FormsAsamDeleComponent implements OnInit {
     this.habilitarCampos.emit(false);
     this.idAsambleiApiAsam = "";
     this.delegadoCuentaCampos = false;
-    this.nombreAsambleista = ""; 
-    this.apellidoAsambleista = ""; 
+    this.nombre_apellidoAsambleista = ""; 
     this.correoAsambleista = ""; 
     this.contrasenaAsambleista = "";
-    this.nombreAsisAsam = ""; 
-    this.apellidoAsisAsam = ""; 
+    this.nombre_apellidoAsisAsam = ""; 
     this.correoAsisAsam = ""; 
     this.contrasenaAsisAsam= "";
+    this.locaServicio.emitirEventoTablaAsalbleista();
+
     console.log('Reset... 1');
   }
 
   guardarCuentaAsambleista(){
     let formAsambleista = {
-      'name':this.nombreAsambleista + " " + this.apellidoAsambleista,
+      'name':this.nombre_apellidoAsambleista,
       'email':this.correoAsambleista,
       'password':this.contrasenaAsambleista,
       'rol_id':2,
       'perfil_id':this.idAsambleiApiAsam,
       'estado':1
     }
-    this.administradorService.registerCuentaAsambleista(formAsambleista).then(data =>{
-      debugger
+    this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(data =>{
+      
     }).catch(error =>{
       console.log(error);
     })
@@ -107,15 +104,15 @@ export class FormsAsamDeleComponent implements OnInit {
 
   guardarCuentaAsistente(){
     let formAsambleista = {
-      'name':this.nombreAsisAsam + " " + this.apellidoAsisAsam,
+      'name':this.nombre_apellidoAsisAsam,
       'email':this.correoAsisAsam,
       'password':this.contrasenaAsisAsam,
       'rol_id':3,
       'perfil_id':this.idAsambleiApiAsam,
       'estado':1
     }
-    this.administradorService.registerCuentaAsambleista(formAsambleista).then(data =>{
-      debugger
+    this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(data =>{
+      
     }).catch(error =>{
       console.log(error);
     })
@@ -123,7 +120,7 @@ export class FormsAsamDeleComponent implements OnInit {
 
   registerAsambleistaForm(){
     if(this.delegadoCuentaCampos != true){
-      if( this.nombreAsambleista != ""  &&  this.apellidoAsambleista != "" && this.correoAsambleista != "" && this.contrasenaAsambleista != "" ){
+      if( this.nombre_apellidoAsambleista != ""  && this.correoAsambleista != "" && this.contrasenaAsambleista != "" ){
         Swal.fire({
           title: 'Esta seguro que desea crear una cuenta?',
           showDenyButton: true,
@@ -143,7 +140,7 @@ export class FormsAsamDeleComponent implements OnInit {
         })
       }
     }else {
-       if(this.nombreAsisAsam != "" && this.apellidoAsisAsam != "" && this.correoAsisAsam != "" && this.contrasenaAsisAsam != "" && this.nombreAsambleista != ""  &&  this.apellidoAsambleista != "" && this.correoAsambleista != "" && this.contrasenaAsambleista != ""){
+       if(this.nombre_apellidoAsisAsam != ""  && this.correoAsisAsam != "" && this.contrasenaAsisAsam != "" && this.nombre_apellidoAsambleista != ""  && this.correoAsambleista != "" && this.contrasenaAsambleista != ""){
         Swal.fire({
           title: 'Esta seguro que desea crear una cuenta?',
           showDenyButton: true,

@@ -91,7 +91,7 @@ export class CuentasComponent implements OnInit {
   cargarTabla(){ //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaAsambleista().then(data =>{
       this.dataTabla = data;
-      debugger
+      
     }).catch(error =>{
       console.log(error);
     })
@@ -140,7 +140,7 @@ export class CuentasComponent implements OnInit {
     var datoPrueba:any = [{id: '', name: '', idPos: ''}];
     this.administradorService.cargarPerfiles().then(data =>{
       this.dataAsmbleista = data;
-      debugger
+      
       for (var i = 0; i < this.dataAsmbleista.length; i++) {
         if(this.dataAsmbleista[i].active == 1){
           datoPrueba.push({
@@ -153,7 +153,7 @@ export class CuentasComponent implements OnInit {
 
       delete datoPrueba[0];
       delete datoPrueba[1];
-      debugger
+      
       this.datosAsambleistas = datoPrueba;
       
     }).catch(error =>{
@@ -162,7 +162,7 @@ export class CuentasComponent implements OnInit {
   }
   /*-----------------------------------------------------------------*/
 
-  /*-----------------------------Form Cuenta Asistente------------------------------------*/
+  /*-----------------------------Form Cuenta Delegado------------------------------------*/
 
   //Input de Asistentes Cuentas
 
@@ -240,7 +240,6 @@ export class CuentasComponent implements OnInit {
 
   onChangeSearch(val: any) {
     val;
-    
   }
   
   

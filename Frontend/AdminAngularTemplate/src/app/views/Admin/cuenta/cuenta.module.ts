@@ -38,12 +38,16 @@ import {
 } from '@coreui/angular';
 import { FormsAsamDeleComponent } from './forms-asam-dele/forms-asam-dele.component';
 import { TableAsambleistaComponent } from './table-asambleista/table-asambleista.component';
+import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
+import { TableDelegadoComponent } from './table-delegado/table-delegado.component';
 
 @NgModule({
   declarations: [
     NgautoperfilComponent,
     FormsAsamDeleComponent,
-    TableAsambleistaComponent
+    TableAsambleistaComponent,
+    FormsDelegadoComponent,
+    TableDelegadoComponent,
   ],
   imports: [
     CommonModule,

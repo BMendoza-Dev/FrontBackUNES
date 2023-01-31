@@ -22,7 +22,7 @@
         <c-card-body>
             <form cForm class="row g-3" style="margin-left: 12%;">
               <div class="col-sm-8" >
-                <ng-autocomplete 
+                <ng-autocomplete
                   [data]="datosAsambleistas"
                   [searchKeyword]="keyword"
                   placeholder="Seleccione un asambleista"
@@ -55,8 +55,15 @@
     </c-col>
   
     <ng-template #cuentasCampos>
-      <app-forms-asam-dele (habilitarCampos)="onMensaje($event)" [datosngautoperfil]="datosngautoperfil" ></app-forms-asam-dele>
+      <app-forms-asam-dele  (habilitarCampos)="onMensaje($event)" [datosngautoperfil]="datosngautoperfil" ></app-forms-asam-dele>
     </ng-template>
+    <app-table-asambleista ></app-table-asambleista>
   </ng-container>
 
-  <app-table-asambleista ></app-table-asambleista>
+  <ng-container *ngIf="activiteNavAsis== true">
+    <app-forms-delegado></app-forms-delegado>
+    <app-table-delegado></app-table-delegado>
+  </ng-container>
+
+  
+  

@@ -14,7 +14,7 @@ export class AdminLoginGuard implements CanActivate {
       this.rutas.navigate(["/login"]);
       return false;
     }else if(inicio != "1"){
-      debugger
+      
       return false;
     }
     return true;

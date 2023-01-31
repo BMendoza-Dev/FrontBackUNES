@@ -11,17 +11,11 @@
                 class="row g-3 needs-validation"
           >
           <!--Form Asambleista-->
-            <c-col md="6">
-              <label cLabel for="nombreAsambleistaValidation">Nombres</label>
-              <input [(ngModel)]="nombreAsambleista" name="nombreAsambleista"  id="nombreAsambleista" cFormControl required type="text" value="" />
+            <c-col md="12">
+              <label cLabel for="nombreAsambleistaValidation">Nombres y Apellidos</label>
+              <input [(ngModel)]="nombre_apellidoAsambleista" name="nombre_apellidoAsambleista"  id="nombreAsambleistaValidation" cFormControl required type="text" value="" />
               <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
               <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
-            </c-col>
-            <c-col md="6">
-              <label cLabel for="apellidoAsambleistaValidation">Apellidos</label>
-              <input [(ngModel)]="apellidoAsambleista" name="apellidoAsambleista" cFormControl id="apellidoAsambleistaValidation" required type="text" value="" />
-              <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-              <c-form-feedback [valid]="false">Por favor, ingrese apellidos</c-form-feedback>
             </c-col>
             <c-col md="6">
               <label  cLabel  for="correoAsambleistaValidation">Correo electrónico</label>
@@ -68,17 +62,11 @@
               properly to render a toggle switch. Switches also support the <code>disabled</code>
               attribute.
             </p>
-            <c-col md="6">
-              <label cLabel for="nombreAsisAsamValidation">Nombres</label>
-              <input [(ngModel)]="nombreAsisAsam" name="nombreAsisAsam" cFormControl id="nombreAsisAsamValidation" required type="text" value="" />
+            <c-col md="12">
+              <label cLabel for="nombreAsisAsamValidation">Nombres y Apellidos</label>
+              <input [(ngModel)]="nombre_apellidoAsisAsam" name="nombre_apellidoAsisAsam" cFormControl id="nombreAsisAsamValidation" required type="text" value="" />
               <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
               <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
-            </c-col>
-            <c-col md="6">
-              <label cLabel for="apellidoAsisAsamValidation">Apellidos</label>
-              <input [(ngModel)]="apellidoAsisAsam" name="apellidoAsisAsam" cFormControl id="apellidoAsisAsamValidation" required type="text" value="" />
-              <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-              <c-form-feedback [valid]="false">Por favor, ingrese apellidos</c-form-feedback>
             </c-col>
             <c-col md="6">
               <label cLabel  for="correoAsisAsamValidation">Correo electrónico</label>
