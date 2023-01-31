@@ -68,16 +68,16 @@ class AuthController extends Controller
     }
 
     public function Update(Request $request){
-
         $validator = Validator::make($request->all(), [
             'email'=>'required|email|unique:users',
         ]);
+
+        $user = User::findOrFail($request->id);
         if (!$validator->fails()) {
             $user->email=$request->email;
         }
-        $user = User::findOrFail($request->id);
-        $user->name=$request->name;
         
+        $user->name=$request->name;
         $user->estado=$request->estado;
         if(!$request->password==null){
             $user->password=Hash::make($request->password);
