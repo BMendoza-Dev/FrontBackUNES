@@ -88,4 +88,8 @@ class AuthController extends Controller
 
         return response()->json(['menssage'=>'usuarios actualizado correctamente']);
     }
+
+    public function Delete(Request $request){ 
+        
+    }
 }

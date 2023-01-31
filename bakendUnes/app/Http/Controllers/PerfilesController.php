@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Perfil;
 use App\Models\Imagen;
 use App\Models\User;
+use App\Models\Divisionterritorial;
 class PerfilesController extends Controller
 {
     public function index()
@@ -16,6 +17,26 @@ class PerfilesController extends Controller
         $validacion= Perfil::get();
         if(!$validacion->isEmpty()){
             return response()->json("Perfiles Cargados en la base de datos.");;
+        }
+        $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
+            'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
+            'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
+        ]);
+
+        $token = $tokenapi->json();
+
+        $Ambitoterritorial = Http::withHeaders([
+            'Content-Type' => 'application/jason',
+            'Authorization' => $token['token'],
+            ])->get('http://apiapp.asambleanacional.gob.ec/periodsResource/territorialDivision/');
+
+
+        foreach (collect($Ambitoterritorial->json()) as $Ambitoterritorialaux){
+            $territorial = new Divisionterritorial();
+
+            $territorial->id= $Ambitoterritorialaux['id'];
+            $territorial->name= $Ambitoterritorialaux['name'];
+            $territorial->save();
         }
 
         $Perfiles2 = new Perfil();
@@ -42,13 +63,6 @@ class PerfilesController extends Controller
         $user->rol_id=1;
         $user->save();
 
-        $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
-            'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
-            'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
-        ]);
-
-        $token = $tokenapi->json();
-
         $request = Http::withHeaders([
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
@@ -56,8 +70,9 @@ class PerfilesController extends Controller
 
         $asambleistas= collect($request->json());
         $filtered = $asambleistas->whereIn('politicalParty', ["UNIÓN POR LA ESPERANZA"])->whereIn("active",[true]);
+
         
-        
+
 
         foreach ($filtered as $asambleista) {
             $aux=((string)$asambleista["id"]);
