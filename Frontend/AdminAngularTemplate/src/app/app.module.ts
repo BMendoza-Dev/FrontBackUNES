@@ -59,9 +59,10 @@ const APP_CONTAINERS = [
 import { HttpClientModule} from '@angular/common/http';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FiltroCuentasPipe } from './pipes/filtro-cuentas.pipe';
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, FiltroCuentasPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

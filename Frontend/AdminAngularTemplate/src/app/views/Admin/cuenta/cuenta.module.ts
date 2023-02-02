@@ -7,6 +7,7 @@ import { CuentaRoutingModule } from './cuenta-routing.module';
 import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { IconModule } from '@coreui/icons-angular';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import {
   ButtonGroupModule,
@@ -23,7 +24,6 @@ import {
   CarouselModule,
   CollapseModule,
   NavModule,
-  PaginationModule,
   PlaceholderModule,
   PopoverModule,
   ProgressModule,
@@ -41,6 +41,7 @@ import { TableAsambleistaComponent } from './table-asambleista/table-asambleista
 import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
 import { TableDelegadoComponent } from './table-delegado/table-delegado.component';
 
+
 @NgModule({
   declarations: [
     NgautoperfilComponent,
@@ -51,6 +52,7 @@ import { TableDelegadoComponent } from './table-delegado/table-delegado.componen
   ],
   imports: [
     CommonModule,
+    NgxPaginationModule,
     CuentaRoutingModule,
     FormsModule,
     DocsComponentsModule,
@@ -70,7 +72,6 @@ import { TableDelegadoComponent } from './table-delegado/table-delegado.componen
     CarouselModule,
     CollapseModule,
     NavModule,
-    PaginationModule,
     PlaceholderModule,
     PopoverModule,
     ProgressModule,

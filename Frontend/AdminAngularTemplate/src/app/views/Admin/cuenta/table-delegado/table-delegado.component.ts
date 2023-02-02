@@ -15,19 +15,26 @@ export class TableDelegadoComponent implements OnInit{
     });
   }
 
+  search = "";
+  title = 'pagination';
+  POSTS:any;
+  page:number = 1;
+  count:number = 0;
+  tableSize:number = 10;
+  tableSizes:any = [5,10,15,20];
 
   ngOnInit(): void {
     this.cargarTabla();
   }
 
   dataTabla:any = []; customStylesValidated = false; editNombre_ApellidoAsambleista:string = ""; editCorreoAsistente:string = "";
-  editContrasenaAsistente:string = ""; iconEyeAsam:string = "password"; datosAsistenteInput:any=[];
-  estado:number = 1; id:number; id_perfil:number;
+  editContrasenaAsistente:any= ""; iconEyeAsam:string = "password"; datosAsistenteInput:any=[];
+  estado:number; id:number; id_perfil:number;
   cargarTabla(){
     //Carga los datos de las cuentas de asambleistas en una tabla
    this.administradorService.cargarCuentaAsistente().then(data =>{
      this.dataTabla = data;
-     
+     this.limpiarModal();
    }).catch(error =>{
      console.log(error);
    })
@@ -49,7 +56,7 @@ export class TableDelegadoComponent implements OnInit{
     updateAsisCuentas(){
       debugger
       let formUpdateAsambleista = {
-        'name':this.editNombre_ApellidoAsambleista,
+        'name':this.editNombre_ApellidoAsambleista.toUpperCase(),
         'email':this.editCorreoAsistente,
         'password':this.editContrasenaAsistente,
         'perfil_id':this.id_perfil,
@@ -59,7 +66,7 @@ export class TableDelegadoComponent implements OnInit{
       debugger
       this.administradorService.updateAsamAsisCuentas(formUpdateAsambleista).then(data =>{
         data
-        debugger
+        this.cargarTabla();
       }).catch(error =>{
         console.log(error);
       })
@@ -81,10 +88,39 @@ export class TableDelegadoComponent implements OnInit{
     cargarCamposModalEdit(){
       this.editNombre_ApellidoAsambleista = this.datosAsistenteInput[0];
       this.editCorreoAsistente = this.datosAsistenteInput[1];
-      //this.estado = this.datosAsambleistasInput[3];
-      this.estado = 1;
+      this.estado = this .datosAsistenteInput[2];
       this.id = this.datosAsistenteInput[3];
       this.id_perfil = this.datosAsistenteInput[4];
       debugger
     }
+
+    limpiarModal(){
+      this.editNombre_ApellidoAsambleista = "";
+      this.editCorreoAsistente = "";
+      this.editContrasenaAsistente = "";
+      this.search = "";
+    }
+
+    onTableDataChange(event:any){
+      this.page = event;
+      debugger
+    }
+
+    cuentasFilter:any = [];
+  dataPaginate(_event:any){
+    this.cuentasFilter=[];
+    if(this.search==""){
+      debugger
+    }else{
+      debugger
+      for (const x of this.dataTabla) {
+        debugger
+        if(x.name.indexOf(this.search.toUpperCase()) > -1){
+         this.cuentasFilter.push(x);
+         debugger
+       };
+      };
+      this.cuentasFilter
+    }
+  }
 }

@@ -104,7 +104,7 @@ export class FormsAsamDeleComponent implements OnInit {
 
   guardarCuentaAsistente(){
     let formAsambleista = {
-      'name':this.nombre_apellidoAsisAsam,
+      'name':this.nombre_apellidoAsisAsam.toUpperCase(),
       'email':this.correoAsisAsam,
       'password':this.contrasenaAsisAsam,
       'rol_id':3,

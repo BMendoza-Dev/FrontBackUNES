@@ -52,7 +52,7 @@ export class FormsDelegadoComponent implements OnInit{
 
   guardarCuentaAsistente(){
     let formAsambleista = {
-      'name':this.nombre_apellidoAsistente,
+      'name':this.nombre_apellidoAsistente.toUpperCase(),
       'email':this.correoAsistente,
       'password':this.contrasenaAsistente,
       'rol_id':3,
