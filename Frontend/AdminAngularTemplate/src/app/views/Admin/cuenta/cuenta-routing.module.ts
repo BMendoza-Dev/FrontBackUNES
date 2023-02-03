@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsAdministradorComponent } from './forms-administrador/forms-administrador.component';
+import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
 
 
 import {NgautoperfilComponent} from './ngautoperfil/ngautoperfil.component'
@@ -7,19 +9,33 @@ import {NgautoperfilComponent} from './ngautoperfil/ngautoperfil.component'
 const routes: Routes = [{
   path: '',
     data: {
-      title: 'Admin'
+      title: 'administrador'
     },
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'Admin'
+        redirectTo: 'administrador'
       },
       {
-        path: 'Cuentas',
+        path: 'asambleistas',
         component: NgautoperfilComponent,
         data: {
-          title: 'Cuentas'
+          title: 'Asambleistas'
+        }
+      },
+      {
+        path: 'delegados',
+        component: FormsDelegadoComponent,
+        data: {
+          title: 'Delegados'
+        }
+      },
+      {
+        path: 'admin',
+        component: FormsAdministradorComponent,
+        data: {
+          title: 'Administrador'
         }
       }
 

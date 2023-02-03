@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AsambleistasPageRoutingModule } from './asambleistas-routing.module';
 
 import { AsambleistasPage } from './asambleistas.page';
-import { PipesModule } from '../pipes/pipes.module';
+import { FiltroPipe } from '../pipes/filtro.pipe';
 
 @NgModule({
   imports: [
@@ -15,8 +15,7 @@ import { PipesModule } from '../pipes/pipes.module';
     FormsModule,
     IonicModule,
     AsambleistasPageRoutingModule,
-    PipesModule
   ],
-  declarations: [AsambleistasPage]
+  declarations: [AsambleistasPage,FiltroPipe]
 })
 export class AsambleistasPageModule {}

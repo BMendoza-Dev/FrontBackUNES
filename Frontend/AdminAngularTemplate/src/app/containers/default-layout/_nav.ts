@@ -244,15 +244,27 @@ export const navItems: INavData[] = [
 ];
 
 export const navItemsAdmin: INavData[] = [
-  {
-    title: true,
-    name: 'Admin'
-  },
+
   {
     name: 'Cuentas',
-    url: '/admin/Cuentas',
-    iconComponent: { name: 'cil-user' }
+    url: '/administrador',
+    iconComponent: { name: 'cil-user' },
+    children:[
+      {
+        name: 'Asambleistas',
+        url: '/administrador/asambleistas',
+      },
+      {
+        name: 'Delegados',
+        url: '/administrador/delegados',
+      },
+      {
+        name: 'Administrador',
+        url: '/administrador/admin',
+      }
+  ]
   },
+  
 ];
 
 export const navItemsAsamb: INavData[] = [

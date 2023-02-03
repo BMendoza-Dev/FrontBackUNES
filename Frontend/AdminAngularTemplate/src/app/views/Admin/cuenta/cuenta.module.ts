@@ -9,6 +9,7 @@ import { IconModule } from '@coreui/icons-angular';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {NgxPaginationModule} from 'ngx-pagination';
 
+
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -35,11 +36,13 @@ import {
   AlertModule,
   ModalModule,
   ToastModule,
+  PaginationModule,
 } from '@coreui/angular';
 import { FormsAsamDeleComponent } from './forms-asam-dele/forms-asam-dele.component';
 import { TableAsambleistaComponent } from './table-asambleista/table-asambleista.component';
 import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
 import { TableDelegadoComponent } from './table-delegado/table-delegado.component';
+import { FormsAdministradorComponent } from './forms-administrador/forms-administrador.component';
 
 
 @NgModule({
@@ -49,6 +52,7 @@ import { TableDelegadoComponent } from './table-delegado/table-delegado.componen
     TableAsambleistaComponent,
     FormsDelegadoComponent,
     TableDelegadoComponent,
+    FormsAdministradorComponent,
   ],
   imports: [
     CommonModule,
@@ -83,6 +87,7 @@ import { TableDelegadoComponent } from './table-delegado/table-delegado.componen
     AlertModule,
     ModalModule,
     ToastModule,
+    PaginationModule
   ]
 })
 export class CuentaModule { }

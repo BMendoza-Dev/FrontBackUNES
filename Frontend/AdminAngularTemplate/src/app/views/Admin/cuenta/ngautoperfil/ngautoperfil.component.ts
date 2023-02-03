@@ -52,7 +52,7 @@ export class NgautoperfilComponent  implements OnInit{
       delete datoPrueba[1];
       
       this.datosAsambleistas = datoPrueba;
-      
+      debugger
       
     }).catch(error =>{
       console.log(error);

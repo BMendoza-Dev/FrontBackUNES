@@ -1,3 +1,15 @@
+<c-col> <!--Input de crear Cuenta de asambleistas-->
+  <c-card style="margin-bottom: 1%;">
+    <c-nav xs="12" layout="justified" variant="pills">
+      <c-nav-item >
+        <span [active]="true" cNavLink>
+          Delegados
+        </span>
+      </c-nav-item>
+    </c-nav>
+  </c-card>
+</c-col>
+
 <c-col xs="12"> 
     <c-card class="mb-4">
       <c-card-header ngPreserveWhitespaces>
@@ -53,7 +65,7 @@
             </c-col>
             <c-col md="6" >
               <label cLabel  for="validationCustomUsername">Asambleistas</label>
-                  <ng-autocomplete 
+                  <ng-autocomplete #atributosAutoCompl
                     [data]="dataAsmbleista"
                     [searchKeyword]="keyword"
                     placeholder="Seleccione un asambleista"
@@ -63,7 +75,9 @@
                     (inputCleared)='onClear($event)'
                     [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate"
-                    [minQueryLength]="3" >
+                    [minQueryLength]="3" 
+                    >
+                    
                   </ng-autocomplete>
                   
                   <ng-template #itemTemplate let-item>
@@ -87,7 +101,8 @@
         </form>
       </c-card-body>
 
-      
     </c-card>
     
   </c-col>
+
+  <app-table-delegado></app-table-delegado>

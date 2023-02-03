@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {AdministradorService} from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 import {LocalProyectService} from './../../../../servicios/local-proyect.service';
@@ -15,6 +15,9 @@ export class TableDelegadoComponent implements OnInit{
     });
   }
 
+  
+  @ViewChild('atributosAutoCompl') auComple: any;
+  @ViewChild('paginado') paginados:any;
   search = "";
   title = 'pagination';
   POSTS:any;
@@ -24,12 +27,15 @@ export class TableDelegadoComponent implements OnInit{
   tableSizes:any = [5,10,15,20];
 
   ngOnInit(): void {
+    
+    debugger
     this.cargarTabla();
+    this.cargarCuentaAsambleistaAutoCom();
   }
 
   dataTabla:any = []; customStylesValidated = false; editNombre_ApellidoAsambleista:string = ""; editCorreoAsistente:string = "";
   editContrasenaAsistente:any= ""; iconEyeAsam:string = "password"; datosAsistenteInput:any=[];
-  estado:number; id:number; id_perfil:number;
+  estado:number; id:number; id_perfil:number; dataAsam:any=[];
   cargarTabla(){
     //Carga los datos de las cuentas de asambleistas en una tabla
    this.administradorService.cargarCuentaAsistente().then(data =>{
@@ -82,7 +88,7 @@ export class TableDelegadoComponent implements OnInit{
       this.datosAsistenteInput.push(perfil_id)
       debugger
       this.cargarCamposModalEdit();
-      //this.locaServicio.emitirEventoModalAsalbleistaEditar();
+      
     }
 
     cargarCamposModalEdit(){
@@ -94,11 +100,15 @@ export class TableDelegadoComponent implements OnInit{
       debugger
     }
 
+    
     limpiarModal(){
       this.editNombre_ApellidoAsambleista = "";
       this.editCorreoAsistente = "";
       this.editContrasenaAsistente = "";
       this.search = "";
+      this.auComple.query = "";
+      this.paginados;
+      debugger
     }
 
     onTableDataChange(event:any){
@@ -109,7 +119,7 @@ export class TableDelegadoComponent implements OnInit{
     cuentasFilter:any = [];
   dataPaginate(_event:any){
     this.cuentasFilter=[];
-    if(this.search==""){
+    if(this.search == ""){
       debugger
     }else{
       debugger
@@ -123,4 +133,39 @@ export class TableDelegadoComponent implements OnInit{
       this.cuentasFilter
     }
   }
+
+
+  keyword = 'name'; 
+  cargarCuentaAsambleistaAutoCom(){
+    this.administradorService.cargarCuentaAsambleista().then(data =>{
+      this.dataAsam = data;
+      //this.POSTS = this.dataTabla;
+      //this.limpiarModal();
+      debugger
+    }).catch(error =>{
+      console.log(error);
+    })
+  }
+
+  notFound:any = "No se encuentra asambleista";
+  selectEvent(item:any) { 
+    // Evento para obtener valor del ng-autocomplete
+    debugger
+    this.cargarCuentaAsambleistaAutoCom();
+    this.id_perfil = item.perfil_id;
+    
+  }
+
+
+
+  public visible = false;
+  toggleLiveDemo() {
+    this.visible = !this.visible;
+    
+  }
+
+  handleLiveDemoChange(event: any) {
+    this.visible = event;
+  }
+
 }

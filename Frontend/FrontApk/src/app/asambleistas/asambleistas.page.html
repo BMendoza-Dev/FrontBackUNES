@@ -18,7 +18,7 @@
   
   <ion-grid>
     <ion-row>
-      <ion-col style="margin-top: 3px;" size="4" size-lg="2" size-md="3" size-sm="4" size-xs="4" clas="itemList" *ngFor="let item of assambly | filtro: textoBuscar ">
+      <ion-col *ngFor="let item of assambly | filtro: textoBuscar" style="margin-top: 3px;" size="4" size-lg="2" size-md="3" size-sm="4" size-xs="4" clas="itemList">
         <div>
           <img src="../../assets/imgs/icons8-usuario-30.png" />
         </div>

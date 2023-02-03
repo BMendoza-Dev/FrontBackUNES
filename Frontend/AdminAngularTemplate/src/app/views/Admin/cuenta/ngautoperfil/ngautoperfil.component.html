@@ -2,18 +2,15 @@
     <c-card style="margin-bottom: 1%;">
       <c-nav xs="12" layout="justified" variant="pills">
         <c-nav-item >
-          <span (click)="activiteNavAsis = false; activiteNavAsam = true"  [active]="activiteNavAsam" cNavLink>
+          <span [active]="true" cNavLink>
             Asambleistas
           </span>
-        </c-nav-item>
-        <c-nav-item>
-          <span (click)="activiteNavAsis = true; activiteNavAsam = false" cNavLink [active]="activiteNavAsis"> Asistentes </span>
         </c-nav-item>
       </c-nav>
     </c-card>
   </c-col>
 
-  <ng-container *ngIf="activiteNavAsam == true">
+  
     <c-col xs="12" *ngIf="habilitarCampos==false else cuentasCampos"> 
       <c-card class="mb-4">
         <c-card-header ngPreserveWhitespaces>
@@ -58,12 +55,11 @@
       <app-forms-asam-dele  (habilitarCampos)="onMensaje($event)" [datosngautoperfil]="datosngautoperfil" ></app-forms-asam-dele>
     </ng-template>
     <app-table-asambleista ></app-table-asambleista>
-  </ng-container>
 
-  <ng-container *ngIf="activiteNavAsis== true">
+  <!--ng-container *ngIf="activiteNavAsis== true">
     <app-forms-delegado></app-forms-delegado>
     <app-table-delegado></app-table-delegado>
-  </ng-container>
+  </ng-container-->
 
   
   

@@ -32,7 +32,7 @@
                 totalItems : count,
                 id: 'paginado'
                 }; let i = index , index as id ">
-                <th scope="row">{{id}}</th>
+                <th scope="row">{{id+1}}</th>
                 <th >{{item.name}}</th>
                 <td>{{item.email}}</td>
                 <td>
@@ -42,8 +42,9 @@
                   <c-badge *ngIf="item.estado==0" class="ms-2" color="danger" >Deshabilitado</c-badge>
                </td>
                 <td>
-                  <button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
-                  
+                  <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+                  <button (click)="toggleLiveDemo()" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
+
                 </td>
               </tr>
             </ng-container>
@@ -54,7 +55,7 @@
                 totalItems : count,
                 id: 'paginado'
                 }; let i = index , index as id">
-                <th scope="row">{{id}}</th>
+                <th scope="row">{{id+1}}</th>
                 <th>{{item.name}}</th>
                 <td>{{item.email}}</td>
                 <td>
@@ -64,8 +65,8 @@
                   <c-badge *ngIf="item.estado==0" class="ms-2" color="danger" >Deshabilitado</c-badge>
                </td>
                 <td>
-                  <button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
-                  
+                  <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+                  <button (click)="toggleLiveDemo()" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
                 </td>
               </tr>
             </ng-template>
@@ -97,8 +98,9 @@
 
   <!--Modal-->
                    <!--Modal de editar cuenta Asistente-->
-                   <c-modal  backdrop="static" #staticBackdropModal  id="staticBackdropModal" size="lg">  <!--Modal de editar cuenta Asambleista-->
-                    <c-modal-header>
+                   <c-modal backdrop="static" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)"   size="lg">  <!--Modal de editar cuenta Asambleista-->
+                  
+                    <c-modal-header >
                       <h5 cModalTitle>Editar Cuenta de Asistente</h5>
                     </c-modal-header>
                     <c-modal-body>  
@@ -154,12 +156,31 @@
                       </select>
                     <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
                     </c-col>
+                    <c-col md="6" >
+                      <label cLabel  for="validationCustomUsername">Asambleistas</label>
+                          <ng-autocomplete #atributosAutoCompl
+                            [data]="dataAsam"
+                            [searchKeyword]="keyword"
+                            placeholder="Seleccione un asambleista"
+                            (selected)='selectEvent($event)'
+                            [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate"
+                            [minQueryLength]="3"
+                           >
+                          </ng-autocomplete>
+                          <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.name"></a>
+                          </ng-template>
+                          <ng-template #notFoundTemplate let-item>
+                          <div [innerHTML]="notFound"></div>
+                          </ng-template>
+                    </c-col>
                     <!--Botones Editar-->
                     <c-col xs="12">
-                    <button [cModalToggle]="staticBackdropModal.id" (click)="updateAsisCuentas()" cButton class="me-1" color="success" >
+                    <button (click)="toggleLiveDemo()" (click)="updateAsisCuentas()" cButton class="me-1" color="success" >
                     Editar
                     </button>
-                    <button (click)="limpiarModal()"  [cModalToggle]="staticBackdropModal.id" cButton color="danger" type="reset"> 
+                    <button (click)="toggleLiveDemo()" (click)="limpiarModal()"   cButton color="danger" type="reset"> 
                     Cancelar
                     </button>
                     </c-col>

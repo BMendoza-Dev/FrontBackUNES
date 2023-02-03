@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
-import { AssamblymembersService } from '../api/rest/assamblymembers.service';
+import { PerfilAsamService } from '../api/rest/perfil-asam.service';
 
 @Component({
   selector: 'app-asambleistas',
@@ -9,9 +9,9 @@ import { AssamblymembersService } from '../api/rest/assamblymembers.service';
 })
 export class AsambleistasPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  constructor(private rest:AssamblymembersService, public loadCont: LoadingController) { }
+  constructor(private rest:PerfilAsamService, public loadCont: LoadingController) { }
 
-  assambly:any=[];
+  assambly:any = [];
   textoBuscar = "";
    i=0; j=10; i2=0;
   ngOnInit() {
@@ -23,7 +23,7 @@ export class AsambleistasPage implements OnInit {
   }
 
   getAssambly() {
-    this.rest.getAssamblyList().subscribe(response => {
+    /*this.rest.getAssamblyList().subscribe(response => {
       
       for(let i=0; i < response['length']; i++){
         if(response[i].politicalParty == "UNIÓN POR LA ESPERANZA"){
@@ -32,7 +32,12 @@ export class AsambleistasPage implements OnInit {
       }
     
       //event.target.complete();
-    }, error => { console.error('Error login >>' + JSON.stringify(error)); });
+    }, error => { console.error('Error login >>' + JSON.stringify(error)); });*/
+    this.rest.getAssamblyList().then(data =>{
+       this.assambly = data;
+    }).catch(error =>{
+      console.log(error);
+    })
   }
 
   toggleInfiniteScroll() {

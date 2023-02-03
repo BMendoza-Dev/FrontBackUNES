@@ -24,18 +24,13 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'administrador',
-        //canActivate:[AdminLoginGuard],
-        loadChildren:() => import('./views/Administrador/administrador.module').then((m) => m.AdministradorModule)
-      },
-      {
         path: 'asambleista',
         canActivate:[AsambLoginGuard],
         loadChildren:() => import('./views/Asambleista/asambleista.module').then((m) => m.AsambleistaModule)
       },
 
       {
-        path: 'admin',
+        path: 'administrador',
         canActivate:[AdminLoginGuard],
         loadChildren:() => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule)
       },

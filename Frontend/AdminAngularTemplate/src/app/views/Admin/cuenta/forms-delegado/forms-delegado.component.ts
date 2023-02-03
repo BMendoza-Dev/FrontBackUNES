@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import Swal from 'sweetalert2';
 import {AdministradorService} from './../../../../servicios/administrador.service';
@@ -11,6 +11,8 @@ import {AdministradorService} from './../../../../servicios/administrador.servic
 export class FormsDelegadoComponent implements OnInit{
 
   constructor(private adminService: AdministradorService, private localServi:LocalProyectService){}
+
+  @ViewChild('atributosAutoCompl') auComple: any;
 
   nombre_apellidoAsistente = ""; correoAsistente = ""; contrasenaAsistente = ""; asambleistaPerfil = "";
   customStylesValidated2 = false; iconEyeAsistente:string = "password"; dataAsmbleista:any = []; keyword = 'name';
@@ -42,12 +44,21 @@ export class FormsDelegadoComponent implements OnInit{
     this.idAsambleiApiAsis = item.id;
     this.asamPerfil = true;
   }
-  onChangeSearch(cs:Event){}
-  onFocused(f:any){}
+  onChangeSearch(cs:Event){
+    this.auComple;
+    debugger
+  }
+  onFocused(f:any){
+
+    this.auComple;
+    debugger
+  }
 
   onClear(c:any){
     this.asamPerfil = false;
-    
+    c;
+    this.auComple;
+    debugger
   }
 
   guardarCuentaAsistente(){
@@ -97,6 +108,8 @@ export class FormsDelegadoComponent implements OnInit{
     this.contrasenaAsistente = "";
     this.idAsambleiApiAsis = "";
     this.asamPerfil = false;
+    this.auComple.query = "";
+    debugger
     this.localServi.emitirEventoTablaAsistente();
     console.log('Reset... 2');
   }
