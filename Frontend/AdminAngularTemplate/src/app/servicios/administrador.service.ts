@@ -42,6 +42,23 @@ export class AdministradorService {
     });
   }
 
+  cargarCuentaAdmin(){
+    let  url = 'http://127.0.0.1:8000/api/Admin';
+    let token = localStorage.getItem("token");
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    
+    return new Promise ((resolve, reject) => {
+      this.http.get(url, {headers: httpheaders}).subscribe(res => {
+        resolve(res);{
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
   cargarPerfiles(){
     let  url = 'http://127.0.0.1:8000/api/ListarPerfiles';
     let token = localStorage.getItem("token");

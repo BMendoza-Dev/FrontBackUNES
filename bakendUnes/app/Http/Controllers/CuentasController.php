@@ -41,6 +41,19 @@ class CuentasController extends Controller
            return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
     }
 
+    public function administrador(){
+        $datos = User::whereHas('rol', function($q){
+            $q->where('id', 1);
+        })->with('rol')->get();
+      
+        $num_rows = count($datos);
+        if($num_rows!=0){
+           return response()->json($datos);
+       }else
+       
+           return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
+    }
+
 
     public function validar ($correo){
 

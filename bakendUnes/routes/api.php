@@ -38,6 +38,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);
+    Route::get('Admin', [CuentasController::class, 'administrador']);
     
 
     Route::post('Register',[AuthController::class, 'Register']);
