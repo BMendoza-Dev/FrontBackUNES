@@ -120,5 +120,11 @@ class PerfilesController extends Controller
         $validacion= Perfil::where('active',1)->get();
         return response()->json($validacion);
     }
+
+    public function ObtenerImagen (){
+        dd("holamundo");
+        $datos=Perfil::where('id', $id)->with('Imagen')->get();
+        return response()->json($datos);
+    }
 }
 

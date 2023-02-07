@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('divisionterritorials', function (Blueprint $table) {
             $table->id();
-            //$table->timestamps();
+  
             $table->string('name');
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisionterritorial');
+        Schema::dropIfExists('divisionterritorials');
     }
 };

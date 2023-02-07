@@ -29,12 +29,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
+
 Route::post('Login',[AuthController::class, 'Login']);
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
 
-    Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
+  //  Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
+  //  Route::get('ObtenerImagen',[PerfilesController::class, 'ObtenerImagen']);
 
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);
