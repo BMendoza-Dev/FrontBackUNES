@@ -9,6 +9,8 @@ import { RegisterComponent } from './views/pages/register/register.component';
 
 import {AdminLoginGuard} from './guards/admin-login.guard';
 import {AsambLoginGuard} from './guards/asamb-login.guard';
+import {InicioLoginGuard} from './guards/inicio-login.guard'
+
 
 export const routes: Routes = [
   {
@@ -26,7 +28,7 @@ export const routes: Routes = [
       {
         path: 'asambleista',
         canActivate:[AsambLoginGuard],
-        loadChildren:() => import('./views/Asambleista/asambleista.module').then((m) => m.AsambleistaModule)
+        loadChildren:() => import('./views/Asambleista/perfil/perfil.module').then((m) => m.PerfilModule)
       },
 
       {
@@ -38,7 +40,8 @@ export const routes: Routes = [
 
 
       {
-        path: 'dashboard',
+        path: 'inicio',
+        canActivate:[InicioLoginGuard],
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
@@ -117,7 +120,7 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'inicio'}
 ];
 
 @NgModule({

@@ -8,24 +8,34 @@ import { AdministradorService } from 'src/app/servicios/administrador.service';
 })
 export class FormsAdministradorComponent implements OnInit {
 
-  iconEyeAsam = "password"
+  iconEyeContr = "password"
+  iconEyeConfContr = "password"
   usuario:string= "";
   correo:string = "";
   contrasena:string = "";
   contrasenaConf:string = "";
   usuarioEdit:string= "";
   correoEdit:string = "";
+  msmConfContrasena:string="";
   constructor(private adminService: AdministradorService){}
 
   ngOnInit(){
     this.cargarInputAdmin();
   }
 
-  cambiarIconAsam(){ //Cambio de Icono en el Password Input Asambleista
-    if(this.iconEyeAsam == "text"){
-      this.iconEyeAsam = "password";
+  cambiarIconContr(){ //Cambio de Icono en el Password Input Asambleista
+    if(this.iconEyeContr == "text"){
+      this.iconEyeContr = "password";
     }else{
-      this.iconEyeAsam = "text";
+      this.iconEyeContr = "text";
+    }
+  }
+
+  cambiarIconConfContr(){ //Cambio de Icono en el Password Input Asambleista
+    if(this.iconEyeConfContr == "text"){
+      this.iconEyeConfContr = "password";
+    }else{
+      this.iconEyeConfContr = "text";
     }
   }
 
@@ -65,19 +75,25 @@ export class FormsAdministradorComponent implements OnInit {
   }
 
   update(){
-    let data = {
-      'name': this.usuarioEdit,
-      'email': this.correoEdit,
-      'password': this.contrasenaConf,
-      'perfil_id': 1,
-      'estado': 1,
-      'id': 1
-    };
-    this.adminService.updateAsamAsisCuentas(data).then(data => {
-      this.onReset1();
-    }).catch(error =>{
-      console.log(error);
-    })
+    if(this.contrasena == this.contrasenaConf){
+      debugger
+      let data = {
+        'name': this.usuarioEdit,
+        'email': this.correoEdit,
+        'password': this.contrasenaConf,
+        'perfil_id': 1,
+        'estado': 1,
+        'id': 1
+      };
+      this.adminService.updateAsamAsisCuentas(data).then(data => {
+        this.onReset1();
+      }).catch(error =>{
+        console.log(error);
+      })
+    }else{
+      this.msmConfContrasena = "La contraseña no coincide!"
+    }
+    
   }
 
   onReset1(){

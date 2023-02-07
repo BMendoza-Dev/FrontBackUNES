@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminLoginGuard implements CanActivate {
+export class InicioLoginGuard implements CanActivate {
+
   constructor(private rutas:Router){}
   canActivate(){
     let inicio = localStorage.getItem('sesionLoginInicio');
 
     if(!inicio){
       this.rutas.navigate(["/login"]);
+      debugger
       return false;
-      
-    }else if(inicio != "1"){
-      
-      return false;
+    }else{
+      debugger
+      return true;
     }
-    return true;
+    
   }
   
 }

@@ -39,14 +39,14 @@ export class LoginComponent implements OnInit{
           //localStorage.setItem('rol', this.arrayData['result'][0].rol.rol);
           //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
           if(this.arrayData['usuario'][0]['rol'].id == 1){
-            
-            this.rutas.navigate(['/admin/Cuentas']);
+            debugger
+            this.rutas.navigate(['/inicio']);
           }else if(this.arrayData['usuario'][0]['rol'].id == 2){
             localStorage.setItem('color', '1');
-            this.rutas.navigate(['/asambleista']);
+            this.rutas.navigate(['/inicio']);
           }else if(this.arrayData['usuario'][0]['rol'].id == 3){
             localStorage.setItem('color', '1');
-            this.rutas.navigate(['/delegado/']);
+            this.rutas.navigate(['/inicio']);
           }else{
             this.rutas.navigate(['/404']);
             

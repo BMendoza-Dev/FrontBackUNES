@@ -10,8 +10,8 @@ export class DefaultLayoutComponent implements OnInit{
 
   parentMessage = "message from parent";
 
-  public navItems = navItemsAdmin;
-  Rol=localStorage.getItem('rol');
+  public navItems:any;
+  Rol=localStorage.getItem('sesionLoginInicio');
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };
@@ -21,11 +21,14 @@ export class DefaultLayoutComponent implements OnInit{
   constructor() {}
 
   ngOnInit(): void {
-    if(this.Rol == "Administrador"){
+    debugger
+    if(this.Rol == "1"){
+      debugger
       this.navItems = navItemsAdmin;
-    }else if(this.Rol == "Asambleista"){
+    }else if(this.Rol == "2"){
+      debugger
       this.navItems = navItemsAsamb;
-    }else if (this.Rol == "Delegado"){
+    }else if (this.Rol == "3"){
 
     }
     

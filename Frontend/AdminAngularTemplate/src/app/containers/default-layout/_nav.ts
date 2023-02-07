@@ -2,8 +2,8 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
-    url: '/dashboard',
+    name: 'inicio',
+    url: '/inicio',
     iconComponent: { name: 'cil-speedometer' },
     badge: {
       color: 'info',
@@ -251,16 +251,16 @@ export const navItemsAdmin: INavData[] = [
     iconComponent: { name: 'cil-user' },
     children:[
       {
+        name: 'Administrador',
+        url: '/administrador/admin',
+      },
+      {
         name: 'Asambleistas',
         url: '/administrador/asambleistas',
       },
       {
         name: 'Delegados',
         url: '/administrador/delegados',
-      },
-      {
-        name: 'Administrador',
-        url: '/administrador/admin',
       }
   ]
   },
@@ -273,8 +273,8 @@ export const navItemsAsamb: INavData[] = [
     name: 'Asambleista'
   },
   {
-    name: 'Cuentas',
-    url: '/asambleista/cuentas-asambleista',
+    name: 'Perfil',
+    url: '/asambleista/personalPerfile',
     iconComponent: { name: 'cil-user' }
   },
 ];
