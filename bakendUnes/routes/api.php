@@ -37,6 +37,8 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
     Route::get('ObtenerImagen',[PerfilesController::class, 'ObtenerImagen']);
+    Route::get('ObtenerAsambleistaTerritorio',[PerfilesController::class, 'ObtenerAsambleistaTerritorio']);
+    Route::get('ObtenerTerritorio',[PerfilesController::class, 'ObtenerTerritorio']);
 
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);

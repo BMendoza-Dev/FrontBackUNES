@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('divisionterritorials', function (Blueprint $table) {
             $table->id();
-  
             $table->string('name');
         });
     }

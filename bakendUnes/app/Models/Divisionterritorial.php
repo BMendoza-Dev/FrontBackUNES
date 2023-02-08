@@ -13,4 +13,6 @@ class Divisionterritorial extends Model
     protected $fillable = [
         'name'
       ];
+
+      
 }

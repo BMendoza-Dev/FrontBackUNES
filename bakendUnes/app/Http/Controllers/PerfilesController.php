@@ -128,5 +128,21 @@ class PerfilesController extends Controller
        
         return  response()->json(base64_encode($datos[0]->Imagen['imagen']));
     }
+
+    public function ObtenerAsambleistaTerritorio (Request $request){
+     
+        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->get();
+
+       
+        return  response()->json($datos);
+    }
+
+    public function ObtenerTerritorio (){
+     
+        $datos=Divisionterritorial::get();
+
+       
+        return  response()->json($datos);
+    }
 }
 
