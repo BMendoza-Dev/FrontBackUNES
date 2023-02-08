@@ -121,10 +121,12 @@ class PerfilesController extends Controller
         return response()->json($validacion);
     }
 
-    public function ObtenerImagen (){
-        dd("holamundo");
-        $datos=Perfil::where('id', $id)->with('Imagen')->get();
-        return response()->json($datos);
+    public function ObtenerImagen (Request $request){
+     
+        $datos=Perfil::where('id', $request->id)->with('Imagen')->get();
+
+       
+        return response()->json( mb_convert_encoding($datos[0]->Imagen['imagen'], 'UTF-8', 'UTF-8'));
     }
 }
 
