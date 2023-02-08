@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {AdministradorService} from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 import {LocalProyectService} from './../../../../servicios/local-proyect.service';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-table-delegado',
   templateUrl: './table-delegado.component.html',
@@ -9,7 +10,7 @@ import {LocalProyectService} from './../../../../servicios/local-proyect.service
 })
 export class TableDelegadoComponent implements OnInit{
 
-  constructor (private administradorService: AdministradorService, private locaServicio:LocalProyectService){
+  constructor (private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio:LocalProyectService){
     locaServicio.$emitter2.subscribe(() => {
       this.cargarTabla();
     });
@@ -28,7 +29,6 @@ export class TableDelegadoComponent implements OnInit{
 
   ngOnInit(): void {
     
-    debugger
     this.cargarTabla();
     this.cargarCuentaAsambleistaAutoCom();
   }
@@ -37,10 +37,12 @@ export class TableDelegadoComponent implements OnInit{
   editContrasenaAsistente:any= ""; iconEyeAsam:string = "password"; datosAsistenteInput:any=[];
   estado:number; id:number; id_perfil:number; dataAsam:any=[];
   cargarTabla(){
+    this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
    this.administradorService.cargarCuentaAsistente().then(data =>{
      this.dataTabla = data;
      this.limpiarModal();
+     this.spinner.hide('sample');
    }).catch(error =>{
      console.log(error);
    })
@@ -60,7 +62,7 @@ export class TableDelegadoComponent implements OnInit{
     }
 
     updateAsisCuentas(){
-      debugger
+      
       let formUpdateAsambleista = {
         'name':this.editNombre_ApellidoAsambleista.toUpperCase(),
         'email':this.editCorreoAsistente,
@@ -69,9 +71,23 @@ export class TableDelegadoComponent implements OnInit{
         'estado': this.estado,
         'id' : this.id
       }
-      debugger
+      
       this.administradorService.updateAsamAsisCuentas(formUpdateAsambleista).then(data =>{
-        data
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: false,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: 'Cuenta actualizada!'
+        })
         this.cargarTabla();
       }).catch(error =>{
         console.log(error);
@@ -86,7 +102,7 @@ export class TableDelegadoComponent implements OnInit{
       this.datosAsistenteInput.push(estado);
       this.datosAsistenteInput.push(id);
       this.datosAsistenteInput.push(perfil_id)
-      debugger
+      
       this.cargarCamposModalEdit();
       
     }
@@ -97,7 +113,7 @@ export class TableDelegadoComponent implements OnInit{
       this.estado = this .datosAsistenteInput[2];
       this.id = this.datosAsistenteInput[3];
       this.id_perfil = this.datosAsistenteInput[4];
-      debugger
+      
     }
 
     
@@ -108,26 +124,26 @@ export class TableDelegadoComponent implements OnInit{
       this.search = "";
       this.auComple.query = "";
       this.paginados;
-      debugger
+      
     }
 
     onTableDataChange(event:any){
       this.page = event;
-      debugger
+      
     }
 
     cuentasFilter:any = [];
   dataPaginate(_event:any){
     this.cuentasFilter=[];
     if(this.search == ""){
-      debugger
+      
     }else{
-      debugger
+      
       for (const x of this.dataTabla) {
-        debugger
+        
         if(x.name.indexOf(this.search.toUpperCase()) > -1){
          this.cuentasFilter.push(x);
-         debugger
+         
        };
       };
       this.cuentasFilter
@@ -141,7 +157,7 @@ export class TableDelegadoComponent implements OnInit{
       this.dataAsam = data;
       //this.POSTS = this.dataTabla;
       //this.limpiarModal();
-      debugger
+      
     }).catch(error =>{
       console.log(error);
     })
@@ -150,7 +166,7 @@ export class TableDelegadoComponent implements OnInit{
   notFound:any = "No se encuentra asambleista";
   selectEvent(item:any) { 
     // Evento para obtener valor del ng-autocomplete
-    debugger
+    
     this.cargarCuentaAsambleistaAutoCom();
     this.id_perfil = item.perfil_id;
     
@@ -167,5 +183,15 @@ export class TableDelegadoComponent implements OnInit{
   handleLiveDemoChange(event: any) {
     this.visible = event;
   }
+
+  spinnerConfig = {
+    bdColor: 'rgba(0, 0, 0, 0.8)',
+    size: 'medium',
+    color: '#fff',
+    type: 'square-jelly-box',
+    fullScreen: true,
+    template: null,
+    showSpinner: false
+  };
 
 }

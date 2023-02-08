@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component';
 import { CuentaRoutingModule } from './cuenta-routing.module';
@@ -43,6 +43,8 @@ import { TableAsambleistaComponent } from './table-asambleista/table-asambleista
 import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
 import { TableDelegadoComponent } from './table-delegado/table-delegado.component';
 import { FormsAdministradorComponent } from './forms-administrador/forms-administrador.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 
 @NgModule({
@@ -52,9 +54,11 @@ import { FormsAdministradorComponent } from './forms-administrador/forms-adminis
     TableAsambleistaComponent,
     FormsDelegadoComponent,
     TableDelegadoComponent,
-    FormsAdministradorComponent,
+    FormsAdministradorComponent
   ],
   imports: [
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+    ReactiveFormsModule,
     CommonModule,
     NgxPaginationModule,
     CuentaRoutingModule,

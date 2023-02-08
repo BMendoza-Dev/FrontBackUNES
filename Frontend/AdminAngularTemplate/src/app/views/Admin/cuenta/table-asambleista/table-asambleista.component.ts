@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdministradorService} from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
-
+import { NgxSpinnerService } from "ngx-spinner";
 import {LocalProyectService} from './../../../../servicios/local-proyect.service';
 
 @Component({
@@ -13,9 +13,10 @@ export class TableAsambleistaComponent implements OnInit {
  //{{ itemsPerPage * (currentPage - 1) + i }}
 
 
-  constructor( private administradorService:AdministradorService, private locaServicio: LocalProyectService){
+  constructor(private spinner: NgxSpinnerService, private administradorService:AdministradorService, private locaServicio: LocalProyectService){
     
     locaServicio.$emitter.subscribe(() => {
+      
       this.cargarTabla();
     });
   };
@@ -39,7 +40,10 @@ export class TableAsambleistaComponent implements OnInit {
   id_perfil:string = ""; id:string = ""; num:number = 1;
 
   ngOnInit():void{ 
+    
     this.cargarTabla();
+    
+    
   }
 
   onSubmit(){
@@ -60,7 +64,7 @@ export class TableAsambleistaComponent implements OnInit {
   }
 
   updateAsambCuentas(){
-    debugger
+    
     let formUpdateAsambleista = {
       'name':this.editNombre_ApellidoAsambleista.toUpperCase(),
       'email':this.editCorreoAsambleista,
@@ -69,8 +73,23 @@ export class TableAsambleistaComponent implements OnInit {
       'estado': this.estado,
       'id' : this.id
     }
-    debugger
+    
     this.administradorService.updateAsamAsisCuentas(formUpdateAsambleista).then(data =>{
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Cuenta actualizada!'
+      })
       this.cargarTabla();
       
     }).catch(error =>{
@@ -87,12 +106,13 @@ export class TableAsambleistaComponent implements OnInit {
   }
 
   cargarTabla(){
+    this.spinner.show('sample');
      //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaAsambleista().then(data =>{
       this.dataTabla = data;
       //this.POSTS = this.dataTabla;
       this.limpiarModal();
-      debugger
+      this.spinner.hide('sample');
     }).catch(error =>{
       console.log(error);
     })
@@ -106,7 +126,7 @@ export class TableAsambleistaComponent implements OnInit {
     this.datosAsambleistasInput.push(estado);
     this.datosAsambleistasInput.push(id);
     this.datosAsambleistasInput.push(perfil_id)
-    debugger
+    
     this.cargarCamposModalEdit();
     //this.locaServicio.emitirEventoModalAsalbleistaEditar();
   }
@@ -117,20 +137,20 @@ export class TableAsambleistaComponent implements OnInit {
     this.estado = this.datosAsambleistasInput[2];
     this.id = this.datosAsambleistasInput[3];
     this.id_perfil = this.datosAsambleistasInput[4];
-    debugger
+    
   }
 
   idCont:number=1;
   onTableDataChange(event:any){
     this.page = event;
     this.idCont; 
-    debugger
+    
   }
 
   /*onTableSizeChange(event:any):void{
     this.tableSize = event.target.value;
     this.page = 1;
-    debugger
+    
   }*/
 
   cuentasFilter:any = [];
@@ -138,22 +158,27 @@ export class TableAsambleistaComponent implements OnInit {
     this.cuentasFilter=[];
       //this.cuentasPaginateFilter=[];
     if(this.search==""){
-      debugger
+      
       //this.citasMGPaginate = this.citasMG.slice(0, 10);
     }else{
-      debugger
+      
       for (const x of this.dataTabla) {
-        debugger
         if(x.name.indexOf(this.search.toUpperCase()) > -1){
          this.cuentasFilter.push(x);
-         debugger
        };
-       
       };
-      this.cuentasFilter
-      debugger
-      //this.cuentasPaginateFilter = this.cuentasFilter.slice(0, 10);
-
+      this.cuentasFilter;
     }
   }
+
+  spinnerConfig = {
+    bdColor: 'rgba(0, 0, 0, 0.8)',
+    size: 'medium',
+    color: '#fff',
+    type: 'square-jelly-box',
+    fullScreen: true,
+    template: null,
+    showSpinner: false
+  };
+
 }

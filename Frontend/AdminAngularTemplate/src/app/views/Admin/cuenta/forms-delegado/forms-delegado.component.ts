@@ -40,25 +40,25 @@ export class FormsDelegadoComponent implements OnInit{
   
   selectEventAsis(item:any) { // Evento para obtener valor del ng-autocomplete
     this.cargarCuentasAsambleista();
-    debugger
+    
     this.idAsambleiApiAsis = item.id;
     this.asamPerfil = true;
   }
   onChangeSearch(cs:Event){
     this.auComple;
-    debugger
+    
   }
   onFocused(f:any){
 
     this.auComple;
-    debugger
+    
   }
 
   onClear(c:any){
     this.asamPerfil = false;
     c;
     this.auComple;
-    debugger
+    
   }
 
   guardarCuentaAsistente(){
@@ -109,7 +109,7 @@ export class FormsDelegadoComponent implements OnInit{
     this.idAsambleiApiAsis = "";
     this.asamPerfil = false;
     this.auComple.query = "";
-    debugger
+    
     this.localServi.emitirEventoTablaAsistente();
     console.log('Reset... 2');
   }

@@ -21,12 +21,12 @@ export class DefaultLayoutComponent implements OnInit{
   constructor() {}
 
   ngOnInit(): void {
-    debugger
+    
     if(this.Rol == "1"){
-      debugger
+      
       this.navItems = navItemsAdmin;
     }else if(this.Rol == "2"){
-      debugger
+      
       this.navItems = navItemsAsamb;
     }else if (this.Rol == "3"){
 

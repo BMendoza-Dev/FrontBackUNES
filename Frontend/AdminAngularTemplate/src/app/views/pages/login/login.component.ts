@@ -34,12 +34,13 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('token', this.arrayData['token']);
           localStorage.setItem('email', this.email);
           localStorage.setItem('sesionLoginInicio', this.arrayData['usuario'][0]['rol'].id);
-          
+          localStorage.setItem('idAsambPerf',this.arrayData['usuario'][0].perfil_id);
+          debugger
           //localStorage.setItem('sesionLogin', this.arrayData['result'][0].id_cuenta);
           //localStorage.setItem('rol', this.arrayData['result'][0].rol.rol);
           //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
           if(this.arrayData['usuario'][0]['rol'].id == 1){
-            debugger
+            
             this.rutas.navigate(['/inicio']);
           }else if(this.arrayData['usuario'][0]['rol'].id == 2){
             localStorage.setItem('color', '1');

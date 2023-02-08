@@ -1,12 +1,105 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { ValidationFormsService } from "./../../../../servicios/validation-forms.service";
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+
+/** passwords must match - custom validator */
+export class PasswordValidators {
+  static confirmPassword(control: AbstractControl): ValidationErrors | null {
+    const password = control.get("password");
+    const confirm = control.get("confirmPassword");
+    if (password?.valid && password?.value === confirm?.value) {
+      confirm?.setErrors(null);
+      return null;
+    }
+    confirm?.setErrors({ passwordMismatch: true });
+    return { passwordMismatch: true };
+  }
+}
 
 @Component({
   selector: 'app-forms-administrador',
   templateUrl: './forms-administrador.component.html',
-  styleUrls: ['./forms-administrador.component.scss']
+  styleUrls: ['./forms-administrador.component.scss'],
+  providers: [ValidationFormsService]
 })
 export class FormsAdministradorComponent implements OnInit {
+
+  simpleForm!: FormGroup;
+  submitted = false;
+  formErrors: any;
+  formControls!: string[];
+
+  constructor(private spinner: NgxSpinnerService, private adminService: AdministradorService, private formBuilder: FormBuilder,
+    public validationFormsService: ValidationFormsService, public rutas:Router){
+      this.formErrors = this.validationFormsService.errorMessages;
+    this.createForm();
+    }
+
+    createForm() {
+      this.simpleForm = this.formBuilder.group(
+        {
+          //firstName: ["", [Validators.required]],
+          //lastName: ["", [Validators.required]],
+          username: [
+            "",
+            [
+              Validators.required,
+              Validators.minLength(this.validationFormsService.formRules.usernameMin),
+              Validators.pattern(this.validationFormsService.formRules.nonEmpty)
+            ]
+          ],
+          email: ["", [Validators.required, Validators.email]],
+          password: [
+            "",
+            [
+              Validators.required,
+              Validators.minLength(this.validationFormsService.formRules.passwordMin),
+              Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+            ]
+          ],
+          confirmPassword: [
+            "",
+            [
+              Validators.required,
+              Validators.minLength(this.validationFormsService.formRules.passwordMin),
+              Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+            ]
+          ],
+          accept: [false, [Validators.requiredTrue]]
+        },
+        { validators: [PasswordValidators.confirmPassword] }
+      );
+      this.formControls = Object.keys(this.simpleForm.controls);
+    }
+
+    onReset() {
+      this.submitted = false;
+      this.simpleForm.reset();
+    }
+
+    onValidate() {
+      this.submitted = true;
+
+      // stop here if form is invalid
+      return this.simpleForm.status === "VALID";
+    }
+
+    onSubmit() {
+      console.warn(this.onValidate(), this.simpleForm.value);
+
+      if (this.onValidate()) {
+        // TODO: Submit form value
+        console.warn(this.simpleForm.value);
+        alert("SUCCESS!");
+        this.update();
+        this.salir(); 
+        this.rutas.navigate(['./']);
+      }
+    }
+
 
   iconEyeContr = "password"
   iconEyeConfContr = "password"
@@ -16,8 +109,7 @@ export class FormsAdministradorComponent implements OnInit {
   contrasenaConf:string = "";
   usuarioEdit:string= "";
   correoEdit:string = "";
-  msmConfContrasena:string="";
-  constructor(private adminService: AdministradorService){}
+  
 
   ngOnInit(){
     this.cargarInputAdmin();
@@ -39,25 +131,20 @@ export class FormsAdministradorComponent implements OnInit {
     }
   }
 
-  customStylesValidated1 = false;
-  onSubmit1(){
-    this.customStylesValidated1 = true;
-  }
 
   datos:any = []
   cargarInputAdmin(){
+    this.spinner.show('sample');
     this.adminService.cargarCuentaAdmin().then(data =>{
       this.datos = data;
       this.usuario = this.datos[0].name;
       this.correo = this.datos[0].email;
-
-      debugger
+      this.spinner.hide('sample');
     }).catch(error =>{
       console.log(error);
     })
   }
 
-  
 
   mostrarInput:boolean = true;
   editarInput:boolean = false;
@@ -74,9 +161,8 @@ export class FormsAdministradorComponent implements OnInit {
     this.correoEdit = this.correo;
   }
 
+  conConVal:any;
   update(){
-    if(this.contrasena == this.contrasenaConf){
-      debugger
       let data = {
         'name': this.usuarioEdit,
         'email': this.correoEdit,
@@ -86,14 +172,10 @@ export class FormsAdministradorComponent implements OnInit {
         'id': 1
       };
       this.adminService.updateAsamAsisCuentas(data).then(data => {
-        this.onReset1();
+        this.onReset();
       }).catch(error =>{
         console.log(error);
       })
-    }else{
-      this.msmConfContrasena = "La contraseña no coincide!"
-    }
-    
   }
 
   onReset1(){
@@ -101,8 +183,27 @@ export class FormsAdministradorComponent implements OnInit {
     this.usuarioEdit = "";
     this.contrasena = "";
     this.contrasenaConf = "";
-    this.customStylesValidated1 = false;
+    this.conConVal = undefined;
   }
+
+  salir(){
+    localStorage.removeItem('sesionLogin');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('color');
+    localStorage.removeItem('sesionLoginInicio');
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+  }
+
+  spinnerConfig = {
+    bdColor: 'rgba(0, 0, 0, 0.8)',
+    size: 'medium',
+    color: '#fff',
+    type: 'square-jelly-box',
+    fullScreen: true,
+    template: null,
+    showSpinner: false
+  };
 
 
 }

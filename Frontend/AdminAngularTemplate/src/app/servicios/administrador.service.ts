@@ -122,7 +122,7 @@ export class AdministradorService {
     formData.append('perfil_id', data.perfil_id);
     formData.append('estado', data.estado);
     formData.append('id', data.id);
-    debugger
+    
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer "+ token
     });
@@ -135,5 +135,17 @@ export class AdministradorService {
         reject(error);
       });
     });
+  }
+
+  getImg(){
+    let  url = 'http://127.0.0.1:8000/api/ObtenerImagen?id='+localStorage.getItem('idAsambPerf');
+    let token = localStorage.getItem("token");
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer "+ token
+    });
+    
+      return this.http.get(url,{headers: httpheaders});
+
   }
 }

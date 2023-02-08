@@ -13,10 +13,10 @@ export class InicioLoginGuard implements CanActivate {
 
     if(!inicio){
       this.rutas.navigate(["/login"]);
-      debugger
+      
       return false;
     }else{
-      debugger
+      
       return true;
     }
     
