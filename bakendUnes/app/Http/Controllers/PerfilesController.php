@@ -126,7 +126,7 @@ class PerfilesController extends Controller
         $datos=Perfil::where('id', $request->id)->with('Imagen')->get();
 
        
-        return response()->json( mb_convert_encoding($datos[0]->Imagen['imagen'], 'UTF-8', 'UTF-8'));
+        return  response()->json(base64_encode(mb_convert_encoding($datos[0]->Imagen['imagen'], 'UTF-8', 'UTF-8')));
     }
 }
 
