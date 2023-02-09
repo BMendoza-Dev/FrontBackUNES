@@ -117,7 +117,7 @@ class PerfilesController extends Controller
     }
 
     public function ListarPerfiles (){
-        $validacion= Perfil::where('active',1)->get();
+        $validacion= Perfil::where('active',1)->with('Imagen')->get();
         return response()->json($validacion);
     }
 
@@ -126,7 +126,7 @@ class PerfilesController extends Controller
         $datos=Perfil::where('id', $request->id)->with('Imagen')->get();
 
        
-        return  response()->json(base64_encode($datos[0]->Imagen['imagen']));
+        return  response()->json($datos[0]->Imagen['imagen']);
     }
 
     public function ObtenerAsambleistaTerritorio (Request $request){
