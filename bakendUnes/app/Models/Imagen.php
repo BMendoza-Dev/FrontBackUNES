@@ -15,7 +15,7 @@ class Imagen extends Model
     {
         return Attribute::make(
             get: fn ($value) => base64_encode($value),
-           
+            
         );
     }
 

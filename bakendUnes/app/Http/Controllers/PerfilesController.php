@@ -118,6 +118,7 @@ class PerfilesController extends Controller
 
     public function ListarPerfiles (){
         $validacion= Perfil::where('active',1)->with('Imagen')->get();
+        $validacion->pull('0');
         return response()->json($validacion);
     }
 
@@ -130,11 +131,12 @@ class PerfilesController extends Controller
     }
 
     public function ObtenerAsambleistaTerritorio (Request $request){
-     
-        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->get();
+       
+        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('Imagen')->get();
+        //$datos[0]->pull('name');
 
        
-        return  response()->json($datos);
+        return  response()->json($datos[0]);
     }
 
     public function ObtenerTerritorio (){
