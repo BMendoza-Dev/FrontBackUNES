@@ -134,7 +134,7 @@ class PerfilesController extends Controller
        
         $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('Imagen')->get();
 
-        return  response()->json($datos[0]);
+        return  response()->json($datos);
     }
 
     public function ObtenerTerritorio (){
