@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LoadingController } from '@ionic/angular';
 import { AmbitoTerritorialService } from '../api/rest/ambito-territorial.service';
 import { AssamblymembersService } from '../api/rest/assamblymembers.service';
@@ -11,7 +12,7 @@ import { AssamblymembersService } from '../api/rest/assamblymembers.service';
 export class AmbitoterritorialPage implements OnInit {
   private loading;
   y: number;
-  constructor(private rest:AmbitoTerritorialService, private loadCont: LoadingController, private restAss:AssamblymembersService) { }
+  constructor(private sanitizer: DomSanitizer,private rest:AmbitoTerritorialService, private loadCont: LoadingController, private restAss:AssamblymembersService) { }
   
   ambitoTerr:any=[];
   asamTerritorial:any=[];
@@ -29,6 +30,7 @@ export class AmbitoterritorialPage implements OnInit {
     this.rest.getTerritorialList().subscribe(response => {
       this.y=0;
       this.ambitoTerr=response;
+      
       
         //this.territorialList = response;
         //this.territorialListFiltered = this.territorialList;
@@ -64,16 +66,49 @@ export class AmbitoterritorialPage implements OnInit {
     
   }
 
+  asambleTerri:any = []; thumbnail: any;
   ambTerri(lisAsamble : string){
-    this.asamTerritorial=[];
-    for(let i=0; i < this.assambly['length']; i++){
-      if(this.assambly[i].territorialDivision == lisAsamble){
-        this.asamTerritorial.push(this.assambly[i]);
+    this.rest.getAsambleistaTerritorio(lisAsamble).subscribe(response =>{
+      this.asambleTerri=response;
+      
+      if(this.asambleTerri.length == 0){
+        this.NullAsa = true;
+      }else{
+        var datoPrueba:any = [{id: '', lastName: '', firstName: '',imagen: ''}];
+       for (var i = 0; i < this.asambleTerri.length; i++) {
+        let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['imagen'].imagen;
+        this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          datoPrueba.push({
+            "id" : this.asambleTerri[i].id,
+            "lastName" : this.asambleTerri[i].lastName,
+            "firstName": this.asambleTerri[i].firstName,
+            "imagen": this.thumbnail
+          }); 
+        }
+        debugger
+
+        this.asambleTerri = datoPrueba;
       }
-    }
-    this.asamTerritorial;
-    
+      this.load = false;
+    },error => {console.error('Error login >>' + JSON.stringify(error)); });
   }
+
+  @ViewChild('listenerOut', { static: false }) listenerOut: ElementRef;
+
+  load:boolean; NullAsa:boolean;
+  accordionGroupChange = (ev: any) => {
+    let lisAsa
+    if( ev['detail'].value != undefined){
+      this.load = true;
+      this.NullAsa = false;
+      lisAsa = ev['detail'].value;
+      this.asambleTerri = [];
+      this.ambTerri(lisAsa);
+    }else{
+      this.load = false;
+    }
+    
+  };
 
 
 }

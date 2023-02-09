@@ -13,18 +13,48 @@
 </ion-header>
 
 <ion-content>
-  <ion-accordion-group multiple="false" expand="inset" >
-    <ion-accordion style="margin-top: 5px;"  *ngFor="let item of ambitoTerr" >
-      <ion-item (click)="ambTerri(item.name)" name="ambTerr" slot="header" color="rose">
-        <ion-label class="provi">{{item.name}}</ion-label>
+  <ion-accordion-group (ionChange)="accordionGroupChange($event)" multiple="false" expand="inset" >
+    <ion-accordion style="margin-top: 5px;"  *ngFor="let item of ambitoTerr" value="{{item.name}}"  >
+      <ion-item  id="ambTerr" name="ambTerr" slot="header" color="rose">
+        <ion-label class="provi" >{{item.name}}</ion-label>
       </ion-item>
       
-      <div  class="ion-padding" slot="content" >
-        First Content
-      </div>
+      <ion-label *ngFor="let itemAsam of asambleTerri" class="ion-padding" slot="content" >
+        <div>
+          <img width="30" heigth="30" src="{{itemAsam.imagen.changingThisBreaksApplicationSecurity}}"/>
+        </div>
+        <h3>{{itemAsam.firstName}} {{itemAsam.lastName}}</h3>
+      </ion-label>
+
+      <ion-label *ngIf="load == true" class="ion-padding" slot="content">
+        <h3>Cargando...</h3>
+      </ion-label>
+      <ion-label *ngIf="NullAsa == true" class="ion-padding" slot="content">
+        <h3>No existen asambleistas...</h3>
+      </ion-label>
     </ion-accordion>
   </ion-accordion-group>
 
+  <!--ion-accordion-group (ionChange)="accordionGroupChange($event)">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>First Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">First Content</div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>Second Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Second Content</div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-label>Third Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Third Content</div>
+    </ion-accordion>
+  </ion-accordion-group-->
 </ion-content>
 <!--ion-accordion-group expand="inset">
   <ion-accordion value="first">

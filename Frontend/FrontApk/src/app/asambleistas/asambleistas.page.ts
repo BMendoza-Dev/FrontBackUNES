@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
 import { PerfilAsamService } from '../api/rest/perfil-asam.service';
 
@@ -9,7 +10,7 @@ import { PerfilAsamService } from '../api/rest/perfil-asam.service';
 })
 export class AsambleistasPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  constructor(private rest:PerfilAsamService, public loadCont: LoadingController) { }
+  constructor(private rest:PerfilAsamService, public loadCont: LoadingController, private sanitizer: DomSanitizer) { }
 
   assambly:any = [];
   textoBuscar = "";
@@ -22,6 +23,7 @@ export class AsambleistasPage implements OnInit {
     this.getAssambly();
   }
 
+  thumbnail: any;
   getAssambly() {
     /*this.rest.getAssamblyList().subscribe(response => {
       
@@ -33,8 +35,23 @@ export class AsambleistasPage implements OnInit {
     
       //event.target.complete();
     }, error => { console.error('Error login >>' + JSON.stringify(error)); });*/
+    
     this.rest.getAssamblyList().then(data =>{
        this.assambly = data;
+       var datoPrueba:any = [{id: '', lastName: '', firstName: '',imagen: ''}];
+       for (var i = 1; i < this.assambly.length; i++) {
+        let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['imagen'].imagen;
+        this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          datoPrueba.push({
+            "id" : this.assambly[i].id,
+            "lastName" : this.assambly[i].lastName,
+            "firstName": this.assambly[i].firstName,
+            "imagen": this.thumbnail
+          }); 
+        }
+
+        this.assambly = datoPrueba;
+       
     }).catch(error =>{
       console.log(error);
     })

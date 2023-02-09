@@ -14,13 +14,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  
+<ion-content fullscreen >
+  <!--ion-item *ngFor="let item of assambly | filtro: textoBuscar" style="margin-top: 3px;" size="w" size-lg="2" size-md="2" size-sm="6" size-xs="6" clas="itemList">
+    <ion-avatar slot="start">
+      <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
+    </ion-avatar>
+    <ion-label>
+      Avatar Item
+    </ion-label>
+  </ion-item-->
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let item of assambly | filtro: textoBuscar" style="margin-top: 3px;" size="4" size-lg="2" size-md="3" size-sm="4" size-xs="4" clas="itemList">
+      <ion-col *ngFor="let item of assambly | filtro: textoBuscar" style="margin-top: 3px;" size="w" size-lg="2" size-md="2" size-sm="6" size-xs="6" clas="itemList">
         <div>
-          <img src="../../assets/imgs/icons8-usuario-30.png" />
+          <img width="30" heigth="30" src="{{item.imagen.changingThisBreaksApplicationSecurity}}"/>
         </div>
         <ion-label>
           <h2 >{{item.lastName}} {{item.firstName}}</h2>

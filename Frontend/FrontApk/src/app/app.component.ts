@@ -10,13 +10,13 @@ export class AppComponent {
   constructor(private restLogin: LoginService) {}
 
   ngOnInit(){
-    this.goApp();
+    //this.goApp();
   }
   
   goApp(){
     this.restLogin.loginApp().subscribe(response => {
       localStorage.setItem('token',  response['token']); 
-      debugger
+      
     }, error => { console.error('Error login >>' + JSON.stringify(error)); });
   }
 

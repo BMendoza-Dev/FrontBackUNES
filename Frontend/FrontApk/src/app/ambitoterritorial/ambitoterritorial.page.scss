@@ -14,6 +14,27 @@
   font-family: "Gotham-Book";
 }
 
+h2{
+  text-align: left; 
+  font-weight: bold;
+  font-family: "Gotham-Bold";
+}
+
+ion-label h2{
+  font-size: 11px;
+  margin-top: 5px; margin-bottom: 0px;
+}
+
+ion-label h3{
+  font-size: 12px;
+  margin-top: 5px; margin-bottom: 0px;
+}
+
+h3{
+  text-align: left;
+  font-family: "Gotham-Medium";
+}
+
 /* Core CSS required for Ionic components to work properly */
 @import '~@ionic/angular/css/core.css';
 
