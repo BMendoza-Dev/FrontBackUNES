@@ -21,16 +21,16 @@ export class AmbitoterritorialPage implements OnInit {
     
   }
   ionViewDidEnter(){
+    this.showLoading();
     this.getTerritorialList();
-    //this.getAssambly();
   }
 
   getTerritorialList() {
-    //this.showLoading();
+    
     this.rest.getTerritorialList().subscribe(response => {
       this.y=0;
       this.ambitoTerr=response;
-      
+      this.loadCont.dismiss();
       
         //this.territorialList = response;
         //this.territorialListFiltered = this.territorialList;
@@ -50,20 +50,14 @@ export class AmbitoterritorialPage implements OnInit {
     }, error => { console.error('Error login >>' + JSON.stringify(error)); });
   }
 
-  showLoading() {
-    this.loadCont.create({
-      message: 'Por favor espere...',
-      //duration: 3000,
+  async showLoading() {
+    const loading = await this.loadCont.create({
+      message: 'Cargando...',
       cssClass: 'custom-loading',
-      animated: false
-    }).then((overlay) => {
-      this.loading = overlay;
-      this.loading.present();
-      if(this.y==0){
-      this.loading.dismiss()
-      };
+      //spinner:'lines-sharp'
     });
-    
+
+    loading.present();
   }
 
   asambleTerri:any = []; thumbnail: any;
@@ -74,20 +68,20 @@ export class AmbitoterritorialPage implements OnInit {
       if(this.asambleTerri.length == 0){
         this.NullAsa = true;
       }else{
-        var datoPrueba:any = [{id: '', lastName: '', firstName: '',imagen: ''}];
-       for (var i = 0; i < this.asambleTerri.length; i++) {
+        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['imagen'].imagen),curul:''}];
+       for (var i = 1; i < this.asambleTerri.length; i++) {
         let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['imagen'].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           datoPrueba.push({
             "id" : this.asambleTerri[i].id,
-            "lastName" : this.asambleTerri[i].lastName,
-            "firstName": this.asambleTerri[i].firstName,
-            "imagen": this.thumbnail
+            "LastFirstName" : this.asambleTerri[i].lastName +' '+ this.asambleTerri[i].firstName,
+            "imagen": this.thumbnail,
+            "curul": this.asambleTerri[i].curul
           }); 
         }
-        debugger
-
+        
         this.asambleTerri = datoPrueba;
+        
       }
       this.load = false;
     },error => {console.error('Error login >>' + JSON.stringify(error)); });
@@ -110,5 +104,9 @@ export class AmbitoterritorialPage implements OnInit {
     
   };
 
+ 
+
 
 }
+
+

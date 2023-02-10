@@ -1,25 +1,26 @@
 
 
 .title{
-    --color : black;
+    --color : white;
     size: large;
     text-align: center;
     font-family: "Gotham-Bold";
 }
 
 h2{
-  text-align: center; 
+  text-align: left; 
   font-weight: bold;
   font-family: "Gotham-Bold";
+  
 }
 
 h3{
-  text-align: center;
+  text-align: left;
   font-family: "Gotham-Medium";
 }
 
 p{
-  text-align: center;
+  text-align: left;
   font-family: "Gotham-Book";
 }
 
@@ -28,30 +29,23 @@ p{
   width: 40px; font-size: 24px;
 }
 
-ion-col{
-  background-color: linear-gradient(90deg, rgb(0, 93, 206) 0%, rgb(145, 185, 255) 35%, rgb(0, 93, 206) 100%);
-}
 
-
-img{
-  display: block;
-  margin: 0px auto;
- }
 
 .search{
   --icon-color : black;
 }
 
 ion-label h2{
-  font-size: 11px;
+  font-size: 10.5px;
   margin-top: 5px; margin-bottom: 0px;
+  color:blue;
 }
 ion-label h3{
   font-size: 10px;
   margin-top: 5px; margin-bottom: 0px;
 }
 ion-label p{
-  font-size: 10px;
+  font-size: 9.5px;
 }
 /* Core CSS required for Ionic components to work properly */
 @import '~@ionic/angular/css/core.css';
@@ -79,15 +73,5 @@ ion-label p{
 
 
 
-.ion-color-rose {
-  --ion-color-base: var(--ion-color-rose);
-  --ion-color-base-rgb: var(--ion-color-rose-rgb);
-  --ion-color-contrast: var(--ion-color-rose-contrast);
-  --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
-  --ion-color-shade: var(--ion-color-rose-shade);
-  --ion-color-tint: var(--ion-color-rose-tint);
-}
 
-div[slot="content"] {
-  background: rgba(var(--ion-color-rose-rgb), 0.25)
-}
+

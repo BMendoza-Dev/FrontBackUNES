@@ -12,7 +12,7 @@ export class PerfilAsamService {
 
    getAssamblyList() {
       let  url = this.urlApp+'ListarPerfiles';
-      let token = "91|Dq9jYLW5hsWmYOtxD2duSwmpH2QU4ZhZwQOHTZGX";
+      let token = "96|lqphkHZYwPz3hgz5E9NCvpXBH5ihGDNN10hFfhFI";
       const httpheaders = new HttpHeaders({
         'Authorization': "Bearer "+ token
       });

@@ -20,11 +20,12 @@ export class AsambleistasPage implements OnInit {
 
   ionViewDidEnter(){
     this.assambly = [];
-    this.getAssambly();
+    this.showLoading();
+    this.getAssambly(event);
   }
 
-  thumbnail: any;
-  getAssambly() {
+  thumbnail: any; pruebaImagen:any;
+  getAssambly(event) {
     /*this.rest.getAssamblyList().subscribe(response => {
       
       for(let i=0; i < response['length']; i++){
@@ -38,19 +39,20 @@ export class AsambleistasPage implements OnInit {
     
     this.rest.getAssamblyList().then(data =>{
        this.assambly = data;
-       var datoPrueba:any = [{id: '', lastName: '', firstName: '',imagen: ''}];
-       for (var i = 1; i < this.assambly.length; i++) {
+       var datoPrueba:any = [{id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName +' '+ this.assambly[1].firstName,territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['imagen'].imagen),curul: this.assambly[1].curul}];
+       for (var i = 2; i < this.assambly.length; i++) {
         let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['imagen'].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           datoPrueba.push({
             "id" : this.assambly[i].id,
-            "lastName" : this.assambly[i].lastName,
-            "firstName": this.assambly[i].firstName,
-            "imagen": this.thumbnail
+            "LastFirstName" : this.assambly[i].lastName +' '+ this.assambly[i].firstName,
+            "territorialDivision": this.assambly[i].territorialDivision,
+            "imagen": this.thumbnail,
+            "curul": this.assambly[i].curul
           }); 
         }
-
         this.assambly = datoPrueba;
+        this.loadCont.dismiss();
        
     }).catch(error =>{
       console.log(error);
@@ -63,5 +65,15 @@ export class AsambleistasPage implements OnInit {
 
   buscar(event){
     this.textoBuscar = event.detail.value;
+  }
+
+  async showLoading() {
+    const loading = await this.loadCont.create({
+      message: 'Cargando...',
+      cssClass: 'custom-loading',
+      //spinner:'lines-sharp'
+    });
+
+    loading.present();
   }
 }
