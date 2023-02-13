@@ -32,9 +32,15 @@ export const routes: Routes = [
       },
 
       {
-        path: 'administrador',
+        path: 'administrador_nav_1',
         canActivate:[AdminLoginGuard],
         loadChildren:() => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule)
+      },
+
+      {
+        path: 'administrador_nav_2',
+        canActivate:[AdminLoginGuard],
+        loadChildren:() => import('./views/Admin/biografia/biografia.module').then((m) => m.BiografiaModule)
       },
 
 

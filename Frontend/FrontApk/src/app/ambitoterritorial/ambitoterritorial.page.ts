@@ -34,7 +34,9 @@ export class AmbitoterritorialPage implements OnInit {
       
         //this.territorialList = response;
         //this.territorialListFiltered = this.territorialList;
-    }, error => { console.error('Error login >>' + JSON.stringify(error)); });
+    }, error => { 
+      this.loadCont.dismiss();
+      console.error('Error login >>' + JSON.stringify(error)); });
   }
 
   getAssambly() {
@@ -84,7 +86,9 @@ export class AmbitoterritorialPage implements OnInit {
         
       }
       this.load = false;
-    },error => {console.error('Error login >>' + JSON.stringify(error)); });
+    },error => {
+      this.loadCont.dismiss();
+      console.error('Error login >>' + JSON.stringify(error)); });
   }
 
   @ViewChild('listenerOut', { static: false }) listenerOut: ElementRef;

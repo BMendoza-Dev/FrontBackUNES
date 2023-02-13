@@ -55,6 +55,8 @@ export class AsambleistasPage implements OnInit {
         this.loadCont.dismiss();
        
     }).catch(error =>{
+      
+      this.loadCont.dismiss();
       console.log(error);
     })
   }

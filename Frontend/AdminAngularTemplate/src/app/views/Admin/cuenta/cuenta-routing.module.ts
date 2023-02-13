@@ -9,13 +9,13 @@ import {NgautoperfilComponent} from './ngautoperfil/ngautoperfil.component'
 const routes: Routes = [{
   path: '',
     data: {
-      title: 'administrador'
+      title: 'administrador_nav_1'
     },
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'administrador'
+        redirectTo: 'administrador_nav_1'
       },
       {
         path: 'asambleistas',
