@@ -8,7 +8,7 @@ const routes: Routes = [
     data: {
       title: 'administrador_nav_2'
     },
-    children:[
+    children: [
       {
         path: '',
         pathMatch: 'full',
@@ -18,8 +18,8 @@ const routes: Routes = [
         path: 'biografia',
         component: FormsBiografiaComponent,
         data: {
-        title: 'Biografia'
-        } 
+          title: 'Biografia'
+        }
       }
     ]
   },

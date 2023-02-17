@@ -1,7 +1,58 @@
+<c-col> <!--Input de crear Cuenta de asambleistas-->
+    <c-card style="margin-bottom: 1%;">
+        <c-nav xs="12" layout="justified" variant="pills">
+            <c-nav-item>
+                <span [active]="true" cNavLink>
+                    BIOGRAFIA DE ASAMBLEISTAS
+                </span>
+            </c-nav-item>
+        </c-nav>
+    </c-card>
+</c-col>
+
+<c-col xs="12" *ngIf="habilitarCampos==false else biografiaForm">
+    <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+            <strong style="font-size: 16px;">Buscar perfil del asambleista</strong>
+        </c-card-header>
+        <c-card-body>
+            <form cForm class="row g-3" style="margin-left: 12%;">
+                <div class="col-sm-8">
+                    <ng-autocomplete>
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplateAsam let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplateAsam let-item>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </div>
+                <div class="col-auto">
+                    <button style="font-size: 14px;" (click)="habilitar()" cButton class="mb-3" type="submit">
+                        Biografia
+                    </button>
+                </div>
+            </form>
+        </c-card-body>
+    </c-card>
+</c-col>
 
 
 
-<angular-editor  [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+<ng-template #biografiaForm>
+    <c-card>
+        <!--div style="text-align: center;">
+            <img class="circularImg" src="./../../../../../assets/images/angular.jpg">
+        </div-->
+        <c-card-body>
+            <angular-editor [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+        </c-card-body>
+
+    </c-card>
+</ng-template>
+
 
 
 {{htmlContent}}

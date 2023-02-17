@@ -33,152 +33,152 @@ export class FormsAdministradorComponent implements OnInit {
   formControls!: string[];
 
   constructor(private spinner: NgxSpinnerService, private adminService: AdministradorService, private formBuilder: FormBuilder,
-    public validationFormsService: ValidationFormsService, public rutas:Router){
-      this.formErrors = this.validationFormsService.errorMessages;
+    public validationFormsService: ValidationFormsService, public rutas: Router) {
+    this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
+  }
+
+  createForm() {
+    this.simpleForm = this.formBuilder.group(
+      {
+        //firstName: ["", [Validators.required]],
+        //lastName: ["", [Validators.required]],
+        username: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.usernameMin),
+            Validators.pattern(this.validationFormsService.formRules.nonEmpty)
+          ]
+        ],
+        email: ["", [Validators.required, Validators.email]],
+        password: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
+        ],
+        confirmPassword: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
+        ],
+        accept: [false, [Validators.requiredTrue]]
+      },
+      { validators: [PasswordValidators.confirmPassword] }
+    );
+    this.formControls = Object.keys(this.simpleForm.controls);
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.simpleForm.reset();
+  }
+
+  onValidate() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    return this.simpleForm.status === "VALID";
+  }
+
+  onSubmit() {
+    console.warn(this.onValidate(), this.simpleForm.value);
+
+    if (this.onValidate()) {
+      // TODO: Submit form value
+      console.warn(this.simpleForm.value);
+      alert("SUCCESS!");
+      this.update();
+      this.salir();
+      this.rutas.navigate(['./']);
     }
-
-    createForm() {
-      this.simpleForm = this.formBuilder.group(
-        {
-          //firstName: ["", [Validators.required]],
-          //lastName: ["", [Validators.required]],
-          username: [
-            "",
-            [
-              Validators.required,
-              Validators.minLength(this.validationFormsService.formRules.usernameMin),
-              Validators.pattern(this.validationFormsService.formRules.nonEmpty)
-            ]
-          ],
-          email: ["", [Validators.required, Validators.email]],
-          password: [
-            "",
-            [
-              Validators.required,
-              Validators.minLength(this.validationFormsService.formRules.passwordMin),
-              Validators.pattern(this.validationFormsService.formRules.passwordPattern)
-            ]
-          ],
-          confirmPassword: [
-            "",
-            [
-              Validators.required,
-              Validators.minLength(this.validationFormsService.formRules.passwordMin),
-              Validators.pattern(this.validationFormsService.formRules.passwordPattern)
-            ]
-          ],
-          accept: [false, [Validators.requiredTrue]]
-        },
-        { validators: [PasswordValidators.confirmPassword] }
-      );
-      this.formControls = Object.keys(this.simpleForm.controls);
-    }
-
-    onReset() {
-      this.submitted = false;
-      this.simpleForm.reset();
-    }
-
-    onValidate() {
-      this.submitted = true;
-
-      // stop here if form is invalid
-      return this.simpleForm.status === "VALID";
-    }
-
-    onSubmit() {
-      console.warn(this.onValidate(), this.simpleForm.value);
-
-      if (this.onValidate()) {
-        // TODO: Submit form value
-        console.warn(this.simpleForm.value);
-        alert("SUCCESS!");
-        this.update();
-        this.salir(); 
-        this.rutas.navigate(['./']);
-      }
-    }
+  }
 
 
   iconEyeContr = "password"
   iconEyeConfContr = "password"
-  usuario:string= "";
-  correo:string = "";
-  contrasena:string = "";
-  contrasenaConf:string = "";
-  usuarioEdit:string= "";
-  correoEdit:string = "";
-  
+  usuario: string = "";
+  correo: string = "";
+  contrasena: string = "";
+  contrasenaConf: string = "";
+  usuarioEdit: string = "";
+  correoEdit: string = "";
 
-  ngOnInit(){
+
+  ngOnInit() {
     this.cargarInputAdmin();
   }
 
-  cambiarIconContr(){ //Cambio de Icono en el Password Input Asambleista
-    if(this.iconEyeContr == "text"){
+  cambiarIconContr() { //Cambio de Icono en el Password Input Asambleista
+    if (this.iconEyeContr == "text") {
       this.iconEyeContr = "password";
-    }else{
+    } else {
       this.iconEyeContr = "text";
     }
   }
 
-  cambiarIconConfContr(){ //Cambio de Icono en el Password Input Asambleista
-    if(this.iconEyeConfContr == "text"){
+  cambiarIconConfContr() { //Cambio de Icono en el Password Input Asambleista
+    if (this.iconEyeConfContr == "text") {
       this.iconEyeConfContr = "password";
-    }else{
+    } else {
       this.iconEyeConfContr = "text";
     }
   }
 
 
-  datos:any = []
-  cargarInputAdmin(){
+  datos: any = []
+  cargarInputAdmin() {
     this.spinner.show('sample');
-    this.adminService.cargarCuentaAdmin().then(data =>{
+    this.adminService.cargarCuentaAdmin().then(data => {
       this.datos = data;
       this.usuario = this.datos[0].name;
       this.correo = this.datos[0].email;
       this.spinner.hide('sample');
-    }).catch(error =>{
+    }).catch(error => {
       console.log(error);
     })
   }
 
 
-  mostrarInput:boolean = true;
-  editarInput:boolean = false;
-  mostrar(){
+  mostrarInput: boolean = true;
+  editarInput: boolean = false;
+  mostrar() {
     this.mostrarInput = true;
     this.editarInput = false;
 
   }
 
-  editar(){
+  editar() {
     this.mostrarInput = false;
     this.editarInput = true;
     this.usuarioEdit = this.usuario;
     this.correoEdit = this.correo;
   }
 
-  conConVal:any;
-  update(){
-      let data = {
-        'name': this.usuarioEdit,
-        'email': this.correoEdit,
-        'password': this.contrasenaConf,
-        'perfil_id': 1,
-        'estado': 1,
-        'id': 1
-      };
-      this.adminService.updateAsamAsisCuentas(data).then(data => {
-        this.onReset();
-      }).catch(error =>{
-        console.log(error);
-      })
+  conConVal: any;
+  update() {
+    let data = {
+      'name': this.usuarioEdit,
+      'email': this.correoEdit,
+      'password': this.contrasenaConf,
+      'perfil_id': 1,
+      'estado': 1,
+      'id': 1
+    };
+    this.adminService.updateAsamAsisCuentas(data).then(data => {
+      this.onReset();
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
-  onReset1(){
+  onReset1() {
     this.correoEdit = "";
     this.usuarioEdit = "";
     this.contrasena = "";
@@ -186,7 +186,7 @@ export class FormsAdministradorComponent implements OnInit {
     this.conConVal = undefined;
   }
 
-  salir(){
+  salir() {
     localStorage.removeItem('sesionLogin');
     localStorage.removeItem('rol');
     localStorage.removeItem('color');

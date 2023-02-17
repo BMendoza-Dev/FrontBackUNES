@@ -12,12 +12,12 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   @Input() sidebarId: string = "sidebar";
   @Input() childMessage: string;
-  
+
   public newMessages = new Array(4)
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
 
-  constructor(private classToggler: ClassToggleService, private administradorService:AdministradorService, private sanitizer: DomSanitizer) {
+  constructor(private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
     super();
   }
 
@@ -25,7 +25,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     this.mostrarImg();
   }
 
-  salir(){
+  salir() {
     localStorage.removeItem('sesionLogin');
     localStorage.removeItem('rol');
     localStorage.removeItem('color');
@@ -36,16 +36,12 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   }
 
   thumbnail: any;
-  mostrarImg(){
-    debugger
-    this.administradorService.getImg().subscribe((baseImage : any) => {
-      //alert(JSON.stringify(data.image));
-      debugger
-      let objectURL = 'data:image/jpeg;base64,' + baseImage;
-      debugger
+  mostrarImg() {
 
-       this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        debugger
+    this.administradorService.getImg().subscribe((baseImage: any) => {
+      //alert(JSON.stringify(data.image));
+      let objectURL = 'data:image/jpeg;base64,' + baseImage;
+      this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     });
   }
 }

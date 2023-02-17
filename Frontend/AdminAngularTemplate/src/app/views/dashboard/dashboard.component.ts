@@ -12,28 +12,28 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private administradorService:AdministradorService, private sanitizer: DomSanitizer) {
+  constructor(private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
   }
 
-  
+
 
   ngOnInit(): void {
     this.mostrarImg();
   }
 
 
- 
-  thumbnail: any;
-  mostrarImg(){
-    debugger
-    this.administradorService.getImg().subscribe((baseImage : any) => {
-      //alert(JSON.stringify(data.image));
-      debugger
-      let objectURL = 'data:image/jpeg;base64,' + baseImage;
-      debugger
 
-       this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        debugger
+  thumbnail: any;
+  mostrarImg() {
+
+    this.administradorService.getImg().subscribe((baseImage: any) => {
+      //alert(JSON.stringify(data.image));
+
+      let objectURL = 'data:image/jpeg;base64,' + baseImage;
+
+
+      this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+
     });
   }
 

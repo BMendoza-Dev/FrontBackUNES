@@ -24,22 +24,22 @@ export class AmbitoTerritorialService {
     return this.httpClien.get(this.urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
   }*/
 
-  getTerritorialList(){
+  getTerritorialList() {
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ this.token
+      'Authorization': "Bearer " + this.token
     });
 
-    return this.httpClien.get(this.urlApp + 'ObtenerTerritorio', {headers: httpheaders});
+    return this.httpClien.get(this.urlApp + 'ObtenerTerritorio', { headers: httpheaders });
   }
 
-  getAsambleistaTerritorio(provic){
+  getAsambleistaTerritorio(provic) {
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ this.token
+      'Authorization': "Bearer " + this.token
     });
 
-    return this.httpClien.get(this.urlApp + 'ObtenerAsambleistaTerritorio?territorialDivision='+provic, {headers: httpheaders});
+    return this.httpClien.get(this.urlApp + 'ObtenerAsambleistaTerritorio?territorialDivision=' + provic, { headers: httpheaders });
   }
 
 
-  
+
 }

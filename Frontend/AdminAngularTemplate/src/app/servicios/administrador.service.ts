@@ -6,18 +6,18 @@ import { Injectable } from '@angular/core';
 })
 export class AdministradorService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  cargarCuentaAsambleista(){
-    let  url = 'http://127.0.0.1:8000/api/Asambleistas';
+  cargarCuentaAsambleista() {
+    let url = 'http://127.0.0.1:8000/api/Asambleistas';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    
-    return new Promise ((resolve, reject) => {
-      this.http.get(url, {headers: httpheaders}).subscribe(res => {
-        resolve(res);{
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
         }
       }, error => {
         reject(error);
@@ -25,16 +25,16 @@ export class AdministradorService {
     });
   }
 
-  cargarCuentaAsistente(){
-    let  url = 'http://127.0.0.1:8000/api/Asistentes';
+  cargarCuentaAsistente() {
+    let url = 'http://127.0.0.1:8000/api/Asistentes';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    
-    return new Promise ((resolve, reject) => {
-      this.http.get(url, {headers: httpheaders}).subscribe(res => {
-        resolve(res);{
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
         }
       }, error => {
         reject(error);
@@ -42,16 +42,16 @@ export class AdministradorService {
     });
   }
 
-  cargarCuentaAdmin(){
-    let  url = 'http://127.0.0.1:8000/api/Admin';
+  cargarCuentaAdmin() {
+    let url = 'http://127.0.0.1:8000/api/Admin';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    
-    return new Promise ((resolve, reject) => {
-      this.http.get(url, {headers: httpheaders}).subscribe(res => {
-        resolve(res);{
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
         }
       }, error => {
         reject(error);
@@ -59,15 +59,15 @@ export class AdministradorService {
     });
   }
 
-  cargarPerfiles(){
-    let  url = 'http://127.0.0.1:8000/api/ListarPerfiles';
+  cargarPerfiles() {
+    let url = 'http://127.0.0.1:8000/api/ListarPerfiles';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    return new Promise ((resolve, reject) => {
-      this.http.get(url,{headers: httpheaders}).subscribe(res => {
-        resolve(res);{
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
         }
       }, error => {
         reject(error);
@@ -88,10 +88,10 @@ export class AdministradorService {
     //return this.http.get(urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
   }*/
 
-  registerCuentaAsambleistaAsistente(data:any){
-    let  url = 'http://127.0.0.1:8000/api/Register';
+  registerCuentaAsambleistaAsistente(data: any) {
+    let url = 'http://127.0.0.1:8000/api/Register';
     let token = localStorage.getItem("token");
-    var formData = new FormData(); 
+    var formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('password', data.password);
@@ -99,12 +99,12 @@ export class AdministradorService {
     formData.append('perfil_id', data.perfil_id);
     formData.append('estado', data.estado);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    
-    return new Promise ((resolve, reject) => {
-      this.http.post(url,formData, {headers: httpheaders}).subscribe(res => {
-        resolve(res);{
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
         }
       }, error => {
         reject(error);
@@ -112,24 +112,24 @@ export class AdministradorService {
     });
   }
 
-  updateAsamAsisCuentas(data:any){
-    let  url = 'http://127.0.0.1:8000/api/Update';
+  updateAsamAsisCuentas(data: any) {
+    let url = 'http://127.0.0.1:8000/api/Update';
     let token = localStorage.getItem("token");
-    var formData = new FormData(); 
+    var formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('password', data.password);
     formData.append('perfil_id', data.perfil_id);
     formData.append('estado', data.estado);
     formData.append('id', data.id);
-    
+
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    
-    return new Promise ((resolve, reject) => {
-      this.http.post(url,formData, {headers: httpheaders}).subscribe(res => {
-        resolve(res);{
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
         }
       }, error => {
         reject(error);
@@ -137,15 +137,15 @@ export class AdministradorService {
     });
   }
 
-  getImg(){
-    let  url = 'http://127.0.0.1:8000/api/ObtenerImagen?id='+localStorage.getItem('idAsambPerf');
+  getImg() {
+    let url = 'http://127.0.0.1:8000/api/ObtenerImagen?id=' + localStorage.getItem('idAsambPerf');
     let token = localStorage.getItem("token");
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer "+ token
+      'Authorization': "Bearer " + token
     });
-    
-      return this.http.get(url,{headers: httpheaders});
+
+    return this.http.get(url, { headers: httpheaders });
 
   }
 }

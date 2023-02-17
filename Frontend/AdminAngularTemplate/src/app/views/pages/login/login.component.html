@@ -12,20 +12,14 @@
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input  [(ngModel)]="email" name="correo"  cFormControl placeholder="Nombre de usuario" />
+                  <input [(ngModel)]="email" name="correo" cFormControl placeholder="Nombre de usuario" />
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
-                  <input
-                    [(ngModel)]="password"
-                    name="pass"
-                    autoComplete="current-password"
-                    cFormControl
-                    placeholder="Contraseña"
-                    type="password"
-                  />
+                  <input [(ngModel)]="password" name="pass" autoComplete="current-password" cFormControl
+                    placeholder="Contraseña" type="password" />
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
@@ -44,7 +38,7 @@
                 <p>
                   Despues se ve que se pone para llenar espacio (imagen o texto)
                 </p>
-                
+
               </div>
             </c-card-body>
           </c-card>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AdministradorService} from './../../../../servicios/administrador.service';
+import { AdministradorService } from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
-import {LocalProyectService} from './../../../../servicios/local-proyect.service';
+import { LocalProyectService } from './../../../../servicios/local-proyect.service';
 
 @Component({
   selector: 'app-table-asambleista',
@@ -10,71 +10,64 @@ import {LocalProyectService} from './../../../../servicios/local-proyect.service
   styleUrls: ['./table-asambleista.component.scss']
 })
 export class TableAsambleistaComponent implements OnInit {
- //{{ itemsPerPage * (currentPage - 1) + i }}
 
-
-  constructor(private spinner: NgxSpinnerService, private administradorService:AdministradorService, private locaServicio: LocalProyectService){
-    
+  constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter.subscribe(() => {
-      
       this.cargarTabla();
     });
   };
 
   title = 'pagination';
-  POSTS:any;
-  page:number = 1;
-  count:number = 0;
-  tableSize:number = 10;
-  tableSizes:any = [5,10,15,20];
-  
-  search:any = "";
-  dataTabla:any= [];
-  datosAsambleistasInput:any = [];
-  activarModal:string;
-  customStylesValidated = false; iconEyeAsam:string = "password"
-  editNombre_ApellidoAsambleista:string = "";  editCorreoAsambleista:string = ""; editContrasenaAsambleista:any=""; estado:number;
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
 
-  seletedH:boolean = false; seletedD:boolean = false;
+  search: any = "";
+  dataTabla: any = [];
+  datosAsambleistasInput: any = [];
+  activarModal: string;
+  customStylesValidated = false; iconEyeAsam: string = "password"
+  editNombre_ApellidoAsambleista: string = ""; editCorreoAsambleista: string = ""; editContrasenaAsambleista: any = ""; estado: number;
 
-  id_perfil:string = ""; id:string = ""; num:number = 1;
+  seletedH: boolean = false; seletedD: boolean = false;
 
-  ngOnInit():void{ 
-    
+  id_perfil: string = ""; id: string = ""; num: number = 1;
+
+  ngOnInit(): void {
     this.cargarTabla();
-    
-    
   }
 
-  onSubmit(){
+  onSubmit() {
     this.customStylesValidated = true;
     console.log('Submit... 1');
   }
 
   //cargarTableFroms(datos:any){
-    //this.cargarTabla();
+  //this.cargarTabla();
   //}
 
-  cambiarIconAsam(){ //Cambio de Icono en el Password Input Asambleista
-    if(this.iconEyeAsam == "text"){
+  cambiarIconAsam() { //Cambio de Icono en el Password Input Asambleista
+    if (this.iconEyeAsam == "text") {
       this.iconEyeAsam = "password";
-    }else{
+    } else {
       this.iconEyeAsam = "text";
     }
   }
 
-  updateAsambCuentas(){
-    
+  updateAsambCuentas() {
+
     let formUpdateAsambleista = {
-      'name':this.editNombre_ApellidoAsambleista.toUpperCase(),
-      'email':this.editCorreoAsambleista,
-      'password':this.editContrasenaAsambleista,
-      'perfil_id':this.id_perfil,
+      'name': this.editNombre_ApellidoAsambleista.toUpperCase(),
+      'email': this.editCorreoAsambleista,
+      'password': this.editContrasenaAsambleista,
+      'perfil_id': this.id_perfil,
       'estado': this.estado,
-      'id' : this.id
+      'id': this.id
     }
-    
-    this.administradorService.updateAsamAsisCuentas(formUpdateAsambleista).then(data =>{
+
+    this.administradorService.updateAsamAsisCuentas(formUpdateAsambleista).then(data => {
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -91,13 +84,13 @@ export class TableAsambleistaComponent implements OnInit {
         title: 'Cuenta actualizada!'
       })
       this.cargarTabla();
-      
-    }).catch(error =>{
+
+    }).catch(error => {
       console.log(error);
     })
   }
 
-  limpiarModal(){
+  limpiarModal() {
     this.editContrasenaAsambleista = "";
     this.editNombre_ApellidoAsambleista = "";
     this.editCorreoAsambleista = "";
@@ -105,46 +98,46 @@ export class TableAsambleistaComponent implements OnInit {
 
   }
 
-  cargarTabla(){
+  cargarTabla() {
     this.spinner.show('sample');
-     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaAsambleista().then(data =>{
+    //Carga los datos de las cuentas de asambleistas en una tabla
+    this.administradorService.cargarCuentaAsambleista().then(data => {
       this.dataTabla = data;
       //this.POSTS = this.dataTabla;
       this.limpiarModal();
       this.spinner.hide('sample');
-    }).catch(error =>{
+    }).catch(error => {
       console.log(error);
     })
   }
 
 
-  camposInputEditar(name:any, email:any, estado:any, id:any, perfil_id:any){
+  camposInputEditar(name: any, email: any, estado: any, id: any, perfil_id: any) {
     this.datosAsambleistasInput = [];
     this.datosAsambleistasInput.push(name);
     this.datosAsambleistasInput.push(email);
     this.datosAsambleistasInput.push(estado);
     this.datosAsambleistasInput.push(id);
     this.datosAsambleistasInput.push(perfil_id)
-    
+
     this.cargarCamposModalEdit();
     //this.locaServicio.emitirEventoModalAsalbleistaEditar();
   }
 
-  cargarCamposModalEdit(){
+  cargarCamposModalEdit() {
     this.editNombre_ApellidoAsambleista = this.datosAsambleistasInput[0];
     this.editCorreoAsambleista = this.datosAsambleistasInput[1];
     this.estado = this.datosAsambleistasInput[2];
     this.id = this.datosAsambleistasInput[3];
     this.id_perfil = this.datosAsambleistasInput[4];
-    
+
   }
 
-  idCont:number=1;
-  onTableDataChange(event:any){
+  idCont: number = 1;
+  onTableDataChange(event: any) {
     this.page = event;
-    this.idCont; 
-    
+    this.idCont;
+
   }
 
   /*onTableSizeChange(event:any):void{
@@ -153,19 +146,19 @@ export class TableAsambleistaComponent implements OnInit {
     
   }*/
 
-  cuentasFilter:any = [];
-  dataPaginate(_event:any){
-    this.cuentasFilter=[];
-      //this.cuentasPaginateFilter=[];
-    if(this.search==""){
-      
+  cuentasFilter: any = [];
+  dataPaginate(_event: any) {
+    this.cuentasFilter = [];
+    //this.cuentasPaginateFilter=[];
+    if (this.search == "") {
+
       //this.citasMGPaginate = this.citasMG.slice(0, 10);
-    }else{
-      
+    } else {
+
       for (const x of this.dataTabla) {
-        if(x.name.indexOf(this.search.toUpperCase()) > -1){
-         this.cuentasFilter.push(x);
-       };
+        if (x.name.indexOf(this.search.toUpperCase()) > -1) {
+          this.cuentasFilter.push(x);
+        };
       };
       this.cuentasFilter;
     }

@@ -249,7 +249,7 @@ export const navItemsAdmin: INavData[] = [
     name: 'Cuentas',
     url: '/administrador_nav_1',
     iconComponent: { name: 'cil-user' },
-    children:[
+    children: [
       {
         name: 'Administrador',
         url: '/administrador_nav_1/admin',
@@ -262,14 +262,14 @@ export const navItemsAdmin: INavData[] = [
         name: 'Delegados',
         url: '/administrador_nav_1/delegados',
       }
-  ]
+    ]
   },
   {
-    name:'Biografias',
-    url:'/administrador_nav_2/biografia',
+    name: 'Biografias',
+    url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
   }
-  
+
 ];
 
 export const navItemsAsamb: INavData[] = [

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component';
 import { CuentaRoutingModule } from './cuenta-routing.module';
 import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { IconModule } from '@coreui/icons-angular';
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import {
