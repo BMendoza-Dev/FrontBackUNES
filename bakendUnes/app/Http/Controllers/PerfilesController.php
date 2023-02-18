@@ -50,9 +50,11 @@ class PerfilesController extends Controller
         $Perfiles2->territorialDivision='ECUADOR';
         $Perfiles2->usedFirstName='UNION POR LA ESPERANZA';
         $Perfiles2->usedLastName='UNION POR LA ESPERANZA';
-        $Perfiles2->Imagen()->create(['id'=>'1','imagen' => "foto unes" ]);
-        $Perfiles2->imagen_id=1;
+        
+        $urlimagenes=[];
+    $urlimagenes[]['imagen']="12j3h1j2n31kn23k1nk";
         $Perfiles2->save();
+        $Perfiles2->image()->createMany($urlimagenes);
 
         $user= new User();
         $user->name='Super Admin';
@@ -82,6 +84,9 @@ class PerfilesController extends Controller
                 'Authorization' => $token['token'],
                 //'Content-Disposition'=> 'attachement',
                 ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/getPhoto/'.$aux);
+
+                $urlimagenes2=[];
+                $urlimagenes2['imagen']=['imagen' => $request2 ];
             $Perfiles = new Perfil();
            // $Imagen = new Imagenes();
             //$Imagen->save();
@@ -97,15 +102,15 @@ class PerfilesController extends Controller
             $Perfiles->usedFirstName=$asambleista["usedFirstName"];
             $Perfiles->usedLastName=$asambleista["usedLastName"];
 
-            $imagen =['imagen' => $request2 ];
-            
-            $Perfiles->Imagen()->create($imagen);
            
-            $aux4 = Imagen::latest('id')->first();;
+            
+           // $Perfiles->Imagen()->create($imagen);
+           
+           // $aux4 = Imagen::latest('id')->first();;
            // dd($aux4);
-            $Perfiles->imagen_id=$aux4->id;
+          //  $Perfiles->imagen_id=$aux4->id;
             $Perfiles->save();
-
+            $Perfiles->image()->createMany($urlimagenes2);
            
             
             
@@ -117,22 +122,22 @@ class PerfilesController extends Controller
     }
 
     public function ListarPerfiles (){
-        $validacion= Perfil::where('active',1)->with('Imagen')->get();
+        $validacion= Perfil::where('active',1)->with('image')->get();
        
         return response()->json($validacion);
     }
 
     public function ObtenerImagen (Request $request){
      
-        $datos=Perfil::where('id', $request->id)->with('Imagen')->get();
+        $datos=Perfil::where('id', $request->id)->with('image')->get();
 
        
-        return  response()->json($datos[0]->Imagen['imagen']);
+        return  response()->json($datos[0]->Imagen['image']);
     }
 
     public function ObtenerAsambleistaTerritorio (Request $request){
        
-        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('Imagen')->get();
+        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('image')->get();
 
         return  response()->json($datos);
     }

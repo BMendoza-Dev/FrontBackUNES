@@ -20,4 +20,7 @@ class Perfil extends Model
      public function Imagen(){
         return $this->belongsTo(Imagen::class);
      }
+     public function image(){
+    	return $this->morphMany('App\Models\Imagen','imageable');
+    }
 }

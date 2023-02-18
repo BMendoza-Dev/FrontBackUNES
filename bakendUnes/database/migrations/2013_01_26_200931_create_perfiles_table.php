@@ -25,7 +25,7 @@ return new class extends Migration
               $table->string('territorialDivision');
               $table->string('usedFirstName');
               $table->string('usedLastName');
-              $table->foreignId('imagen_id')->references('id')->on('imagens');
+             // $table->foreignId('imagen_id')->references('id')->on('imagens');
           });
     }
 

@@ -23,6 +23,10 @@ class Imagen extends Model
         return $this->belongsTo(Perfil::class);
      }
 
+     public function imageable(){
+    	return $this->morphTo();
+    }
+
     
 
 }
