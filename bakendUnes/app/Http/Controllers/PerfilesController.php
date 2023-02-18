@@ -131,8 +131,8 @@ class PerfilesController extends Controller
      
         $datos=Perfil::where('id', $request->id)->with('image')->get();
 
-       
-        return  response()->json($datos[0]->Imagen['image']);
+      // dd($datos[0]->image['imagen']);
+        return  response()->json($datos[0]->image);
     }
 
     public function ObtenerAsambleistaTerritorio (Request $request){
