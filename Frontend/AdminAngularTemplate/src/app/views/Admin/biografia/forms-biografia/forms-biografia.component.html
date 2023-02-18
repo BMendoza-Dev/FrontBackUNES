@@ -1,4 +1,4 @@
-<c-col> <!--Input de crear Cuenta de asambleistas-->
+<c-col *ngIf="habilitarCampos==false"> <!--Input de crear Cuenta de asambleistas-->
     <c-card style="margin-bottom: 1%;">
         <c-nav xs="12" layout="justified" variant="pills">
             <c-nav-item>
@@ -43,16 +43,33 @@
 
 <ng-template #biografiaForm>
     <c-card>
+        
+        <!--div class="form-group col-md-6">
+            <img height="200" class="tamanio" [src]="url" alt="">
+            <label for="text-input" [class]="ClaseFoto"> Foto</label>
+            <div class="col-md-9">
+              <input type='file' id="foto" name="foto" [(ngModel)]="foto"  (change)="onSelectFile($event)"> 
+            </div>
+          </div-->
+    </c-card>
+    <c-card>
         <!--div style="text-align: center;">
             <img class="circularImg" src="./../../../../../assets/images/angular.jpg">
         </div-->
         <c-card-body>
-            <angular-editor [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+            <div class="profile-img">
+                <img height="200" class="tamanio" [src]="url" alt="" />
+                <div class="file btn btn-lg btn-primary">
+                  Subir foto
+                  <input type='file' id="foto" name="foto" [(ngModel)]="foto"  (change)="onSelectFile($event)" />
+                </div>
+              </div>
+            <ckeditor [editor]="Editor" [(ngModel)]="datos" ></ckeditor>
         </c-card-body>
-
     </c-card>
+
+    {{datos}}
 </ng-template>
 
 
 
-{{htmlContent}}

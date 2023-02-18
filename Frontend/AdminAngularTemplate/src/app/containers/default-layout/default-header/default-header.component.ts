@@ -40,7 +40,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
     this.administradorService.getImg().subscribe((baseImage: any) => {
       //alert(JSON.stringify(data.image));
-      let objectURL = 'data:image/jpeg;base64,' + baseImage;
+      let objectURL = 'data:image/jpeg;base64,' + baseImage[0].imagen;
       this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     });
   }

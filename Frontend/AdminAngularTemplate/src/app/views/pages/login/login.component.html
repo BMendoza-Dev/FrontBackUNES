@@ -5,27 +5,29 @@
         <c-card-group>
           <c-card class="p-4">
             <c-card-body>
-              <form cForm>
+              <form cForm [validated]="loginForm" (ngSubmit)="onSubmit1()" class="row needs-validation">
                 <h1>Acceso</h1>
                 <p class="text-medium-emphasis">Iniciar sesión en su cuenta</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input [(ngModel)]="email" name="correo" cFormControl placeholder="Nombre de usuario" />
+                  <input [(ngModel)]="email" minlength="6" type="email" name="correo" required cFormControl placeholder="Correo electrónico" />
+                  <c-form-feedback [valid]="false">¡{{msgEmail}}!</c-form-feedback>
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
                   <input [(ngModel)]="password" name="pass" autoComplete="current-password" cFormControl
-                    placeholder="Contraseña" type="password" />
+                    placeholder="Contraseña" type="password" id="pass" required value=""/>
+                    <c-form-feedback [valid]="false" >¡{{msgPass}}!</c-form-feedback>
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
-                    <button (click)="iniciarSesion()" cButton class="px-4" color="primary">
+                    <button (click)="iniciarSesion()" type="submit" cButton class="px-4" color="primary">
                       Acceso
-                    </button>
+                    </button> 
                   </c-col>
                 </c-row>
               </form>

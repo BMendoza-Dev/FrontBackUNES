@@ -37,12 +37,14 @@ import {
   ToastModule,
   PaginationModule,
 } from '@coreui/angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
     FormsBiografiaComponent
   ],
   imports: [
+    CKEditorModule,
     AutocompleteLibModule,
     ButtonGroupModule,
     ButtonModule,
