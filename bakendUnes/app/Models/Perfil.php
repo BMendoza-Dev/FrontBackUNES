@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Imagen;
+use App\Models\Biografia;
 class Perfil extends Model
 {
     protected $fillable = [
@@ -17,9 +18,9 @@ class Perfil extends Model
         return $this->hasMany('App\Models\Cuenta');
      }
 
-     public function Imagen(){
-        return $this->belongsTo(Imagen::class);
-     }
+     public function biografia(){
+      return $this->belongsTo(Biografia::class);
+   }
      public function image(){
     	return $this->morphMany('App\Models\Imagen','imageable');
     }

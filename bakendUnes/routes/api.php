@@ -6,8 +6,8 @@ use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\PerfilesController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CuentasController;
+use App\Models\Biografia;
 use App\Models\Perfil;
-use App\Models\Imagen;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,29 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::get('/Cuentas/{correo}', [CuentaController::class, 'validar']);
 //Route::get('/Asistentes', [CuentaController::class, 'asistentes']);
 
-Route::get('/usodeimagen', function (Request $request) {
 
-    $Perfiles2 = new Perfil();
-    $urlimagenes=[];
-    $urlimagenes[]['imagen']="12j3h1j2n31kn23k1nk";
-    $Perfiles2->id=1;
-    $Perfiles2->active=1;
-    $Perfiles2->curul=0;
-    $Perfiles2->firstName='prueba';
-    $Perfiles2->jurisdiction='prueba';
-    $Perfiles2->lastName='prueba';
-    $Perfiles2->politicalParty='prueba';
-    $Perfiles2->territorialDivision='prueba';
-    $Perfiles2->usedFirstName='UNION POR LA ESPERANZA';
-    $Perfiles2->usedLastName='UNION POR LA ESPERANZA';
-    $Perfiles2->save();
-    $Perfiles2->image()->createMany($urlimagenes);
+Route::get('/practica', function (Request $request) {
 
-    $validacion= Perfil::with('image')->get();
- //   dd($aux);
- return  response()->json($validacion);
+  
+
 });
-
 
 
 Route::post('Login',[AuthController::class, 'Login']);
@@ -61,6 +44,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ObtenerImagen',[PerfilesController::class, 'ObtenerImagen']);
     Route::get('ObtenerAsambleistaTerritorio',[PerfilesController::class, 'ObtenerAsambleistaTerritorio']);
     Route::get('ObtenerTerritorio',[PerfilesController::class, 'ObtenerTerritorio']);
+    Route::get('RegistrarBiografia',[PerfilesController::class, 'RegistrarBiografia']);
 
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);

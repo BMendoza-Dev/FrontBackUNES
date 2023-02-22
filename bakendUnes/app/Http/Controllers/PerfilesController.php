@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Perfil;
 use App\Models\Imagen;
 use App\Models\User;
+use App\Models\Biografia;
 use App\Models\Divisionterritorial;
 class PerfilesController extends Controller
 {
@@ -50,10 +51,17 @@ class PerfilesController extends Controller
         $Perfiles2->territorialDivision='ECUADOR';
         $Perfiles2->usedFirstName='UNION POR LA ESPERANZA';
         $Perfiles2->usedLastName='UNION POR LA ESPERANZA';
+       // $biografia=[];
+       // $biografia['urlfb']="asdasd";
+      //  $biografia[]['urltw']="adsasd";
+       // $biografia[]['urlit']="sadasda";
+        //$biografia[]['urlttk']="asdsad";
+        //$biografia[]['perfil']="asdasd";
         
         $urlimagenes=[];
     $urlimagenes[]['imagen']="12j3h1j2n31kn23k1nk";
         $Perfiles2->save();
+       // $Perfiles2->biografia()->create($biografia);
         $Perfiles2->image()->createMany($urlimagenes);
 
         $user= new User();
@@ -109,6 +117,13 @@ class PerfilesController extends Controller
            // $aux4 = Imagen::latest('id')->first();;
            // dd($aux4);
           //  $Perfiles->imagen_id=$aux4->id;
+     //     $biografia=[];
+       // $biografia['urlfb']="asdasd";
+        //$biografia['urltw']="adsasd";
+        //$biografia['urlit']="sadasda";
+        //$biografia['urlttk']="asdsad";
+        //$biografia['perfil']="asdasd";
+          //$Perfiles->biografia()->create($biografia);
             $Perfiles->save();
             $Perfiles->image()->createMany($urlimagenes2);
            
@@ -148,6 +163,45 @@ class PerfilesController extends Controller
 
        
         return  response()->json($datos);
+    }
+
+
+    public function RegistrarBiografia (Request $request){
+
+        $Perfiles= Perfil::findOrFail($request->id);
+        $data=[];
+    
+        if($request->urlfb!=null){
+            $data['urlfb']= $request->urlfb;
+        }
+    
+        if($request->urltw!=null){
+            $data['urltw']= $request->urltw;
+        }
+    
+        if($request->urlit!=null){
+            $data['urlit']= $request->urlit;
+        }
+    
+        if($request->urlttk!=null){
+            $data['urlttk']= $request->urlttk;
+        }
+    
+        if($request->perfil!=null){
+            $data['perfil']= $request->perfil;
+        }
+    
+        if($Perfiles->biografia_id==null){
+            $biografia= Biografia::create($data);
+            $Perfiles->biografia_id=$biografia->id;
+            $Perfiles->update();
+        }else{
+            $Perfiles->biografia()->update($data);
+        }
+
+        $Perfilesfinal= Perfil::where('id',$request->id)->with('biografia')->get();
+        
+            return  response()->json($Perfilesfinal);
     }
 }
 
