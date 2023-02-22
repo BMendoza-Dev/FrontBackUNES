@@ -201,7 +201,7 @@ class PerfilesController extends Controller
 
         $Perfilesfinal= Perfil::where('id',$request->id)->with('biografia')->get();
         
-            return  response()->json($Perfilesfinal);
+            return  response()->json($Perfilesfinal[0]->biografia);
     }
 }
 
