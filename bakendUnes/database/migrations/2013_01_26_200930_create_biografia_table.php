@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('urltw')->nullable();
             $table->string('urlit')->nullable();
             $table->string('urlttk')->nullable();
-            $table->string('perfil')->nullable();
+            $table->longText('perfil')->nullable();
            
         });
     }
