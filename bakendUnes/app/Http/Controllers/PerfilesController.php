@@ -206,7 +206,11 @@ class PerfilesController extends Controller
 
             
         }else{
-            $Perfiles->biografia()->update($data);
+          
+            if($data!=null){
+                $Perfiles->biografia()->update($data);
+             }
+            
             if($request->imagen!=null){
                 $urlimagenes2=[];
                 $urlimagenes2['imagen']=['imagen' => $request->imagen ];
