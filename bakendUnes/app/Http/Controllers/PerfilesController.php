@@ -169,11 +169,10 @@ class PerfilesController extends Controller
 
 
     public function RegistrarBiografia (Request $request){
-
         $Perfiles= Perfil::findOrFail($request->id);
         $data=[];
 
-        
+       
     
         if($request->urlfb!=null){
             $data['urlfb']= $request->urlfb;
@@ -211,20 +210,25 @@ class PerfilesController extends Controller
             if($request->imagen!=null){
                 $urlimagenes2=[];
                 $urlimagenes2['imagen']=['imagen' => $request->imagen ];
+             
                 $Perfiles->load(['biografia'  => function ($query) use ($urlimagenes2) {
                     $query->with(['image'=> function ($query) use ($urlimagenes2) {
-                        $query->update( $urlimagenes2);
+                        $query->update( $urlimagenes2['imagen']);
                     }]);
                 }]);
             }
         }
-        
 
+        return  response()->json("200");
+        
+    }
+
+    public function ObtenerBiografia (Request $request){
         $Perfilesfinal= Perfil::where('id',$request->id)->with(['biografia'=> function ($query){
             $query->with('image');
         }])->get();
-        
-            return  response()->json($Perfilesfinal[0]->biografia);
-    }
+        return  response()->json($Perfilesfinal[0]->biografia);
+           
+     }
 }
 
