@@ -21,6 +21,8 @@ class Perfil extends Model
      public function biografia(){
       return $this->belongsTo(Biografia::class);
    }
+
+   
      public function image(){
     	return $this->morphMany('App\Models\Imagen','imageable');
     }

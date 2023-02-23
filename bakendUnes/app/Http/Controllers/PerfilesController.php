@@ -13,6 +13,8 @@ use App\Models\Biografia;
 use App\Models\Divisionterritorial;
 class PerfilesController extends Controller
 {
+
+    public $x;
     public function index()
     {
         $validacion= Perfil::get();
@@ -170,6 +172,8 @@ class PerfilesController extends Controller
 
         $Perfiles= Perfil::findOrFail($request->id);
         $data=[];
+
+        
     
         if($request->urlfb!=null){
             $data['urlfb']= $request->urlfb;
@@ -194,12 +198,31 @@ class PerfilesController extends Controller
         if($Perfiles->biografia_id==null){
             $biografia= Biografia::create($data);
             $Perfiles->biografia_id=$biografia->id;
+            if($request->imagen!=null){
+                $urlimagenes2=[];
+                $urlimagenes2['imagen']=['imagen' => $request->imagen ];
+                $biografia->image()->createMany($urlimagenes2);
+            }
             $Perfiles->update();
+
+            
         }else{
             $Perfiles->biografia()->update($data);
+            if($request->imagen!=null){
+                $urlimagenes2=[];
+                $urlimagenes2['imagen']=['imagen' => $request->imagen ];
+                $Perfiles->load(['biografia'  => function ($query) use ($urlimagenes2) {
+                    $query->with(['image'=> function ($query) use ($urlimagenes2) {
+                        $query->update( $urlimagenes2);
+                    }]);
+                }]);
+            }
         }
+        
 
-        $Perfilesfinal= Perfil::where('id',$request->id)->with('biografia')->get();
+        $Perfilesfinal= Perfil::where('id',$request->id)->with(['biografia'=> function ($query){
+            $query->with('image');
+        }])->get();
         
             return  response()->json($Perfilesfinal[0]->biografia);
     }
