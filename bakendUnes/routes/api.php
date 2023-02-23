@@ -45,7 +45,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ObtenerAsambleistaTerritorio',[PerfilesController::class, 'ObtenerAsambleistaTerritorio']);
     Route::get('ObtenerTerritorio',[PerfilesController::class, 'ObtenerTerritorio']);
     Route::post('RegistrarBiografia',[PerfilesController::class, 'RegistrarBiografia']);
-    Route::get('ObtenerBiografia',[PerfilesController::class, 'RegistrarBiografia']);
+    Route::get('ObtenerBiografia',[PerfilesController::class, 'ObtenerBiografia']);
 
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);
