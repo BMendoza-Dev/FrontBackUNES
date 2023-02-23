@@ -144,8 +144,43 @@ export class AdministradorService {
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
     });
-
     return this.http.get(url, { headers: httpheaders });
-
   }
+
+
+  
+  updateBiografia(data: any) {
+    let url = 'http://127.0.0.1:8000/api/RegistrarBiografia';
+    debugger
+    let token = localStorage.getItem("token");
+    var formData = new FormData();
+    formData.append('urlfb', data.urlfb);
+    formData.append('urltw', data.urltw);
+    formData.append('urlit', data.urlit);
+    formData.append('urlttk', data.urlttk);
+    formData.append('perfil', data.perfil);
+    formData.append('id', data.id);
+    formData.append('imagen', data.binImg);
+    debugger
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + token
+    });
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, {headers: httpheaders}).subscribe(res => {
+        debugger
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  getAssemblymanPhoto() {
+    let httpheaders = new HttpHeaders({
+      'Content-Type':'application/jason',
+      'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2ODU2NkQ1OTcxMzM3NDM2NzczOTdBMjQ0MzI2NDYyOTQ4NDA0RDYzNTE2NjU0NkE1NzZFNUE3MjM0NzUzNzc4MjE0MTI1NDQyQTQ3MkQ0QjYxNTA2NDUyNjc1NTZCNTg3MDMyNzMzNTc2Mzg3OTJGNDIzRjQ1Mjg0ODJCNEQ2MiIsInNjb3BlIjoicmVhZCIsImlhdCI6MTY3NzEzMDUyNiwiZXhwIjoxNjc3MTMyMzI2fQ.ALOqarNeVP454Ki0_OB2RE8-LuRgrTytFwwjqSlQg4sfwJ3RpW0zaif2uHP998dRaes4dxxb4YPnehJolwvC8w'
+    })
+    return this.http.get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/getPhoto/3064', { responseType: 'blob', headers:httpheaders });
+}
 }

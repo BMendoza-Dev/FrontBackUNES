@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../servicios/login.service'
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

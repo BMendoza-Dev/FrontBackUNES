@@ -43,7 +43,7 @@
 
 <ng-template #biografiaForm>
     <c-card>
-        
+
         <!--div class="form-group col-md-6">
             <img height="200" class="tamanio" [src]="url" alt="">
             <label for="text-input" [class]="ClaseFoto"> Foto</label>
@@ -60,16 +60,19 @@
             <div class="profile-img">
                 <img height="200" class="tamanio" [src]="url" alt="" />
                 <div class="file btn btn-lg btn-primary">
-                  Subir foto
-                  <input type='file' id="foto" name="foto" [(ngModel)]="foto"  (change)="onSelectFile($event)" />
+                    Subir foto
+                    <input type='file' id="foto" name="foto" (change)="onSelectFile($event)" />
                 </div>
-              </div>
-            <ckeditor [editor]="Editor" [(ngModel)]="datos" ></ckeditor>
+            </div>
+            <ckeditor [editor]="Editor" [(ngModel)]="datos"></ckeditor>
+            <c-col style="margin-top: 2%;" xs="12">
+                <button (click)="updateBiografia()" cButton class="me-1" color="success" type="submit">
+                    Actualizar
+                </button>
+            </c-col>
         </c-card-body>
+        
     </c-card>
-
     {{datos}}
+    
 </ng-template>
-
-
-

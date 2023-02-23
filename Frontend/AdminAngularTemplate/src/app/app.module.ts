@@ -23,6 +23,7 @@ import {
 } from './containers';
 
 import {
+  AlertModule,
   AvatarModule,
   BadgeModule,
   BreadcrumbModule,
@@ -91,7 +92,8 @@ import { FiltroCuentasPipe } from './pipes/filtro-cuentas.pipe';
     CardModule,
     FormsModule,
     HttpClientModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    AlertModule
   ],
   providers: [
     {
