@@ -199,7 +199,7 @@ class PerfilesController extends Controller
             $Perfiles->biografia_id=$biografia->id;
             if($request->imagen!=null){
                 $urlimagenes2=[];
-                $urlimagenes2['imagen']=['imagen' => $request->imagen ];
+                $urlimagenes2['imagen']=['imagen' => base64_decode($request->imagen) ];
                 $biografia->image()->createMany($urlimagenes2);
             }
             $Perfiles->update();
@@ -213,7 +213,7 @@ class PerfilesController extends Controller
             
             if($request->imagen!=null){
                 $urlimagenes2=[];
-                $urlimagenes2['imagen']=['imagen' => $request->imagen ];
+                $urlimagenes2['imagen']=['imagen' =>  base64_decode($request->imagen)];
              
                 $Perfiles->load(['biografia'  => function ($query) use ($urlimagenes2) {
                     $query->with(['image'=> function ($query) use ($urlimagenes2) {
