@@ -37,8 +37,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   thumbnail: any;
   mostrarImg() {
-
-    this.administradorService.getImg().subscribe((baseImage: any) => {
+    let id:any = localStorage.getItem('idAsambPerf');
+    this.administradorService.getImg(id).subscribe((baseImage: any) => {
       //alert(JSON.stringify(data.image));
       let objectURL = 'data:image/jpeg;base64,' + baseImage[0].imagen;
       this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);

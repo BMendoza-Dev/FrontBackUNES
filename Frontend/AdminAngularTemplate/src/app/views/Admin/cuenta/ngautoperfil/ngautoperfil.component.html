@@ -17,7 +17,7 @@
       <strong style="font-size: 16px;">Crear Cuenta Asambleista</strong>
     </c-card-header>
     <c-card-body>
-      <form cForm class="row g-3" style="margin-left: 12%;">
+      <form cForm class="row g-2" style="margin-left: 12%;">
         <div class="col-sm-8">
           <ng-autocomplete [data]="datosAsambleistas" [searchKeyword]="keyword" placeholder="Seleccione un asambleista"
             (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'

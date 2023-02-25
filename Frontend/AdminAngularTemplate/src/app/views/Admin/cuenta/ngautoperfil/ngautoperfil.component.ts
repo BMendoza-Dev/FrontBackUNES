@@ -51,8 +51,6 @@ export class NgautoperfilComponent implements OnInit {
       this.localProyectService.formAsambleSource.next(this.datosngautoperfil);
       this.dataAsmbleista = [];
       this.idAsambleiApiAsam = "";
-
-
     }
   }
 
@@ -63,8 +61,6 @@ export class NgautoperfilComponent implements OnInit {
     this.asamPerfil = true;
     this.idPosicionDataAsam = item.idPos;
   }
-
-
 
   onChangeSearch(val: any) {
     val;

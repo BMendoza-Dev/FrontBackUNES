@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -38,6 +38,7 @@ import {
   PaginationModule,
 } from '@coreui/angular';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { IconModule } from '@coreui/icons-angular';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     AngularEditorModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    IconModule
   ]
 })
 export class BiografiaModule { }

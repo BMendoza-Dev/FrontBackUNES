@@ -88,16 +88,16 @@ export class AdministradorService {
     //return this.http.get(urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
   }*/
 
-  registerCuentaAsambleistaAsistente(data: any) {
+  registerCuentaAsambleistaAsistente(_data: any) {
     let url = 'http://127.0.0.1:8000/api/Register';
     let token = localStorage.getItem("token");
     var formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    formData.append('rol_id', data.rol_id);
-    formData.append('perfil_id', data.perfil_id);
-    formData.append('estado', data.estado);
+    formData.append('name', _data.name);
+    formData.append('email', _data.email);
+    formData.append('password', _data.password);
+    formData.append('rol_id', _data.rol_id);
+    formData.append('perfil_id', _data.perfil_id);
+    formData.append('estado', _data.estado);
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
     });
@@ -112,16 +112,16 @@ export class AdministradorService {
     });
   }
 
-  updateAsamAsisCuentas(data: any) {
+  updateAsamAsisCuentas(_data: any) {
     let url = 'http://127.0.0.1:8000/api/Update';
     let token = localStorage.getItem("token");
     var formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    formData.append('perfil_id', data.perfil_id);
-    formData.append('estado', data.estado);
-    formData.append('id', data.id);
+    formData.append('name', _data.name);
+    formData.append('email', _data.email);
+    formData.append('password', _data.password);
+    formData.append('perfil_id', _data.perfil_id);
+    formData.append('estado', _data.estado);
+    formData.append('id', _data.id);
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -137,8 +137,8 @@ export class AdministradorService {
     });
   }
 
-  getImg() {
-    let url = 'http://127.0.0.1:8000/api/ObtenerImagen?id=' + localStorage.getItem('idAsambPerf');
+  getImg(_id:any) {
+    let url = 'http://127.0.0.1:8000/api/ObtenerImagen?id=' + _id;
     let token = localStorage.getItem("token");
 
     const httpheaders = new HttpHeaders({
@@ -149,25 +149,25 @@ export class AdministradorService {
 
 
   
-  updateBiografia(data: any) {
+  updateBiografia(_data: any) {
     let url = 'http://127.0.0.1:8000/api/RegistrarBiografia';
-    debugger
+    
     let token = localStorage.getItem("token");
     var formData = new FormData();
-    formData.append('urlfb', data.urlfb);
-    formData.append('urltw', data.urltw);
-    formData.append('urlit', data.urlit);
-    formData.append('urlttk', data.urlttk);
-    formData.append('perfil', data.perfil);
-    formData.append('id', data.id);
-    formData.append('imagen', data.binImg);
-    debugger
+    formData.append('urlfb', _data.urlfb);
+    formData.append('urltw', _data.urltw);
+    formData.append('urlit', _data.urlit);
+    formData.append('urlttk', _data.urlttk);
+    formData.append('perfil', _data.perfil);
+    formData.append('id', _data.id);
+    formData.append('imagen', _data.binImg);
+    
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
     });
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, {headers: httpheaders}).subscribe(res => {
-        debugger
+        
         resolve(res); {
         }
       }, error => {
@@ -176,11 +176,23 @@ export class AdministradorService {
     });
   }
 
-  getAssemblymanPhoto() {
-    let httpheaders = new HttpHeaders({
-      'Content-Type':'application/jason',
-      'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2ODU2NkQ1OTcxMzM3NDM2NzczOTdBMjQ0MzI2NDYyOTQ4NDA0RDYzNTE2NjU0NkE1NzZFNUE3MjM0NzUzNzc4MjE0MTI1NDQyQTQ3MkQ0QjYxNTA2NDUyNjc1NTZCNTg3MDMyNzMzNTc2Mzg3OTJGNDIzRjQ1Mjg0ODJCNEQ2MiIsInNjb3BlIjoicmVhZCIsImlhdCI6MTY3NzEzMDUyNiwiZXhwIjoxNjc3MTMyMzI2fQ.ALOqarNeVP454Ki0_OB2RE8-LuRgrTytFwwjqSlQg4sfwJ3RpW0zaif2uHP998dRaes4dxxb4YPnehJolwvC8w'
-    })
-    return this.http.get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/getPhoto/3064', { responseType: 'blob', headers:httpheaders });
-}
+  cargarBiografia(_id: any){
+    let url = 'http://127.0.0.1:8000/api/ObtenerBiografia?id='+_id;
+    let token = localStorage.getItem("token");
+    
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + token
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, {headers: httpheaders}).subscribe(res => {
+        
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  
 }

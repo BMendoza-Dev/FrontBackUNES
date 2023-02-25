@@ -102,7 +102,7 @@ export class FormsAsamDeleComponent implements OnChanges, OnInit {
       'perfil_id': this.idAsambleiApiAsam,
       'estado': 1
     }
-    this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(data => {
+    this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
 
     }).catch(error => {
       console.log(error);

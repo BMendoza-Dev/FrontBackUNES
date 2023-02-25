@@ -16,9 +16,12 @@
             <strong style="font-size: 16px;">Buscar perfil del asambleista</strong>
         </c-card-header>
         <c-card-body>
-            <form cForm class="row g-3" style="margin-left: 12%;">
+            <form cForm class="row g-2" style="margin-left: 12%;">
                 <div class="col-sm-8">
-                    <ng-autocomplete>
+                    <ng-autocomplete required [data]="datosAsambleistas" [searchKeyword]="keyword"
+                        placeholder="Seleccione un asambleista" (selected)='selectEvent($event)'
+                        (inputCleared)='onClear()' [itemTemplate]="itemTemplateAsam"
+                        [notFoundTemplate]="notFoundTemplateAsam" [minQueryLength]="3">
                     </ng-autocomplete>
 
                     <ng-template #itemTemplateAsam let-item>
@@ -58,21 +61,39 @@
         </div-->
         <c-card-body>
             <div class="profile-img">
-                <img height="200" class="tamanio" [src]="url" alt="" />
+                <img height="200" class="tamanio" [src]="urlGet" alt="" />
                 <div class="file btn btn-lg btn-primary">
-                    Subir foto
+                    <svg style="margin-top: 5px;" cIcon size="xl" name="cilCamera"> </svg>
                     <input type='file' id="foto" name="foto" (change)="onSelectFile($event)" />
                 </div>
             </div>
             <ckeditor [editor]="Editor" [(ngModel)]="datos"></ckeditor>
+            <section class="buttons">
+                <i (click)="redSocial('facebook')"><svg  cIcon size="xl" name="cibFacebook"></svg></i> 
+                <i (click)="redSocial('twitter')"><svg cIcon size="xl" name="cibTwitter"></svg></i>
+                <i (click)="redSocial('instagram')"><svg cIcon size="xl" name="cibInstagram"></svg></i>
+                <i (click)="redSocial('tiktok')"><svg cIcon size="xl" name="cibTiktok"></svg></i>
+            </section>
+
+           
+        </c-card-body>
+        <c-card-footer>
             <c-col style="margin-top: 2%;" xs="12">
                 <button (click)="updateBiografia()" cButton class="me-1" color="success" type="submit">
                     Actualizar
                 </button>
+                <button (click)="deshabilitar()" cButton class="me-1" color="danger" type="submit">
+                    Cancelar
+                </button>
             </c-col>
-        </c-card-body>
-        
+        </c-card-footer>
     </c-card>
-    {{datos}}
-    
+
 </ng-template>
+
+<div *ngIf="spinnerConfig['fullScreen']">
+  <ngx-spinner name='sample' [bdColor]="spinnerConfig['bdColor']" size="medium" [color]="spinnerConfig['color']"
+    [type]="spinnerConfig['type']" [showSpinner]="spinnerConfig['showSpinner']">
+    <p style="color: white">Cargando...</p>
+  </ngx-spinner>
+</div>
