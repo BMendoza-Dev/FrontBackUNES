@@ -10,7 +10,7 @@ export class AmbitoTerritorialService {
   token;
   constructor(private httpClien: HttpClient) {
     this.urlApp = 'http://127.0.0.1:8000/api/';
-    this.token = '96|lqphkHZYwPz3hgz5E9NCvpXBH5ihGDNN10hFfhFI';
+    this.token = '2|Wb09svlcfvjIKjyZSvlT4TpAxPZAXwfUfi2GTJLG';
   }
 
 

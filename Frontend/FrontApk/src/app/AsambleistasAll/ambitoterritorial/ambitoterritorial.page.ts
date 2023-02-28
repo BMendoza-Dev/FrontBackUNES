@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { LoadingController } from '@ionic/angular';
-import { AmbitoTerritorialService } from '../api/rest/ambito-territorial.service';
-import { AssamblymembersService } from '../api/rest/assamblymembers.service';
+import { LoadingController, NavController } from '@ionic/angular';
+import { AmbitoTerritorialService } from '../../api/rest/ambito-territorial.service';
+import { AssamblymembersService } from '../../api/rest/assamblymembers.service';
 
 @Component({
   selector: 'app-ambitoterritorial',
@@ -12,17 +12,20 @@ import { AssamblymembersService } from '../api/rest/assamblymembers.service';
 export class AmbitoterritorialPage implements OnInit {
   private loading;
   y: number;
-  constructor(private sanitizer: DomSanitizer,private rest:AmbitoTerritorialService, private loadCont: LoadingController, private restAss:AssamblymembersService) { }
+  constructor(private Nav:NavController ,private sanitizer: DomSanitizer,private rest:AmbitoTerritorialService, private loadCont: LoadingController, private restAss:AssamblymembersService) { }
   
   ambitoTerr:any=[];
   asamTerritorial:any=[];
   assambly:any=[];
   ngOnInit() {
-    
-  }
-  ionViewDidEnter(){
     this.showLoading();
     this.getTerritorialList();
+  }
+  ionViewDidEnter(){
+  }
+
+  goInfAssam(id:any){
+    this.Nav.navigateForward(`inf-asambleista/${id}`);
   }
 
   getTerritorialList() {
@@ -70,9 +73,9 @@ export class AmbitoterritorialPage implements OnInit {
       if(this.asambleTerri.length == 0){
         this.NullAsa = true;
       }else{
-        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['imagen'].imagen),curul:''}];
+        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['image'][0].imagen),curul:''}];
        for (var i = 1; i < this.asambleTerri.length; i++) {
-        let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['imagen'].imagen;
+        let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['image'][0].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           datoPrueba.push({
             "id" : this.asambleTerri[i].id,
