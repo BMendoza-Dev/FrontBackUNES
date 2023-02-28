@@ -101,9 +101,7 @@ class PerfilesController extends Controller
                 $urlimagenes2=[];
                 $urlimagenes2['imagen']=['imagen' => $request2 ];
             $Perfiles = new Perfil();
-           // $Imagen = new Imagenes();
-            //$Imagen->save();
-          //  $Imagen->imagen=$request2;
+
             $Perfiles->id=$asambleista["id"];
             $Perfiles->active=$asambleista["active"];
             $Perfiles->curul=$asambleista["curul"];
@@ -115,22 +113,6 @@ class PerfilesController extends Controller
             $Perfiles->territorialDivision=$asambleista["territorialDivision"];
             $Perfiles->usedFirstName=$asambleista["usedFirstName"];
             $Perfiles->usedLastName=$asambleista["usedLastName"];
-            
-           
-            
-           // $Perfiles->Imagen()->create($imagen);
-           
-           // $aux4 = Imagen::latest('id')->first();;
-           // dd($aux4);
-          //  $Perfiles->imagen_id=$aux4->id;
-     //     $biografia=[];
-       // $biografia['urlfb']="asdasd";
-        //$biografia['urltw']="adsasd";
-        //$biografia['urlit']="sadasda";
-        //$biografia['urlttk']="asdsad";
-        //$biografia['perfil']="asdasd";
-          //$Perfiles->biografia()->create($biografia);
-          
             
             $Perfiles->image()->createMany($urlimagenes2);
             
