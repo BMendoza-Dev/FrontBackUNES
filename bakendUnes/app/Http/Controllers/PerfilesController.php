@@ -48,6 +48,7 @@ class PerfilesController extends Controller
         $Perfiles2->active=1;
         $Perfiles2->curul=0;
         $Perfiles2->firstName='UNES';
+        $Perfiles2->email='superadmin@hotmail.com';
         $Perfiles2->jurisdiction='ECUADOR';
         $Perfiles2->lastName='UNION POR LA ESPERANZA';
         $Perfiles2->politicalParty='UNES';
@@ -107,6 +108,7 @@ class PerfilesController extends Controller
             $Perfiles->active=$asambleista["active"];
             $Perfiles->curul=$asambleista["curul"];
             $Perfiles->firstName=$asambleista["firstName"];
+            $Perfiles->email=$asambleista["email"];
             $Perfiles->jurisdiction=$asambleista["jurisdiction"];
             $Perfiles->lastName=$asambleista["lastName"];
             $Perfiles->politicalParty=$asambleista["politicalParty"];

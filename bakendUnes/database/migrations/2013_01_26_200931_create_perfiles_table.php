@@ -19,6 +19,7 @@ return new class extends Migration
               $table->boolean('active');
               $table->integer('curul');
               $table->string('firstName');
+              $table->string('email');
               $table->string('jurisdiction');
               $table->string('lastName');
               $table->string('politicalParty');

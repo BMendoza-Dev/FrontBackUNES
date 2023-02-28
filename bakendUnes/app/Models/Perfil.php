@@ -10,7 +10,7 @@ use App\Models\localizacion;
 class Perfil extends Model
 {
     protected $fillable = [
-        'active','curul','firstName','jurisdiction','lastName','politicalParty','territorialDivision','usedFirstName',
+        'active','curul','firstName','email','jurisdiction','lastName','politicalParty','territorialDivision','usedFirstName',
         'usedLastName','localizacion_id'
       ];
     
