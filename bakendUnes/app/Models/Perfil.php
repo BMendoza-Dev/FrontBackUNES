@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Imagen;
 use App\Models\Biografia;
-use App\Models\Localizacion;
+use App\Models\localizacion;
 class Perfil extends Model
 {
     protected $fillable = [
@@ -24,7 +24,7 @@ class Perfil extends Model
     }
 
    public function localizacion(){
-    return $this->belongsTo(Localizacion::class);
+    return $this->belongsTo(localizacion::class);
    }
 
      public function image(){
