@@ -39,7 +39,6 @@ Route::post('Login',[AuthController::class, 'Login']);
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
-
     Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
     Route::get('ObtenerImagen',[PerfilesController::class, 'ObtenerImagen']);
     Route::get('ObtenerAsambleistaTerritorio',[PerfilesController::class, 'ObtenerAsambleistaTerritorio']);

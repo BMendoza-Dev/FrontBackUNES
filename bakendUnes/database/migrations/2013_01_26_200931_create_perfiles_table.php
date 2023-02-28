@@ -26,6 +26,7 @@ return new class extends Migration
               $table->string('usedFirstName');
               $table->string('usedLastName');
               $table->foreignId('biografia_id')->nullable()->references('id')->on('biografias');
+              $table->foreignId('localizacion_id')->nullable()->references('id')->on('localizacions');
              // $table->foreignId('imagen_id')->references('id')->on('imagens');
           });
     }

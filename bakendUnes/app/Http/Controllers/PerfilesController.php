@@ -10,6 +10,7 @@ use App\Models\Perfil;
 use App\Models\Imagen;
 use App\Models\User;
 use App\Models\Biografia;
+use App\Models\localizacion;
 use App\Models\Divisionterritorial;
 class PerfilesController extends Controller
 {
@@ -78,7 +79,8 @@ class PerfilesController extends Controller
         $request = Http::withHeaders([
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
-        ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/find/6/0/0/false/false/false/0/0/0');
+        ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findnew/6/0/0/false/false/false/0/0/0/0');
+
 
         $asambleistas= collect($request->json());
         $filtered = $asambleistas->whereIn('politicalParty', ["UNIÓN POR LA ESPERANZA"])->whereIn("active",[true]);
@@ -111,7 +113,7 @@ class PerfilesController extends Controller
             $Perfiles->territorialDivision=$asambleista["territorialDivision"];
             $Perfiles->usedFirstName=$asambleista["usedFirstName"];
             $Perfiles->usedLastName=$asambleista["usedLastName"];
-
+            
            
             
            // $Perfiles->Imagen()->create($imagen);
@@ -126,20 +128,56 @@ class PerfilesController extends Controller
         //$biografia['urlttk']="asdsad";
         //$biografia['perfil']="asdasd";
           //$Perfiles->biografia()->create($biografia);
-            $Perfiles->save();
+          
+            
             $Perfiles->image()->createMany($urlimagenes2);
-           
+            
+            
+            $Perfiles->save();
+
+            if(!empty($asambleista["locationDto"])){
+                $localizacionserver= [];
+                if(!empty($asambleista["locationDto"]["city"])){
+                    $localizacionserver['city']=$asambleista["locationDto"]["city"];
+                }else{
+                    $localizacionserver['city']=null;
+                }
+                if(!empty($asambleista["locationDto"]["edifice"])){
+                    $localizacionserver['edifice']=$asambleista["locationDto"]["edifice"];
+                }else{
+                    $localizacionserver['edifice']=null;
+                }
+                if(!empty($asambleista["locationDto"]["floor"])){
+                    $localizacionserver['floor']=$asambleista["locationDto"]["floor"];
+                }else{
+                    $localizacionserver['floor']=null;
+                }
+                if(!empty($asambleista["locationDto"]["office"])){
+                    $localizacionserver['office']=$asambleista["locationDto"]["office"];
+                }else{
+                    $localizacionserver['office']=null;
+                }
+                if(!empty($asambleista["locationDto"]["phone"])){
+                    $localizacionserver['phone']=$asambleista["locationDto"]["phone"];
+                }else{
+                    $localizacionserver['phone']=null;
+                }
+                $localizacion= localizacion::create($localizacionserver);
+                
+                $Perfiles->localizacion_id=$localizacion->id;
+                $Perfiles->update();
+            }
             
             
         }
-        $aux2=Perfil::all();
+
         //dd($aux2);
         
         return response()->json("Perfiles Cargados en la base de datos.");;
     }
 
     public function ListarPerfiles (){
-        $validacion= Perfil::where('active',1)->with('image')->get();
+        $validacion= Perfil::where('active',1)->with('image')->with('localizacion')->get();
        
         return response()->json($validacion);
     }
