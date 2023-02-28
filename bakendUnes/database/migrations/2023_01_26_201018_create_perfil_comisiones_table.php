@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('perfil_comisiones', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('comisiones_id')->references('id')->on('comisions');
+            $table->foreignId('perfils_id')->references('id')->on('perfils');
         });
     }
 

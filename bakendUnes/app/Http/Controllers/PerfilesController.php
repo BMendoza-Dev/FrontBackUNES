@@ -10,6 +10,7 @@ use App\Models\Perfil;
 use App\Models\Imagen;
 use App\Models\User;
 use App\Models\Biografia;
+use App\Models\Comision;
 use App\Models\localizacion;
 use App\Models\Divisionterritorial;
 class PerfilesController extends Controller
@@ -42,6 +43,21 @@ class PerfilesController extends Controller
             $territorial->name= $Ambitoterritorialaux['name'];
             $territorial->save();
         }
+
+        $Comisiones = Http::withHeaders([
+            'Content-Type' => 'application/jason',
+            'Authorization' => $token['token'],
+            ])->get('http://apiapp.asambleanacional.gob.ec/periodsResource/6/meetingGroups/2');
+
+        foreach (collect($Comisiones->json()) as $Comisionesaux){
+            $Comision = new Comision();
+
+            $Comision->id= $Comisionesaux['id'];
+            $Comision->name= $Comisionesaux['name'];
+            $Comision->save();
+        }
+
+        
 
         $Perfiles2 = new Perfil();
         $Perfiles2->id=1;
@@ -259,6 +275,17 @@ class PerfilesController extends Controller
             return  response()->json(['error'=>'404']);
         }
         return  response()->json($Perfilesfinal[0]->biografia);
+           
+     }
+
+     public function ObtenerPerfil (Request $request){
+        $Perfilesfinal= Perfil::where('id',$request->id)->with('image')->with('localizacion')->get();
+
+        
+        if($Perfilesfinal[0]==null){
+            return  response()->json(['error'=>'404']);
+        }
+        return  response()->json($Perfilesfinal[0]);
            
      }
 }
