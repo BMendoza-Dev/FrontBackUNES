@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'asambleistas',
-    loadChildren: () => import('./asambleistas/asambleistas.module').then( m => m.AsambleistasPageModule)
+    loadChildren: () => import('./AsambleistasAll/asambleistas/asambleistas.module').then( m => m.AsambleistasPageModule)
   },
   {
     path: 'tabs',
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'ambitoterritorial',
-    loadChildren: () => import('./ambitoterritorial/ambitoterritorial.module').then( m => m.AmbitoterritorialPageModule)
+    loadChildren: () => import('./AsambleistasAll/ambitoterritorial/ambitoterritorial.module').then( m => m.AmbitoterritorialPageModule)
   },
   {
     path: 'ultimas',
@@ -42,7 +42,13 @@ const routes: Routes = [
   {
     path: 'notificaciones',
     loadChildren: () => import('./menu/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
-  }
+  },
+  {
+    path: 'inf-asambleista/:id',
+    loadChildren: () => import('./AsambleistasAll/inf-asambleista/inf-asambleista.module').then( m => m.InfAsambleistaPageModule)
+  },
+
+
 ];
 
 @NgModule({

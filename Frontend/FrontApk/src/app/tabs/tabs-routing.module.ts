@@ -16,11 +16,11 @@ const routes: Routes = [
     children: [
       {
         path: 'asambleistas',
-        loadChildren: () => import('./../asambleistas/asambleistas.module').then(m => m.AsambleistasPageModule)
+        loadChildren: () => import('./../AsambleistasAll/asambleistas/asambleistas.module').then(m => m.AsambleistasPageModule)
       },
       {
         path: 'ambitoTerritorial',
-        loadChildren: () => import('./../ambitoterritorial/ambitoterritorial.module').then(m => m.AmbitoterritorialPageModule)
+        loadChildren: () => import('../AsambleistasAll/ambitoterritorial/ambitoterritorial.module').then(m => m.AmbitoterritorialPageModule)
       }
     ]
   }

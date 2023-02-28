@@ -1,12 +1,10 @@
-
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="start" >
+    <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title">Asambleístas 1.1</ion-title>
-    <ion-buttons  slot="end" >
-      <!--ion-icon style="width: 40px; font-size: 24px;" name="arrow-back"></!--ion-icon-->
+    <ion-title class="title">ASAMBLEÍSTA</ion-title>
+    <ion-buttons slot="end">
       <ion-back-button style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
@@ -14,20 +12,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-accordion-group (ionChange)="accordionGroupChange($event)" multiple="false" expand="inset" >
-    <ion-accordion style="margin-top: 5px;"  *ngFor="let item of ambitoTerr" value="{{item.name}}"  >
-      <ion-item  id="ambTerr" name="ambTerr" slot="header" color="rose">
-        <ion-label class="provi" >{{item.name}}</ion-label>
+  <ion-accordion-group (ionChange)="accordionGroupChange($event)" multiple="false" expand="inset">
+    <ion-accordion style="margin-top: 5px;" *ngFor="let item of ambitoTerr" value="{{item.name}}">
+      <ion-item id="ambTerr" name="ambTerr" slot="header" color="rose">
+        <ion-label class="provi">{{item.name}}</ion-label>
       </ion-item>
-      
+
       <ion-list *ngIf="NullAsa == false" slot="content">
         <ion-item *ngFor="let itemAsam of asambleTerri" slot="content">
-          <div style="width: 45px; margin-right: 5px;">
+          <div (click)="goInfAssam(itemAsam.id)" style="width: 45px; margin-right: 5px;">
             <img src="{{itemAsam.imagen.changingThisBreaksApplicationSecurity}}" />
           </div>
-          <ion-label style="margin-left: 2%;">
+          <ion-label style="margin-left: 2%;" (click)="goInfAssam(itemAsam.id)">
             <h2>{{itemAsam.LastFirstName}}</h2>
-        <h3>Curul {{itemAsam.curul}}</h3>
+            <h3>Curul {{itemAsam.curul}}</h3>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -40,20 +38,20 @@
       </ion-label-->
 
       <ion-item *ngIf="load == true" slot="content">
-        <ion-label  class="ion-padding" >
-          <h3 style="font-weight: bold;"><ion-spinner name="circular"></ion-spinner>   CARGANDO... </h3>
+        <ion-label class="ion-padding">
+          <h3 style="font-weight: bold;"><ion-spinner name="circular"></ion-spinner> CARGANDO... </h3>
         </ion-label>
       </ion-item>
-      
+
 
 
       <ion-item *ngIf="NullAsa == true" slot="content">
-        <ion-label >
-        <h3 style="font-weight: bold;" class="ion-padding">NO EXISTEN ASAMBLEÍSTAS...</h3>
-      </ion-label>
-    </ion-item>
-      
-      
+        <ion-label>
+          <h3 style="font-weight: bold;" class="ion-padding">NO EXISTEN ASAMBLEÍSTAS...</h3>
+        </ion-label>
+      </ion-item>
+
+
     </ion-accordion>
   </ion-accordion-group>
 

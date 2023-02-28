@@ -67,7 +67,7 @@
                     <input type='file' id="foto" name="foto" (change)="onSelectFile($event)" />
                 </div>
             </div>
-            <ckeditor [editor]="Editor" [(ngModel)]="datos"></ckeditor>
+            <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
             <section class="buttons">
                 <i (click)="redSocial('facebook')"><svg  cIcon size="xl" name="cibFacebook"></svg></i> 
                 <i (click)="redSocial('twitter')"><svg cIcon size="xl" name="cibTwitter"></svg></i>

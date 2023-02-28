@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InicioPageRoutingModule } from './inicio-routing.module';
 
 import { InicioPage } from './inicio.page';
-import { AsambleistasPageModule } from '../asambleistas/asambleistas.module';
+import { AsambleistasPageModule } from '../AsambleistasAll/asambleistas/asambleistas.module';
 
 
 @NgModule({

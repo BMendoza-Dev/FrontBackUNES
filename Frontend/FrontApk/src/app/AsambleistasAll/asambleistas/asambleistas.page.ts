@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
-import { PerfilAsamService } from '../api/rest/perfil-asam.service';
+import { IonInfiniteScroll, LoadingController, NavController } from '@ionic/angular';
+import { PerfilAsamService } from '../../api/rest/perfil-asam.service';
 
 @Component({
   selector: 'app-asambleistas',
@@ -10,18 +10,23 @@ import { PerfilAsamService } from '../api/rest/perfil-asam.service';
 })
 export class AsambleistasPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  constructor(private rest:PerfilAsamService, public loadCont: LoadingController, private sanitizer: DomSanitizer) { }
+  constructor(private Nav:NavController ,private rest:PerfilAsamService, public loadCont: LoadingController, private sanitizer: DomSanitizer) { }
+
 
   assambly:any = [];
   textoBuscar = "";
    i=0; j=10; i2=0;
   ngOnInit() {
-  }
-
-  ionViewDidEnter(){
     this.assambly = [];
     this.showLoading();
     this.getAssambly(event);
+  }
+
+  goInfAssam(id:any){
+    this.Nav.navigateForward(`inf-asambleista/${id}`);
+  }
+
+  ionViewDidEnter(){
   }
 
   thumbnail: any; pruebaImagen:any;
@@ -38,10 +43,12 @@ export class AsambleistasPage implements OnInit {
     }, error => { console.error('Error login >>' + JSON.stringify(error)); });*/
     
     this.rest.getAssamblyList().then(data =>{
+      
        this.assambly = data;
-       var datoPrueba:any = [{id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName +' '+ this.assambly[1].firstName,territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['imagen'].imagen),curul: this.assambly[1].curul}];
+       var datoPrueba:any = [{id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName +' '+ this.assambly[1].firstName,territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['image'][0].imagen),curul: this.assambly[1].curul}];
+       
        for (var i = 2; i < this.assambly.length; i++) {
-        let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['imagen'].imagen;
+        let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['image'][0].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           datoPrueba.push({
             "id" : this.assambly[i].id,
