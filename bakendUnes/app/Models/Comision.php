@@ -13,7 +13,7 @@ class Comision extends Model
       ];
     public $timestamps = false;
     public function perfil(){
-        return $this->hasMany(Perfil::class);
+        return $this->belongsToMany(Perfil::class)->withPivot('roleName')->withTimesTamps();
      }
 
 

@@ -21,7 +21,7 @@ class Perfil extends Model
      }
 
      public function comisiones(){
-      return $this->hasMany(Comision::class);
+      return $this->belongsToMany(Comision::class)->withPivot('roleName')->withTimesTamps();;
    }
 
      public function biografia(){

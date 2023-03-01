@@ -59,6 +59,8 @@ class PerfilesController extends Controller
 
         
 
+        
+
         $Perfiles2 = new Perfil();
         $Perfiles2->id=1;
         $Perfiles2->active=1;
@@ -116,6 +118,8 @@ class PerfilesController extends Controller
 
                 $urlimagenes2=[];
                 $urlimagenes2['imagen']=['imagen' => $request2 ];
+
+                
             $Perfiles = new Perfil();
 
             $Perfiles->id=$asambleista["id"];
@@ -171,6 +175,31 @@ class PerfilesController extends Controller
             
         }
 
+        
+        $ListaComi= Comision::all();
+        $ListadePerfiles= Perfil::all();
+       // $ListadePerfiles->firstWhere('id',2308);
+
+       // return response()->json($ListaComisiones);
+        foreach ($ListaComi as $Comi) {
+            $AsamXComision = Http::withHeaders([
+                'Content-Type' => 'application/jason',
+                'Authorization' => $token['token'],
+                ])->get('http://apiapp.asambleanacional.gob.ec/meetingGroupsResource/'.$Comi->id.'/assemblyMembersNoPicNew/');
+            $listaAsambleXComision = collect($AsamXComision->json());
+        foreach ($listaAsambleXComision as $AsambleXComision) {
+            $auxPerfil= $ListadePerfiles->firstWhere('id',$AsambleXComision['id']);
+            if( $auxPerfil!=null){
+                $auxPerfil->comisiones()->save($Comi,['roleName' => $AsambleXComision['roleName']]);
+
+            }
+            
+         }
+       
+        }
+
+        
+        
         //dd($aux2);
         
         return response()->json("Perfiles Cargados en la base de datos.");;
@@ -279,12 +308,16 @@ class PerfilesController extends Controller
      }
 
      public function ObtenerPerfil (Request $request){
-        $Perfilesfinal= Perfil::where('id',$request->id)->with('image')->with('localizacion')->get();
+        $Perfilesfinal= Perfil::where('id',$request->id)->with('image')->with('localizacion')->with('comisiones')->get();
 
         
         if($Perfilesfinal[0]==null){
             return  response()->json(['error'=>'404']);
         }
+       // $comisionid=Comision::find(1)->comisiones();
+      //  $auxPerfil= Perfil::find(2290);
+      
+       // $auxPerfil->comisiones()->updateExistingPivot(42,['roleName' => 'holamundo']);
         return  response()->json($Perfilesfinal[0]);
            
      }

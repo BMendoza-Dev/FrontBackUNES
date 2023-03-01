@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perfil_comisiones', function (Blueprint $table) {
+        Schema::create('comision_perfil', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('comisiones_id')->references('id')->on('comisions');
-            $table->foreignId('perfils_id')->references('id')->on('perfils');
+            $table->foreignId('comision_id')->references('id')->on('comisions');
+            $table->foreignId('perfil_id')->references('id')->on('perfils');
+            $table->string('roleName');
+            $table->timestamps();
         });
     }
 
