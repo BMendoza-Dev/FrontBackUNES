@@ -18,7 +18,7 @@ export class AmbitoterritorialPage implements OnInit {
   asamTerritorial:any=[];
   assambly:any=[];
   ngOnInit() {
-    this.showLoading();
+    //this.showLoading();
     this.getTerritorialList();
   }
   ionViewDidEnter(){

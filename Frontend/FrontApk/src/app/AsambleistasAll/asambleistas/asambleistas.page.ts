@@ -15,10 +15,9 @@ export class AsambleistasPage implements OnInit {
 
   assambly:any = [];
   textoBuscar = "";
-   i=0; j=10; i2=0;
   ngOnInit() {
     this.assambly = [];
-    this.showLoading();
+    //this.showLoading();
     this.getAssambly(event);
   }
 
@@ -31,16 +30,6 @@ export class AsambleistasPage implements OnInit {
 
   thumbnail: any; pruebaImagen:any;
   getAssambly(event) {
-    /*this.rest.getAssamblyList().subscribe(response => {
-      
-      for(let i=0; i < response['length']; i++){
-        if(response[i].politicalParty == "UNIÓN POR LA ESPERANZA"){
-          this.assambly.push(response[i]);
-        }
-      }
-    
-      //event.target.complete();
-    }, error => { console.error('Error login >>' + JSON.stringify(error)); });*/
     
     this.rest.getAssamblyList().then(data =>{
       

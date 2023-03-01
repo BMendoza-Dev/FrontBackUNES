@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../api/rest/login.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioPage implements OnInit {
 
-  constructor() { }
+  constructor(private login: LoginService) { }
 
   ngOnInit() {
+    this.login.ValidarLogin().then((data) =>{
+      let dat = data;
+      localStorage.setItem('token', dat['token']); 
+    }).catch(error =>{
+      console.log(error);
+    })
   }
 
   slidesOptions = {

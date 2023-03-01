@@ -9,7 +9,7 @@ export class AdministradorService {
   constructor(private http: HttpClient) { }
 
   cargarCuentaAsambleista() {
-    let url = 'http://127.0.0.1:8000/api/Asambleistas';
+    let url = 'https://rc5appmobile.tech/api/Asambleistas';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -26,7 +26,7 @@ export class AdministradorService {
   }
 
   cargarCuentaAsistente() {
-    let url = 'http://127.0.0.1:8000/api/Asistentes';
+    let url = 'https://rc5appmobile.tech/api/Asistentes';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -43,7 +43,7 @@ export class AdministradorService {
   }
 
   cargarCuentaAdmin() {
-    let url = 'http://127.0.0.1:8000/api/Admin';
+    let url = 'https://rc5appmobile.tech/api/Admin';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -60,7 +60,7 @@ export class AdministradorService {
   }
 
   cargarPerfiles() {
-    let url = 'http://127.0.0.1:8000/api/ListarPerfiles';
+    let url = 'https://rc5appmobile.tech/api/ListarPerfiles';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -89,9 +89,9 @@ export class AdministradorService {
   }*/
 
   registerCuentaAsambleistaAsistente(_data: any) {
-    let url = 'http://127.0.0.1:8000/api/Register';
+    let url = 'https://rc5appmobile.tech/api/Register';
     let token = localStorage.getItem("token");
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append('name', _data.name);
     formData.append('email', _data.email);
     formData.append('password', _data.password);
@@ -113,9 +113,9 @@ export class AdministradorService {
   }
 
   updateAsamAsisCuentas(_data: any) {
-    let url = 'http://127.0.0.1:8000/api/Update';
+    let url = 'https://rc5appmobile.tech/api/Update';
     let token = localStorage.getItem("token");
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append('name', _data.name);
     formData.append('email', _data.email);
     formData.append('password', _data.password);
@@ -138,7 +138,7 @@ export class AdministradorService {
   }
 
   getImg(_id:any) {
-    let url = 'http://127.0.0.1:8000/api/ObtenerImagen?id=' + _id;
+    let url = 'https://rc5appmobile.tech/api/ObtenerImagen?id=' + _id;
     let token = localStorage.getItem("token");
 
     const httpheaders = new HttpHeaders({
@@ -150,10 +150,10 @@ export class AdministradorService {
 
   
   updateBiografia(_data: any) {
-    let url = 'http://127.0.0.1:8000/api/RegistrarBiografia';
+    let url = 'https://rc5appmobile.tech/api/RegistrarBiografia';
     
     let token = localStorage.getItem("token");
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append('urlfb', _data.urlfb);
     formData.append('urltw', _data.urltw);
     formData.append('urlit', _data.urlit);
@@ -177,7 +177,7 @@ export class AdministradorService {
   }
 
   cargarBiografia(_id: any){
-    let url = 'http://127.0.0.1:8000/api/ObtenerBiografia?id='+_id;
+    let url = 'https://rc5appmobile.tech/api/ObtenerBiografia?id='+_id;
     let token = localStorage.getItem("token");
     
     const httpheaders = new HttpHeaders({

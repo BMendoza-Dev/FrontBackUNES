@@ -8,13 +8,52 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <div class="perfil-usuario-header">
-    <div class="perfil-usuario-portada">
-      <div class="perfil-usuario-avatar">
-        <img src="" alt="img-avatar">
-      </div>
+  <div class="content-img">
+    <div class="profile-img">
+      <img height="200" class="tamanio" [src]="urlGet" alt="" />
     </div>
   </div>
+
+  <div class="nameAssam">
+    <p>{{lastName}} <br>
+      {{firstName}}</p>
+  </div>
+  <ion-segment value="custom">
+    <ion-segment-button value="custom">
+      <ion-label>Algo</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="contactos">
+      <ion-label>Contactos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="comisiones">
+      <ion-label>Comisiones</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card>
+    <ng-container *ngIf="algo">
+      <ion-list>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Ambito Territorial:</h3>
+            <p>{{ambito}} ({{jurisdiction}})</p>
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Partido Político:</h3>
+            <p>{{partido}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Número de Curul:</h3>
+            <p>{{curul}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+  </ion-card>
+
+
 </ion-content>

@@ -32,16 +32,16 @@ export class LoginComponent implements OnInit {
     if (this.email == "" || !this.email.includes('@') || this.email.length < 6 || this.password == "") {
       if (this.password == "") { this.msgPass = "Ingrese una contraseña" }
       if (!this.email.includes('@') || this.email.length < 6) { this.msgEmail = "Ingrese un correo electrónico" }
-      
+      debugger
     } else {
       let inputlogin = {
         "email": this.email,
         "password": this.password
       }
-      
+      debugger
       this.login.ValidarLogin(inputlogin).then(data => {
         this.arrayData = data;
-        
+        debugger
           
           localStorage.setItem('token', this.arrayData['token']);
           localStorage.setItem('email', this.email);
