@@ -5,12 +5,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
+  urlApp: string;
+  urlAWS: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.urlApp = 'http://127.0.0.1:8000/api/'
+    this.urlAWS = 'https://rc5appmobile.tech/api/';
+  }
 
   ValidarLogin() {
     var formData = new FormData();
-    let url = 'https://rc5appmobile.tech/api/Login';
+    let url = this.urlApp+'Login';
     formData.append('email', "superadmin@hotmail.com");
     formData.append('password', "12345678");
     return new Promise((resolve, reject) => {

@@ -5,11 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AdministradorService {
+  urlAWS: any;
+  urlLocal: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.urlLocal = "http://127.0.0.1:8000/api/"
+    this.urlAWS = "https://rc5appmobile.tech/api/"
+   }
 
   cargarCuentaAsambleista() {
-    let url = 'https://rc5appmobile.tech/api/Asambleistas';
+    let url = this.urlLocal+'Asambleistas';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -26,7 +31,7 @@ export class AdministradorService {
   }
 
   cargarCuentaAsistente() {
-    let url = 'https://rc5appmobile.tech/api/Asistentes';
+    let url = this.urlLocal+'Asistentes';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -43,7 +48,7 @@ export class AdministradorService {
   }
 
   cargarCuentaAdmin() {
-    let url = 'https://rc5appmobile.tech/api/Admin';
+    let url = this.urlLocal+'Admin';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -60,7 +65,7 @@ export class AdministradorService {
   }
 
   cargarPerfiles() {
-    let url = 'https://rc5appmobile.tech/api/ListarPerfiles';
+    let url = this.urlLocal+'ListarPerfiles';
     let token = localStorage.getItem("token");
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + token
@@ -89,7 +94,7 @@ export class AdministradorService {
   }*/
 
   registerCuentaAsambleistaAsistente(_data: any) {
-    let url = 'https://rc5appmobile.tech/api/Register';
+    let url = this.urlLocal+'Register';
     let token = localStorage.getItem("token");
     let formData = new FormData();
     formData.append('name', _data.name);
@@ -113,7 +118,7 @@ export class AdministradorService {
   }
 
   updateAsamAsisCuentas(_data: any) {
-    let url = 'https://rc5appmobile.tech/api/Update';
+    let url = this.urlLocal+'Update';
     let token = localStorage.getItem("token");
     let formData = new FormData();
     formData.append('name', _data.name);
@@ -138,7 +143,7 @@ export class AdministradorService {
   }
 
   getImg(_id:any) {
-    let url = 'https://rc5appmobile.tech/api/ObtenerImagen?id=' + _id;
+    let url = this.urlLocal+'ObtenerImagen?id=' + _id;
     let token = localStorage.getItem("token");
 
     const httpheaders = new HttpHeaders({
@@ -150,7 +155,7 @@ export class AdministradorService {
 
   
   updateBiografia(_data: any) {
-    let url = 'https://rc5appmobile.tech/api/RegistrarBiografia';
+    let url = this.urlLocal+'RegistrarBiografia';
     
     let token = localStorage.getItem("token");
     let formData = new FormData();
@@ -177,7 +182,7 @@ export class AdministradorService {
   }
 
   cargarBiografia(_id: any){
-    let url = 'https://rc5appmobile.tech/api/ObtenerBiografia?id='+_id;
+    let url = this.urlLocal+'ObtenerBiografia?id='+_id;
     let token = localStorage.getItem("token");
     
     const httpheaders = new HttpHeaders({

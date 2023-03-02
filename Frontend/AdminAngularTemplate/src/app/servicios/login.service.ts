@@ -6,13 +6,18 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
+  urlLocal: string;
+  urlAWS: string;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.urlLocal = "http://127.0.0.1:8000/api/"
+    this.urlAWS = "https://rc5appmobile.tech/api/"
+  }
 
   ValidarLogin(data: any) {
     let formData = new FormData();
-    let url = 'https://rc5appmobile.tech/api/Login';
+    let url = this.urlLocal+'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
     debugger

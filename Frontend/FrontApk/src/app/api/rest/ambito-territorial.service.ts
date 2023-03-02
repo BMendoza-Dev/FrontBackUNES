@@ -8,8 +8,10 @@ export class AmbitoTerritorialService {
 
   urlApp;
   token;
+  urlAWS: string;
   constructor(private httpClien: HttpClient) {
-    this.urlApp = 'https://rc5appmobile.tech/api/';
+    this.urlApp = 'http://127.0.0.1:8000/api/'
+    this.urlAWS = 'https://rc5appmobile.tech/api/';
     this.token = localStorage.getItem('token');
   }
 

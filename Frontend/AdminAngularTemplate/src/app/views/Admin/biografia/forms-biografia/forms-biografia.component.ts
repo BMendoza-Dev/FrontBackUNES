@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import Swal from 'sweetalert2';
-import * as ClassicEditor from './../ckeditBuild/build/ckeditor';
+import * as ClassicEditor from './../ckeditBuilBio/build/ckeditor';
 
 @Component({
   selector: 'app-forms-biografia',
@@ -45,7 +45,9 @@ export class FormsBiografiaComponent implements OnInit {
       'alignment',
       '|',
       'undo',
-      'redo'],
+      'todoList',
+      '|',
+      'redo',],
     heading: {
       options: [
         { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
@@ -58,7 +60,7 @@ export class FormsBiografiaComponent implements OnInit {
       ]
     },
 
-    fontFamily:{
+    fontFamily: {
       options: [
         'default'
       ]
@@ -75,7 +77,7 @@ export class FormsBiografiaComponent implements OnInit {
     if (this.idAsambleiApiAsam != "")
       this.habilitarCampos = !this.habilitarCampos
   }
-  
+
   clearVariables() {
     this.habilitarCampos = !this.habilitarCampos;
     this.idAsambleiApiAsam = "";
@@ -162,6 +164,7 @@ export class FormsBiografiaComponent implements OnInit {
           'urlttk': this.urlttk,
           'binImg': this.urlSet
         };
+        debugger
         this.adminService.updateBiografia(data).then(() => {
           this.clearVariables();
         }).catch(error => {
@@ -194,8 +197,9 @@ export class FormsBiografiaComponent implements OnInit {
       let biografia: any = data
       debugger
       if (biografia.error == "404") {
-        this.adminService.getImg(this.idAsambleiApiAsam).subscribe(data => {
-          let img: any = data
+        this.adminService.getImg(this.idAsambleiApiAsam).subscribe((data: any) => {
+          let img = data
+          this.urlSet = img[0]['imagen'];
           debugger
           this.trasformaImagen(img[0]['imagen']);
         });
@@ -243,81 +247,81 @@ export class FormsBiografiaComponent implements OnInit {
   };
 
 
-  async redSocial(URL:any) {
-    if(URL == "facebook"){
-      if(this.urlfb == null ){
+  async redSocial(URL: any) {
+    if (URL == "facebook") {
+      if (this.urlfb == null) {
         this.urlfb = "";
       }
       const { value: url } = await Swal.fire({
         input: 'url',
         inputLabel: 'URL',
         inputValue: this.urlfb,
-        inputPlaceholder: 'URL de perfil de '+ URL,
+        inputPlaceholder: 'URL de perfil de ' + URL,
         allowOutsideClick: false,
-        showCancelButton:true,
-        cancelButtonText:"Cancelar"
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
       })
-      if(url){
+      if (url) {
         this.urlfb = url
         if (this.urlfb) {
           debugger
           Swal.fire(`Ingeso la URL: ${this.urlfb}`)
         }
       }
-    }else if(URL == "twitter"){
-      if(this.urltw == null ){
+    } else if (URL == "twitter") {
+      if (this.urltw == null) {
         this.urltw = "";
       }
       const { value: url } = await Swal.fire({
         input: 'url',
         inputLabel: 'URL',
         inputValue: this.urltw,
-        inputPlaceholder: 'URL de perfil de '+ URL,
+        inputPlaceholder: 'URL de perfil de ' + URL,
         allowOutsideClick: false,
-        showCancelButton:true,
-        cancelButtonText:"Cancelar"
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
       })
-      if(url){
+      if (url) {
         this.urltw = url
         if (this.urltw) {
           debugger
           Swal.fire(`Ingeso la URL: ${this.urltw}`)
         }
       }
-    }else if(URL == "instagram"){
-      if(this.urlit == null ){
+    } else if (URL == "instagram") {
+      if (this.urlit == null) {
         this.urlit = "";
       }
       const { value: url } = await Swal.fire({
         input: 'url',
         inputLabel: 'URL',
         inputValue: this.urlit,
-        inputPlaceholder: 'URL de perfil de '+ URL,
+        inputPlaceholder: 'URL de perfil de ' + URL,
         allowOutsideClick: false,
-        showCancelButton:true,
-        cancelButtonText:"Cancelar"
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
       })
-      if(url){
+      if (url) {
         this.urlit = url
         if (this.urlit) {
           debugger
           Swal.fire(`Ingeso la URL: ${this.urlit}`)
         }
       }
-    }else{
-      if(this.urlttk == null ){
+    } else {
+      if (this.urlttk == null) {
         this.urlttk = "";
       }
       const { value: url } = await Swal.fire({
         input: 'url',
         inputLabel: 'URL',
         inputValue: this.urlttk,
-        inputPlaceholder: 'URL de perfil de '+ URL,
+        inputPlaceholder: 'URL de perfil de ' + URL,
         allowOutsideClick: false,
-        showCancelButton:true,
-        cancelButtonText:"Cancelar"
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
       })
-      if(url){
+      if (url) {
         this.urlttk = url
         if (this.urlttk) {
           debugger
@@ -325,8 +329,8 @@ export class FormsBiografiaComponent implements OnInit {
         }
       }
     }
-    
 
-    
+
+
   }
 }

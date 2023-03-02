@@ -47,7 +47,10 @@ const routes: Routes = [
     path: 'inf-asambleista/:id',
     loadChildren: () => import('./AsambleistasAll/inf-asambleista/inf-asambleista.module').then( m => m.InfAsambleistaPageModule)
   },
-
+  {
+    path: 'biografia/:id',
+    loadChildren: () => import('./AsambleistasAll/biografia/biografia.module').then( m => m.BiografiaPageModule)
+  },
 
 ];
 

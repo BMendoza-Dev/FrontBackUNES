@@ -19,24 +19,26 @@
     <p>{{lastName}} <br>
       {{firstName}}</p>
   </div>
-  <ion-segment value="custom">
-    <ion-segment-button value="custom">
-      <ion-label>Algo</ion-label>
+
+  <ion-segment value="algo">
+    <ion-segment-button value="algo" (click)="this.algo = true; this.contacto = false; this.comisiones = false">
+      <ion-label>Información</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="contactos">
+    <ion-segment-button (click)="this.algo = false; this.contacto = true; this.comisiones = false" value="contactos">
       <ion-label>Contactos</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="comisiones">
+    <ion-segment-button (click)="this.algo = false; this.contacto = false; this.comisiones = true" value="comisiones">
       <ion-label>Comisiones</ion-label>
     </ion-segment-button>
   </ion-segment>
+
   <ion-card>
     <ng-container *ngIf="algo">
       <ion-list>
         <ion-item detail="false">
           <ion-label>
             <h3>Ambito Territorial:</h3>
-            <p>{{ambito}} ({{jurisdiction}})</p>
+            <p>{{ambito}}</p>
           </ion-label>
         </ion-item>
         <ion-item detail="false">
@@ -53,7 +55,55 @@
         </ion-item>
       </ion-list>
     </ng-container>
+
+    <ng-container *ngIf="contacto">
+      <ion-list>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Edificio:</h3>
+            <p>{{edifice}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Piso:</h3>
+            <p>{{floor}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Oficinas:</h3>
+            <p>{{office}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Numero Convencional (Extensión):</h3>
+            <p>{{phone}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item detail="false">
+          <ion-label>
+            <h3>Correo Electrónico:</h3>
+            <p>{{email}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+
+    <ng-container *ngIf="comisiones">
+      <ion-list >
+        <ion-item detail="false" *ngFor="let commi of comisionAss">
+          <h3 *ngIf="commi.pivot.roleName != ''">{{commi.name}} {{commi.pivot.roleName}}</h3> 
+          <h3 *ngIf="commi.pivot.roleName == ''">{{commi.name}} - INTEGRANTE DE LA COMISIÓN</h3>
+        </ion-item>
+      </ion-list>
+    </ng-container>
   </ion-card>
 
-
+  <ion-card>
+    <ion-list>
+        <ion-button (click)="goInfAssam(id_perfil)" expand="full">BIOGRAFÍA</ion-button>
+    </ion-list>
+  </ion-card>
 </ion-content>
