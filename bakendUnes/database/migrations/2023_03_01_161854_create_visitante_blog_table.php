@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('visitante_blog', function (Blueprint $table) {
             $table->id();
-            $table->string('categorianame');
-
+            $table->timestamps();
+            $table->foreignId('visitante_id')->references('id')->on('visitantes');
+            $table->foreignId('blog_id')->references('id')->on('blogs');
+            $table->integer('visitas');
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('visitante_blog');
     }
 };

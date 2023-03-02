@@ -6,6 +6,7 @@ use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\PerfilesController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CuentasController;
+use App\Http\Controllers\BlogsController;
 use App\Models\Biografia;
 use App\Models\Perfil;
 /*
@@ -46,6 +47,8 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('RegistrarBiografia',[PerfilesController::class, 'RegistrarBiografia']);
     Route::get('ObtenerBiografia',[PerfilesController::class, 'ObtenerBiografia']);
     Route::get('ObtenerPerfil',[PerfilesController::class, 'ObtenerPerfil']);
+
+    Route::get('CrearBlog',[BlogsController::class, 'CrearBlog']);
 
     Route::get('Asambleistas',[CuentasController::class, 'index']);
     Route::get('Asistentes', [CuentasController::class, 'asistentes']);

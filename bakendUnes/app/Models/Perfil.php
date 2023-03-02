@@ -8,6 +8,7 @@ use App\Models\Imagen;
 use App\Models\Comision;
 use App\Models\Biografia;
 use App\Models\localizacion;
+use App\Models\Blog;
 class Perfil extends Model
 {
     protected $fillable = [
@@ -20,9 +21,13 @@ class Perfil extends Model
         return $this->hasMany('App\Models\Cuenta');
      }
 
-     public function comisiones(){
+    public function comisiones(){
       return $this->belongsToMany(Comision::class)->withPivot('roleName')->withTimesTamps();;
-   }
+    }
+
+    public function blogs(){
+      return $this->HasMany(Blog::class)->withTimesTamps();
+    }
 
      public function biografia(){
       return $this->belongsTo(Biografia::class);

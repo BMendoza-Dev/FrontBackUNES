@@ -13,10 +13,11 @@ use App\Models\Biografia;
 use App\Models\Comision;
 use App\Models\localizacion;
 use App\Models\Divisionterritorial;
+use App\Models\Categorie;
 class PerfilesController extends Controller
 {
 
-    public $x;
+
     public function index()
     {
         $validacion= Perfil::get();
@@ -28,6 +29,11 @@ class PerfilesController extends Controller
             'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
         ]);
 
+        Categorie::create(['categorianame'=>'Agenda']);
+        Categorie::create(['categorianame'=>'Opinion']);
+        Categorie::create(['categorianame'=>'Entrevistas']);
+        Categorie::create(['categorianame'=>'Fizcalisamos']);
+        Categorie::create(['categorianame'=>'Legislamos']);
         $token = $tokenapi->json();
 
         $Ambitoterritorial = Http::withHeaders([
@@ -178,9 +184,6 @@ class PerfilesController extends Controller
         
         $ListaComi= Comision::all();
         $ListadePerfiles= Perfil::all();
-       // $ListadePerfiles->firstWhere('id',2308);
-
-       // return response()->json($ListaComisiones);
         foreach ($ListaComi as $Comi) {
             $AsamXComision = Http::withHeaders([
                 'Content-Type' => 'application/jason',
@@ -314,10 +317,6 @@ class PerfilesController extends Controller
         if($Perfilesfinal[0]==null){
             return  response()->json(['error'=>'404']);
         }
-       // $comisionid=Comision::find(1)->comisiones();
-      //  $auxPerfil= Perfil::find(2290);
-      
-       // $auxPerfil->comisiones()->updateExistingPivot(42,['roleName' => 'holamundo']);
         return  response()->json($Perfilesfinal[0]);
            
      }

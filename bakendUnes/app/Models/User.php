@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Rol;
 use App\Models\Perfil;
+use App\Models\Blog;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -55,4 +56,7 @@ class User extends Authenticatable
     public function AauthAcessToken(){
         return $this->hasMany('\App\OauthAccessToken');
     }
+    public function blogs(){
+        return $this->HasMany(Blog::class)->withTimesTamps();
+      }
 }
