@@ -260,6 +260,12 @@ class PerfilesController extends Controller
         return response()->json($validacion);
     }
 
+    public function ListarPerfileSiAsambleista (){
+        $validacion= Perfil::where('active',1)->select(['firstName', 'lastName'])->doesntHave('user')->get();
+       
+        return response()->json($validacion);
+    }
+
     public function ObtenerImagen (Request $request){
      
         $datos=Perfil::where('id', $request->id)->with('image')->get();

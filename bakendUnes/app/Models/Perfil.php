@@ -9,6 +9,7 @@ use App\Models\Comision;
 use App\Models\Biografia;
 use App\Models\localizacion;
 use App\Models\Blog;
+use App\Models\User;
 class Perfil extends Model
 {
     protected $fillable = [
@@ -20,6 +21,10 @@ class Perfil extends Model
     public function Cuentas(){
         return $this->hasMany('App\Models\Cuenta');
      }
+
+     public function user(){
+    	return $this->hasMany(User::class);
+    }
 
     public function comisiones(){
       return $this->belongsToMany(Comision::class)->withPivot('roleName')->withTimesTamps();;

@@ -40,6 +40,7 @@ Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
+    Route::get('ListarPerfileSiAsambleista',[PerfilesController::class, 'ListarPerfileSiAsambleista']);
     Route::get('ObtenerImagen',[PerfilesController::class, 'ObtenerImagen']);
     Route::get('ObtenerAsambleistaTerritorio',[PerfilesController::class, 'ObtenerAsambleistaTerritorio']);
     Route::get('ObtenerTerritorio',[PerfilesController::class, 'ObtenerTerritorio']);
