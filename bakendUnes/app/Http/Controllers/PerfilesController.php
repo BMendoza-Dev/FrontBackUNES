@@ -261,7 +261,7 @@ class PerfilesController extends Controller
     }
 
     public function ListarPerfileSiAsambleista (){
-        $validacion= Perfil::where('active',1)->select(['firstName', 'lastName'])->doesntHave('user')->get();
+        $validacion= Perfil::where('active',1)->select(['id','firstName', 'lastName'])->doesntHave('user')->get();
        
         return response()->json($validacion);
     }
