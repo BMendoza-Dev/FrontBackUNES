@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\PerfilesController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\CuentasController;
 use App\Http\Controllers\BlogsController;
 use App\Models\Biografia;
 use App\Models\Perfil;
@@ -50,9 +49,10 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('CrearBlog',[BlogsController::class, 'CrearBlog']);
 
-    Route::get('Asambleistas',[CuentasController::class, 'index']);
-    Route::get('Asistentes', [CuentasController::class, 'asistentes']);
-    Route::get('Admin', [CuentasController::class, 'administrador']);
+    Route::get('Asambleistas',[CuentaController::class, 'index']);
+    Route::get('Asistentes', [CuentaController::class, 'asistentes']);
+    Route::get('Admin', [CuentaController::class, 'administrador']);
+    Route::get('ListarUserPorRol', [CuentaController::class, 'ListarUserPorRol']);
     
 
     Route::post('Register',[AuthController::class, 'Register']);

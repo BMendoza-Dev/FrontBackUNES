@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 class AuthController extends Controller
 {
-    
+
     public function Register(Request $request){
         if(Gate::check('haveacceso','CrearBlog')==false){
             return response()->json('403');
         };
         $request->validate([
             'name'=>'required',
-            'email'=>'required||unique:user,email',
+            'email'=>'required||unique:users,email',
             'password'=>'required'    
         ]);
 
