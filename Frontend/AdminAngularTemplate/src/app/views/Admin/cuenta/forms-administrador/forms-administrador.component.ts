@@ -103,8 +103,8 @@ export class FormsAdministradorComponent implements OnInit {
 
   iconEyeContr = "password"
   iconEyeConfContr = "password"
-  usuario: string = "";
-  correo: string = "";
+  usuario:any = "";
+  correo: any = "";
   contrasena: string = "";
   contrasenaConf: string = "";
   usuarioEdit: string = "";
@@ -135,14 +135,9 @@ export class FormsAdministradorComponent implements OnInit {
   datos: any = []
   cargarInputAdmin() {
     this.spinner.show('sample');
-    this.adminService.cargarCuentaAdmin().then(data => {
-      this.datos = data;
-      this.usuario = this.datos[0].name;
-      this.correo = this.datos[0].email;
+      this.usuario = localStorage.getItem('user');
+      this.correo = localStorage.getItem('email');
       this.spinner.hide('sample');
-    }).catch(error => {
-      console.log(error);
-    })
   }
 
 

@@ -68,6 +68,8 @@
                 </div>
             </div>
             <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
+            {{datos}}
+            
             <section class="buttons">
                 <i (click)="redSocial('facebook')"><svg  cIcon size="xl" name="cibFacebook"></svg></i> 
                 <i (click)="redSocial('twitter')"><svg cIcon size="xl" name="cibTwitter"></svg></i>

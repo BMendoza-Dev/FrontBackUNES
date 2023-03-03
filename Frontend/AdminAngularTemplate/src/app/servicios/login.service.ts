@@ -20,7 +20,7 @@ export class LoginService {
     let url = this.urlLocal+'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
-    debugger
+    
     return new Promise((resolve, reject) => {
       this.http.post(url, formData).subscribe(res => {
         resolve(res); {
