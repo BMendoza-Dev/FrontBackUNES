@@ -72,6 +72,13 @@ class PerfilesController extends Controller
             'descripcion'=>'Tiene acceso las opciones de los Asambleistas',
             'fullacceso'=>'no'
             ]); 
+
+            Roles::create([
+                'nombre'=>'Asistente',
+                'slug'=>'asistente',
+                'descripcion'=>'Tiene acceso las opciones de los Asistente',
+                'fullacceso'=>'no'
+                ]);
            
 
         $Ambitoterritorial = Http::withHeaders([

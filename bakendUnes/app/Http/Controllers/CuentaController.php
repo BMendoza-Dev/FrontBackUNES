@@ -17,7 +17,7 @@ class CuentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-     public function index()
+     public function ListarUsuariosAsambleistas()
      {
          $datos = User::get();
          
@@ -32,12 +32,12 @@ class CuentaController extends Controller
             return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
      }
  
-     public function asistentes()
+     public function ListarUsuariosAsistentes()
      {
          
  
          $datos = User::whereHas('roles', function($q){
-             $q->where('id', 3);
+            $q->where('slug', 'asistente');
          })->with('roles')->get();
        
          $num_rows = count($datos);
@@ -48,9 +48,9 @@ class CuentaController extends Controller
             return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
      }
  
-     public function administrador(){
+     public function ListarUsuariosAdministrador(){
          $datos = User::whereHas('roles', function($q){
-             $q->where('id', 1);
+            $q->where('slug', 'super_administrador');
          })->with('roles')->get();
        
          $num_rows = count($datos);
@@ -72,7 +72,19 @@ class CuentaController extends Controller
            return response()->json($datos);
        }else
        
-           return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'202']);
+           return response()->json(['mensaje'=>"No existen datos registrados", 'code'=>'404']);
+    }
+
+    public function ListarRoles(){
+        
+        $datos = Roles::get();
+      
+        $num_rows = count($datos);
+        if($num_rows!=0){
+           return response()->json($datos);
+       }else
+       
+           return response()->json(['mensaje'=>"No existen roles registrados", 'code'=>'404']);
     }
  
  

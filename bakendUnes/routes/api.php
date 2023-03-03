@@ -49,10 +49,11 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('CrearBlog',[BlogsController::class, 'CrearBlog']);
 
-    Route::get('Asambleistas',[CuentaController::class, 'index']);
-    Route::get('Asistentes', [CuentaController::class, 'asistentes']);
-    Route::get('Admin', [CuentaController::class, 'administrador']);
+    Route::get('ListarUsuariosAsambleistas',[CuentaController::class, 'ListarUsuariosAsambleistas']);
+    Route::get('ListarUsuariosAsistentes', [CuentaController::class, 'ListarUsuariosAsistentes']);
+    Route::get('ListarUsuariosAdministrador', [CuentaController::class, 'ListarUsuariosAdministrador']);
     Route::get('ListarUserPorRol', [CuentaController::class, 'ListarUserPorRol']);
+    Route::get('ListarRoles', [CuentaController::class, 'ListarRoles']);
     
 
     Route::post('Register',[AuthController::class, 'Register']);
