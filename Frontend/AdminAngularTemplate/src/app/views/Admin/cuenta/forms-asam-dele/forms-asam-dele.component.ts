@@ -72,7 +72,7 @@ export class FormsAsamDeleComponent implements OnChanges, OnInit {
 
 
   onSubmit1() {
-    debugger
+    
     this.customStylesValidated1 = true;
     console.log('Submit... 1');
   }

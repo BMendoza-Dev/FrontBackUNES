@@ -43,7 +43,7 @@ export class TableDelegadoComponent implements OnInit {
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaAsistente().then(data => {
       this.dataTabla = data;
-      debugger
+      
       this.limpiarModal();
       this.spinner.hide('sample');
     }).catch(error => {

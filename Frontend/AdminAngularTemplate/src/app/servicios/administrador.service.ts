@@ -1,23 +1,27 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import * as CryptoJS from 'crypto-js';
 @Injectable({
   providedIn: 'root'
 })
 export class AdministradorService {
   urlAWS: any;
   urlLocal: string;
+  token: string | null;
 
   constructor(private http: HttpClient) {
     this.urlLocal = "http://127.0.0.1:8000/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
+    let cry:any = localStorage.getItem("token");
+    let key = "GAMABAML"
+    this.token = CryptoJS.AES.decrypt(cry.trim(),key.trim()).toString();;
    }
 
   cargarCuentaAsambleista() {
     let url = this.urlLocal+'Asambleistas';
-    let token = localStorage.getItem("token");
+    
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
 
     return new Promise((resolve, reject) => {
@@ -32,9 +36,9 @@ export class AdministradorService {
 
   cargarCuentaAsistente() {
     let url = this.urlLocal+'Asistentes';
-    let token = localStorage.getItem("token");
+    
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
 
     return new Promise((resolve, reject) => {
@@ -47,28 +51,13 @@ export class AdministradorService {
     });
   }
 
-  cargarCuentaAdmin() {
-    let url = this.urlLocal+'Admin';
-    let token = localStorage.getItem("token");
-    const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
-    });
-
-    return new Promise((resolve, reject) => {
-      this.http.get(url, { headers: httpheaders }).subscribe(res => {
-        resolve(res); {
-        }
-      }, error => {
-        reject(error);
-      });
-    });
-  }
+  
 
   cargarPerfiles() {
     let url = this.urlLocal+'ListarPerfiles';
-    let token = localStorage.getItem("token");
+    
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
@@ -95,7 +84,7 @@ export class AdministradorService {
 
   registerCuentaAsambleistaAsistente(_data: any) {
     let url = this.urlLocal+'Register';
-    let token = localStorage.getItem("token");
+    
     let formData = new FormData();
     formData.append('name', _data.name);
     formData.append('email', _data.email);
@@ -104,7 +93,7 @@ export class AdministradorService {
     formData.append('perfil_id', _data.perfil_id);
     formData.append('estado', _data.estado);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
 
     return new Promise((resolve, reject) => {
@@ -119,7 +108,7 @@ export class AdministradorService {
 
   updateAsamAsisCuentas(_data: any) {
     let url = this.urlLocal+'Update';
-    let token = localStorage.getItem("token");
+    
     let formData = new FormData();
     formData.append('name', _data.name);
     formData.append('email', _data.email);
@@ -129,7 +118,7 @@ export class AdministradorService {
     formData.append('id', _data.id);
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
 
     return new Promise((resolve, reject) => {
@@ -144,10 +133,8 @@ export class AdministradorService {
 
   getImg(_id:any) {
     let url = this.urlLocal+'ObtenerImagen?id=' + _id;
-    let token = localStorage.getItem("token");
-
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
     return this.http.get(url, { headers: httpheaders });
   }
@@ -156,8 +143,6 @@ export class AdministradorService {
   
   updateBiografia(_data: any) {
     let url = this.urlLocal+'RegistrarBiografia';
-    
-    let token = localStorage.getItem("token");
     let formData = new FormData();
     formData.append('urlfb', _data.urlfb);
     formData.append('urltw', _data.urltw);
@@ -168,7 +153,7 @@ export class AdministradorService {
     formData.append('imagen', _data.binImg);
     
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, {headers: httpheaders}).subscribe(res => {
@@ -183,10 +168,10 @@ export class AdministradorService {
 
   cargarBiografia(_id: any){
     let url = this.urlLocal+'ObtenerBiografia?id='+_id;
-    let token = localStorage.getItem("token");
+    
     
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + token
+      'Authorization': "Bearer " + this.token
     });
 
     return new Promise((resolve, reject) => {

@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import Swal from 'sweetalert2';
-import * as ClassicEditor from './../ckeditBuilBio/build/ckeditor';
+import * as ClassicEditor from '../ckBuildD/build/ckeditor';
 
 @Component({
   selector: 'app-forms-biografia',
@@ -26,15 +26,15 @@ export class FormsBiografiaComponent implements OnInit {
 
   urlSet: any;
   urlGet: any = ''; ClaseFoto: string = ""; foto = "";
-  public Editor = ClassicEditor; datos: string = ""; binImg: any; urlImgAssa: any;
+  public Editor:any = ClassicEditor; datos: string = ""; binImg: any; urlImgAssa: any;
   habilitarCampos: boolean = false; notFound: string = "No se encuentra asambleista";
 
-  public config = {
+   
+  config = {
     toolbar: [
       'heading',
       '|',
       'fontSize',
-      'fontColor',
       'fontFamily',
       '|',
       'bold',
@@ -42,27 +42,14 @@ export class FormsBiografiaComponent implements OnInit {
       'bulletedList',
       'numberedList',
       '|',
-      'alignment',
-      '|',
       'undo',
-      'todoList',
-      '|',
       'redo',],
     heading: {
       options: [
         { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
         { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
         { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
-        { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
-        { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
-      ]
-    },
-
-    fontFamily: {
-      options: [
-        'default'
+        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
       ]
     },
     lenguage: 'es'
@@ -164,7 +151,7 @@ export class FormsBiografiaComponent implements OnInit {
           'urlttk': this.urlttk,
           'binImg': this.urlSet
         };
-        debugger
+        
         this.adminService.updateBiografia(data).then(() => {
           this.clearVariables();
         }).catch(error => {
@@ -184,7 +171,7 @@ export class FormsBiografiaComponent implements OnInit {
     //this.cargarPerfilesAsam();
     this.idAsambleiApiAsam = item.id;
     this.cargarBiografiaAsam();
-    debugger
+    
   }
 
   trasformaImagen(img: any) {
@@ -195,12 +182,12 @@ export class FormsBiografiaComponent implements OnInit {
 
     this.adminService.cargarBiografia(this.idAsambleiApiAsam).then(data => {
       let biografia: any = data
-      debugger
+      
       if (biografia.error == "404") {
         this.adminService.getImg(this.idAsambleiApiAsam).subscribe((data: any) => {
           let img = data
           this.urlSet = img[0]['imagen'];
-          debugger
+          
           this.trasformaImagen(img[0]['imagen']);
         });
       } else {
@@ -264,7 +251,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urlfb = url
         if (this.urlfb) {
-          debugger
+          
           Swal.fire(`Ingeso la URL: ${this.urlfb}`)
         }
       }
@@ -284,7 +271,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urltw = url
         if (this.urltw) {
-          debugger
+          
           Swal.fire(`Ingeso la URL: ${this.urltw}`)
         }
       }
@@ -304,7 +291,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urlit = url
         if (this.urlit) {
-          debugger
+          
           Swal.fire(`Ingeso la URL: ${this.urlit}`)
         }
       }
@@ -324,7 +311,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urlttk = url
         if (this.urlttk) {
-          debugger
+          
           Swal.fire(`Ingeso la URL: ${this.urlttk}`)
         }
       }
