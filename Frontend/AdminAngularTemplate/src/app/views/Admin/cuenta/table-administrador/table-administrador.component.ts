@@ -3,15 +3,16 @@ import { AdministradorService } from './../../../../servicios/administrador.serv
 import Swal from 'sweetalert2';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
 import { NgxSpinnerService } from "ngx-spinner";
-@Component({
-  selector: 'app-table-delegado',
-  templateUrl: './table-delegado.component.html',
-  styleUrls: ['./table-delegado.component.scss']
-})
-export class TableDelegadoComponent implements OnInit {
 
-  @ViewChild ('atributosAutoCompl') autCompl : any;
-  assaAuto: any;
+@Component({
+  selector: 'app-table-administrador',
+  templateUrl: './table-administrador.component.html',
+  styleUrls: ['./table-administrador.component.scss']
+})
+export class TableAdministradorComponent {
+  editCorreoAdmin: any;
+  editContrasenaAdmin: any;
+  editUsuarioAdmin: any;
 
   constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter2.subscribe(() => {
@@ -20,8 +21,7 @@ export class TableDelegadoComponent implements OnInit {
   }
 
 
-  @ViewChild('atributosAutoCompl') auComple: any;
-  @ViewChild('paginado') paginados: any;
+  
   search = "";
   title = 'pagination';
   POSTS: any;
@@ -31,9 +31,7 @@ export class TableDelegadoComponent implements OnInit {
   tableSizes: any = [5, 10, 15, 20];
 
   ngOnInit(): void {
-
     this.cargarTabla();
-    this.cargarCuentaAsambleistaAutoCom();
   }
 
   dataTabla: any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
@@ -42,8 +40,10 @@ export class TableDelegadoComponent implements OnInit {
   cargarTabla() {
     this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaByRol("asistente").then(data => {
+    this.administradorService.cargarCuentaByRol("super_administrador").then(data => {
+      
       this.dataTabla = data;
+      
       this.limpiarModal();
       this.spinner.hide('sample');
     }).catch(error => {
@@ -67,10 +67,10 @@ export class TableDelegadoComponent implements OnInit {
   updateAsisCuentas() {
 
     let formUpdateAsambleista = {
-      'name': this.editNombre_ApellidoAsambleista.toUpperCase(),
-      'email': this.editCorreoAsistente,
-      'password': this.editContrasenaAsistente,
-      'perfil_id': this.id_perfil,
+      'name': this.editUsuarioAdmin.toUpperCase(),
+      'email': this.editCorreoAdmin,
+      'password': this.editContrasenaAdmin,
+      'perfil_id': 1,
       'estado': this.estado,
       'id': this.id
     }
@@ -111,22 +111,19 @@ export class TableDelegadoComponent implements OnInit {
   }
 
   cargarCamposModalEdit() {
-    this.editNombre_ApellidoAsambleista = this.datosAsistenteInput[0];
-    this.editCorreoAsistente = this.datosAsistenteInput[1];
+    this.editUsuarioAdmin = this.datosAsistenteInput[0];
+    this.editCorreoAdmin = this.datosAsistenteInput[1];
     this.estado = this.datosAsistenteInput[2];
     this.id = this.datosAsistenteInput[3];
     this.id_perfil = this.datosAsistenteInput[4];
-    this.auComple.query = ""
   }
 
 
   limpiarModal() {
-    this.editNombre_ApellidoAsambleista = "";
-    this.editCorreoAsistente = "";
-    this.editContrasenaAsistente = "";
+    this.editUsuarioAdmin = "";
+    this.editCorreoAdmin = "";
+    this.editContrasenaAdmin = "";
     this.search = "";
-    this.auComple.query = "";
-    this.paginados;
 
   }
 
@@ -154,25 +151,6 @@ export class TableDelegadoComponent implements OnInit {
   }
 
 
-  keyword = 'name';
-  cargarCuentaAsambleistaAutoCom() {
-    this.administradorService.cargarCuentaByRol("asambleista").then(data => {
-      this.dataAsam = data;
-      //this.POSTS = this.dataTabla;
-      //this.limpiarModal();
-
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
-  notFound: any = "No se encuentra asambleista";
-  selectEvent(item: any) {
-    // Evento para obtener valor del ng-autocomplete
-    this.cargarCuentaAsambleistaAutoCom();
-    this.id_perfil = item.perfil_id;
-
-  }
 
 
 
@@ -195,5 +173,4 @@ export class TableDelegadoComponent implements OnInit {
     template: null,
     showSpinner: false
   };
-
 }

@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import Swal from 'sweetalert2';
-import * as ClassicEditor from '../ckBuildD/build/ckeditor';
+import * as ClassicEditor from '../ckCustomBuild/build/ckeditor';
 
 @Component({
   selector: 'app-forms-biografia',

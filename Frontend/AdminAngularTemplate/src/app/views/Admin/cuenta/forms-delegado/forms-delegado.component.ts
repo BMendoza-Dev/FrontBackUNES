@@ -105,7 +105,7 @@ export class FormsDelegadoComponent implements OnInit {
   }
 
   cargarCuentasAsambleista() {
-    this.adminService.cargarCuentaAsambleista().then(data => {
+    this.adminService.cargarCuentaByRol("asambleista").then(data => {
       this.dataAsmbleista = data;
       var datoPrueba: any = [{ id: this.dataAsmbleista[0].perfil_id, name: this.dataAsmbleista[0].name }];
       for (var i = 1; i < this.dataAsmbleista.length; i++) {

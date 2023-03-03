@@ -7,35 +7,18 @@ import * as CryptoJS from 'crypto-js';
 export class AdministradorService {
   urlAWS: any;
   urlLocal: string;
-  token: string | null;
-
+  token:any;
+   cry:any = localStorage.getItem("token");
+   key = "GAMABAML"
   constructor(private http: HttpClient) {
     this.urlLocal = "http://127.0.0.1:8000/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    let cry:any = localStorage.getItem("token");
-    let key = "GAMABAML"
-    this.token = CryptoJS.AES.decrypt(cry.trim(),key.trim()).toString();;
+    
+    this.token = CryptoJS.AES.decrypt(this.cry.trim(),this.key.trim()).toString(CryptoJS.enc.Utf8);
    }
 
-  cargarCuentaAsambleista() {
-    let url = this.urlLocal+'Asambleistas';
-    
-    const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
-    });
-
-    return new Promise((resolve, reject) => {
-      this.http.get(url, { headers: httpheaders }).subscribe(res => {
-        resolve(res); {
-        }
-      }, error => {
-        reject(error);
-      });
-    });
-  }
-
-  cargarCuentaAsistente() {
-    let url = this.urlLocal+'Asistentes';
+  cargarCuentaByRol(slug:any) {
+    let url = this.urlLocal+'ListarUserPorRol?slug='+slug;
     
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -53,12 +36,32 @@ export class AdministradorService {
 
   
 
+  
+
   cargarPerfiles() {
     let url = this.urlLocal+'ListarPerfiles';
     
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
+    
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  ListarPerfileSiAsambleista() {
+    let url = this.urlLocal+'ListarPerfileSiAsambleista';
+    
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+    
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
@@ -136,6 +139,7 @@ export class AdministradorService {
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
+    
     return this.http.get(url, { headers: httpheaders });
   }
 

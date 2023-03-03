@@ -33,6 +33,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     localStorage.removeItem('idAsambPerf');
+    localStorage.removeItem('user');
   }
 
   thumbnail: any;
@@ -40,7 +41,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     let id:any = localStorage.getItem('idAsambPerf');
     this.administradorService.getImg(id).subscribe((baseImage: any) => {
       //alert(JSON.stringify(data.image));
-      debugger
+      
       let objectURL = 'data:image/jpeg;base64,' + baseImage[0].imagen;
       this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     },error =>{console.log(error)});

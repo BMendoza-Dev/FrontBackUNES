@@ -1,0 +1,166 @@
+<c-card class="w-75 mb-12" style="margin-left: 12%;">
+    <c-card-header>
+      <c-nav class="card-header-tabs" variant="tabs">
+        <c-nav-item>
+          <a cNavLink (click)="mostrar()" [active]="mostrarInput">
+            Activo
+          </a>
+        </c-nav-item>
+        <c-nav-item>
+          <a cNavLink (click)="editar()" [active]="editarInput">Editar</a>
+        </c-nav-item>
+      </c-nav>
+    </c-card-header>
+  
+    <c-card-body *ngIf="mostrarInput == true">
+      <c-row style="margin-left: 5%;">
+        <c-col md="12" style="margin-left: 5%;">
+          <form cForm class="row g-3 needs-validation">
+            <label cCol [sm]="2" cLabel="col" for="usuarioValidation">Usuario:</label>
+            <c-col [sm]="9">
+              <input [(ngModel)]="usuario" disabled="true" name="usuario" id="usuarioValidation" cFormControl
+                type="text" />
+            </c-col>
+            <label cCol [sm]="2" cLabel="col" for="correoValidation">Correo:</label>
+            <c-col [sm]="9">
+              <input [(ngModel)]="correo" disabled="true" name="correo" id="correoValidation" cFormControl type="text" />
+            </c-col>
+          </form>
+        </c-col>
+  
+      </c-row>
+    </c-card-body>
+  
+    <c-card-body *ngIf="editarInput == true">
+      <c-row style="margin-left: 10%;">
+        <c-col md="10">
+          <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()">
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="username">Usuario:</label>
+              <c-col [sm]="8" *ngIf="simpleForm.controls['username'] as ctrl">
+                <input cFormControl [(ngModel)]="usuarioEdit" id="username" formControlName="username"
+                  placeholder="Usuario" autocomplete="off" required [valid]="
+                      ctrl.touched && ctrl.valid
+                        ? true
+                        : (submitted || ctrl.touched) && ctrl.invalid
+                        ? false
+                        : undefined
+                    " />
+                <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors['required']">Se requiere un nombre de usuario</div>
+                    <div *ngIf="errors['minlength']">
+                      {{ formErrors.username.minLength }}
+                    </div>
+                    <div *ngIf="errors['pattern']">
+                      {{ formErrors.username.pattern }}
+                    </div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="email">Correo:</label>
+              <c-col [sm]="8" *ngIf="simpleForm.controls['email'] as ctrl">
+                <input [(ngModel)]="correoEdit" cFormControl id="email" type="email" formControlName="email"
+                  placeholder="Email" autocomplete="off" required [valid]="
+                      ctrl.touched && ctrl.valid
+                        ? true
+                        : (submitted || ctrl.touched) && ctrl.invalid
+                        ? false
+                        : undefined
+                    " />
+                <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors['required']">Se requiere un correo electronico</div>
+                    <div *ngIf="errors['email']">
+                      {{ formErrors.email?.email }}
+                    </div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="password">Contraseña</label>
+              <c-col [sm]="8" *ngIf="simpleForm.controls['password'] as ctrl">
+                <input [(ngModel)]="contrasena" cFormControl id="password" type="password" formControlName="password"
+                  placeholder="Contraseña" autocomplete="Nueva contraseña" required [valid]="
+                      ctrl.touched && ctrl.valid
+                        ? true
+                        : (submitted || ctrl.touched) && ctrl.invalid
+                        ? false
+                        : undefined
+                    " />
+                <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors['required']">Se requiere contraseña</div>
+                    <div *ngIf="errors['minlength']">
+                      {{ formErrors['password'].minLength }}
+                    </div>
+                    <div *ngIf="errors['pattern']">
+                      {{ formErrors['password'].pattern }}
+                    </div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="confirmPassword">Confirm password</label>
+              <c-col [sm]="8" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
+                <input [(ngModel)]="contrasenaConf" cFormControl id="confirmPassword" type="password"
+                  formControlName="confirmPassword" placeholder="Confirmar contraseña" autocomplete="off" required
+                  [valid]="
+                      ctrl.touched && ctrl.valid
+                        ? true
+                        : (submitted || ctrl.touched) && ctrl.invalid
+                        ? false
+                        : undefined
+                    " />
+                <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors['passwordMismatch']">
+                      {{ formErrors['confirmPassword'].passwordMismatch }}
+                    </div>
+                    <div *ngIf="errors['required']">{{ formErrors['confirmPassword'].required }}</div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+            <c-row class="mb-1">
+              <c-col *ngIf="simpleForm.controls['accept'] as ctrl">
+                <c-form-check>
+                  <input cFormCheckInput type="checkbox" id="accept" formControlName="accept" required
+                    [valid]="ctrl.valid ? true : submitted && ctrl.invalid ? false : undefined" />
+                  <label cFormCheckLabel custom for="accept">Acepto los términos de uso</label>
+                  <c-form-feedback *ngIf="submitted && ctrl.invalid" [valid]="false">
+                    <ng-container *ngIf="ctrl.errors as errors">
+                      <div *ngIf="errors['required']">{{formErrors['accept'].requiredTrue}}</div>
+                    </ng-container>
+                  </c-form-feedback>
+                </c-form-check>
+              </c-col>
+            </c-row>
+            <hr />
+            <c-button-group>
+              <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
+                [tabindex]="'0'">
+                Guardar
+              </button>
+              <button style="margin-left: 3%;" cButton color="danger" type="reset" (click)="onReset()" [tabindex]="'0'">
+                Cancelar
+              </button>
+            </c-button-group>
+          </form>
+        </c-col>
+      </c-row>
+    </c-card-body>
+  
+  </c-card>
+  
+  
+  <div *ngIf="spinnerConfig['fullScreen']">
+    <ngx-spinner name='sample' [bdColor]="spinnerConfig['bdColor']" size="medium" [color]="spinnerConfig['color']"
+      [type]="spinnerConfig['type']" [showSpinner]="spinnerConfig['showSpinner']">
+      <p style="color: white">Cargando...</p>
+    </ngx-spinner>
+  </div>

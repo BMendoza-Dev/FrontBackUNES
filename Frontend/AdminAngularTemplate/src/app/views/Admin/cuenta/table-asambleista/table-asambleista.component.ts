@@ -101,7 +101,7 @@ export class TableAsambleistaComponent implements OnInit {
   cargarTabla() {
     this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaAsambleista().then(data => {
+    this.administradorService.cargarCuentaByRol("asambleista").then(data => {
       this.dataTabla = data;
       //this.POSTS = this.dataTabla;
       this.limpiarModal();

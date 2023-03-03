@@ -44,6 +44,7 @@ import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.componen
 import { TableDelegadoComponent } from './table-delegado/table-delegado.component';
 import { FormsAdministradorComponent } from './forms-administrador/forms-administrador.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TableAdministradorComponent } from './table-administrador/table-administrador.component';
 
 
 
@@ -54,7 +55,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TableAsambleistaComponent,
     FormsDelegadoComponent,
     TableDelegadoComponent,
-    FormsAdministradorComponent
+    FormsAdministradorComponent,
+    TableAdministradorComponent
   ],
   imports: [
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
