@@ -14,6 +14,9 @@ use App\Models\Comision;
 use App\Models\localizacion;
 use App\Models\Divisionterritorial;
 use App\Models\Categorie;
+use App\Models\Permisos;
+use App\Models\Roles;
+use Illuminate\Support\Facades\Gate;
 class PerfilesController extends Controller
 {
 
@@ -35,6 +38,41 @@ class PerfilesController extends Controller
         Categorie::create(['categorianame'=>'Fizcalisamos']);
         Categorie::create(['categorianame'=>'Legislamos']);
         $token = $tokenapi->json();
+
+        Permisos::create([
+            'nombre'=>'Seccion Admin',
+            'slug'=>'admin',
+            'descripcion'=>'Accede a la vista principal de administrador',       
+           ]);
+   
+           Permisos::create([
+            'nombre'=>'Appmobile',
+            'slug'=>'appmobile',
+            'descripcion'=>'Acceso a la app mobile',       
+           ]);
+   
+
+
+           Permisos::create([
+            'nombre'=>'Asambleista',
+            'slug'=>'asambleista',
+            'descripcion'=>'Accede a la vista principal de administrador',       
+           ]);
+
+           Roles::create([
+           'nombre'=>'Super Administrador',
+           'slug'=>'super_administrador',
+           'descripcion'=>'Tiene acceso a todo',
+           'fullacceso'=>'yes'
+           ]); 
+
+           Roles::create([
+            'nombre'=>'Asambleista',
+            'slug'=>'asambleista',
+            'descripcion'=>'Tiene acceso las opciones de los Asambleistas',
+            'fullacceso'=>'no'
+            ]); 
+           
 
         $Ambitoterritorial = Http::withHeaders([
             'Content-Type' => 'application/jason',
@@ -64,7 +102,6 @@ class PerfilesController extends Controller
         }
 
         
-
         
 
         $Perfiles2 = new Perfil();
@@ -85,21 +122,23 @@ class PerfilesController extends Controller
        // $biografia[]['urlit']="sadasda";
         //$biografia[]['urlttk']="asdsad";
         //$biografia[]['perfil']="asdasd";
-        
+        $rolid = Roles::where('slug','super_administrador')->firstOrFail();
         $urlimagenes=[];
     $urlimagenes[]['imagen']="12j3h1j2n31kn23k1nk";
         $Perfiles2->save();
        // $Perfiles2->biografia()->create($biografia);
         $Perfiles2->image()->createMany($urlimagenes);
 
-        $user= new User();
-        $user->name='Super Admin';
-        $user->email='superadmin@hotmail.com';
-        $user->estado=1;
-        $user->password=Hash::make('12345678');
-        $user->perfil_id=1;
-        $user->rol_id=1;
-        $user->save();
+
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@hotmail.com',
+            'estado'=> 1,
+            'password' =>Hash::make('12345678'),
+            'perfil_id'=>1
+        ])->roles()->sync([$rolid->id]); 
+
+        
 
         $request = Http::withHeaders([
         'Content-Type' => 'application/jason',

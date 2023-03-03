@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Rol;
 use App\Models\Perfil;
 use App\Models\Blog;
+use App\Models\Roles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -24,6 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'estado',
+        'perfil_id',
     ];
     public $timestamps = false;
     /**
@@ -45,9 +47,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function rol(){
-    	return $this->belongsTo(Rol::class);
-    }
 
     public function Perfil(){
     	return $this->belongsTo(Perfil::class);
@@ -58,5 +57,25 @@ class User extends Authenticatable
     }
     public function blogs(){
         return $this->HasMany(Blog::class)->withTimesTamps();
-      }
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Roles::class)->withTimesTamps();
+    }
+
+    public function havepermisos($permisos){
+        foreach ($this->roles as $rol) {
+           if($rol['fullacceso']=='yes'){
+            return true;
+           }
+           foreach ($rol->permisos as $perm) {
+           if($perm->slug==$permisos){
+            return true;
+           }
+        }
+
+        }
+       return false;
+    }
+
 }

@@ -9,6 +9,7 @@ use App\Models\Imagen;
 use App\Models\User;
 use App\Models\Categorie;
 use App\Models\Blog;
+use Illuminate\Support\Facades\Gate;
 class BlogsController extends Controller
 {
     public function index(){
@@ -16,6 +17,7 @@ class BlogsController extends Controller
     }
 
     public function CrearBlog(Request $request){
+        
         if($request->blog_id==null){
             $Categoria = Categorie::findOrFail($request->categorie_id);
         $Perfil = Perfil::findOrFail($request->perfils_id);

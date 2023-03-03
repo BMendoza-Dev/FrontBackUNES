@@ -10,25 +10,34 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\OauthAccessToken;
 use Cookie;
+use App\Models\Roles;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 class AuthController extends Controller
 {
+    
     public function Register(Request $request){
+        if(Gate::check('haveacceso','CrearBlog')==false){
+            return response()->json('403');
+        };
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email|unique:users',
+            'email'=>'required||unique:user,email',
             'password'=>'required'    
         ]);
 
         $user= new User();
+        
+        $rolid = Roles::where('id',$request->rol_id)->firstOrFail();
+        
+        User::create([
+            'name' =>$request->name ,
+            'email' =>$request->email,
+            'estado'=> $request->estado,
+            'password' =>Hash::make($request->password),
+            'perfil_id'=>$request->perfil_id
+        ])->roles()->sync([ $rolid->id]); 
 
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->estado=$request->estado;
-        $user->password=Hash::make($request->password);
-        $user->perfil_id=$request->perfil_id;
-        $user->rol_id=$request->rol_id;
-        $user->save();
 
         return response()->json(['menssage'=>'registro correcto']);
     }
@@ -42,7 +51,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $user=Auth::user();
-            $userAuth= Auth::user()->where('email',$request->email)->with('rol')->get();
+            $userAuth= Auth::user()->where('email',$request->email)->with('roles')->get();
             $token= $user->createToken('token')->plainTextToken;
 
             $tokenexpire= OauthAccessToken::where('tokenable_id',$userAuth[0]->id)->get()->last();
@@ -50,11 +59,11 @@ class AuthController extends Controller
             $tokenexpire->update();
 
             $cookie = cookie('cookie_token',$token,60*1);
-            return response(['token'=>$token, 'usuario'=>$userAuth])->withoutCookie($cookie);
+            return response(['token'=>$token, 'usuario'=>$userAuth,'menssage'=>'Login correcto','code'=>'200'])->withoutCookie($cookie);
         }else{
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized','code'=>'401']);
         }
-        return response()->json(['menssage'=>'Login correcto']);
+        return response()->json(['menssage'=>'Login correcto','code'=>'200']);
     }
 
     public function Logout(Request $request){

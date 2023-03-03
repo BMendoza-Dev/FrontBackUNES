@@ -10,6 +10,7 @@ use App\Models\Editoriale;
 use App\Models\Categorie;
 use App\Models\Visitante;
 use App\Models\Imagen;
+
 class Blog extends Model
 {
     use HasFactory;

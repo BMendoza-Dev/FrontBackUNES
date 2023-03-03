@@ -22,7 +22,6 @@ return new class extends Migration
             $table->rememberToken();
             //$table->timestamps();
             $table->boolean('estado');   
-            $table->foreignId('rol_id')->references('id')->on('rols');
             $table->foreignId('perfil_id')->references('id')->on('perfils');
         });
     }
