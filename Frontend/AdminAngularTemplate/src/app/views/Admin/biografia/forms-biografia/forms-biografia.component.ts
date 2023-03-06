@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import Swal from 'sweetalert2';
-import * as ClassicEditor from '../ckCustomBuild/build/ckeditor';
+import * as ClassicEditor from '../../../../ckeditor 5/ckCustomBuild/build/ckeditor';
 
 @Component({
   selector: 'app-forms-biografia',
@@ -12,7 +12,9 @@ import * as ClassicEditor from '../ckCustomBuild/build/ckeditor';
 })
 export class FormsBiografiaComponent implements OnInit {
 
+  APIKEy = "wuDYA2WLsQy3aEM5sDRojRYYj"; APIKeySecret = "D5pIJZropa8iuXQ5eK9OTRdRGnIR8nGYobg3Cfa0h4KiNcHGMA"; bearerToken = "AAAAAAAAAAAAAAAAAAAAAJYhmAEAAAAAUiCdGbTgwAqbY8H0gILpaedAeOQ%3DX0GqQKpwEYK8sMeoWhYqIeCfxUXQar0T4hFO4un984qrJiFJRg";
 
+  
 
   //@ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
   constructor(private adminService: AdministradorService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
@@ -192,7 +194,8 @@ export class FormsBiografiaComponent implements OnInit {
         });
       } else {
         this.trasformaImagen(biografia['image'][0].imagen);
-        this.datos = biografia.perfil; this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw;
+        //this.datos = biografia.perfil; 
+        this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw;
       }
     }).catch(error => {
       console.log(error);

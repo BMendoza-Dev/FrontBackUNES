@@ -26,6 +26,8 @@ export class BiografiaPage implements OnInit {
     this.rest.getBiografiaAssam(this.id_perfil).subscribe((data:any) =>{
       data;
       this.peril = this.sanitizer.bypassSecurityTrustHtml(data.perfil);
+      
+      debugger
     },error => (console.log(error)))
   }
 

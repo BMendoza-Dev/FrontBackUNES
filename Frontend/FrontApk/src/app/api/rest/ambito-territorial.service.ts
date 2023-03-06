@@ -31,7 +31,7 @@ export class AmbitoTerritorialService {
       'Authorization': "Bearer " + this.token
     });
 
-    return this.httpClien.get(this.urlApp + 'ObtenerTerritorio', { headers: httpheaders });
+    return this.httpClien.get(this.urlAWS + 'ObtenerTerritorio', { headers: httpheaders });
   }
 
   getAsambleistaTerritorio(provic) {
@@ -39,7 +39,7 @@ export class AmbitoTerritorialService {
       'Authorization': "Bearer " + this.token
     });
 
-    return this.httpClien.get(this.urlApp + 'ObtenerAsambleistaTerritorio?territorialDivision=' + provic, { headers: httpheaders });
+    return this.httpClien.get(this.urlAWS + 'ObtenerAsambleistaTerritorio?territorialDivision=' + provic, { headers: httpheaders });
   }
 
 

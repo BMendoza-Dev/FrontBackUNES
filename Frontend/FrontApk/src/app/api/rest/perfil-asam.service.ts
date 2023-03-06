@@ -16,7 +16,7 @@ export class PerfilAsamService {
   }
 
   getAssamblyList() {
-    let url = this.urlApp + 'ListarPerfiles';
+    let url = this.urlAWS + 'ListarPerfiles';
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -31,7 +31,7 @@ export class PerfilAsamService {
   }
 
   getAssamblyPerfil(id_perfil) {
-    let url = this.urlApp + 'ObtenerPerfil?id=' + id_perfil;
+    let url = this.urlAWS + 'ObtenerPerfil?id=' + id_perfil;
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -56,7 +56,7 @@ export class PerfilAsamService {
   }
 
   getBiografiaAssam(id: any) {
-    let url = this.urlApp + 'ObtenerBiografia?id=' + id;
+    let url = this.urlAWS + 'ObtenerBiografia?id=' + id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });

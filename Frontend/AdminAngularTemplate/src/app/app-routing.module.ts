@@ -7,9 +7,9 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 
-import {AdminLoginGuard} from './guards/admin-login.guard';
-import {AsambLoginGuard} from './guards/asamb-login.guard';
-import {InicioLoginGuard} from './guards/inicio-login.guard'
+import { AdminLoginGuard } from './guards/admin-login.guard';
+import { AsambLoginGuard } from './guards/asamb-login.guard';
+import { InicioLoginGuard } from './guards/inicio-login.guard'
 
 
 export const routes: Routes = [
@@ -27,30 +27,38 @@ export const routes: Routes = [
     children: [
       {
         path: 'asambleista',
-        canActivate:[AsambLoginGuard],
-        loadChildren:() => import('./views/Asambleista/perfil/perfil.module').then((m) => m.PerfilModule)
+        canActivate: [AsambLoginGuard],
+        loadChildren: () => import('./views/Asambleista/perfil/perfil.module').then((m) => m.PerfilModule)
       },
 
       {
         path: 'administrador_nav_1',
-        canActivate:[AdminLoginGuard],
-        loadChildren:() => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule)
+        canActivate: [AdminLoginGuard],
+        loadChildren: () => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule)
       },
 
       {
         path: 'administrador_nav_2',
-        canActivate:[AdminLoginGuard],
-        loadChildren:() => import('./views/Admin/biografia/biografia.module').then((m) => m.BiografiaModule)
+        canActivate: [AdminLoginGuard],
+        loadChildren: () => import('./views/Admin/biografia/biografia.module').then((m) => m.BiografiaModule)
       },
-
-
-
       {
         path: 'inicio',
-        canActivate:[InicioLoginGuard],
+        canActivate: [InicioLoginGuard],
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
+      {
+        path: 'blogs',
+        canActivate: [InicioLoginGuard],
+        loadChildren: () =>
+        import('./views/blogs/blogs.module').then((m) => m.BlogsModule)
+      },
+
+
+
+
+
       {
         path: 'theme',
         loadChildren: () =>
@@ -126,7 +134,7 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'inicio'}
+  { path: '**', redirectTo: 'inicio' }
 ];
 
 @NgModule({

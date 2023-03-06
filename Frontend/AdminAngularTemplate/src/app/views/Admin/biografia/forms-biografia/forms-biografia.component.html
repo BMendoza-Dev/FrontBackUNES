@@ -69,9 +69,9 @@
             </div>
             <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
             {{datos}}
-            
+
             <section class="buttons">
-                <i (click)="redSocial('facebook')"><svg  cIcon size="xl" name="cibFacebook"></svg></i> 
+                <i (click)="redSocial('facebook')"><svg cIcon size="xl" name="cibFacebook"></svg></i>
                 <i (click)="redSocial('twitter')"><svg cIcon size="xl" name="cibTwitter"></svg></i>
                 <i (click)="redSocial('instagram')"><svg cIcon size="xl" name="cibInstagram"></svg></i>
                 <i (click)="redSocial('tiktok')"><svg cIcon size="xl" name="cibTiktok"></svg></i>
@@ -92,8 +92,8 @@
 </ng-template>
 
 <div *ngIf="spinnerConfig['fullScreen']">
-  <ngx-spinner name='sample' [bdColor]="spinnerConfig['bdColor']" size="medium" [color]="spinnerConfig['color']"
-    [type]="spinnerConfig['type']" [showSpinner]="spinnerConfig['showSpinner']">
-    <p style="color: white">Cargando...</p>
-  </ngx-spinner>
+    <ngx-spinner name='sample' [bdColor]="spinnerConfig['bdColor']" size="medium" [color]="spinnerConfig['color']"
+        [type]="spinnerConfig['type']" [showSpinner]="spinnerConfig['showSpinner']">
+        <p style="color: white">Cargando...</p>
+    </ngx-spinner>
 </div>
