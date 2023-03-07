@@ -7,19 +7,18 @@ import * as CryptoJS from 'crypto-js';
 export class AdministradorService {
   urlAWS: any;
   urlLocal: string;
-  token:any;
-   cry:any = localStorage.getItem("token");
-   key = "GAMABAML"
+  token: any;
+  cry: any = localStorage.getItem("token");
+  key = "GAMABAML"
   constructor(private http: HttpClient) {
     this.urlLocal = "http://127.0.0.1:8000/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    
-    this.token = CryptoJS.AES.decrypt(this.cry.trim(),this.key.trim()).toString(CryptoJS.enc.Utf8);
-   }
+    this.token = CryptoJS.AES.decrypt(this.cry.trim(), this.key.trim()).toString(CryptoJS.enc.Utf8);
+  }
 
-  cargarCuentaByRol(slug:any) {
-    let url = this.urlAWS+'ListarUserPorRol?slug='+slug;
-    
+  cargarCuentaByRol(slug: any) {
+    let url = this.urlAWS + 'ListarUserPorRol?slug=' + slug;
+
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -34,17 +33,17 @@ export class AdministradorService {
     });
   }
 
-  
 
-  
+
+
 
   cargarPerfiles() {
-    let url = this.urlAWS+'ListarPerfiles';
-    
+    let url = this.urlAWS + 'ListarPerfiles';
+
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
-    
+
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
@@ -56,12 +55,12 @@ export class AdministradorService {
   }
 
   ListarPerfileSiAsambleista() {
-    let url = this.urlAWS+'ListarPerfileSiAsambleista';
-    
+    let url = this.urlAWS + 'ListarPerfileSiAsambleista';
+
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
-    
+
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
@@ -86,8 +85,8 @@ export class AdministradorService {
   }*/
 
   registerCuentaAsambleistaAsistente(_data: any) {
-    let url = this.urlAWS+'Register';
-    
+    let url = this.urlAWS + 'Register';
+
     let formData = new FormData();
     formData.append('name', _data.name);
     formData.append('email', _data.email);
@@ -110,8 +109,8 @@ export class AdministradorService {
   }
 
   updateAsamAsisCuentas(_data: any) {
-    let url = this.urlAWS+'Update';
-    
+    let url = this.urlAWS + 'Update';
+
     let formData = new FormData();
     formData.append('name', _data.name);
     formData.append('email', _data.email);
@@ -134,19 +133,19 @@ export class AdministradorService {
     });
   }
 
-  getImg(_id:any) {
-    let url = this.urlAWS+'ObtenerImagen?id=' + _id;
+  getImg(_id: any) {
+    let url = this.urlAWS + 'ObtenerImagen?id=' + _id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
-    
+
     return this.http.get(url, { headers: httpheaders });
   }
 
 
-  
+
   updateBiografia(_data: any) {
-    let url = this.urlAWS+'RegistrarBiografia';
+    let url = this.urlAWS + 'RegistrarBiografia';
     let formData = new FormData();
     formData.append('urlfb', _data.urlfb);
     formData.append('urltw', _data.urltw);
@@ -155,13 +154,13 @@ export class AdministradorService {
     formData.append('perfil', _data.perfil);
     formData.append('id', _data.id);
     formData.append('imagen', _data.binImg);
-    
+
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
     return new Promise((resolve, reject) => {
-      this.http.post(url, formData, {headers: httpheaders}).subscribe(res => {
-        
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+
         resolve(res); {
         }
       }, error => {
@@ -170,17 +169,17 @@ export class AdministradorService {
     });
   }
 
-  cargarBiografia(_id: any){
-    let url = this.urlAWS+'ObtenerBiografia?id='+_id;
-    
-    
+  cargarBiografia(_id: any) {
+    let url = this.urlAWS + 'ObtenerBiografia?id=' + _id;
+
+
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
 
     return new Promise((resolve, reject) => {
-      this.http.get(url, {headers: httpheaders}).subscribe(res => {
-        
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+
         resolve(res); {
         }
       }, error => {
@@ -188,5 +187,5 @@ export class AdministradorService {
       });
     });
   }
-  
+
 }

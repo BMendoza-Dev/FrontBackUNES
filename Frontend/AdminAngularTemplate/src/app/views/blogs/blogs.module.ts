@@ -3,15 +3,77 @@ import { CommonModule } from '@angular/common';
 
 import { BlogsRoutingModule } from './blogs-routing.module';
 import { FormBlogsComponent } from './form-blogs/form-blogs.component';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import {
+  ButtonGroupModule,
+  ButtonModule,
+  CardModule,
+  DropdownModule,
+  FormModule,
+  GridModule,
+  ListGroupModule,
+  SharedModule,
+  AccordionModule,
+  BadgeModule,
+  BreadcrumbModule,
+  CarouselModule,
+  CollapseModule,
+  NavModule,
+  PlaceholderModule,
+  PopoverModule,
+  ProgressModule,
+  SpinnerModule,
+  TableModule,
+  TabsModule,
+  TooltipModule,
+  UtilitiesModule,
+  AlertModule,
+  ModalModule,
+  ToastModule,
+  PaginationModule,
+} from '@coreui/angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { IconModule } from '@coreui/icons-angular';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     FormBlogsComponent
   ],
   imports: [
     CommonModule,
-    BlogsRoutingModule
+    BlogsRoutingModule,
+    ButtonGroupModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    FormModule,
+    GridModule,
+    ListGroupModule,
+    SharedModule,
+    AccordionModule,
+    BadgeModule,
+    BreadcrumbModule,
+    CarouselModule,
+    CollapseModule,
+    NavModule,
+    PlaceholderModule,
+    PopoverModule,
+    ProgressModule,
+    SpinnerModule,
+    TableModule,
+    TabsModule,
+    TooltipModule,
+    UtilitiesModule,
+    AlertModule,
+    ModalModule,
+    ToastModule,
+    PaginationModule,
+    CKEditorModule,
+    IconModule,
+    NgxSpinnerModule,
+    HttpClientModule,
+    FormsModule
   ]
 })
 export class BlogsModule { }

@@ -268,7 +268,12 @@ export const navItemsAdmin: INavData[] = [
     name: 'Biografias',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
-  }
+  },
+  {
+    name: 'Blogs',
+    url: '/blogs/form-blogs',
+    iconComponent: { name: 'cil-user' }
+  },
 
 ];
 
@@ -279,6 +284,11 @@ export const navItemsAsamb: INavData[] = [
   },
   {
     name: 'Perfil',
+    url: '/asambleista/personalPerfile',
+    iconComponent: { name: 'cil-user' }
+  },
+  {
+    name: 'Blogs',
     url: '/asambleista/personalPerfile',
     iconComponent: { name: 'cil-user' }
   },

@@ -29,7 +29,6 @@ export class AsambleistasPage implements OnInit {
   }
 
    eliminarOrder() {
-    
     this.assambly.splice(0, 1);
     this.assambly.map((item, i)=> i===0 ? item.order=1 : item.order = this.assambly[i-1].order + 1)
     

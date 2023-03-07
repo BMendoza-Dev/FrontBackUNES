@@ -37,6 +37,8 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-code-block": "^36.0.1",
+    "@ckeditor/ckeditor5-html-embed": "^36.0.1",
     "@ckeditor/ckeditor5-image": "^36.0.1",
     "@ckeditor/ckeditor5-link": "^36.0.1",
     "@ckeditor/ckeditor5-upload": "^36.0.1"

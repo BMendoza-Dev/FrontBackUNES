@@ -13,12 +13,13 @@ export class InfAsambleistaPage implements OnInit {
   id_perfil: any; algo: boolean = true; contacto: boolean = false;
   comisiones: boolean = false;
   edifice: any; floor: any; office: any; phone: any; email: any;
-  comisionAss: any;
+  comisionAss: any; cont:any;
 
   constructor(private Nav:NavController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService, public loadCont: LoadingController) { }
 
   ngOnInit() {
     //this.showLoading();
+    debugger
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getAssambly();
   }
@@ -60,6 +61,7 @@ export class InfAsambleistaPage implements OnInit {
     loading.present();
   }
 
+  
   goInfAssam(id:any){
     this.Nav.navigateForward(`biografia/${id}`);
   }

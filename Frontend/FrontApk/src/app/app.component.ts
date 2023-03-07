@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginService } from './api/asambapk/login.service';
+import { LoginService } from '../app/api/rest/login.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -10,15 +10,19 @@ export class AppComponent {
   constructor(private restLogin: LoginService) {}
 
   ngOnInit(){
-    //this.goApp();
+    this.goApp();
   }
   
   goApp(){
-    this.restLogin.loginApp().subscribe(response => {
-      localStorage.setItem('token',  response['token']); 
-      
-    }, error => { console.error('Error login >>' + JSON.stringify(error)); });
+    this.restLogin.ValidarLogin().then((data) =>{
+      let dat = data;
+      localStorage.setItem('token', dat['token']); 
+    }).catch(error =>{
+      console.log(error);
+    })
   }
+
+  
 
   public appPages = [
     { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },

@@ -1,1 +1,24 @@
-<p>form-blogs works!</p>
+<div class="mb-3">
+    <label cLabel for="exampleFormControlInput1">Titulo</label>
+    <input cFormControl id="exampleFormControlInput1" placeholder="...." type="text" />
+</div>
+<div class="mb-3">
+    <label cLabel for="exampleFormControlTextarea1">Descripción</label>
+    <textarea cFormControl id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+<div class="mb-3">
+    <label cLabel="" for="exampleFormControlCkeditor"></label>
+    <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
+    {{datos}}
+</div>
+<div class="mb-3">
+    <c-form-check [switch]="true">
+        <input cFormCheckInput type="checkbox" />
+        <label cFormCheckLabel>Importante</label>
+    </c-form-check>
+</div>
+<c-col style="margin-top: 2%;" xs="12">
+    <button cButton class="me-2" color="success">
+        Crear
+    </button>
+</c-col>

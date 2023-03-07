@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import Swal from 'sweetalert2';
-import * as ClassicEditor from '../../../../ckeditor 5/ckCustomBuild/build/ckeditor';
+import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
 
 @Component({
   selector: 'app-forms-biografia',
@@ -14,7 +14,7 @@ export class FormsBiografiaComponent implements OnInit {
 
   APIKEy = "wuDYA2WLsQy3aEM5sDRojRYYj"; APIKeySecret = "D5pIJZropa8iuXQ5eK9OTRdRGnIR8nGYobg3Cfa0h4KiNcHGMA"; bearerToken = "AAAAAAAAAAAAAAAAAAAAAJYhmAEAAAAAUiCdGbTgwAqbY8H0gILpaedAeOQ%3DX0GqQKpwEYK8sMeoWhYqIeCfxUXQar0T4hFO4un984qrJiFJRg";
 
-  
+
 
   //@ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
   constructor(private adminService: AdministradorService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
@@ -28,10 +28,10 @@ export class FormsBiografiaComponent implements OnInit {
 
   urlSet: any;
   urlGet: any = ''; ClaseFoto: string = ""; foto = "";
-  public Editor:any = ClassicEditor; datos: string = ""; binImg: any; urlImgAssa: any;
+  public Editor: any = ClassicEditor; datos: string = '<blockquote class="twitter-tweet"><p lang="es" dir="ltr">👀😃🔥<br><br>Un Color histórico vuelve 🔵⚪💡<br><br>🔝Edición Especial 👕<a href="https://twitter.com/hashtag/PorEmelec?src=hash&amp;ref_src=twsrc%5Etfw">#PorEmelec</a> <a href="https://twitter.com/hashtag/SiempreJuntos?src=hash&amp;ref_src=twsrc%5Etfw">#SiempreJuntos</a>🤜🏻🤛🏻⚡ <a href="https://t.co/ssOTya639Z">pic.twitter.com/ssOTya639Z</a></p>&mdash; Club Sport Emelec (@CSEmelec) <a href="https://twitter.com/CSEmelec/status/1631753320384659470?ref_src=twsrc%5Etfw">March 3, 2023</a></blockquote>'; binImg: any; urlImgAssa: any;
   habilitarCampos: boolean = false; notFound: string = "No se encuentra asambleista";
 
-   
+
   config = {
     toolbar: [
       'heading',
@@ -44,6 +44,7 @@ export class FormsBiografiaComponent implements OnInit {
       'bulletedList',
       'numberedList',
       '|',
+      'htmlEmbed',
       'undo',
       'redo',],
     heading: {
@@ -53,6 +54,15 @@ export class FormsBiografiaComponent implements OnInit {
         { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
         { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
       ]
+    },
+    codeBlock: {
+      languages: [
+        { language: 'html', label: 'HTML' }
+      ]
+    },
+    htmlEmbed: {
+      showPreviews: true,
+      
     },
     lenguage: 'es'
   }
@@ -103,7 +113,6 @@ export class FormsBiografiaComponent implements OnInit {
           base64String = event.target.result.replace("data:", "")
             .replace(/^.+,/, "");
           this.urlSet = base64String;
-
         }
       } else {
         Swal.fire({
@@ -125,7 +134,6 @@ export class FormsBiografiaComponent implements OnInit {
       this.binImg = event.target.result;
     }
     reader.readAsText(file);
-    
   }
 
   public readFile(event: any) {
@@ -153,7 +161,7 @@ export class FormsBiografiaComponent implements OnInit {
           'urlttk': this.urlttk,
           'binImg': this.urlSet
         };
-        
+
         this.adminService.updateBiografia(data).then(() => {
           this.clearVariables();
         }).catch(error => {
@@ -173,7 +181,7 @@ export class FormsBiografiaComponent implements OnInit {
     //this.cargarPerfilesAsam();
     this.idAsambleiApiAsam = item.id;
     this.cargarBiografiaAsam();
-    
+
   }
 
   trasformaImagen(img: any) {
@@ -184,12 +192,12 @@ export class FormsBiografiaComponent implements OnInit {
 
     this.adminService.cargarBiografia(this.idAsambleiApiAsam).then(data => {
       let biografia: any = data
-      
+
       if (biografia.error == "404") {
         this.adminService.getImg(this.idAsambleiApiAsam).subscribe((data: any) => {
           let img = data
           this.urlSet = img[0]['imagen'];
-          
+
           this.trasformaImagen(img[0]['imagen']);
         });
       } else {
@@ -254,7 +262,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urlfb = url
         if (this.urlfb) {
-          
+
           Swal.fire(`Ingeso la URL: ${this.urlfb}`)
         }
       }
@@ -274,7 +282,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urltw = url
         if (this.urltw) {
-          
+
           Swal.fire(`Ingeso la URL: ${this.urltw}`)
         }
       }
@@ -294,7 +302,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urlit = url
         if (this.urlit) {
-          
+
           Swal.fire(`Ingeso la URL: ${this.urlit}`)
         }
       }
@@ -314,7 +322,7 @@ export class FormsBiografiaComponent implements OnInit {
       if (url) {
         this.urlttk = url
         if (this.urlttk) {
-          
+
           Swal.fire(`Ingeso la URL: ${this.urlttk}`)
         }
       }
@@ -324,3 +332,7 @@ export class FormsBiografiaComponent implements OnInit {
 
   }
 }
+function sanitize(inputHtml: any) {
+  throw new Error('Function not implemented.');
+}
+
