@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Categorie;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Gate;
+
 class BlogsController extends Controller
 {
     public function index(){
@@ -64,6 +65,10 @@ class BlogsController extends Controller
         return  response()->json('200');
     }
 
+    public function ListarCateBlog(){
+        $categoria =Categorie::get();
+        return response()->json($categoria);
+     }
 
 
 }

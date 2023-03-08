@@ -31,13 +31,13 @@ class PerfilesController extends Controller
             'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
             'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
         ]);
-
+        $token = $tokenapi->json();
         Categorie::create(['categorianame'=>'Agenda']);
         Categorie::create(['categorianame'=>'Opinion']);
         Categorie::create(['categorianame'=>'Entrevistas']);
         Categorie::create(['categorianame'=>'Fizcalisamos']);
         Categorie::create(['categorianame'=>'Legislamos']);
-        $token = $tokenapi->json();
+        
 
         Permisos::create([
             'nombre'=>'Seccion Admin',
