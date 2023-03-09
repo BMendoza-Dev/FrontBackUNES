@@ -76,7 +76,8 @@ class BlogsController extends Controller
      }
 
      public function ListarBlogsPorAprobar (){
-        $listadeblogs= Blog::where('aprobado',false)->where('ultimanoticia',true)->with('perfil')->get();
+        $listadeblogs= Blog::query()->where('aprobado',false)->where('ultimanoticia',true)->with('perfil')->with('image:id,imagen')->get();
+
 
         if($listadeblogs->isEmpty()){
             return  response()->json(['error'=>'404']);
