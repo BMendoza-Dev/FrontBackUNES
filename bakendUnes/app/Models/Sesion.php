@@ -10,10 +10,10 @@ class Sesion extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'sesion', 'initialDate'
+        'sesion', 'initialDate','agendaStatus'
     ];
 
     public function temas(){
-        return $this->hasMany(Sesion::class);
+        return $this->hasMany(Tema::class);
      }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('sesions', function (Blueprint $table) {
             $table->id();
             $table->integer('sesion')->unique();
+            $table->enum('agendaStatus',['CLOSED','SUSPENDED'])->nullable();
             $table->date('initialDate');
             
             $table->timestamps();

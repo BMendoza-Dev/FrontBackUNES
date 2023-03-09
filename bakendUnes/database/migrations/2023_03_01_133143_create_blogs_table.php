@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('aprobado');
             $table->foreignId('editoriale_id')->nullable()->references('id')->on('editoriales');
             $table->foreignId('categorie_id')->references('id')->on('categories');
-            $table->foreignId('perfils_id')->references('id')->on('perfils');
+            $table->foreignId('perfil_id')->references('id')->on('perfils');
             $table->foreignId('users_id')->references('id')->on('users');
             $table->timestamps();
         });

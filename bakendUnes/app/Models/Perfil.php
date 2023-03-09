@@ -10,6 +10,7 @@ use App\Models\Biografia;
 use App\Models\localizacion;
 use App\Models\Blog;
 use App\Models\User;
+use App\Models\Temaavotacion;
 class Perfil extends Model
 {
     protected $fillable = [
@@ -28,6 +29,10 @@ class Perfil extends Model
 
     public function comisiones(){
       return $this->belongsToMany(Comision::class)->withPivot('roleName')->withTimesTamps();;
+    }
+
+    public function Temaavotaciones(){
+      return $this->belongsToMany(Temaavotacion::class)->withPivot('voto')->withTimesTamps();;
     }
 
     public function blogs(){

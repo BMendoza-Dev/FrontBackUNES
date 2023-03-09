@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('votaciones', function (Blueprint $table) {
+        Schema::create('perfil_temaavotacion', function (Blueprint $table) {
             $table->id();
+            $table->enum('voto',['SI','NO','ABSTENCION','AUSENTE','BLANCO']);
+            $table->foreignId('perfil_id')->references('id')->on('perfils');
+            $table->foreignId('temaavotacion_id')->references('id')->on('temaavotacions');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votaciones');
+        Schema::dropIfExists('perfil_temaavotacion');
     }
 };

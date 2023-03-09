@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
 
     public function Register(Request $request){
-        if(Gate::check('haveacceso','CrearBlog')==false){
+        if(Gate::check('haveacceso','RegiterUser')==false){
             return response()->json('403');
         };
         $request->validate([
@@ -77,6 +77,9 @@ class AuthController extends Controller
     }
 
     public function Update(Request $request){
+        if(Gate::check('haveacceso','UpdateUser')==false){
+            return response()->json('403');
+        };
         $validator = Validator::make($request->all(), [
             'email'=>'required|email|unique:users',
         ]);

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('temaavotaciones', function (Blueprint $table) {
+        Schema::create('temaavotacions', function (Blueprint $table) {
             $table->id();
             $table->longText('description');
             $table->date('initialDate');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temaavotaciones');
+        Schema::dropIfExists('temaavotacions');
     }
 };

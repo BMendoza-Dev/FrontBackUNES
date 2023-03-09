@@ -123,17 +123,11 @@ class PerfilesController extends Controller
         $Perfiles2->territorialDivision='ECUADOR';
         $Perfiles2->usedFirstName='UNION POR LA ESPERANZA';
         $Perfiles2->usedLastName='UNION POR LA ESPERANZA';
-       // $biografia=[];
-       // $biografia['urlfb']="asdasd";
-      //  $biografia[]['urltw']="adsasd";
-       // $biografia[]['urlit']="sadasda";
-        //$biografia[]['urlttk']="asdsad";
-        //$biografia[]['perfil']="asdasd";
+
         $rolid = Roles::where('slug','super_administrador')->firstOrFail();
         $urlimagenes=[];
     $urlimagenes[]['imagen']="12j3h1j2n31kn23k1nk";
         $Perfiles2->save();
-       // $Perfiles2->biografia()->create($biografia);
         $Perfiles2->image()->createMany($urlimagenes);
 
 
@@ -326,7 +320,6 @@ class PerfilesController extends Controller
             }
             $Perfiles->update();
 
-            
         }else{
           
             if($data!=null){
@@ -366,11 +359,12 @@ class PerfilesController extends Controller
         $Perfilesfinal= Perfil::where('id',$request->id)->with('image')->with('localizacion')->with('comisiones')->get();
 
         
-        if($Perfilesfinal[0]==null){
+        if($Perfilesfinal->isEmpty()){
             return  response()->json(['error'=>'404']);
         }
         return  response()->json($Perfilesfinal[0]);
            
      }
+     
 }
 

@@ -10,6 +10,7 @@ use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
 use App\Models\Tema;
+use App\Models\Temaavotacion;
 use Illuminate\Support\Facades\Http;
 /*
 |--------------------------------------------------------------------------
@@ -25,21 +26,93 @@ use Illuminate\Support\Facades\Http;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/prueva2', function (Request $request) {
+    set_time_limit(8000000);
+
+    $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
+        'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
+        'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
+    ]);
+
+    $token = $tokenapi->json();
+
+    foreach (Perfil::get() as $Perfil){
+
+        $ListadeVotacionesAsambleista = Http::withHeaders([
+            'Content-Type' => 'application/jason',
+            'Authorization' => $token['token'],
+            ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findVotings?periodId=6&assemblyMemberId='.$Perfil->id.'&description&offset=0&limit=0');
+        
+        foreach (collect($ListadeVotacionesAsambleista->json()) as $VotacionAsambleista){
+            if(Tema::where('id',$VotacionAsambleista['id'])->exists()){
+                $Perfil->Temaavotaciones()->attach([$VotacionAsambleista['id']=>['voto'=>$VotacionAsambleista['description']]]);
+            }
+            
+        }
+
+
+     }
+
+return 'hola';
+
+ });
+
 Route::get('/prueva', function (Request $request) {
-
-
-   // $str="2023-02-07 , 2023-03-02";
 
     
     $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
         'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
         'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
     ]);
+
     $token = $tokenapi->json();
-        $ListaSesiones = Http::withHeaders([
+
+    $ListaSesiones = Http::withHeaders([
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
-        ])->get('http://apiapp.asambleanacional.gob.ec/agendasResource/getList?sessionNumber&from&to&offset=0&limit=277');
+        ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom&dateTo&search=%20&meetingGroupId=0&offset=0&limit=585');
+
+        foreach (collect($ListaSesiones->json()) as $Sesiones){
+            $Sesion = new Sesion();
+            if(!Sesion::where('sesion',$Sesiones['agendaNumber'])->exists()){
+                $Sesion->id= $Sesiones['agendaId'];
+                $Sesion->sesion= $Sesiones['agendaNumber'];
+                $Sesion->initialDate= strstr($Sesiones['agendaDate'], 'T', true);;
+                $Sesion->save();
+                }
+
+            $Tema = new Tema();
+                if(!Tema::where('id',$Sesiones['themeId'])->exists()){
+                $Tema->id= $Sesiones['themeId'];
+                $Tema->sesion_id= $Sesiones['agendaId'];
+                $Tema->description= $Sesiones['themeDescription'];
+                
+                if(strstr($Sesiones['agendaDate'], 'T', true)==0){
+                    $Tema->initialDate=$Sesiones['agendaDate'];
+                   
+                }else{
+                    $Tema->initialDate= strstr($Sesiones['agendaDate'], 'T', true);
+                }            
+                $Tema->save();
+                 }
+            
+                 $TemaVotar = new Temaavotacion();
+        
+                 $TemaVotar->id= $Sesiones['votingId'];
+                 $TemaVotar->description= $Sesiones['description'];
+                 $TemaVotar->initialDate= strstr($Sesiones['date'], 'T', true);
+                 $TemaVotar->temas_id=  $Sesiones['themeId'];
+                    
+                 $TemaVotar->save();
+         }
+
+   
+
+  /*      $ListaSesiones = Http::withHeaders([
+        'Content-Type' => 'application/jason',
+        'Authorization' => $token['token'],
+        ])->get('http://apiapp.asambleanacional.gob.ec/agendasResource/getList?sessionNumber&from&to&offset=0&limit=280');
 
         foreach (collect($ListaSesiones->json()) as $Sesiones){
             $Sesion = new Sesion();
@@ -50,58 +123,47 @@ Route::get('/prueva', function (Request $request) {
             $Sesion->initialDate= strstr($Sesiones['initialDate'], 'Z', true);;
             $Sesion->save();
             }
-
-           // $Sesion->name= $Sesiones['name'];
-        }
-
-        $ListaTemas = Http::withHeaders([
-            'Content-Type' => 'application/jason',
-            'Authorization' => $token['token'],
-            ])->get('http://apiapp.asambleanacional.gob.ec/themesResource?id&search&sessionNumber&dateFrom&dateTo&offset=0&limit=236');
-        
-            foreach (collect($ListaTemas->json()) as $Temas){
+            foreach ($Sesiones['list'] as $ListaTemas){
                 $Tema = new Tema();
-    
-                $Tema->id= $Temas['id'];
-                $Tema->sesion_id= $Temas['agendaId'];
-                $Tema->description= $Temas['description'];
-                $Tema->agendaStatus= $Temas['agendaStatus'];
-                if(strstr($Temas['dates'], ',', true)==0){
-                    $Tema->initialDate=$Temas['dates'];
+                if(!Tema::where('id',$ListaTemas['id'])->exists()){
+                $Tema->id= $ListaTemas['id'];
+                $Tema->sesion_id= $Sesiones['id'];
+                $Tema->description= $ListaTemas['description'];
+                
+                if(strstr($ListaTemas['startdate'], 'T', true)==0){
+                    $Tema->initialDate=$ListaTemas['startdate'];
                    
                 }else{
-                    $Tema->initialDate= strstr($Temas['dates'], ',', true);
+                    $Tema->initialDate= strstr($ListaTemas['startdate'], 'T', true);
                 }            
                 $Tema->save();
+                 }
 
-            }
-        $ListaTemasaVotar = Http::withHeaders([
-            'Content-Type' => 'application/jason',
-            'Authorization' => $token['token'],
-            ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom&dateTo&search=%20&meetingGroupId=0&offset=0&limit=578');
-            
-            foreach (collect($ListaTemasaVotar->json()) as $TemaVotar){
-                $TemaVotar = new Tema();
+                 foreach ($ListaTemas['list'] as $TemasVotar){
+                    $TemaVotar = new Temaavotacion();
+        
+                    $TemaVotar->id= $TemasVotar['id'];
+                    $TemaVotar->description= $TemasVotar['description'];
+                    $TemaVotar->initialDate= strstr($TemasVotar['startdate'], 'T', true);
+                    $TemaVotar->temas_id=  $ListaTemas['id'];
+                       
+                    $TemaVotar->save();
     
-                $TemaVotar->id= $TemaVotar['1002711'];
-                $TemaVotar->sesion_id= $TemaVotar['agendaId'];
-                $TemaVotar->description= $TemaVotar['description'];
-                $TemaVotar->agendaStatus= $TemaVotar['agendaStatus'];
-                $Tema->initialDate=$TemaVotar['dates'];
-                   
-                $Tema->save();
+                }
 
-            }
+                
 
-    return $request->user();
+             }
+        }*/
+
+
+        
+        
+        
 });
 
 
-Route::get('/practica', function (Request $request) {
 
-  
-
-});
 
 
 Route::post('Login',[AuthController::class, 'Login']);
@@ -119,6 +181,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::post('CrearBlog',[BlogsController::class, 'CrearBlog']);
     Route::get('ListarCateBlog',[BlogsController::class, 'ListarCateBlog']);
+    Route::get('ListarBlogsPorAprobar',[BlogsController::class, 'ListarBlogsPorAprobar']);
 
 
     Route::get('ListarUsuariosAsambleistas',[CuentaController::class, 'ListarUsuariosAsambleistas']);

@@ -19,6 +19,10 @@ class CuentaController extends Controller
     
      public function ListarUsuariosAsambleistas()
      {
+
+        if(Gate::check('haveacceso','listarUserAsambleista')==false){
+            return response()->json('403');
+        };
          $datos = User::get();
          
          $datos = User::whereHas('roles', function($q){
