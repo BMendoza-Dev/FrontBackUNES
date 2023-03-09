@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         //localStorage.setItem('rol', this.arrayData['result'][0].rol.rol);
         //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
         let token = this.arrayData['token'];
-        let sesionLoginInicio = this.arrayData['usuario'][0]['roles'][0].id;
+        let sesionLoginInicio = this.arrayData['usuario'][0]['roles'][0].slug;
         let idAsambPerf = this.arrayData['usuario'][0].perfil_id;
         let user = this.arrayData['usuario'][0].name;
         let key = "GAMABAML"

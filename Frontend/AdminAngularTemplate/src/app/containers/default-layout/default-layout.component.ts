@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { navItems, navItemsAdmin, navItemsAsamb } from './_nav';
+import { navItem } from './_nav';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,16 +21,24 @@ export class DefaultLayoutComponent implements OnInit{
   constructor() {}
 
   ngOnInit(): void {
+    let sesionLoginInicio:any = localStorage.getItem('sesionLoginInicio');
     
-    if(this.Rol == "1"){
+    let NavItem:any=[]; let i=0
+    navItem.forEach((element:any) => {
       
-      this.navItems = navItemsAdmin;
-    }else if(this.Rol == "2"){
-      
-      this.navItems = navItemsAsamb;
-    }else if (this.Rol == "3"){
-
-    }
+      if(element.permissions){
+        let dato:any = element.permissions;
+      for (let index = 0; index < dato.length; index++) {
+        if (sesionLoginInicio.includes(dato[index])){
+          NavItem[i] = element;
+          i++;
+          
+        }
+      }
+      }
+    });
+    
+    this.navItems = NavItem;
     
   }
 }

@@ -27,7 +27,7 @@ export class ScriptServiceService {
 }
 
 public removeScript(id: string) {
-    debugger
+    
     let script = document.getElementById(id);
     if(script) {
         script.remove();

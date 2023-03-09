@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
@@ -10,11 +10,7 @@ import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
   templateUrl: './forms-biografia.component.html',
   styleUrls: ['./forms-biografia.component.scss']
 })
-export class FormsBiografiaComponent implements OnInit {
-
-  APIKEy = "wuDYA2WLsQy3aEM5sDRojRYYj"; APIKeySecret = "D5pIJZropa8iuXQ5eK9OTRdRGnIR8nGYobg3Cfa0h4KiNcHGMA"; bearerToken = "AAAAAAAAAAAAAAAAAAAAAJYhmAEAAAAAUiCdGbTgwAqbY8H0gILpaedAeOQ%3DX0GqQKpwEYK8sMeoWhYqIeCfxUXQar0T4hFO4un984qrJiFJRg";
-
-
+export class FormsBiografiaComponent implements OnInit, OnDestroy {
 
   //@ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
   constructor(private adminService: AdministradorService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
@@ -27,8 +23,8 @@ export class FormsBiografiaComponent implements OnInit {
   datosAsambleistas: any; keyword = 'name'; dataAsmbleista: any = []; idAsambleiApiAsam: string = ""; asamPerfil: boolean = false; idPosicionDataAsam: any;
 
   urlSet: any;
-  urlGet: any = ''; ClaseFoto: string = ""; foto = "";
-  public Editor: any = ClassicEditor; datos: string = '<blockquote class="twitter-tweet"><p lang="es" dir="ltr">👀😃🔥<br><br>Un Color histórico vuelve 🔵⚪💡<br><br>🔝Edición Especial 👕<a href="https://twitter.com/hashtag/PorEmelec?src=hash&amp;ref_src=twsrc%5Etfw">#PorEmelec</a> <a href="https://twitter.com/hashtag/SiempreJuntos?src=hash&amp;ref_src=twsrc%5Etfw">#SiempreJuntos</a>🤜🏻🤛🏻⚡ <a href="https://t.co/ssOTya639Z">pic.twitter.com/ssOTya639Z</a></p>&mdash; Club Sport Emelec (@CSEmelec) <a href="https://twitter.com/CSEmelec/status/1631753320384659470?ref_src=twsrc%5Etfw">March 3, 2023</a></blockquote>'; binImg: any; urlImgAssa: any;
+  urlGet: any = ''; 
+  public Editor: any = ClassicEditor; datos: string = ''; binImg: any; urlImgAssa: any;
   habilitarCampos: boolean = false; notFound: string = "No se encuentra asambleista";
 
 
@@ -55,14 +51,15 @@ export class FormsBiografiaComponent implements OnInit {
         { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
       ]
     },
-    codeBlock: {
-      languages: [
-        { language: 'html', label: 'HTML' }
-      ]
-    },
     htmlEmbed: {
       showPreviews: true,
-      
+      sanitizeHtml: (inputHtml: any) => {
+        const outputHtml = inputHtml;
+        return {
+          html: outputHtml,
+          hasChanged: true
+        };
+      }
     },
     lenguage: 'es'
   }
@@ -104,7 +101,6 @@ export class FormsBiografiaComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       let tipoImagen = event.target.files[0].type;
       if (tipoImagen == "image/jpeg" || tipoImagen == "image/png" || tipoImagen == "image/svg") {
-        this.foto = event.target.files[0];
         var reader = new FileReader();
         let base64String;
         reader.readAsDataURL(event.target.files[0]); // read file as data url
@@ -120,9 +116,7 @@ export class FormsBiografiaComponent implements OnInit {
           title: '¡No es una Imagen..!',
           text: 'Elija una imagen.'
         })
-        this.foto = "";
       }
-      this.ClaseFoto = "";
     }
   }
 
@@ -161,6 +155,7 @@ export class FormsBiografiaComponent implements OnInit {
           'urlttk': this.urlttk,
           'binImg': this.urlSet
         };
+
 
         this.adminService.updateBiografia(data).then(() => {
           this.clearVariables();
@@ -202,7 +197,9 @@ export class FormsBiografiaComponent implements OnInit {
         });
       } else {
         this.trasformaImagen(biografia['image'][0].imagen);
-        //this.datos = biografia.perfil; 
+        
+        this.datos = biografia.perfil;
+        
         this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw;
       }
     }).catch(error => {
@@ -213,7 +210,7 @@ export class FormsBiografiaComponent implements OnInit {
   cargarPerfilesAsam() { //Carga los datos en el ng-autocomplete
     this.adminService.cargarPerfiles().then(data => {
       this.dataAsmbleista = data;
-      var datoPrueba: any = [{ id: this.dataAsmbleista[1].id, name: this.dataAsmbleista[1].firstName + '' + this.dataAsmbleista[1].lastName, idPos: 1 }];
+      var datoPrueba: any = [{ id: this.dataAsmbleista[1].id, name: this.dataAsmbleista[1].firstName + ' ' + this.dataAsmbleista[1].lastName, idPos: 1 }];
       for (var i = 2; i < this.dataAsmbleista.length; i++) {
         if (this.dataAsmbleista[i].active == 1) {
           datoPrueba.push({
@@ -331,8 +328,6 @@ export class FormsBiografiaComponent implements OnInit {
 
 
   }
-}
-function sanitize(inputHtml: any) {
-  throw new Error('Function not implemented.');
-}
 
+  ngOnDestroy() { }
+}

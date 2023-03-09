@@ -19,7 +19,7 @@ export class InfAsambleistaPage implements OnInit {
 
   ngOnInit() {
     //this.showLoading();
-    debugger
+    
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getAssambly();
   }

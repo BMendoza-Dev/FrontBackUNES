@@ -33,7 +33,7 @@ export class AmbitoterritorialPage implements OnInit {
     this.rest.getTerritorialList().subscribe(response => {
       this.y=0;
       this.ambitoTerr=response;
-      this.loadCont.dismiss();
+      //this.loadCont.dismiss();
       
         //this.territorialList = response;
         //this.territorialListFiltered = this.territorialList;
@@ -73,7 +73,7 @@ export class AmbitoterritorialPage implements OnInit {
       if(this.asambleTerri.length == 0){
         this.NullAsa = true;
       }else{
-        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['image'][0].imagen),curul:''}];
+        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['image'][0].imagen),curul:this.asambleTerri[0].curul}];
        for (var i = 1; i < this.asambleTerri.length; i++) {
         let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['image'][0].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);

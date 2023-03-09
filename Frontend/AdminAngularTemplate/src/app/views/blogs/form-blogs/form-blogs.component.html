@@ -1,24 +1,39 @@
-<div class="mb-3">
-    <label cLabel for="exampleFormControlInput1">Titulo</label>
-    <input cFormControl id="exampleFormControlInput1" placeholder="...." type="text" />
-</div>
-<div class="mb-3">
-    <label cLabel for="exampleFormControlTextarea1">Descripción</label>
-    <textarea cFormControl id="exampleFormControlTextarea1" rows="3"></textarea>
-</div>
-<div class="mb-3">
-    <label cLabel="" for="exampleFormControlCkeditor"></label>
-    <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
-    {{datos}}
-</div>
-<div class="mb-3">
-    <c-form-check [switch]="true">
-        <input cFormCheckInput type="checkbox" />
-        <label cFormCheckLabel>Importante</label>
-    </c-form-check>
-</div>
-<c-col style="margin-top: 2%;" xs="12">
-    <button cButton class="me-2" color="success">
+<c-card>
+    <c-card-header>
+        <strong>Formulario Blog</strong>
+    </c-card-header>
+    <c-card-body>
+    <div class="mb-3">
+        <img height="200" class="tamanio" [src]="urlGet" alt="" />
+        <input type='file' id="foto" name="foto" (change)="onSelectFile($event)" />
+    </div>
+    <select [(ngModel)]="categorie_id" aria-label="Default select example" cSelect class="mb-3">
+        <option  [value]="" disabled>Seleccione una categoria</option>
+        <option *ngFor="let item of listCateg" [ngValue]="item.id">{{item.categorianame}}</option>
+      </select>
+    <div class="mb-3">
+        <label cLabel for="exampleFormControlInput1">Titulo:</label>
+        <input cFormControl id="exampleFormControlInput1" [(ngModel)]="titulo" placeholder="...." type="text" />
+    </div>
+    <div class="mb-3">
+        <label cLabel for="exampleFormControlTextarea1">Descripción:</label>
+        <textarea cFormControl id="exampleFormControlTextarea1" [(ngModel)]="descripcion" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label cLabel="" for="exampleFormControlCkeditor">Contenido:</label>
+        <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
+        {{datos}}
+    </div>
+    <div class="mb-3">
+        <c-form-check [switch]="true">
+            <input [checked]="check" (click)="import()"  cFormCheckInput type="checkbox" />
+            <label cFormCheckLabel>Importante</label>
+          </c-form-check>
+    </div>
+    <c-col style="margin-top: 2%;" xs="12">
+        <button (click)="create()" style="padding: 0.5% 3% 0.5% 3%;" cButton class="me-2" color="success">
         Crear
-    </button>
-</c-col>
+        </button>
+    </c-col>
+</c-card-body>
+</c-card>

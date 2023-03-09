@@ -16,7 +16,7 @@ export class FormsAdministradorComponent implements OnInit {
 
   constructor(private adminService: AdministradorService, private localServi: LocalProyectService) { }
 
- 
+  simpleForm!: FormGroup;
 
   usuarioAdmin = ""; correoAdmin = ""; contrasenaAdmin = ""; asambleistaPerfil = "";
   customStylesValidated2 = false; iconEyeAsistente: string = "password"; dataAsmbleista: any = []; keyword = 'name';
@@ -88,9 +88,7 @@ export class FormsAdministradorComponent implements OnInit {
     this.correoAdmin = "";
     this.contrasenaAdmin = "";
     this.idAsambleiApiAsis = "";
-    
     this.localServi.emitirEventoTablaAsistente();
-    
     console.log('Reset... 2');
   }
 

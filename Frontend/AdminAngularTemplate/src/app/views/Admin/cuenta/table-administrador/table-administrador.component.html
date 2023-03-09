@@ -95,8 +95,8 @@
   <c-modal backdrop="static" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)"
     size="lg"> <!--Modal de editar cuenta Asambleista-->
   
-    <c-modal-header>
-      <h5 cModalTitle>Editar Cuenta de Asistente</h5>
+    <c-modal-header ngPreserveWhitespaces>
+      Editar Cuenta de Asistente
     </c-modal-header>
     <c-modal-body>
       <form #customStylesForm="ngForm" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm

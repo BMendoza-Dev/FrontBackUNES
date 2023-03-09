@@ -17,7 +17,8 @@ export const navItems: INavData[] = [
   {
     name: 'Colors',
     url: '/theme/colors',
-    iconComponent: { name: 'cil-drop' }
+    iconComponent: { name: 'cil-drop' },
+
   },
   {
     name: 'Typography',
@@ -243,8 +244,11 @@ export const navItems: INavData[] = [
   },
 ];
 
-export const navItemsAdmin: INavData[] = [
-
+export const navItem: INavData[] = [
+  {
+    title: true,
+    name: 'Cuentas',  
+  },
   {
     name: 'Cuentas',
     url: '/administrador_nav_1',
@@ -262,34 +266,29 @@ export const navItemsAdmin: INavData[] = [
         name: 'Delegados',
         url: '/administrador_nav_1/delegados',
       }
-    ]
+    ],
+    permissions:['super_administrador']
   },
   {
     name: 'Biografias',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
+    permissions:['asambleista']
   },
   {
     name: 'Blogs',
-    url: '/blogs/form-blogs',
-    iconComponent: { name: 'cil-user' }
-  },
-
-];
-
-export const navItemsAsamb: INavData[] = [
-  {
-    title: true,
-    name: 'Asambleista'
-  },
-  {
-    name: 'Perfil',
-    url: '/asambleista/personalPerfile',
-    iconComponent: { name: 'cil-user' }
-  },
-  {
-    name: 'Blogs',
-    url: '/asambleista/personalPerfile',
-    iconComponent: { name: 'cil-user' }
-  },
+    url: '/blogs',
+    iconComponent: { name: 'cil-user' },
+    children: [
+      {
+        name: 'Crear Blog',
+        url: '/blogs/form-blogs',
+      },
+      {
+        name: 'Lista de Blog',
+        url: '/blogs/list-blogs',
+      }
+    ],
+    permissions:['super_administrador'],
+  }
 ];

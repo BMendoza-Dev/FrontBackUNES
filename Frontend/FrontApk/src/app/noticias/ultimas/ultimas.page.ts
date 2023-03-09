@@ -10,10 +10,10 @@ export class UltimasPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    debugger
+    
     //scriptjs('https://platform.twitter.com/widgets.js', (dato:any) => {
       // Aquí puedes ejecutar cualquier código que dependa del script cargado
-      //dato; debugger
+      //dato; 
     //});
   }
 

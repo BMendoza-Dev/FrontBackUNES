@@ -9,7 +9,7 @@ export class AsambLoginGuard implements CanActivate {
   constructor(private rutas:Router){}
   canActivate(){
     let inicio = localStorage.getItem('sesionLoginInicio');
-
+    
     if(!inicio){
       this.rutas.navigate(["/login"]);
       return false;

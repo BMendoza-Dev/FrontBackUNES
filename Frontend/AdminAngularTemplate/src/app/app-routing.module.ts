@@ -10,6 +10,7 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import { AdminLoginGuard } from './guards/admin-login.guard';
 import { AsambLoginGuard } from './guards/asamb-login.guard';
 import { InicioLoginGuard } from './guards/inicio-login.guard'
+import { RolesGuard } from './guards/roles.guard'
 
 
 export const routes: Routes = [
@@ -29,18 +30,27 @@ export const routes: Routes = [
         path: 'asambleista',
         canActivate: [AsambLoginGuard],
         loadChildren: () => import('./views/Asambleista/perfil/perfil.module').then((m) => m.PerfilModule)
+        
       },
 
       {
         path: 'administrador_nav_1',
-        canActivate: [AdminLoginGuard],
-        loadChildren: () => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule)
+        loadChildren: () => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule),
+        data: {
+          permissions: 'super_administrador',
+          permissions2: ''
+        },
+        canActivate: [RolesGuard],
       },
 
       {
         path: 'administrador_nav_2',
-        canActivate: [AdminLoginGuard],
-        loadChildren: () => import('./views/Admin/biografia/biografia.module').then((m) => m.BiografiaModule)
+        loadChildren: () => import('./views/Admin/biografia/biografia.module').then((m) => m.BiografiaModule),
+        data: {
+          permissions: 'super_administrador',
+          permissions2: 'asambleista'
+        },
+        canActivate: [RolesGuard],
       },
       {
         path: 'inicio',
@@ -50,9 +60,13 @@ export const routes: Routes = [
       },
       {
         path: 'blogs',
-        canActivate: [InicioLoginGuard],
         loadChildren: () =>
-        import('./views/blogs/blogs.module').then((m) => m.BlogsModule)
+        import('./views/blogs/blogs.module').then((m) => m.BlogsModule),
+        data: {
+          permissions: 'super_administrador',
+          permissions2: 'asambleista'
+        },
+        canActivate: [RolesGuard],
       },
 
 

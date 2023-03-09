@@ -1,0 +1,31 @@
+<c-card *ngIf="formList == false else form">
+  <c-card-header>
+    <strong>Listas de Blog</strong>
+  </c-card-header>
+  <c-card-body>
+    <c-row [gutter]="4" class="mb-3" [md]="2" [xs]="1">
+      <c-col *ngFor="let item of listBlog">
+        <c-card>
+          <img cCardImg="top" [src]="urlGet">
+          <c-card-body>
+            <h5 cCardTitle>{{item.blogtitulo}}</h5>
+            <p cCardText>
+              {{item.blogdescripcion}}
+            </p>
+          </c-card-body>
+          <c-card-footer>
+            <!--small class="text-medium-emphasis">{{item.created_at | date: 'M/d/yy'}}</small-->
+            <button (click)="formList = true" cButton color="primary" variant="outline">Ver</button>
+          </c-card-footer>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-card-body>
+  <pagination-controls previousLabel="Prev" nextLabel="Next"
+        (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
+      </pagination-controls>
+</c-card>
+
+<ng-template #form>
+  <app-form-blogs></app-form-blogs>
+</ng-template>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormBlogsComponent } from './form-blogs/form-blogs.component';
+import { ListBlogsComponent } from './list-blogs/list-blogs.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
       {
         path: 'form-blogs',
         component: FormBlogsComponent, 
+        data: {
+          title: 'Form Blogs'
+        }
+      },
+      {
+        path: 'list-blogs',
+        component: ListBlogsComponent, 
         data: {
           title: 'Form Blogs'
         }

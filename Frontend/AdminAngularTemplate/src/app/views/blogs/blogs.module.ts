@@ -36,9 +36,12 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { IconModule } from '@coreui/icons-angular';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
+import { ListBlogsComponent } from './list-blogs/list-blogs.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
-    FormBlogsComponent
+    FormBlogsComponent,
+    ListBlogsComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +76,8 @@ import { FormsModule } from '@angular/forms';
     IconModule,
     NgxSpinnerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class BlogsModule { }

@@ -20,7 +20,7 @@ export class BiografiaPage implements OnInit {
   
  
   ngOnInit() {
-    debugger
+    
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getBiografia();
   }
