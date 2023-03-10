@@ -76,13 +76,36 @@ class BlogsController extends Controller
      }
 
      public function ListarBlogsPorAprobar (){
-        $listadeblogs= Blog::query()->where('aprobado',false)->where('ultimanoticia',true)->with('perfil')->with('image')->get();
-
+        $listadeblogs= Blog::where('aprobado',false)->where('ultimanoticia',true)->with('perfil')->with('image:imageable_id,imagen')->get();
+        
 
         if($listadeblogs->isEmpty()){
             return  response()->json(['error'=>'404']);
         }
-        return  response()->json($listadeblogs);
+
+
+        $blogs = Blog::with('perfil', 'image')
+            ->where('aprobado',false)->where('ultimanoticia',true)->get()->map(function($blog) {
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'masleido' => $blog->masleido,
+                    'ultimanoticia' => $blog->ultimanoticia,
+                    'aprobado' => $blog->aprobado,
+                    'editoriale_id' => $blog->editoriale_id,
+                    'categorie_id' => $blog->categorie_id,
+                    'perfil_id' => $blog->perfil_id,
+                    'users_id' => $blog->users_id,
+                    'created_at' => $blog->created_at,
+                    'updated_at' => $blog->updated_at,
+                    'perfil' => $blog->perfil,
+                    'imagen' => $blog->image->imagen
+                ];
+            });
+
+        return  response()->json($blogs);
            
      }
 

@@ -10,7 +10,7 @@ use App\Models\Editoriale;
 use App\Models\Categorie;
 use App\Models\Visitante;
 use App\Models\Imagen;
-
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Blog extends Model
 {
     use HasFactory;
@@ -31,8 +31,8 @@ class Blog extends Model
 
     public function visitantes(){
         return $this->belongsToMany(Visitante::class)->withPivot('visitas')->withTimesTamps();
-     }
-     public function image(){
-    	return $this->morphMany('App\Models\Imagen','imageable');
+    }
+    public function image(){
+    	return $this->MorphOne('App\Models\Imagen','imageable');
     }
 }
