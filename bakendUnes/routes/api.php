@@ -182,6 +182,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('CrearBlog',[BlogsController::class, 'CrearBlog']);
     Route::get('ListarCateBlog',[BlogsController::class, 'ListarCateBlog']);
     Route::get('ListarBlogsPorAprobar',[BlogsController::class, 'ListarBlogsPorAprobar']);
+    Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
 
 
     Route::get('ListarUsuariosAsambleistas',[CuentaController::class, 'ListarUsuariosAsambleistas']);

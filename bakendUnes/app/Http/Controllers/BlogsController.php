@@ -108,6 +108,14 @@ class BlogsController extends Controller
         return  response()->json($blogs);
            
      }
+     public function AprobarBlogEnUltimaNoticias(Request $request){
+        $blog =  Blog::findOrFail($request->id);
+
+        $blog->aprobado=$request->aprobado;
+        $blog->update();
+        return '200';
+     }
+     
 
 
 }
