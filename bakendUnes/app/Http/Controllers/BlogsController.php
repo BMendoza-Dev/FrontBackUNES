@@ -9,6 +9,8 @@ use App\Models\Imagen;
 use App\Models\User;
 use App\Models\Categorie;
 use App\Models\Blog;
+use App\Models\Nota;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class BlogsController extends Controller
@@ -109,12 +111,48 @@ class BlogsController extends Controller
            
      }
      public function AprobarBlogEnUltimaNoticias(Request $request){
+        if($request->aprobado==true){
         $blog =  Blog::findOrFail($request->id);
-
         $blog->aprobado=$request->aprobado;
         $blog->update();
-        return '200';
+        return ['respuesta'=>'200', 'menssaje'=>'Actualizado a Ultimas noticias'];
+        }else{
+            Nota::create([
+                'description'=>$request->description,
+                'titulo'=> $request->titulo,
+                'blog_id'=>$request->id,
+                'user_id'=>Auth::user()->id
+                ]);
+                return ['respuesta'=>'200', 'menssaje'=>'comentario creado correctamente'];
+        }
+        
      }
+
+     public function ObtenerBlog(Request $request){
+        if($request->id==null || $request->id=='' ){
+            return ['error'=>'404'];
+        }else{
+            $blog = Blog::with( 'image','categoria')
+            ->where( 'id',$request->id)->get()->map(function($blog) {
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'categorie_id' => $blog->categorie_id,
+                    'categoria' =>$blog->categoria->categorianame,
+                    'users_id' => $blog->users_id,
+                    'created_at' => $blog->created_at,
+                    'updated_at' => $blog->updated_at,
+                    'imagen' => $blog->image->imagen,
+                    
+                ];
+            });
+
+            return  response()->json($blog);
+        }
+
+      }
      
 
 

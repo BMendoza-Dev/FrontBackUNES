@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('temaavotacions', function (Blueprint $table) {
+        Schema::create('notas', function (Blueprint $table) {
             $table->id();
             $table->longText('description');
-            $table->date('initialDate');
-            $table->foreignId('tema_id')->references('id')->on('temas');
+            $table->string('titulo');
+            $table->foreignId('blog_id')->references('id')->on('blogs');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temaavotacions');
+        Schema::dropIfExists('notas');
     }
 };

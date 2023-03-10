@@ -10,6 +10,7 @@ use App\Models\Editoriale;
 use App\Models\Categorie;
 use App\Models\Visitante;
 use App\Models\Imagen;
+use App\Models\Nota;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Blog extends Model
 {
@@ -32,6 +33,11 @@ class Blog extends Model
     public function visitantes(){
         return $this->belongsToMany(Visitante::class)->withPivot('visitas')->withTimesTamps();
     }
+
+    public function nota(){
+    	return $this->hasMany(Nota::class);
+    }
+    
     public function image(){
     	return $this->MorphOne('App\Models\Imagen','imageable');
     }

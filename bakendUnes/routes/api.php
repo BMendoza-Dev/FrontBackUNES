@@ -102,7 +102,7 @@ Route::get('/prueva', function (Request $request) {
                  $TemaVotar->id= $Sesiones['votingId'];
                  $TemaVotar->description= $Sesiones['description'];
                  $TemaVotar->initialDate= strstr($Sesiones['date'], 'T', true);
-                 $TemaVotar->temas_id=  $Sesiones['themeId'];
+                 $TemaVotar->tema_id=  $Sesiones['themeId'];
                     
                  $TemaVotar->save();
          }
@@ -182,6 +182,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('CrearBlog',[BlogsController::class, 'CrearBlog']);
     Route::get('ListarCateBlog',[BlogsController::class, 'ListarCateBlog']);
     Route::get('ListarBlogsPorAprobar',[BlogsController::class, 'ListarBlogsPorAprobar']);
+    Route::get('ObtenerBlog',[BlogsController::class, 'ObtenerBlog']);
     Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
 
 

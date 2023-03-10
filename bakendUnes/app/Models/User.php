@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Perfil;
 use App\Models\Blog;
 use App\Models\Roles;
+use App\Models\Nota;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -61,6 +62,10 @@ class User extends Authenticatable
 
     public function roles(){
         return $this->belongsToMany(Roles::class)->withTimesTamps();
+    }
+
+    public function nota(){
+    	return $this->hasMany(Nota::class);
     }
 
     public function havepermisos($permisos){
