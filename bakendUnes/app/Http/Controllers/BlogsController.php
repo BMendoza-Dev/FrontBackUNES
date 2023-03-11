@@ -149,7 +149,12 @@ class BlogsController extends Controller
                 ];
             });
 
-            return  response()->json($blog);
+            if($blog->isEmpty()){
+                return ['error'=>'404'];
+            }else{
+                return  response()->json($blog);
+            }
+            
         }
 
       }
