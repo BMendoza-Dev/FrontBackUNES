@@ -55,7 +55,7 @@ Route::get('/prueva2', function (Request $request) {
 
      }
 
-return '200';
+    return '200';
 
  });
 

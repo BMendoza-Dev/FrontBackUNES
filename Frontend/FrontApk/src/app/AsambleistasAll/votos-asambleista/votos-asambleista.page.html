@@ -7,7 +7,24 @@
 
   </ion-toolbar>
 </ion-header>
-
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar class="search" placeholder="Buscar Tema" animated
+      ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
+  <ion-card *ngFor="let item of assambly | filtro: textoBuscar">
+    <ion-item (click)="goInfAssam(item.id)">
+      <div style="width: 45px; margin-right: 5px;">
+        <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
+      </div>
+      <ion-label>
+        <h2>{{item.LastFirstName}}</h2>
+        <h3>{{item.territorialDivision}}</h3>
+        <p>Curul {{item.curul}}</p>
+      </ion-label>
 
+    </ion-item>
+  </ion-card>
 </ion-content>

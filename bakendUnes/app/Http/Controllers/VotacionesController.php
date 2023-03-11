@@ -9,7 +9,23 @@ use App\Models\Temaavotacion;
 class VotacionesController extends Controller
 {
     public function listarVotacionesAsambleista(Request $request){
-        $ListaDeVotos = Perfil::where('id',$request->id)->with('Temaavotaciones')->get();
+
+        $ListaDeVotos = Temaavotacion::whereHas('perfiles',function($query) use ($request) {
+            $query->where('perfil_temaavotacion.perfil_id', $request->id);
+        
+        })->with([ 'tema' => function ($query) {
+
+                $query->with( 'sesion' );
+        }])->get()->map(function($ListaDeVotos) {
+            return [
+                'id' => $ListaDeVotos->id,
+                'description' => $ListaDeVotos->description,
+                'initialDate' =>$ListaDeVotos->initialDate,
+                'voto' => $ListaDeVotos->pivot->voto,
+                'sesion' => $ListaDeVotos->tema->sesion->sesion
+
+            ];
+        });
 
         return $ListaDeVotos;
     }

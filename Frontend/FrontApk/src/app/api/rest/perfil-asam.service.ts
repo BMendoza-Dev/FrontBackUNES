@@ -72,5 +72,23 @@ export class PerfilAsamService {
       }
       )))
   }
+
+  getVotacionPorAsambleista(id:any){
+    let url = this.urlAWS + 'listarVotacionesAsambleista?id='+id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders }).pipe(
+      map((res: any) => ({
+        img: res['image'][0].imagen,
+        perfil: res['perfil'],
+        urlfb: res['urlfb'],
+        urlit: res['urlit'],
+        urlttk: res['urlttk'],
+        urltw: res['urltw'],
+      }
+      )))
+  }
 }
 

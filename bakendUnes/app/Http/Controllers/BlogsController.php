@@ -111,12 +111,15 @@ class BlogsController extends Controller
            
      }
      public function AprobarBlogEnUltimaNoticias(Request $request){
-        if($request->aprobado==true){
         $blog =  Blog::findOrFail($request->id);
+        if($request->aprobado==true){
+       
         $blog->aprobado=$request->aprobado;
+        
         $blog->update();
         return ['respuesta'=>'200', 'menssaje'=>'Actualizado a Ultimas noticias'];
         }else{
+            $blog->ultimanoticia=false;
             Nota::create([
                 'description'=>$request->description,
                 'titulo'=> $request->titulo,
@@ -124,6 +127,7 @@ class BlogsController extends Controller
                 'user_id'=>Auth::user()->id
                 ]);
                 return ['respuesta'=>'200', 'menssaje'=>'comentario creado correctamente'];
+            $blog->update();
         }
         
      }
