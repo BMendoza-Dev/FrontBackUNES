@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('temaavotacions', function (Blueprint $table) {
             $table->id();
             $table->longText('description');
-            $table->date('initialDate');
+            $table->datetime ('initialDate');
             $table->foreignId('tema_id')->references('id')->on('temas');
             $table->timestamps();
         });

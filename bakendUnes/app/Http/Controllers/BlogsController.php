@@ -128,7 +128,6 @@ class BlogsController extends Controller
                 ]);
                 $blog->update();
                 return ['respuesta'=>'200', 'menssaje'=>'comentario creado correctamente'];
-           
         }
         
      }

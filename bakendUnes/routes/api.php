@@ -12,6 +12,7 @@ use App\Models\Perfil;
 use App\Models\Sesion;
 use App\Models\Tema;
 use App\Models\Temaavotacion;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/prueva2', function (Request $request) {
+
     set_time_limit(300000);
 
     $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
@@ -80,7 +82,7 @@ Route::get('/prueva', function (Request $request) {
             if(!Sesion::where('sesion',$Sesiones['agendaNumber'])->exists()){
                 $Sesion->id= $Sesiones['agendaId'];
                 $Sesion->sesion= $Sesiones['agendaNumber'];
-                $Sesion->initialDate= strstr($Sesiones['agendaDate'], 'T', true);;
+                $Sesion->initialDate=Carbon::parse(strstr($Sesiones['agendaDate'], 'Z', true))->format('Y-m-d H:i:s');
                 $Sesion->save();
                 }
 
@@ -91,10 +93,10 @@ Route::get('/prueva', function (Request $request) {
                 $Tema->description= $Sesiones['themeDescription'];
                 
                 if(strstr($Sesiones['agendaDate'], 'T', true)==0){
-                    $Tema->initialDate=$Sesiones['agendaDate'];
+                    $Tema->initialDate=Carbon::parse($Sesiones['agendaDate'])->format('Y-m-d H:i:s');
                    
                 }else{
-                    $Tema->initialDate= strstr($Sesiones['agendaDate'], 'T', true);
+                    $Tema->initialDate= Carbon::parse(strstr($Sesiones['agendaDate'], 'Z', true))->format('Y-m-d H:i:s');
                 }            
                 $Tema->save();
                  }
@@ -103,7 +105,7 @@ Route::get('/prueva', function (Request $request) {
         
                  $TemaVotar->id= $Sesiones['votingId'];
                  $TemaVotar->description= $Sesiones['description'];
-                 $TemaVotar->initialDate= strstr($Sesiones['date'], 'T', true);
+                 $TemaVotar->initialDate= Carbon::parse(strstr($Sesiones['date'], 'Z', true))->format('Y-m-d H:i:s') ;
                  $TemaVotar->tema_id=  $Sesiones['themeId'];
                     
                  $TemaVotar->save();

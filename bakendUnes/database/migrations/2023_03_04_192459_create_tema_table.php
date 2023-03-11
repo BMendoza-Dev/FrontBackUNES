@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('temas', function (Blueprint $table) {
             $table->id();
             $table->longText('description');
-            $table->date('initialDate');        
+            $table->datetime ('initialDate');        
             $table->foreignId('sesion_id')->references('id')->on('sesions');
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('sesion')->unique();
             $table->enum('agendaStatus',['CLOSED','SUSPENDED'])->nullable();
-            $table->date('initialDate');
+            $table->datetime ('initialDate');
             
             $table->timestamps();
         });

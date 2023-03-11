@@ -10,6 +10,30 @@ class VotacionesController extends Controller
 {
     public function listarVotacionesAsambleista(Request $request){
 
+
+        $valorAFiltrar = $request->id;
+
+$resultados = Temaavotacion::whereHas('perfiles', function($query) use ($valorAFiltrar) {
+    $query->where('perfil_temaavotacion.perfil_id', $valorAFiltrar);
+})->with(['perfiles' => function($query) use ($valorAFiltrar) {
+    $query->where('perfil_temaavotacion.perfil_id', $valorAFiltrar)->withPivot('voto');
+}])->with([ 'tema' => function ($query) {
+
+    $query->with( 'sesion' );
+}])->orderBy('initialDate', 'desc')->get()->map(function($resultados) {
+    return [
+        'id' => $resultados->id,
+        'description' => $resultados->description,
+        'initialDate' =>$resultados->initialDate,
+        'voto' => $resultados->perfiles[0]->pivot->voto,
+        'sesion' => $resultados->tema->sesion->sesion
+
+    ];
+});
+
+return ($resultados);
+
+
         $ListaDeVotos = Temaavotacion::whereHas('perfiles',function($query) use ($request) {
             $query->where('perfil_temaavotacion.perfil_id', $request->id);
         
