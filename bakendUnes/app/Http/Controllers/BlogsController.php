@@ -126,8 +126,9 @@ class BlogsController extends Controller
                 'blog_id'=>$request->id,
                 'user_id'=>Auth::user()->id
                 ]);
+                $blog->update();
                 return ['respuesta'=>'200', 'menssaje'=>'comentario creado correctamente'];
-            $blog->update();
+           
         }
         
      }
