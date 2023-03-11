@@ -10,8 +10,8 @@ import { PerfilAsamService } from 'src/app/api/rest/perfil-asam.service';
   styleUrls: ['./inf-asambleista.page.scss'],
 })
 export class InfAsambleistaPage implements OnInit {
-  id_perfil: any; algo: boolean = true; contacto: boolean = false;
-  comisiones: boolean = false;
+  id_perfil: any; 
+  algo: boolean = true; contacto: boolean = false; comisiones: boolean = false;
   edifice: any; floor: any; office: any; phone: any; email: any;
   comisionAss: any; cont:any;
 
@@ -64,6 +64,9 @@ export class InfAsambleistaPage implements OnInit {
   
   goInfAssam(id:any){
     this.Nav.navigateForward(`biografia/${id}`);
+  }
+  goVotosAssam(id:any){
+    this.Nav.navigateForward(`votos-asambleista/${id}`);
   }
 
 

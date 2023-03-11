@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\PerfilesController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\VotacionesController;
 use App\Http\Controllers\BlogsController;
 use App\Models\Biografia;
 use App\Models\Perfil;
@@ -28,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/prueva2', function (Request $request) {
-    set_time_limit(8000000);
+    set_time_limit(300000);
 
     $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
         'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
@@ -36,8 +37,7 @@ Route::get('/prueva2', function (Request $request) {
     ]);
 
     $token = $tokenapi->json();
-
-    foreach (Perfil::get() as $Perfil){
+    foreach (Perfil::whereNotIn('id', [1])->get() as $Perfil){
 
         $ListadeVotacionesAsambleista = Http::withHeaders([
             'Content-Type' => 'application/jason',
@@ -45,16 +45,17 @@ Route::get('/prueva2', function (Request $request) {
             ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findVotings?periodId=6&assemblyMemberId='.$Perfil->id.'&description&offset=0&limit=0');
         
         foreach (collect($ListadeVotacionesAsambleista->json()) as $VotacionAsambleista){
-            if(Tema::where('id',$VotacionAsambleista['id'])->exists()){
+            if(Temaavotacion::where('id',$VotacionAsambleista['id'])->exists()){
                 $Perfil->Temaavotaciones()->attach([$VotacionAsambleista['id']=>['voto'=>$VotacionAsambleista['description']]]);
             }
+
             
         }
 
 
      }
 
-return 'hola';
+return '200';
 
  });
 
@@ -72,6 +73,7 @@ Route::get('/prueva', function (Request $request) {
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
         ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom&dateTo&search=%20&meetingGroupId=0&offset=0&limit=585');
+
 
         foreach (collect($ListaSesiones->json()) as $Sesiones){
             $Sesion = new Sesion();
@@ -184,6 +186,8 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarBlogsPorAprobar',[BlogsController::class, 'ListarBlogsPorAprobar']);
     Route::get('ObtenerBlog',[BlogsController::class, 'ObtenerBlog']);
     Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
+
+    Route::get('listarVotacionesAsambleista',[VotacionesController::class, 'listarVotacionesAsambleista']);
 
 
     Route::get('ListarUsuariosAsambleistas',[CuentaController::class, 'ListarUsuariosAsambleistas']);

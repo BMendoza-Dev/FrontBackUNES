@@ -51,6 +51,11 @@ const routes: Routes = [
     path: 'biografia/:id',
     loadChildren: () => import('./AsambleistasAll/biografia/biografia.module').then( m => m.BiografiaPageModule)
   },
+  {
+    path: 'votos-asambleista/:id',
+    loadChildren: () => import('./AsambleistasAll/votos-asambleista/votos-asambleista.module').then( m => m.VotosAsambleistaPageModule)
+  },
+
 
 ];
 
