@@ -13,6 +13,8 @@ use App\Models\Sesion;
 use App\Models\Tema;
 use App\Models\Temaavotacion;
 use Carbon\Carbon;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,17 @@ use Illuminate\Support\Facades\Http;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/send-message', function () {
+    $data = [
+        'message' => 'Hello from Laravel WebSockets!'
+    ];
+
+    App::make(\Illuminate\Contracts\Broadcasting\Broadcaster::class)
+        ->broadcast([], json_encode($data));
+
+    return 'Message sent successfully!';
 });
 
 Route::get('/prueva2', function (Request $request) {
