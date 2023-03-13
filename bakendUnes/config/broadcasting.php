@@ -37,7 +37,7 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'host' => env('LARAVEL_WEBSOCKETS_REDIS_HOST', '127.0.0.1'),
-                'port' => env('LARAVEL_WEBSOCKETS_REDIS_PORT', 6379),
+                'port' => env('LARAVEL_WEBSOCKETS_REDIS_PORT', 6001),
                 'scheme' => 'http',
                 'encrypted' => false,
                 'useTLS' => 'false'
