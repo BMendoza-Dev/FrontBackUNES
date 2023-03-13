@@ -26,6 +26,6 @@ Route::get('Perfiles',[PerfilesController::class,'index']);
 
 
 Route::get('/Blogsnotify', function () {
-    event(new \App\Events\BlogsnotifyEvent());
-    return null;
+    event(new \App\Events\BlogsnotifyEvent('holamundo'));
+    return 'hola mundo';
 });

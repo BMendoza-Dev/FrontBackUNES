@@ -13,15 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class BlogsnotifyEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $menssage;
     /**
      * Create a new event instance.
      *
+     * @param string $menssage
      * @return void
      */
-    public function __construct()
+    public function __construct($menssage)
     {
-        //
+        $this->menssage = $menssage;
     }
 
     /**
@@ -31,6 +32,6 @@ class BlogsnotifyEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.Blogsnotify.1');
+        return new Channel('channel-menssage');
     }
 }
