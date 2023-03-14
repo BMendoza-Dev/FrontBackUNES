@@ -15,7 +15,8 @@ export class TableAdministradorComponent {
   editUsuarioAdmin: any;
 
   constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
-    locaServicio.$emitter2.subscribe(() => {
+    locaServicio.$emitter3.subscribe(() => {
+      debugger
       this.cargarTabla();
     });
   }
@@ -38,7 +39,8 @@ export class TableAdministradorComponent {
   editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
   estado: number; id: number; id_perfil: number; dataAsam: any = [];
   cargarTabla() {
-    this.spinner.show('sample');
+    debugger
+    //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("super_administrador").then(data => {
       
@@ -141,7 +143,7 @@ export class TableAdministradorComponent {
 
       for (const x of this.dataTabla) {
 
-        if (x.name.indexOf(this.search.toUpperCase()) > -1) {
+        if (x.name.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
           this.cuentasFilter.push(x);
 
         };

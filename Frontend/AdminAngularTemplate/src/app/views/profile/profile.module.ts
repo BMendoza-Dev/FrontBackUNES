@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BlogsRoutingModule } from './blogs-routing.module';
-import { FormBlogsComponent } from './form-blogs/form-blogs.component';
-import { HttpClientModule } from '@angular/common/http';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { ConfigProfileComponent } from './config-profile/config-profile.component';
+import { IconModule } from '@coreui/icons-angular';
 import {
   ButtonGroupModule,
   ButtonModule,
@@ -32,20 +32,20 @@ import {
   ToastModule,
   PaginationModule,
 } from '@coreui/angular';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { IconModule } from '@coreui/icons-angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { FormsModule } from '@angular/forms';
-import { ListBlogsComponent } from './list-blogs/list-blogs.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
-    FormBlogsComponent,
-    ListBlogsComponent,
+    ConfigProfileComponent,
+    
   ],
   imports: [
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     CommonModule,
-    BlogsRoutingModule,
+    ReactiveFormsModule,
+    ProfileRoutingModule,
+    FormsModule,
+    IconModule,
     ButtonGroupModule,
     ButtonModule,
     CardModule,
@@ -71,13 +71,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AlertModule,
     ModalModule,
     ToastModule,
-    PaginationModule,
-    CKEditorModule,
-    IconModule,
-    NgxSpinnerModule,
-    HttpClientModule,
-    FormsModule,
-    NgxPaginationModule
+    PaginationModule
   ]
 })
-export class BlogsModule { }
+export class ProfileModule { }

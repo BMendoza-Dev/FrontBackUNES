@@ -99,13 +99,13 @@ export class TableAsambleistaComponent implements OnInit {
   }
 
   cargarTabla() {
-    this.spinner.show('sample');
+    //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("asambleista").then(data => {
       this.dataTabla = data;
       //this.POSTS = this.dataTabla;
       this.limpiarModal();
-      this.spinner.hide('sample');
+      //this.spinner.hide('sample');
     }).catch(error => {
       console.log(error);
     })
@@ -156,7 +156,7 @@ export class TableAsambleistaComponent implements OnInit {
     } else {
 
       for (const x of this.dataTabla) {
-        if (x.name.indexOf(this.search.toUpperCase()) > -1) {
+        if (x.name.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
           this.cuentasFilter.push(x);
         };
       };

@@ -10,7 +10,7 @@ import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
   templateUrl: './forms-biografia.component.html',
   styleUrls: ['./forms-biografia.component.scss']
 })
-export class FormsBiografiaComponent implements OnInit, OnDestroy {
+export class FormsBiografiaComponent implements OnInit {
 
   //@ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
   constructor(private adminService: AdministradorService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
@@ -119,22 +119,6 @@ export class FormsBiografiaComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-
-  /*public onSelectFile(event: any) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.binImg = event.target.result;
-    }
-    reader.readAsText(file);
-  }
-
-  public readFile(event: any) {
-    //textarea.textContent = event.target.result;
-    this.binImg = "event.target.result";
-    
-  }*/
 
   updateBiografia() {
     Swal.fire({
@@ -259,7 +243,6 @@ export class FormsBiografiaComponent implements OnInit, OnDestroy {
       if (url) {
         this.urlfb = url
         if (this.urlfb) {
-
           Swal.fire(`Ingeso la URL: ${this.urlfb}`)
         }
       }
@@ -279,7 +262,6 @@ export class FormsBiografiaComponent implements OnInit, OnDestroy {
       if (url) {
         this.urltw = url
         if (this.urltw) {
-
           Swal.fire(`Ingeso la URL: ${this.urltw}`)
         }
       }
@@ -324,10 +306,6 @@ export class FormsBiografiaComponent implements OnInit, OnDestroy {
         }
       }
     }
-
-
-
   }
 
-  ngOnDestroy() { }
 }

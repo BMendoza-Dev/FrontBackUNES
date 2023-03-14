@@ -24,7 +24,7 @@ export class BlogServicesService {
     });
 
     let formData = new FormData();
-    formData.append('categorie_id',  _datos.categorie_id);
+    formData.append('categorie_id', _datos.categorie_id);
     formData.append('perfil_id', _datos.perfils_id);
     formData.append('blogtitulo', _datos.blogtitulo);
     formData.append('blogdescripcion', _datos.blogdescripcion);
@@ -32,9 +32,9 @@ export class BlogServicesService {
     formData.append('ultimanoticia', _datos.ultimanoticia);
     formData.append('imagen', _datos.imagen);
     formData.append('blog_id', _datos.blog_id);
-      
+
     return new Promise((resolve, reject) => {
-      this.http.post(url, formData, {headers: httpheaders }).subscribe(res => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
         }
       }, error => {
@@ -43,7 +43,7 @@ export class BlogServicesService {
     });
   }
 
-  ListarCateBlog(){
+  ListarCateBlog() {
     let url = this.urlAWS + 'ListarCateBlog'
 
     const httpheaders = new HttpHeaders({
@@ -51,7 +51,7 @@ export class BlogServicesService {
     });
 
     return new Promise((resolve, reject) => {
-      this.http.get(url, {headers: httpheaders }).subscribe(res => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
         }
       }, error => {
@@ -60,13 +60,52 @@ export class BlogServicesService {
     });
   }
 
-  listarBlog(){
+  listarBlog() {
     let url = this.urlAWS + 'ListarBlogsPorAprobar'
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
     return new Promise((resolve, reject) => {
-      this.http.get(url, {headers: httpheaders }).subscribe(res => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  getBlog(id: any) {
+    let url = this.urlAWS + 'ObtenerBlog?id=' + id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  AprobarBlogEnUltimaNoticias(_datos: any) {
+
+    let url = this.urlAWS + 'AprobarBlogEnUltimaNoticias'
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    let formData = new FormData();
+    formData.append('id', _datos.id);
+    formData.append('aprobado', _datos.aprobado);
+    formData.append('description', _datos.description);
+    formData.append('titulo', _datos.titulo);
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
         }
       }, error => {

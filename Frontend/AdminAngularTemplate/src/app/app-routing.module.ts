@@ -69,6 +69,12 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
       },
 
+      {
+        path: 'profile',
+        loadChildren: () =>
+        import('./views/profile/profile.module').then((m) => m.ProfileModule)
+      },
+
 
 
 

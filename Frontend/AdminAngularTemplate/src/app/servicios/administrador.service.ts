@@ -188,4 +188,20 @@ export class AdministradorService {
     });
   }
 
+  cargarCuentaConfig() {
+    let url = this.urlAWS+'Admin';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
 }
