@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import * as ClassicEditor from '../../../ckeditor 5/ckBuildD/build/ckeditor';
 import Swal from 'sweetalert2';
@@ -8,9 +8,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-blogs.component.scss']
 })
 export class FormBlogsComponent implements OnInit {
-  urlGet: any;
-  urlSet: any;
-
+  urlGet: any = '';
+  urlSet: any = '';
 
   constructor(private service: BlogServicesService) { }
 
@@ -18,6 +17,7 @@ export class FormBlogsComponent implements OnInit {
   titulo: string; descripcion: string; importante = 0; categorie_id: any = "Seleccione una categoria"; perfils_id: any = localStorage.getItem('idAsambPerf'); blog_id = "";
   listCateg:any;
   ngOnInit(): void {
+    debugger
     this.listarCategoriasBlog();
   }
 
@@ -129,10 +129,9 @@ export class FormBlogsComponent implements OnInit {
   create() {
     Swal.fire({
       title: 'Esta seguro que desea crear una cuenta?',
-      showDenyButton: true,
+      showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: 'Crear',
-      denyButtonText: `No crear`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -147,6 +146,7 @@ export class FormBlogsComponent implements OnInit {
           'imagen': this.urlSet,
           'blog_id': this.blog_id
         }
+        debugger
         this.service.crear_updateBlog(data).then((result: any) => {
           result; 
 
@@ -176,4 +176,5 @@ export class FormBlogsComponent implements OnInit {
       this.check = false
     }
   }
+
 }

@@ -23,7 +23,7 @@ export class NgautoperfilComponent implements OnInit {
   cargarPerfilesAsam() { //Carga los datos en el ng-autocomplete
     this.administradorService.ListarPerfileSiAsambleista().then(data => {
       this.dataAsmbleista = data;
-      var datoPrueba: any = [{ id: this.dataAsmbleista[0].id, name: this.dataAsmbleista[0].firstName + '' + this.dataAsmbleista[0].lastName, idPos: 0 }];
+      var datoPrueba: any = [{ id: this.dataAsmbleista[0].id, name: this.dataAsmbleista[0].firstName + ' ' + this.dataAsmbleista[0].lastName, idPos: 0 }];
       for (var i = 1; i < this.dataAsmbleista.length; i++) {
           datoPrueba.push({
             "id": this.dataAsmbleista[i].id,

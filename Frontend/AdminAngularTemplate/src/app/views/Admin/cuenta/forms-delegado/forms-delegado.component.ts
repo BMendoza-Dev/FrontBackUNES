@@ -1,20 +1,42 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
+import { ValidationFormsService } from 'src/app/servicios/validation-forms.service';
 import Swal from 'sweetalert2';
 import { AdministradorService } from './../../../../servicios/administrador.service';
-
+export class PasswordValidators {
+  static confirmPassword(control: AbstractControl): ValidationErrors | null {
+    const password = control.get("password");
+    const confirm = control.get("confirmPassword");
+    if (password?.valid && password?.value === confirm?.value) {
+      confirm?.setErrors(null);
+      return null;
+    }
+    confirm?.setErrors({ passwordMismatch: true });
+    return { passwordMismatch: true };
+  }
+}
 @Component({
   selector: 'app-forms-delegado',
   templateUrl: './forms-delegado.component.html',
-  styleUrls: ['./forms-delegado.component.scss']
+  styleUrls: ['./forms-delegado.component.scss'],
+  providers: [ValidationFormsService]
 })
 export class FormsDelegadoComponent implements OnInit {
 
-  constructor(private adminService: AdministradorService, private localServi: LocalProyectService) { }
+  constructor(private adminService: AdministradorService, private localServi: LocalProyectService,
+    public validationFormsService: ValidationFormsService, private formBuilder: FormBuilder) { 
+    this.formErrors = this.validationFormsService.errorMessages;
+    this.createForm();
+  }
 
   @ViewChild('atributosAutoCompl') auComple: any;
 
-  nombre_apellidoAsistente = ""; correoAsistente = ""; contrasenaAsistente = ""; asambleistaPerfil = "";
+  simpleForm!: FormGroup;
+  submitted = false;
+  formErrors: any;
+  formControls!: string[];
+  userAsistente = ""; correoAsistente = ""; contrasenaAsistente = ""; contrasenaConfAsistente = ""; asambleistaPerfil = "";
   customStylesValidated2 = false; iconEyeAsistente: string = "password"; dataAsmbleista: any = []; keyword = 'name';
   asamPerfil: boolean = false; idAsambleiApiAsis: string = ""; notFound: any = "No se encuentra asambleista";
 
@@ -37,13 +59,11 @@ export class FormsDelegadoComponent implements OnInit {
 
 
   selectEventAsis(item: any) { // Evento para obtener valor del ng-autocomplete
+    this.auComple;
+    debugger
     this.cargarCuentasAsambleista();
     this.idAsambleiApiAsis = item.id;
     this.asamPerfil = true;
-  }
-  onChangeSearch(cs: Event) {
-  }
-  onFocused(f: any) {
   }
 
   onClear(c: any) {
@@ -53,7 +73,7 @@ export class FormsDelegadoComponent implements OnInit {
 
   guardarCuentaAsistente() {
     let formAsambleista = {
-      'name': this.nombre_apellidoAsistente.toUpperCase(),
+      'name': this.userAsistente,
       'email': this.correoAsistente,
       'password': this.contrasenaAsistente,
       'rol_id': 3,
@@ -70,7 +90,7 @@ export class FormsDelegadoComponent implements OnInit {
 
 
   crearCuentaAsis() { //Crear la cuenta con los inputs con valores de Asistente
-    if (this.asamPerfil == true && this.nombre_apellidoAsistente != "" && this.correoAsistente != "" && this.contrasenaAsistente != "") {
+    if (this.asamPerfil == true && this.userAsistente != "" && this.correoAsistente != "" && this.contrasenaAsistente != "") {
 
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
@@ -93,10 +113,11 @@ export class FormsDelegadoComponent implements OnInit {
 
   onReset2() {
     this.customStylesValidated2 = false;
-    this.nombre_apellidoAsistente = "";
+    this.userAsistente = "";
     this.correoAsistente = "";
     this.contrasenaAsistente = "";
     this.idAsambleiApiAsis = "";
+    this.contrasenaConfAsistente=""
     this.asamPerfil = false;
     this.auComple.query = "";
 
@@ -120,6 +141,64 @@ export class FormsDelegadoComponent implements OnInit {
     }).catch(error => {
       console.log(error);
     });
+  }
+
+  onValidate() {
+    this.submitted = true;
+    // stop here if form is invalid
+    return this.simpleForm.status === "VALID";
+  }
+
+  onSubmit() {
+    console.warn(this.onValidate(), this.simpleForm.value);
+
+    if (this.onValidate()) {
+      // TODO: Submit form value
+      console.warn(this.simpleForm.value);
+      this.crearCuentaAsis();
+      //this.rutas.navigate(['./']);
+    }
+  }
+
+  createForm() {
+    this.simpleForm = this.formBuilder.group(
+      {
+        //firstName: ["", [Validators.required]],
+        //lastName: ["", [Validators.required]],
+        username: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.usernameMin),
+            Validators.pattern(this.validationFormsService.formRules.nonEmpty)
+          ]
+        ],
+        email: ["", [Validators.required, Validators.email]],
+        password: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
+        ],
+        confirmPassword: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
+        ],
+        autoCompl:[
+          "",[
+            Validators.required,
+          ]
+        ]
+      },
+      { validators: [PasswordValidators.confirmPassword] }
+    );
+    this.formControls = Object.keys(this.simpleForm.controls);
   }
 
 }

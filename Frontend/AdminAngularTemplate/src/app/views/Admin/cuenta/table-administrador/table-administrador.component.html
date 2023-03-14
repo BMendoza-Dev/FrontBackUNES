@@ -80,10 +80,7 @@
   
       </c-card-body>
   
-      <pagination-controls *ngIf="search==null" previousLabel="Prev" nextLabel="Next"
-        (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
-      </pagination-controls>
-      <pagination-controls *ngIf="search!=null" previousLabel="Prev" nextLabel="Next"
+      <pagination-controls previousLabel="Prev" nextLabel="Next"
         (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
       </pagination-controls>
   

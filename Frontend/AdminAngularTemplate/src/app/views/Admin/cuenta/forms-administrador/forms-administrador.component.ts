@@ -1,25 +1,46 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { ValidationFormsService } from "./../../../../servicios/validation-forms.service";
+import { ValidationFormsService } from "src/app/servicios/validation-forms.service";
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import Swal from 'sweetalert2';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 
+/** passwords must match - custom validator */
+export class PasswordValidators {
+  static confirmPassword(control: AbstractControl): ValidationErrors | null {
+    const password = control.get("password");
+    const confirm = control.get("confirmPassword");
+    if (password?.valid && password?.value === confirm?.value) {
+      confirm?.setErrors(null);
+      return null;
+    }
+    confirm?.setErrors({ passwordMismatch: true });
+    return { passwordMismatch: true };
+  }
+}
+
 @Component({
   selector: 'app-forms-administrador',
   templateUrl: './forms-administrador.component.html',
   styleUrls: ['./forms-administrador.component.scss'],
+  providers: [ValidationFormsService]
 })
 export class FormsAdministradorComponent implements OnInit {
 
-  constructor(private adminService: AdministradorService, private localServi: LocalProyectService) { }
+  constructor(public validationFormsService: ValidationFormsService, private adminService: AdministradorService, 
+    private localServi: LocalProyectService, private formBuilder: FormBuilder) { 
+    this.formErrors = this.validationFormsService.errorMessages;
+    this.createForm();
+  }
 
   simpleForm!: FormGroup;
-
-  usuarioAdmin = ""; correoAdmin = ""; contrasenaAdmin = ""; asambleistaPerfil = "";
-  customStylesValidated2 = false; iconEyeAsistente: string = "password"; dataAsmbleista: any = []; keyword = 'name';
+  submitted = false;
+  formErrors: any;
+  formControls!: string[];
+  usuarioAdmin = ""; correoAdmin = ""; contrasenaAdmin = ""; asambleistaPerfil = ""; contrasenaConfAdmin = "";
+ iconEyeAsistente: string = "password"; dataAsmbleista: any = []; keyword = 'name';
   idAsambleiApiAsis: string = ""; notFound: any = "No se encuentra asambleista";
 
   ngOnInit(): void {
@@ -27,20 +48,16 @@ export class FormsAdministradorComponent implements OnInit {
   }
 
   onSubmit2() {
-    this.customStylesValidated2 = true;
     console.log('Submit... 2');
   }
 
-  cambiarIconAsis() { //Cambio de Icono en el Password Input Delegado
+  cambiarIconAdmin() { //Cambio de Icono en el Password Input Delegado
     if (this.iconEyeAsistente == "text") {
       this.iconEyeAsistente = "password";
     } else {
       this.iconEyeAsistente = "text";
     }
   }
-
-
-  
 
   guardarCuentaAdmin() {
     let formAsambleista = {
@@ -51,8 +68,11 @@ export class FormsAdministradorComponent implements OnInit {
       'perfil_id': 1,
       'estado': 1
     }
+    
     this.adminService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
-
+      this.submitted = false;
+      this.simpleForm.reset();
+      this.onReset2();
     }).catch(error => {
       console.log(error);
     })
@@ -61,34 +81,32 @@ export class FormsAdministradorComponent implements OnInit {
 
 
   crearCuentaAdmin() { //Crear la cuenta con los inputs con valores de Asistente
-    if ( this.usuarioAdmin != "" && this.correoAdmin != "" && this.contrasenaAdmin != "") {
-
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
-        showDenyButton: true,
+        showDenyButton: false,
         showCancelButton: true,
         confirmButtonText: 'Crear',
-        denyButtonText: `No crear`,
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.guardarCuentaAdmin();
           Swal.fire('Guardado!', '', 'success')
-          this.onReset2();
+          
         } else if (result.isDenied) {
           Swal.fire('No se a guardado la cuenta', '', 'info')
         }
       })
-    }
   }
 
   onReset2() {
-    this.customStylesValidated2 = false;
     this.usuarioAdmin = "";
     this.correoAdmin = "";
     this.contrasenaAdmin = "";
     this.idAsambleiApiAsis = "";
-    this.localServi.emitirEventoTablaAsistente();
+    this.contrasenaConfAdmin = "";
+    
+    this.localServi.emitirEventoTablaAdministrador();
+    
     console.log('Reset... 2');
   }
 
@@ -123,5 +141,61 @@ export class FormsAdministradorComponent implements OnInit {
     showSpinner: false
   };
 
+
+ 
+
+  onValidate() {
+    this.submitted = true;
+    // stop here if form is invalid
+    return this.simpleForm.status === "VALID";
+  }
+
+  onSubmit() {
+    console.warn(this.onValidate(), this.simpleForm.value);
+
+    if (this.onValidate()) {
+      // TODO: Submit form value
+      console.warn(this.simpleForm.value);
+      this.crearCuentaAdmin();
+      this.salir();
+      //this.rutas.navigate(['./']);
+    }
+  }
+
+  createForm() {
+    this.simpleForm = this.formBuilder.group(
+      {
+        //firstName: ["", [Validators.required]],
+        //lastName: ["", [Validators.required]],
+        username: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.usernameMin),
+            Validators.pattern(this.validationFormsService.formRules.nonEmpty)
+          ]
+        ],
+        email: ["", [Validators.required, Validators.email]],
+        password: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
+        ],
+        confirmPassword: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
+        ]
+      },
+      { validators: [PasswordValidators.confirmPassword] }
+    );
+    this.formControls = Object.keys(this.simpleForm.controls);
+  }
 
 }
