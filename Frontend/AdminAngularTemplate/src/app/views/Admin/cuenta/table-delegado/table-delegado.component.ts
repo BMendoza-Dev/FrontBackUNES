@@ -8,20 +8,15 @@ import { NgxSpinnerService } from "ngx-spinner";
   templateUrl: './table-delegado.component.html',
   styleUrls: ['./table-delegado.component.scss']
 })
-export class TableDelegadoComponent implements OnInit {
-
-  @ViewChild ('atributosAutoCompl') autCompl : any;
-  assaAuto: any;
+export class TableDelegadoComponent implements OnInit{
 
   constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter2.subscribe(() => {
+      debugger
       this.cargarTabla();
     }); 
   }
 
-
-  @ViewChild('atributosAutoCompl') auComple: any;
-  @ViewChild('paginado') paginados: any;
   search = "";
   title = 'pagination';
   POSTS: any;
@@ -31,9 +26,8 @@ export class TableDelegadoComponent implements OnInit {
   tableSizes: any = [5, 10, 15, 20];
 
   ngOnInit(): void {
-
     this.cargarTabla();
-    this.cargarCuentaAsambleistaAutoCom();
+    //this.cargarCuentaAsambleistaAutoCom();
   }
 
   dataTabla: any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
@@ -44,6 +38,7 @@ export class TableDelegadoComponent implements OnInit {
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("asistente").then(data => {
       this.dataTabla = data;
+      debugger
       this.limpiarModal();
       //this.spinner.hide('sample');
     }).catch(error => {
@@ -116,7 +111,6 @@ export class TableDelegadoComponent implements OnInit {
     this.estado = this.datosAsistenteInput[2];
     this.id = this.datosAsistenteInput[3];
     this.id_perfil = this.datosAsistenteInput[4];
-    this.auComple.query = ""
   }
 
 
@@ -125,8 +119,6 @@ export class TableDelegadoComponent implements OnInit {
     this.editCorreoAsistente = "";
     this.editContrasenaAsistente = "";
     this.search = "";
-    this.auComple.query = "";
-    this.paginados;
 
   }
 

@@ -11,13 +11,13 @@ export class LoginService {
 
 
   constructor(private http: HttpClient) { 
-    this.urlLocal = "http://127.0.0.1:8000/api/"
+    this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
   }
 
   ValidarLogin(data: any) {
     let formData = new FormData();
-    let url = this.urlAWS+'Login';
+    let url = this.urlLocal+'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
     

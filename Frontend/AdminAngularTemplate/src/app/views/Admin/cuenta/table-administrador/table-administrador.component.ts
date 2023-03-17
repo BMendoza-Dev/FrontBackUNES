@@ -9,7 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   templateUrl: './table-administrador.component.html',
   styleUrls: ['./table-administrador.component.scss']
 })
-export class TableAdministradorComponent {
+export class TableAdministradorComponent implements OnInit{
   editCorreoAdmin: any;
   editContrasenaAdmin: any;
   editUsuarioAdmin: any;

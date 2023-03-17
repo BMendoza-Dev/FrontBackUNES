@@ -11,13 +11,13 @@ export class BlogServicesService {
   cry: any = localStorage.getItem("token");
   key = "GAMABAML"
   constructor(private http: HttpClient) {
-    this.urlLocal = "http://127.0.0.1:8000/api/"
+    this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
     this.token = CryptoJS.AES.decrypt(this.cry.trim(), this.key.trim()).toString(CryptoJS.enc.Utf8);
   }
 
   crear_updateBlog(_datos: any) {
-    let url = this.urlAWS + 'CrearBlog'
+    let url = this.urlLocal + 'CrearBlog'
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -44,7 +44,7 @@ export class BlogServicesService {
   }
 
   ListarCateBlog() {
-    let url = this.urlAWS + 'ListarCateBlog'
+    let url = this.urlLocal + 'ListarCateBlog'
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -61,7 +61,7 @@ export class BlogServicesService {
   }
 
   listarBlog() {
-    let url = this.urlAWS + 'ListarBlogsPorAprobar'
+    let url = this.urlLocal + 'ListarBlogsPorAprobar'
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -76,7 +76,7 @@ export class BlogServicesService {
   }
 
   getBlog(id: any) {
-    let url = this.urlAWS + 'ObtenerBlog?id=' + id;
+    let url = this.urlLocal + 'ObtenerBlog?id=' + id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -92,7 +92,7 @@ export class BlogServicesService {
 
   AprobarBlogEnUltimaNoticias(_datos: any) {
 
-    let url = this.urlAWS + 'AprobarBlogEnUltimaNoticias'
+    let url = this.urlLocal + 'AprobarBlogEnUltimaNoticias'
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token

@@ -5,6 +5,7 @@ import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.componen
 
 
 import {NgautoperfilComponent} from './ngautoperfil/ngautoperfil.component'
+import { TablaPracticaComponent } from './tabla-practica/tabla-practica.component';
 
 const routes: Routes = [{
   path: '',
@@ -36,6 +37,13 @@ const routes: Routes = [{
         component: FormsAdministradorComponent,
         data: {
           title: 'Administrador'
+        }
+      },
+      {
+        path: 'pracTable',
+        component: TablaPracticaComponent,
+        data: {
+          title: 'Tabla'
         }
       }
 

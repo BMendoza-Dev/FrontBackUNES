@@ -11,13 +11,13 @@ export class AdministradorService {
   cry: any = localStorage.getItem("token");
   key = "GAMABAML"
   constructor(private http: HttpClient) {
-    this.urlLocal = "http://127.0.0.1:8000/api/"
+    this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
     this.token = CryptoJS.AES.decrypt(this.cry.trim(), this.key.trim()).toString(CryptoJS.enc.Utf8);
   }
 
   cargarCuentaByRol(slug: any) {
-    let url = this.urlAWS + 'ListarUserPorRol?slug=' + slug;
+    let url = this.urlLocal + 'ListarUserPorRol?slug=' + slug;
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -38,7 +38,7 @@ export class AdministradorService {
 
 
   cargarPerfiles() {
-    let url = this.urlAWS + 'ListarPerfiles';
+    let url = this.urlLocal + 'ListarPerfiles';
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -55,7 +55,7 @@ export class AdministradorService {
   }
 
   ListarPerfileSiAsambleista() {
-    let url = this.urlAWS + 'ListarPerfileSiAsambleista';
+    let url = this.urlLocal + 'ListarPerfileSiAsambleista';
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -85,7 +85,7 @@ export class AdministradorService {
   }*/
 
   registerCuentaAsambleistaAsistente(_data: any) {
-    let url = this.urlAWS + 'Register';
+    let url = this.urlLocal + 'Register';
 
     let formData = new FormData();
     formData.append('name', _data.name);
@@ -109,7 +109,7 @@ export class AdministradorService {
   }
 
   updateAsamAsisCuentas(_data: any) {
-    let url = this.urlAWS + 'Update';
+    let url = this.urlLocal + 'Update';
 
     let formData = new FormData();
     formData.append('name', _data.name);
@@ -134,7 +134,7 @@ export class AdministradorService {
   }
 
   getImg(_id: any) {
-    let url = this.urlAWS + 'ObtenerImagen?id=' + _id;
+    let url = this.urlLocal + 'ObtenerImagen?id=' + _id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -145,7 +145,7 @@ export class AdministradorService {
 
 
   updateBiografia(_data: any) {
-    let url = this.urlAWS + 'RegistrarBiografia';
+    let url = this.urlLocal + 'RegistrarBiografia';
     let formData = new FormData();
     formData.append('urlfb', _data.urlfb);
     formData.append('urltw', _data.urltw);
@@ -170,7 +170,7 @@ export class AdministradorService {
   }
 
   cargarBiografia(_id: any) {
-    let url = this.urlAWS + 'ObtenerBiografia?id=' + _id;
+    let url = this.urlLocal + 'ObtenerBiografia?id=' + _id;
 
 
     const httpheaders = new HttpHeaders({
@@ -189,7 +189,7 @@ export class AdministradorService {
   }
 
   cargarCuentaConfig() {
-    let url = this.urlAWS+'Admin';
+    let url = this.urlLocal+'Admin';
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });

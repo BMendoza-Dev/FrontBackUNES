@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component';
@@ -8,7 +8,7 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   ButtonGroupModule,
@@ -45,9 +45,14 @@ import { TableDelegadoComponent } from './table-delegado/table-delegado.componen
 import { FormsAdministradorComponent } from './forms-administrador/forms-administrador.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TableAdministradorComponent } from './table-administrador/table-administrador.component';
-
-
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { FiltroCuentasPipe } from 'src/app/pipes/filtro-cuentas.pipe';
+import { TablaPracticaComponent } from './tabla-practica/tabla-practica.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     NgautoperfilComponent,
@@ -56,7 +61,10 @@ import { TableAdministradorComponent } from './table-administrador/table-adminis
     FormsDelegadoComponent,
     TableDelegadoComponent,
     FormsAdministradorComponent,
-    TableAdministradorComponent
+    TableAdministradorComponent,
+    FiltroCuentasPipe,
+    TablaPracticaComponent,
+    
   ],
   imports: [
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
@@ -93,7 +101,12 @@ import { TableAdministradorComponent } from './table-administrador/table-adminis
     AlertModule,
     ModalModule,
     ToastModule,
-    PaginationModule
+    PaginationModule,
+    MatAutocompleteModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class CuentaModule { }
