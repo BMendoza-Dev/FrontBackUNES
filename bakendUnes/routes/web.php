@@ -23,9 +23,3 @@ Route::get('login', function () {
 })->name('login');
 //Route::get('login', \App\Http\Livewire\Login::class)->name('login');
 Route::get('Perfiles',[PerfilesController::class,'index']);
-
-
-Route::get('/Blogsnotify', function () {
-    event(new \App\Events\BlogsnotifyEvent('holamundo'));
-    return 'hola mundo';
-});

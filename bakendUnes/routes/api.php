@@ -13,8 +13,6 @@ use App\Models\Sesion;
 use App\Models\Tema;
 use App\Models\Temaavotacion;
 use Carbon\Carbon;
-use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 /*
 |--------------------------------------------------------------------------
@@ -29,17 +27,6 @@ use Illuminate\Support\Facades\Http;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-Route::get('/send-message', function () {
-    $data = [
-        'message' => 'Hello from Laravel WebSockets!'
-    ];
-
-    App::make(\Illuminate\Contracts\Broadcasting\Broadcaster::class)
-        ->broadcast([], json_encode($data));
-
-    return 'Message sent successfully!';
 });
 
 Route::get('/prueva2', function (Request $request) {
@@ -124,6 +111,59 @@ Route::get('/prueva', function (Request $request) {
                  $TemaVotar->save();
          }
 
+   
+
+  /*      $ListaSesiones = Http::withHeaders([
+        'Content-Type' => 'application/jason',
+        'Authorization' => $token['token'],
+        ])->get('http://apiapp.asambleanacional.gob.ec/agendasResource/getList?sessionNumber&from&to&offset=0&limit=280');
+
+        foreach (collect($ListaSesiones->json()) as $Sesiones){
+            $Sesion = new Sesion();
+
+            if(!Sesion::where('sesion',$Sesiones['number'])->exists()){
+            $Sesion->id= $Sesiones['id'];
+            $Sesion->sesion= $Sesiones['number'];
+            $Sesion->initialDate= strstr($Sesiones['initialDate'], 'Z', true);;
+            $Sesion->save();
+            }
+            foreach ($Sesiones['list'] as $ListaTemas){
+                $Tema = new Tema();
+                if(!Tema::where('id',$ListaTemas['id'])->exists()){
+                $Tema->id= $ListaTemas['id'];
+                $Tema->sesion_id= $Sesiones['id'];
+                $Tema->description= $ListaTemas['description'];
+                
+                if(strstr($ListaTemas['startdate'], 'T', true)==0){
+                    $Tema->initialDate=$ListaTemas['startdate'];
+                   
+                }else{
+                    $Tema->initialDate= strstr($ListaTemas['startdate'], 'T', true);
+                }            
+                $Tema->save();
+                 }
+
+                 foreach ($ListaTemas['list'] as $TemasVotar){
+                    $TemaVotar = new Temaavotacion();
+        
+                    $TemaVotar->id= $TemasVotar['id'];
+                    $TemaVotar->description= $TemasVotar['description'];
+                    $TemaVotar->initialDate= strstr($TemasVotar['startdate'], 'T', true);
+                    $TemaVotar->temas_id=  $ListaTemas['id'];
+                       
+                    $TemaVotar->save();
+    
+                }
+
+                
+
+             }
+        }*/
+
+
+        
+        
+        
 });
 
 
