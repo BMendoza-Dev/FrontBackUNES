@@ -53,6 +53,12 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import {MatIconModule} from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [
     NgautoperfilComponent,
@@ -106,7 +112,14 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSortModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatExpansionModule
   ]
 })
 export class CuentaModule { }

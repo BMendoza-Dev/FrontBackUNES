@@ -1,143 +1,68 @@
-<c-col> <!--Input de crear Cuenta de asambleistas-->
-    <c-card style="margin-bottom: 1%;">
-      <c-nav xs="12" layout="justified" variant="pills">
-        <c-nav-item>
-          <span [active]="true" cNavLink>
-            ADMINISTRADORES
-          </span>
-        </c-nav-item>
-      </c-nav>
-    </c-card>
-  </c-col>
-  
-  <c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header ngPreserveWhitespaces>
-        <strong>Crear Cuenta Administrador</strong>
-      </c-card-header>
-      <c-card-body>
-        <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()"
-          class="row g-3 needs-validation">
-          <!--Form Cuenta Asistente-->
-          <c-col md="6" *ngIf="simpleForm.controls['username'] as ctrl" >
-            <label cLabel for="username">Usuario<span class="is-required">*</span></label>
-            <input cFormControl [(ngModel)]="usuarioAdmin" id="username" formControlName="username"
-            placeholder="Usuario" autocomplete="off" required [valid]="
-                ctrl.touched && ctrl.valid
-                  ? true
-                  : (submitted || ctrl.touched) && ctrl.invalid
-                  ? false
-                  : undefined
-              "/>
-              <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-                <ng-container *ngIf="ctrl.errors as errors">
-                  <div *ngIf="errors['required']">Se requiere un nombre de usuario</div>
-                  <div *ngIf="errors['minlength']">
-                    {{ formErrors.username.minLength }}
-                  </div>
-                  <div *ngIf="errors['pattern']">
-                    {{ formErrors.username.pattern }}
-                  </div>
-                </ng-container>
-              </c-form-feedback>
-          </c-col>
-          <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
-            <label cLabel for="email">Correo electrónico<span class="is-required">*</span></label>
-            <input cFormControl [(ngModel)]="correoAdmin" id="email" type="email" formControlName="email"
-            placeholder="Email" autocomplete="off" required [valid]="
-                ctrl.touched && ctrl.valid
-                  ? true
-                  : (submitted || ctrl.touched) && ctrl.invalid
-                  ? false
-                  : undefined
-              "  />
-              <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-                <ng-container *ngIf="ctrl.errors as errors">
-                  <div *ngIf="errors['required']">Se requiere un correo electronico</div>
-                  <div *ngIf="errors['email']">
-                    {{ formErrors.email?.email }}
-                  </div>
-                </ng-container>
-              </c-form-feedback>
-          </c-col>
-          <c-col md="6" *ngIf="simpleForm.controls['password'] as ctrl">
-            <label cLabel for="password">Contraseña<span class="is-required">*</span></label>
-            <!--c-input-group class="has-validation">
-              <input [(ngModel)]="contrasenaAdmin" name="contrasenaAdminValidation" aria-describedby="inputGroupPrepend"
-                cFormControl id="contrasenaAdminValidation" required [type]="iconEyeAsistente" />
-              <ng-template #Eyeslashfill>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                  class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                  <path
-                    d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
-                  <path
-                    d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
-                </svg>
-              </ng-template>
-              <span (click)="cambiarIconAdmin()" cInputGroupText id="inputGroupPrepend">
-                <svg *ngIf="iconEyeAsistente == 'password' else Eyeslashfill" xmlns="http://www.w3.org/2000/svg"
-                  width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                </svg>
-              </span>
-              <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
-              <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-            </c-input-group-->
-            <input cFormControl [(ngModel)]="contrasenaAdmin" id="password" type="password" formControlName="password"
-            placeholder="Contraseña" autocomplete="Nueva contraseña" required [valid]="
-                ctrl.touched && ctrl.valid
-                  ? true
-                  : (submitted || ctrl.touched) && ctrl.invalid
-                  ? false
-                  : undefined
-              " />
-              <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-                <ng-container *ngIf="ctrl.errors as errors">
-                  <div *ngIf="errors['required']">Se requiere contraseña</div>
-                  <div *ngIf="errors['minlength']">
-                    {{ formErrors['password'].minLength }}
-                  </div>
-                  <div *ngIf="errors['pattern']">
-                    {{ formErrors['password'].pattern }}
-                  </div>
-                </ng-container>
-              </c-form-feedback>
-          </c-col>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Crear cuenta de administrador
+      </mat-panel-title>
+      <mat-panel-description>
+        Usurio/Correo/Contraseña/Confirmar contraseña
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-          <c-col md="6" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
-            <label cLabel for="confirmPassword">Confirmar contraseña<span class="is-required">*</span></label>
-            <input cFormControl [(ngModel)]="contrasenaConfAdmin" id="confirmPassword" type="password"
-            formControlName="confirmPassword" placeholder="Confirmar contraseña" autocomplete="off" required
-            [valid]="
-                ctrl.touched && ctrl.valid
-                  ? true
-                  : (submitted || ctrl.touched) && ctrl.invalid
-                  ? false
-                  : undefined
-              " />
-              <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-                <ng-container *ngIf="ctrl.errors as errors">
-                  <div *ngIf="errors['passwordMismatch']">
-                    {{ formErrors['confirmPassword'].passwordMismatch }}
-                  </div>
-                  <div *ngIf="errors['required']">{{ formErrors['confirmPassword'].required }}</div>
-                </ng-container>
-              </c-form-feedback>
-          </c-col>
-  
-          <!--Botones-->
-          <c-col xs="12">
-            <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
-            [tabindex]="'0'">
-              Crear
-            </button>
-          </c-col>
-        </form>
-      </c-card-body>
-  
-    </c-card>
-  
-  </c-col>
-  
-  <app-table-administrador></app-table-administrador>
+    <form [formGroup]="simpleForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username" type="text">
+        <mat-error *ngIf="simpleForm.get('username')?.hasError('required')">Se requiere un nombre de usuario</mat-error>
+        <mat-error *ngIf="simpleForm.get('username')?.hasError('pattern')">{{ formErrors.username.pattern }}</mat-error>
+        <mat-error *ngIf="simpleForm.get('username')?.hasError('minlength')">{{ formErrors.username.minLength
+          }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="simpleForm.get('email')?.hasError('required')">Se requiere un correo electronico</mat-error>
+        <mat-error *ngIf="simpleForm.get('email')?.hasError('email')">{{ formErrors.email?.email }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password">
+        <mat-error *ngIf="simpleForm.get('password')?.hasError('required')">Se requiere una contraseña</mat-error>
+        <mat-error *ngIf="simpleForm.get('password')?.hasError('minlength')">{{ formErrors['password'].minLength
+          }}</mat-error>
+        <mat-error *ngIf="simpleForm.get('password')?.hasError('pattern')">{{ formErrors['password'].pattern
+          }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input matInput formControlName="confirmPassword" type="password">
+        <mat-error *ngIf="simpleForm.get('confirmPassword')?.hasError('passwordMismatch')">{{
+          formErrors['confirmPassword'].passwordMismatch }}</mat-error>
+      </mat-form-field>
+      <button [disabled]="simpleForm.pristine || simpleForm.invalid" [tabindex]="'0'" mat-raised-button color="primary"
+        type="submit">Crear</button>
+    </form>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+
+<!--c-col> 
+  <c-card style="margin-bottom: 1%;">
+    <c-nav xs="12" layout="justified" variant="pills">
+      <c-nav-item>
+        <span [active]="true" cNavLink>
+          ADMINISTRADORES
+        </span>
+      </c-nav-item>
+    </c-nav>
+  </c-card>
+</c-col-->
+
+
+<app-table-administrador></app-table-administrador>
