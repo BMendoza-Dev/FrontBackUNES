@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\Categorie;
 use App\Models\Blog;
 use App\Models\Nota;
+use App\Events\ChatEvent;
+use App\Events\DirectMessageEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -159,6 +161,26 @@ class BlogsController extends Controller
             }
         }
       }
+
+      public function send(Request $request) {
+        broadcast(new ChatEvent($request->message))->toOthers();
+
+        return response()->json([
+            'ok'    => true,
+            'message'   => 'Mensaje enviado correctamente',
+        ]);
+    }
+
+    public function sendDM(Request $request) {
+        $data = $request->only(['message', 'to']);
+
+        event(new DirectMessageEvent($data));
+
+        return response()->json([
+            'ok'    => true,
+            'message'   => 'Mensaje enviado correctamente',
+        ]);
+    }
      
 
 
