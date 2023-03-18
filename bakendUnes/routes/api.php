@@ -202,14 +202,13 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('Register',[AuthController::class, 'Register']);
     Route::post('Logout',[AuthController::class, 'Logout']);
     Route::post('Update',[AuthController::class, 'Update']);
-    Route::post('message/send',[BlogsController::class, 'send'])
+});
+
+Route::post('message/send',[BlogsController::class, 'send'])
     ->name('api.message.send');
 
 Route::post('message/sendDM',[BlogsController::class, 'sendDM'])
     ->name('api.message.sendDM');
-});
-
-
 
 
 
