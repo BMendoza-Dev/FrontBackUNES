@@ -17,7 +17,7 @@ export class FormBlogsComponent implements OnInit {
   titulo: string; descripcion: string; importante = 0; categorie_id: any = "Seleccione una categoria"; perfils_id: any = localStorage.getItem('idAsambPerf'); blog_id = "";
   listCateg:any;
   ngOnInit(): void {
-    debugger
+    
     this.listarCategoriasBlog();
   }
 
@@ -146,7 +146,7 @@ export class FormBlogsComponent implements OnInit {
           'imagen': this.urlSet,
           'blog_id': this.blog_id
         }
-        debugger
+        
         this.service.crear_updateBlog(data).then((result: any) => {
           result; 
 

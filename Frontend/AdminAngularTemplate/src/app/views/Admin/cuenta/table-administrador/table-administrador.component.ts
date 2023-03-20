@@ -16,7 +16,7 @@ export class TableAdministradorComponent implements OnInit{
 
   constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter3.subscribe(() => {
-      debugger
+      
       this.cargarTabla();
     });
   }
@@ -39,7 +39,7 @@ export class TableAdministradorComponent implements OnInit{
   editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
   estado: number; id: number; id_perfil: number; dataAsam: any = [];
   cargarTabla() {
-    debugger
+    
     //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("super_administrador").then(data => {

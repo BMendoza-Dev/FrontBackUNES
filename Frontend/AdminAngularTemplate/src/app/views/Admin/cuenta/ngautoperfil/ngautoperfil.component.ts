@@ -33,6 +33,7 @@ export class NgautoperfilComponent implements OnInit {
       }
       
       this.datosAsambleistas = datoPrueba;
+      
     }).catch(error => {
       console.log(error);
     })
@@ -73,7 +74,9 @@ export class NgautoperfilComponent implements OnInit {
   }
 
   onMensaje(habilitarCampos: boolean) {
+    this.cargarPerfilesAsam();
     this.habilitarCampos = habilitarCampos;
+    
   }
 
 

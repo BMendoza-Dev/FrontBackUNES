@@ -8,7 +8,7 @@ export class ValidationFormsService {
   errorMessages: any;
 
   formRules = {
-    nonEmpty: '^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$',
+    nonEmpty: '[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*',
     usernameMin: 10,
     passwordMin: 8,
     passwordPattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'

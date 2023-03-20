@@ -285,8 +285,12 @@ export const navItem: INavData[] = [
         url: '/blogs/form-blogs',
       },
       {
-        name: 'Lista de Blog',
-        url: '/blogs/list-blogs',
+        name: 'Últimas Noticias',
+        url: '/blogs/utlimas-noticias'
+      },
+      {
+        name: 'Lista de Blogs',
+        url: '/blogs/lista-blogs'
       }
     ],
     permissions:['super_administrador'],

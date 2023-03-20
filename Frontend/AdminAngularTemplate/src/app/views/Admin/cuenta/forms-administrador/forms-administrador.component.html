@@ -1,58 +1,4 @@
-<mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Crear cuenta de administrador
-      </mat-panel-title>
-      <mat-panel-description>
-        Usurio/Correo/Contraseña/Confirmar contraseña
-        <mat-icon>account_circle</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <form [formGroup]="simpleForm" (ngSubmit)="onSubmit()">
-      <mat-form-field appearance="outline">
-        <mat-label>Usuario</mat-label>
-        <input matInput formControlName="username" type="text">
-        <mat-error *ngIf="simpleForm.get('username')?.hasError('required')">Se requiere un nombre de usuario</mat-error>
-        <mat-error *ngIf="simpleForm.get('username')?.hasError('pattern')">{{ formErrors.username.pattern }}</mat-error>
-        <mat-error *ngIf="simpleForm.get('username')?.hasError('minlength')">{{ formErrors.username.minLength
-          }}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Correo electrónico</mat-label>
-        <input matInput formControlName="email" type="email">
-        <mat-error *ngIf="simpleForm.get('email')?.hasError('required')">Se requiere un correo electronico</mat-error>
-        <mat-error *ngIf="simpleForm.get('email')?.hasError('email')">{{ formErrors.email?.email }}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input matInput formControlName="password" type="password">
-        <mat-error *ngIf="simpleForm.get('password')?.hasError('required')">Se requiere una contraseña</mat-error>
-        <mat-error *ngIf="simpleForm.get('password')?.hasError('minlength')">{{ formErrors['password'].minLength
-          }}</mat-error>
-        <mat-error *ngIf="simpleForm.get('password')?.hasError('pattern')">{{ formErrors['password'].pattern
-          }}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Confirmar contraseña</mat-label>
-        <input matInput formControlName="confirmPassword" type="password">
-        <mat-error *ngIf="simpleForm.get('confirmPassword')?.hasError('passwordMismatch')">{{
-          formErrors['confirmPassword'].passwordMismatch }}</mat-error>
-      </mat-form-field>
-      <button [disabled]="simpleForm.pristine || simpleForm.invalid" [tabindex]="'0'" mat-raised-button color="primary"
-        type="submit">Crear</button>
-    </form>
-
-  </mat-expansion-panel>
-</mat-accordion>
-
-
-
-<!--c-col> 
+<c-col> <!--Input de crear Cuenta de asambleistas-->
   <c-card style="margin-bottom: 1%;">
     <c-nav xs="12" layout="justified" variant="pills">
       <c-nav-item>
@@ -62,7 +8,114 @@
       </c-nav-item>
     </c-nav>
   </c-card>
-</c-col-->
+</c-col>
 
+<c-col xs="12">
+  <c-card class="mb-4">
+    <c-card-header ngPreserveWhitespaces>
+      <strong>Crear Cuenta Administrador</strong>
+    </c-card-header>
+    <c-card-body>
+      <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()"
+        class="row g-3 needs-validation">
+        <!--Form Cuenta Asistente-->
+        <c-col md="6" *ngIf="simpleForm.controls['username'] as ctrl" >
+          <label cLabel for="username">Usuario<span class="is-required">*</span></label>
+          <input cFormControl id="username" formControlName="username"
+          placeholder="Usuario" autocomplete="off" required [valid]="
+              ctrl.touched && ctrl.valid
+                ? true
+                : (submitted || ctrl.touched) && ctrl.invalid
+                ? false
+                : undefined
+            "/>
+            <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['required']">Se requiere un nombre de usuario</div>
+                <div *ngIf="errors['minlength']">
+                  {{ formErrors.username.minLength }}
+                </div>
+                <div *ngIf="errors['pattern']">
+                  {{ formErrors.username.pattern }}
+                </div>
+              </ng-container>
+            </c-form-feedback>
+        </c-col>
+        <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
+          <label cLabel for="email">Correo electrónico<span class="is-required">*</span></label>
+          <input cFormControl id="email" type="email" formControlName="email"
+          placeholder="Email" autocomplete="off" required [valid]="
+              ctrl.touched && ctrl.valid
+                ? true
+                : (submitted || ctrl.touched) && ctrl.invalid
+                ? false
+                : undefined
+            "  />
+            <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['required']">Se requiere un correo electronico</div>
+                <div *ngIf="errors['email']">
+                  {{ formErrors.email?.email }}
+                </div>
+              </ng-container>
+            </c-form-feedback>
+        </c-col>
+        <c-col md="6" *ngIf="simpleForm.controls['password'] as ctrl">
+          <label cLabel for="password">Contraseña<span class="is-required">*</span></label>
+          <input cFormControl id="password" type="password" formControlName="password"
+          placeholder="Contraseña" autocomplete="Nueva contraseña" required [valid]="
+              ctrl.touched && ctrl.valid
+                ? true
+                : (submitted || ctrl.touched) && ctrl.invalid
+                ? false
+                : undefined
+            " />
+            <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['required']">Se requiere contraseña</div>
+                <div *ngIf="errors['minlength']">
+                  {{ formErrors['password'].minLength }}
+                </div>
+                <div *ngIf="errors['pattern']">
+                  {{ formErrors['password'].pattern }}
+                </div>
+              </ng-container>
+            </c-form-feedback>
+        </c-col>
+
+        <c-col md="6" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
+          <label cLabel for="confirmPassword">Confirmar contraseña<span class="is-required">*</span></label>
+          <input cFormControl id="confirmPassword" type="password"
+          formControlName="confirmPassword" placeholder="Confirmar contraseña" autocomplete="off" required
+          [valid]="
+              ctrl.touched && ctrl.valid
+                ? true
+                : (submitted || ctrl.touched) && ctrl.invalid
+                ? false
+                : undefined
+            " />
+            <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['passwordMismatch']">
+                  {{ formErrors['confirmPassword'].passwordMismatch }}
+                </div>
+                <div *ngIf="errors['required']">{{ formErrors['confirmPassword'].required }}</div>
+              </ng-container>
+            </c-form-feedback>
+        </c-col>
+
+        <!--Botones-->
+        <c-col xs="12">
+          <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
+          [tabindex]="'0'">
+            Crear
+          </button>
+        </c-col>
+      </form>
+    </c-card-body>
+
+  </c-card>
+
+</c-col>
 
 <app-table-administrador></app-table-administrador>

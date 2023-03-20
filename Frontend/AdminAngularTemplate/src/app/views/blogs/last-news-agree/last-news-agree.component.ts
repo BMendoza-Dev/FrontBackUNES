@@ -4,12 +4,13 @@ import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
 import Swal from 'sweetalert2';
+
 @Component({
-  selector: 'app-list-blogs',
-  templateUrl: './list-blogs.component.html',
-  styleUrls: ['./list-blogs.component.scss']
+  selector: 'app-last-news-agree',
+  templateUrl: './last-news-agree.component.html',
+  styleUrls: ['./last-news-agree.component.scss']
 })
-export class ListBlogsComponent implements OnInit {
+export class LastNewsAgreeComponent {
   visible: boolean = false;
   visibleDeny: boolean = false;
   customStylesValidated2: boolean = false;

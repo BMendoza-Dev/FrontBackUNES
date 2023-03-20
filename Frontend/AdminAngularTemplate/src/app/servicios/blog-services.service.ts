@@ -17,7 +17,7 @@ export class BlogServicesService {
   }
 
   crear_updateBlog(_datos: any) {
-    let url = this.urlLocal + 'CrearBlog'
+    let url = this.urlAWS + 'CrearBlog'
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -44,7 +44,7 @@ export class BlogServicesService {
   }
 
   ListarCateBlog() {
-    let url = this.urlLocal + 'ListarCateBlog'
+    let url = this.urlAWS + 'ListarCateBlog'
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -60,8 +60,8 @@ export class BlogServicesService {
     });
   }
 
-  listarBlog() {
-    let url = this.urlLocal + 'ListarBlogsPorAprobar'
+  listarBlog(_cate_id:any) {
+    let url = this.urlAWS + 'ListarBlogsPorAprobar?cate_id='+_cate_id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -76,7 +76,7 @@ export class BlogServicesService {
   }
 
   getBlog(id: any) {
-    let url = this.urlLocal + 'ObtenerBlog?id=' + id;
+    let url = this.urlAWS + 'ObtenerBlog?id=' + id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -92,7 +92,7 @@ export class BlogServicesService {
 
   AprobarBlogEnUltimaNoticias(_datos: any) {
 
-    let url = this.urlLocal + 'AprobarBlogEnUltimaNoticias'
+    let url = this.urlAWS + 'AprobarBlogEnUltimaNoticias'
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
