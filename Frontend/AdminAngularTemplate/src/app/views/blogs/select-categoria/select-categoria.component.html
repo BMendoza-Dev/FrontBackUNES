@@ -1,0 +1,15 @@
+<c-col xs="12">
+<c-card class="mb-4">
+    <c-card-header>
+        <strong>Categorías de los blogs</strong>
+    </c-card-header>
+    <c-card-body>
+        <select [(ngModel)]="categorie_id" (ngModelChange)="cargarLitBlog(categorie_id)" aria-label="Categoria" cSelect class="mb-3">
+            <option [value]="">Todas las categorías</option>
+            <option *ngFor="let item of listCateg" [ngValue]="item.id">{{item.categorianame}}</option>
+        </select>
+    </c-card-body>
+</c-card>
+</c-col>
+<app-last-news-agree *ngIf="rutaActual == 'utlimas-noticias'" [nameCat]="nameCat"></app-last-news-agree>
+<app-list-blogs *ngIf="rutaActual == 'lista-blogs'" [nameCat]="nameCat"></app-list-blogs>

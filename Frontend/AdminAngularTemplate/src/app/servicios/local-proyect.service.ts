@@ -9,8 +9,10 @@ export class LocalProyectService {
   $emitter2 = new EventEmitter();
   $emitter3 = new EventEmitter();
   $emitter4 = new EventEmitter();
+  $emitter5 = new EventEmitter();
   formAsambleSource = new BehaviorSubject(null);
   formAsamble$ = this.formAsambleSource.asObservable();
+
   emitirEventoTablaAsalbleista() {
     this.$emitter.emit();
   }
@@ -26,6 +28,12 @@ export class LocalProyectService {
   emitirEventoListBlogs() {
     this.$emitter4.emit();
   }
+
+  emitirEventoCatListBlogs(value:any) {
+    this.$emitter5.emit(value);
+  }
+
+ 
 
 
 

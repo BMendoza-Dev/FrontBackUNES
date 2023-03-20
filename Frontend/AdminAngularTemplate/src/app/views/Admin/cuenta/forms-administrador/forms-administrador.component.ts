@@ -39,25 +39,30 @@ export class FormsAdministradorComponent implements OnInit {
   submitted = false;
   formErrors: any;
   formControls!: string[];
-  
  iconEyeAsistente: string = "password"; dataAsmbleista: any = []; keyword = 'name';
   idAsambleiApiAsis: string = ""; notFound: any = "No se encuentra asambleista";
 
   ngOnInit(): void {
-    //this.cargarCuentasAsambleista();
+    this.cargarCuentasAsambleista();
   }
 
   onSubmit2() {
     console.log('Submit... 2');
   }
 
-  
+  cambiarIconAdmin() { //Cambio de Icono en el Password Input Delegado
+    if (this.iconEyeAsistente == "text") {
+      this.iconEyeAsistente = "password";
+    } else {
+      this.iconEyeAsistente = "text";
+    }
+  }
 
   guardarCuentaAdmin() {
     let formAsambleista = {
-      'name': this.simpleForm.
-      'email': 
-      'password': 
+      'name': this.simpleForm.value.username,
+      'email': this.simpleForm.value.email,
+      'password': this.simpleForm.value.password,
       'rol_id': 1,
       'perfil_id': 1,
       'estado': 1
@@ -92,11 +97,26 @@ export class FormsAdministradorComponent implements OnInit {
   }
 
   onReset2() {
-    this.simpleForm.get('username')?.setValue('');
-    
     this.localServi.emitirEventoTablaAdministrador();
-    
     console.log('Reset... 2');
+  }
+
+  cargarCuentasAsambleista() {
+    this.adminService.cargarCuentaByRol("asambleista").then(data => {
+      this.dataAsmbleista = data;
+      var datoPrueba: any = [{ id: this.dataAsmbleista[0].perfil_id, name: this.dataAsmbleista[0].name }];
+      for (var i = 1; i < this.dataAsmbleista.length; i++) {
+        if (this.dataAsmbleista[i].estado == 1) {
+          datoPrueba.push({
+            "id": this.dataAsmbleista[i].perfil_id,
+            "name": this.dataAsmbleista[i].name,
+          });
+        }
+      }
+      this.dataAsmbleista = datoPrueba;
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   salir() {
@@ -127,8 +147,6 @@ export class FormsAdministradorComponent implements OnInit {
     if (this.onValidate()) {
       // TODO: Submit form value
       console.warn(this.simpleForm.value);
-      debugger
-      
       this.crearCuentaAdmin();
       this.salir();
       //this.rutas.navigate(['./']);
@@ -138,8 +156,6 @@ export class FormsAdministradorComponent implements OnInit {
   createForm() {
     this.simpleForm = this.formBuilder.group(
       {
-        //firstName: ["", [Validators.required]],
-        //lastName: ["", [Validators.required]],
         username: [
           "",
           [
@@ -159,6 +175,11 @@ export class FormsAdministradorComponent implements OnInit {
         ],
         confirmPassword: [
           "",
+          [
+            Validators.required,
+            Validators.minLength(this.validationFormsService.formRules.passwordMin),
+            Validators.pattern(this.validationFormsService.formRules.passwordPattern)
+          ]
         ]
       },
       { validators: [PasswordValidators.confirmPassword] }

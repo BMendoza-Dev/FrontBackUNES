@@ -34,34 +34,22 @@ export class PasswordValidators {
   styleUrls: ['./tabla-practica.component.scss'],
   providers: [ValidationFormsService]
 })
-export class TablaPracticaComponent implements OnInit {
+export class TablaPracticaComponent  {
+  form: FormGroup;
 
-  form!: FormGroup;
-  formErrors: any;
-  constructor(private fb: FormBuilder, public validationFormsService: ValidationFormsService) {
-    this.formErrors = this.validationFormsService.errorMessages;
-    //this.createForm();
-  }
-
-  ngOnInit() {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      email: ['', 
-      [
-        Validators.required,
-        Validators.minLength(this.validationFormsService.formRules.usernameMin),
-        Validators.pattern(this.validationFormsService.formRules.nonEmpty)
-      ]
-    ],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-      username: ['', Validators.required],
-    },
-      { validators: [PasswordValidators.confirmPassword] }
-    );
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
-  onSubmit() {
-    console.log(this.form.value);
+  clearFields() {
+    this.form.reset();
+  }
+
+  onSubmit(){
+    
   }
 }
 

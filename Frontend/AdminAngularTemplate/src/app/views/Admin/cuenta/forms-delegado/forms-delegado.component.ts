@@ -36,10 +36,8 @@ export class FormsDelegadoComponent implements OnInit {
   submitted = false;
   formErrors: any;
   formControls!: string[];
-  userAsistente = ""; correoAsistente = ""; contrasenaAsistente = ""; contrasenaConfAsistente = ""; asambleistaPerfil = "";
- iconEyeAsistente: string = "password"; dataAsmbleista: any = [];
-  idAsambleiApiAsis: string = ""; 
-  asambleistaCuenta:string ='';
+   dataAsmbleista: any = [];
+  idAsambleiApiAsis: number; 
   filteredOptions: any[];
   myControl = new FormControl('');
 
@@ -55,17 +53,16 @@ export class FormsDelegadoComponent implements OnInit {
 
   guardarCuentaAsistente() {
     let formAsambleista = {
-      'name': this.userAsistente,
-      'email': this.correoAsistente,
-      'password': this.contrasenaAsistente,
+      'name': this.simpleForm.value.username,
+      'email': this.simpleForm.value.email,
+      'password': this.simpleForm.value.password,
       'rol_id': 3,
-      'perfil_id': 2305, //this.idAsambleiApiAsis,
+      'perfil_id': this.idAsambleiApiAsis,
       'estado': 1
     }
     
     this.adminService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
       this.submitted = false;
-      this.simpleForm.reset();
       this.onReset2();
     }).catch(error => {
       console.log(error);
@@ -92,13 +89,12 @@ export class FormsDelegadoComponent implements OnInit {
   }
 
   onReset2() {
+    
+    this.idAsambleiApiAsis = 0;
+    let usernameControl = this.simpleForm.get('userAssam');
+    usernameControl?.setValue('');
+    this.simpleForm.reset();
     this.localServi.emitirEventoTablaAsistente();
-    this.userAsistente = "";
-    this.correoAsistente = "";
-    this.contrasenaAsistente = "";
-    this.idAsambleiApiAsis = "";
-    this.contrasenaConfAsistente = "";
-    this.asambleistaCuenta = "";
     console.log('Reset... 2');
   }
 
@@ -133,7 +129,7 @@ export class FormsDelegadoComponent implements OnInit {
     if (this.onValidate()) {
       // TODO: Submit form value
       console.warn(this.simpleForm.value);
-      debugger
+      
       this.crearCuentaAsis();
       this.salir();
       //this.rutas.navigate(['./']);
@@ -188,27 +184,27 @@ export class FormsDelegadoComponent implements OnInit {
   
 
   private _filter(value:any){
-    debugger
-    const filterValue = this.asambleistaCuenta.toLowerCase();
+    
+    const filterValue = this.simpleForm.value.userAssam.toLowerCase();
     let valor = this.dataAsmbleista.filter((option:any) => option.name.toLowerCase().includes(filterValue));
     if(valor.length == 1){
       this.idAsambleiApiAsis = valor[0].id;
+      
     } 
-    debugger
+    
     return valor;
   }
 
   cargarAutoComplete() {
-    debugger
     /*this.filteredOptions = this.myControl.valueChanges.pipe(
       debounceTime(250),
       startWith(''),
       map(value => this._filter(value)),
     );
     this.filteredOptions;
-    debugger*/
+    */
      this.filteredOptions=this._filter(0);
-    debugger
+    
   }
 
   

@@ -18,6 +18,19 @@ export class PasswordValidators {
     return { passwordMismatch: true };
   }
 }
+
+export class PasswordValidatorsDele {
+  static confirmPasswordDele(control: AbstractControl): ValidationErrors | null {
+    const password = control.get("passwordDele");
+    const confirm = control.get("confirmPasswordDele");
+    if (password?.valid && password?.value === confirm?.value) {
+      confirm?.setErrors(null);
+      return null;
+    }
+    confirm?.setErrors({ passwordMismatchDele: true });
+    return { passwordMismatchDele: true };
+  }
+}
 @Component({
   selector: 'app-forms-asam-dele',
   templateUrl: './forms-asam-dele.component.html',
@@ -30,13 +43,16 @@ export class FormsAsamDeleComponent implements OnInit {
   @Input() datosngautoperfil: any = [];
   @Output() habilitarCampos = new EventEmitter<boolean>();
   simpleForm!: FormGroup;
+  simpleFormDele!: FormGroup;
   submitted = false;
   formErrors: any;
   formControls!: string[];
+  formControlsDele!: string[];
   constructor(private administradorService: AdministradorService, private locaServicio: LocalProyectService
     ,public validationFormsService: ValidationFormsService,private formBuilder: FormBuilder) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
+    this.createFormDele();
   }
 
   userAsambleista: any;
@@ -53,8 +69,9 @@ export class FormsAsamDeleComponent implements OnInit {
         nombre_apellidoAsambleista: rest[1] + " " + rest[2] || null,
         idAsambleiApiAsam: rest[0] || null
       }))
-    ).subscribe((rest) => {
-      this.userAsambleista = rest.nombre_apellidoAsambleista;
+    ).subscribe((rest:any) => {
+      const user:any = this.simpleForm.get('username');
+      user.setValue(rest.nombre_apellidoAsambleista);
       this.idAsambleiApiAsam = rest.idAsambleiApiAsam;
     })
   }
@@ -68,7 +85,6 @@ export class FormsAsamDeleComponent implements OnInit {
   }
 
   activarCuentaDelegado() { //Habilitar los campos para el Asistente asignar
-
     this.delegadoCuentaCampos = !this.delegadoCuentaCampos
     this.userAsisAsam = "";
     this.correoAsisAsam = "";
@@ -78,33 +94,25 @@ export class FormsAsamDeleComponent implements OnInit {
 
 
   onReset1() {
-    this.customStylesValidated1 = false;
-    this.habilitarCampos.emit(false);
-    this.idAsambleiApiAsam = "";
+    
     this.delegadoCuentaCampos = false;
-    this.userAsambleista = "";
-    this.correoAsambleista = "";
-    this.contrasenaAsambleista = "";
-    this.userAsisAsam = "";
-    this.correoAsisAsam = "";
-    this.contrasenaAsisAsam = "";
-    this.contrasenaConfAsisAsam = ""
     this.locaServicio.emitirEventoTablaAsalbleista();
-
+    this.habilitarCampos.emit(false);
     console.log('Reset... 1');
   }
 
   guardarCuentaAsambleista() {
     let formAsambleista = {
-      'name': this.userAsambleista,
-      'email': this.correoAsambleista,
-      'password': this.contrasenaAsambleista,
+      'name': this.simpleForm.value.username,
+      'email': this.simpleForm.value.email,
+      'password': this.simpleForm.value.password,
       'rol_id': 2,
       'perfil_id': this.idAsambleiApiAsam,
       'estado': 1
     }
+    
     this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
-
+      
     }).catch(error => {
       console.log(error);
     })
@@ -114,13 +122,14 @@ export class FormsAsamDeleComponent implements OnInit {
 
   guardarCuentaAsistente() {
     let formAsambleista = {
-      'name': this.userAsisAsam,
-      'email': this.correoAsisAsam,
-      'password': this.contrasenaAsisAsam,
+      'name': this.simpleFormDele.value.usernameDele,
+      'email': this.simpleFormDele.value.emailDele,
+      'password': this.simpleFormDele.value.passwordDele,
       'rol_id': 3,
       'perfil_id': this.idAsambleiApiAsam,
       'estado': 1
     }
+    
     this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(data => {
 
     }).catch(error => {
@@ -129,14 +138,12 @@ export class FormsAsamDeleComponent implements OnInit {
   }
 
   registerAsambleistaForm() {
-    if (this.delegadoCuentaCampos != true) {
-      if (this.userAsambleista != "" && this.correoAsambleista != "" && this.contrasenaAsambleista != "") {
+    if (this.delegadoCuentaCampos == false) {
         Swal.fire({
           title: 'Esta seguro que desea crear una cuenta?',
-          showDenyButton: true,
+          showDenyButton: false,
           showCancelButton: true,
           confirmButtonText: 'Crear',
-          denyButtonText: `No crear`,
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
@@ -148,15 +155,12 @@ export class FormsAsamDeleComponent implements OnInit {
             Swal.fire('No se a guardado la cuenta', '', 'info')
           }
         })
-      }
-    } else {
-      if (this.userAsisAsam != "" && this.correoAsisAsam != "" && this.contrasenaAsisAsam != "" && this.userAsambleista != "" && this.correoAsambleista != "" && this.contrasenaAsambleista != "") {
+    }else{      
         Swal.fire({
           title: 'Esta seguro que desea crear una cuenta?',
-          showDenyButton: true,
+          showDenyButton: false,
           showCancelButton: true,
           confirmButtonText: 'Crear',
-          denyButtonText: `No crear`,
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
@@ -169,7 +173,7 @@ export class FormsAsamDeleComponent implements OnInit {
           }
         })
       }
-    }
+    
   }
 
   onValidate() {
@@ -185,6 +189,7 @@ export class FormsAsamDeleComponent implements OnInit {
     if (this.onValidate()) {
       // TODO: Submit form value
       console.warn(this.simpleForm.value);
+      
       this.registerAsambleistaForm();
       //this.salir();
       //this.rutas.navigate(['./']);
@@ -220,7 +225,18 @@ export class FormsAsamDeleComponent implements OnInit {
             Validators.minLength(this.validationFormsService.formRules.passwordMin),
             Validators.pattern(this.validationFormsService.formRules.passwordPattern)
           ]
-        ],
+        ]
+      },
+      { validators: [PasswordValidators.confirmPassword] },
+    );
+    this.formControls = Object.keys(this.simpleForm.controls);
+  }
+
+  createFormDele(){
+    this.simpleFormDele = this.formBuilder.group(
+      {
+        //firstName: ["", [Validators.required]],
+        //lastName: ["", [Validators.required]],
         usernameDele: [
           "",
           [
@@ -245,11 +261,11 @@ export class FormsAsamDeleComponent implements OnInit {
             Validators.minLength(this.validationFormsService.formRules.passwordMin),
             Validators.pattern(this.validationFormsService.formRules.passwordPattern)
           ]
-        ],
+        ]
       },
-      { validators: [PasswordValidators.confirmPassword] },
+      { validators: [PasswordValidatorsDele.confirmPasswordDele] },
     );
-    this.formControls = Object.keys(this.simpleForm.controls);
+    this.formControlsDele = Object.keys(this.simpleFormDele.controls);
   }
 
 }

@@ -20,7 +20,7 @@
         <!--Form Cuenta Asistente-->
         <c-col md="6" *ngIf="simpleForm.controls['username'] as ctrl">
           <label cLabel for="username">Usuario<span class="is-required">*</span></label>
-          <input cFormControl [(ngModel)]="userAsistente" id="username" formControlName="username" placeholder="Usuario"
+          <input cFormControl id="username" formControlName="username" placeholder="Usuario"
             autocomplete="off" required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
@@ -42,7 +42,7 @@
         </c-col>
         <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
           <label cLabel for="email">Correo electrónico<span class="is-required">*</span></label>
-          <input cFormControl [(ngModel)]="correoAsistente" id="email" type="email" formControlName="email"
+          <input cFormControl  id="email" type="email" formControlName="email"
             placeholder="Email" autocomplete="off" required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
@@ -61,7 +61,7 @@
         </c-col>
         <c-col md="6" *ngIf="simpleForm.controls['password'] as ctrl">
           <label cLabel for="password">Contraseña<span class="is-required">*</span></label>
-          <input cFormControl [(ngModel)]="contrasenaAsistente" id="password" type="password" formControlName="password"
+          <input cFormControl id="password" type="password" formControlName="password"
             placeholder="Contraseña" autocomplete="Nueva contraseña" required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
@@ -83,7 +83,7 @@
         </c-col>
         <c-col md="6" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
           <label cLabel for="confirmPassword">Confirmar contraseña<span class="is-required">*</span></label>
-          <input cFormControl [(ngModel)]="contrasenaConfAsistente" id="confirmPassword" type="password"
+          <input cFormControl id="confirmPassword" type="password"
             formControlName="confirmPassword" placeholder="Confirmar contraseña" autocomplete="off" required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
@@ -100,25 +100,9 @@
             </ng-container>
           </c-form-feedback>
         </c-col>
-        <!--c-col md="6">
-          <label cLabel for="validationCustomUsername">Asambleistas<span class="is-required">*</span></label>
-          <ng-autocomplete #atributosAutoCompl [data]="dataAsmbleista" [searchKeyword]="keyword"
-            placeholder="Seleccione un asambleista" (selected)='selectEventAsis($event)'
-            (inputCleared)='onClear($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-            [minQueryLength]="3">
-          
-          </ng-autocomplete>
-          <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.name"></a>
-          </ng-template>
-          <ng-template #notFoundTemplate let-item>
-            <div [innerHTML]="notFound"></div>
-          </ng-template>
-        </c-col -->
-
         <c-col md="6" *ngIf="simpleForm.controls['userAssam'] as ctrl">
           <label cLabel for="userAssam">Asambleistas<span class="is-required">*</span></label>
-          <input [(ngModel)]="asambleistaCuenta" id="userAssam" formControlName="userAssam"  [matAutocomplete]="auto" 
+          <input id="userAssam" (ngModelChange)="cargarAutoComplete()" formControlName="userAssam"  [matAutocomplete]="auto" 
           cFormControl  placeholder="Asambleista.."
             autocomplete="off" required [valid]="
             ctrl.touched && ctrl.valid
@@ -138,15 +122,14 @@
               {{option.name}}
             </mat-option>
           </mat-autocomplete>
-        </c-col>
-        <!--Botones-->
-        <c-col xs="12">
-          <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
-            [tabindex]="'0'">
-            Aceptar
-          </button>
-        </c-col>
+        </c-col> 
       </form>
+      <c-col style="margin-top: 6px;" xs="12">
+        <button (click)="onSubmit()" cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
+          [tabindex]="'0'">
+          Aceptar
+        </button>
+      </c-col>
     </c-card-body>
   </c-card>
 </c-col>

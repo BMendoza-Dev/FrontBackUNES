@@ -1,0 +1,141 @@
+<c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Listas de Blog {{nameCat}}</strong>
+      </c-card-header>
+      <c-card-body>
+        <label cLabel for="basic-url">Título del blog</label>
+        <c-input-group class="mb-3">
+          <input aria-describedby="basic-addon2" aria-label="Este es un título del blog..." cFormControl
+            placeholder="Este es un título del blog..." [(ngModel)]="search" (ngModelChange)="dataPaginate($event)"
+            id="search" name="search" />
+          <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+        </c-input-group> <br>
+        <c-row [gutter]="4" class="mb-3" [md]="2" [xs]="1">
+          <ng-container *ngIf="search == ''; else filtro">
+            <ng-container *ngIf="listBlog != ''; else nell">
+              <c-col *ngFor="let item of listBlog | paginate:{itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems : count,
+            id: 'paginado'
+            }; let i = index">
+                <c-card>
+                  <!--img cCardImg="top" [src]="item.imagen"-->
+                  <c-card-body>
+                    <h5 cCardTitle>{{item._blogtitulo}}</h5>
+                    <p cCardText>
+                      {{item._blogdescripcion}}
+                    </p>
+                  </c-card-body>
+  
+                  <c-card-footer>
+                    <small class="text-medium-emphasis">{{item._created_at | date: 'M/d/yy'}}</small>
+                    <button (click)="toggleLiveDemo() ; blogGet(item._id)" cButton color="primary"
+                      variant="outline">Ver</button>
+                  </c-card-footer>
+                </c-card>
+              </c-col>
+            </ng-container>
+            <ng-template #nell>
+              <c-col>
+                <h1>No existen lista de blogs {{nameCat}}</h1>
+              </c-col>
+            </ng-template>
+          </ng-container>
+          <ng-template #filtro>
+            <ng-container *ngIf="blogFilter != '';else nell">
+              <c-col *ngFor="let item of blogFilter | paginate:{itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems : count,
+            id: 'paginado'
+            }; let i = index">
+                <c-card>
+                  <!--img cCardImg="top" [src]="item.imagen"-->
+                  <c-card-body>
+                    <h5 cCardTitle>{{item._blogtitulo}}</h5>
+                    <p cCardText>
+                      {{item._blogdescripcion}}
+                    </p>
+                  </c-card-body>
+  
+                  <c-card-footer>
+                    <small class="text-medium-emphasis">{{item._created_at | date: 'M/d/yy'}}</small>
+                    <button (click)="toggleLiveDemo() ; blogGet(item._id)" cButton color="primary"
+                      variant="outline">Ver</button>
+                  </c-card-footer>
+                </c-card>
+              </c-col>
+            </ng-container>
+            <ng-template #nell>
+              <c-col>
+                <h1>No existen lista de blogs {{nameCat}}</h1>
+              </c-col>
+            </ng-template>
+          </ng-template>
+        </c-row>
+      </c-card-body>
+  
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"
+        [autoHide]="true" id="paginado">
+      </pagination-controls>
+    </c-card>
+  </c-col>
+  <c-modal backdrop="static" id="staticBackdropModal" fullscreen="md" [visible]="visible"
+    (visibleChange)="handleLiveDemoChange($event)"> <!--Modal de editar cuenta Asambleista-->
+  
+    <c-modal-header>
+      <h5 cModalTitle>Blog {{categoria}}</h5>
+      <button (click)="clear();toggleLiveDemo()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+  
+      <div class="container">
+        <img style="text-align: center; justify-content: center;" width="300px" [src]="urlGet">
+      </div>
+      <br>
+      {{blogtitulo}} <br>
+      {{blogdescripcion}} <br>
+      <div style="width: 40%;" [innerHTML]="blogcontenido"></div>
+    </c-modal-body>
+    <c-modal-footer>
+      <c-col xs="12">
+        <button (click)="accept()" cButton class="me-1" color="success">
+          Aprobar
+        </button>
+        <button (click)="deny()" cButton color="danger" type="reset">
+          Denegar
+        </button>
+      </c-col>
+    </c-modal-footer>
+  </c-modal>
+  
+  <c-modal backdrop="static" id="staticModalDeny" fullscreen="md" [visible]="visibleDeny"
+    (visibleChange)="handleLiveDemoChangeDeny($event)"> <!--Modal de editar cuenta Asambleista-->
+  
+    <c-modal-header>
+      <h5 cModalTitle>Motivos</h5>
+      <button (click)="toggleLiveDemo();toggleLiveDemoDeny()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <form #customStylesForm="ngForm" (ngSubmit)="onSubmit2()" [validated]="customStylesValidated2" cForm>
+        <div class="mb-3">
+          <label cLabel for="tituloValidation">Titulo del motivo</label>
+          <input [(ngModel)]="motivoTitulo" name="tituloValidation" cFormControl id="tituloValidation" required
+            type="text" value="" />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="motivoValidation">Motivo</label>
+          <textarea [(ngModel)]="motivoText" cFormControl required name="motivoValidation" id="motivoValidation" value=""
+            rows="3"></textarea>
+        </div>
+  
+        <c-modal-footer>
+          <button (click)="toggleLiveDemo();toggleLiveDemoDeny()" cButton color="secondary">
+            Cerrar
+          </button>
+          <button cButton class="me-1" type="submit" (click)="denyBlog()" color="primary">Aceptar</button>
+        </c-modal-footer>
+      </form>
+    </c-modal-body>
+  
+  </c-modal>

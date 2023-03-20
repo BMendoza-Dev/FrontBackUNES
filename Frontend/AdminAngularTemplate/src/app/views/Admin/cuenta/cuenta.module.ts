@@ -68,7 +68,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     TableDelegadoComponent,
     FormsAdministradorComponent,
     TableAdministradorComponent,
-    FiltroCuentasPipe,
     TablaPracticaComponent,
     
   ],

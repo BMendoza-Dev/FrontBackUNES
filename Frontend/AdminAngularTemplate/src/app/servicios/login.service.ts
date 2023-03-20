@@ -17,7 +17,7 @@ export class LoginService {
 
   ValidarLogin(data: any) {
     let formData = new FormData();
-    let url = this.urlLocal+'Login';
+    let url = this.urlAWS+'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
     

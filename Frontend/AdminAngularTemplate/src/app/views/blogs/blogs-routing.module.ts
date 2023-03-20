@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormBlogsComponent } from './form-blogs/form-blogs.component';
 import { ListBlogsComponent } from './list-blogs/list-blogs.component';
+import { SelectCategoriaComponent } from './select-categoria/select-categoria.component';
 
 const routes: Routes = [
   {
@@ -17,16 +18,30 @@ const routes: Routes = [
       },
       {
         path: 'form-blogs',
-        component: FormBlogsComponent, 
+        component: FormBlogsComponent,
         data: {
           title: 'Form Blogs'
         }
       },
       {
         path: 'list-blogs',
-        component: ListBlogsComponent, 
+        component: ListBlogsComponent,
         data: {
-          title: 'Form Blogs'
+          title: 'List Blogs'
+        }
+      },
+      {
+        path: 'utlimas-noticias',
+        component: SelectCategoriaComponent,
+        data: {
+          title: 'Ultimas Noticias'
+        }
+      },
+      {
+        path: 'lista-blogs',
+        component: SelectCategoriaComponent,
+        data: {
+          title: 'Lista de Blogs'
         }
       }
     ]

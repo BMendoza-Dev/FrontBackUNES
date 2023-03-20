@@ -12,7 +12,6 @@ export class TableDelegadoComponent implements OnInit{
 
   constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter2.subscribe(() => {
-      debugger
       this.cargarTabla();
     }); 
   }
@@ -38,7 +37,7 @@ export class TableDelegadoComponent implements OnInit{
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("asistente").then(data => {
       this.dataTabla = data;
-      debugger
+      
       this.limpiarModal();
       //this.spinner.hide('sample');
     }).catch(error => {
