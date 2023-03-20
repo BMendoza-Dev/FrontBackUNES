@@ -185,6 +185,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::post('CrearBlog',[BlogsController::class, 'CrearBlog']);
     Route::get('ListarCateBlog',[BlogsController::class, 'ListarCateBlog']);
+    Route::get('ListarBlogPorCat',[BlogsController::class, 'ListarBlogPorCat']);
     Route::get('ListarBlogsPorAprobar',[BlogsController::class, 'ListarBlogsPorAprobar']);
     Route::get('ObtenerBlog',[BlogsController::class, 'ObtenerBlog']);
     Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
