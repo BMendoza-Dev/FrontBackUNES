@@ -26,7 +26,7 @@ class BlogsController extends Controller
         
         if($request->blog_id==null){
             $Categoria = Categorie::findOrFail($request->categorie_id);
-        $Perfil = Perfil::findOrFail($request->perfil_id);
+
 
         $blog = new Blog();
         $blog->blogtitulo= $request->blogtitulo;
@@ -36,7 +36,8 @@ class BlogsController extends Controller
         $blog->ultimanoticia=$request->ultimanoticia;
         $blog->aprobado=false;
         $blog->categorie_id=$Categoria->id;
-        $blog->perfil_id=$Perfil->id;
+        $perfil_id= auth()->user()->load('Perfil');
+        $blog->perfil_id=$perfil_id->perfil->id;
         $blog->users_id=auth()->user()->id;
         $blog->save();
             if($request->imagen==null || $request->imagen==''){
@@ -47,10 +48,7 @@ class BlogsController extends Controller
         
         $blog->image()->createMany($urlimagenes2);
         if($request->ultimanoticia==true){
-          //  event(new NotifyEventBlog($data));
-
-
-
+           // event(new NotifyEventBlog($data));
 
         }
         
@@ -66,7 +64,8 @@ class BlogsController extends Controller
         $blog->ultimanoticia=$request->ultimanoticia;
         $blog->aprobado=false;
         $blog->categorie_id=$Categoria->id;
-        $blog->perfils_id=$Perfil->id;
+        $perfil_id= auth()->user()->load('Perfil');
+        $blog->perfil_id=$perfil_id->perfil->id;
         $blog->users_id=auth()->user()->id;
         $blog->update();
             if($request->imagen!=null){
@@ -176,6 +175,18 @@ class BlogsController extends Controller
                 return  response()->json($blog);
             }
         }
+      }
+
+      public function ObtenerBlogPorPerfil(Request $request){
+
+
+        $Perfilid= auth()->user()->load('Perfil');
+    
+       
+        $blog = Blog::where('perfil_id',$Perfilid->perfil->id)->get();
+
+        return response()->json($blog);
+
       }
 
       public function send(Request $request) {
