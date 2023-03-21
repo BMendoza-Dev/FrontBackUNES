@@ -179,11 +179,18 @@ class BlogsController extends Controller
 
       public function ObtenerBlogPorPerfil(Request $request){
 
+        $categoryId=$request->cate_id;
 
         $Perfilid= auth()->user()->load('Perfil');
     
        
-        $blog = Blog::where('perfil_id',$Perfilid->perfil->id)->get();
+        $blog = Blog::where('perfil_id',$Perfilid->perfil->id)->when($categoryId, function($query, $categoryId) {
+            return $query->whereHas('categoria', function($query) use ($categoryId) {
+                $query->where('id', $categoryId);
+            });
+        }, function($query) {
+            return $query;
+        })->get();
 
         return response()->json($blog);
 
