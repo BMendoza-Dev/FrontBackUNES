@@ -45,7 +45,7 @@
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/scss/styles.scss"
             ],
-            "scripts": [],
+            "scripts": ["src/assets/pusher/pusher.min.js"],
             "allowedCommonJsDependencies": [
               "chart.js",
               "@coreui/chartjs/dist/js/coreui-chartjs.js"

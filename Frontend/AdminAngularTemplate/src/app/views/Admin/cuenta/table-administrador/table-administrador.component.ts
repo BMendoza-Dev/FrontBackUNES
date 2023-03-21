@@ -136,6 +136,7 @@ export class TableAdministradorComponent implements OnInit{
 
   cuentasFilter: any = [];
   dataPaginate(_event: any) {
+    this.page=1;
     this.cuentasFilter = [];
     if (this.search == "") {
 

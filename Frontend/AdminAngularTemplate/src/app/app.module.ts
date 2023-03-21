@@ -61,7 +61,8 @@ import { HttpClientModule} from '@angular/common/http';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FiltroCuentasPipe } from './pipes/filtro-cuentas.pipe';
-
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -94,7 +95,9 @@ import { FiltroCuentasPipe } from './pipes/filtro-cuentas.pipe';
     FormsModule,
     HttpClientModule,
     AutocompleteLibModule,
-    AlertModule
+    AlertModule,
+    MatBadgeModule,
+    MatIconModule
   ],
   providers: [
     {

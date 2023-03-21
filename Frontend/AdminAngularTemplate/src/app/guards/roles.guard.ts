@@ -15,15 +15,14 @@ export class RolesGuard implements CanActivate {
 
   checkUserLogin(route: ActivatedRouteSnapshot):boolean{
     let sesionLoginInicio:any = localStorage.getItem('sesionLoginInicio');
-    
-
+    debugger
     if(sesionLoginInicio.includes(route.data['permissions' || 'permissions2'])){
-      
+      debugger
       return true
     }else{
       console.log('No tiene permisos')
       return false
     }
   }
-  
+   
 }

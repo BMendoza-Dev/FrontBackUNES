@@ -14,7 +14,7 @@ export class FormBlogsComponent implements OnInit {
   constructor(private service: BlogServicesService) { }
 
   public datos: any = ""; public Editor: any = ClassicEditor;
-  titulo: string; descripcion: string; importante = 0; categorie_id: any = "Seleccione una categoria"; perfils_id: any = localStorage.getItem('idAsambPerf'); blog_id = "";
+  titulo: string; descripcion: string; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
   listCateg:any;
   ngOnInit(): void {
     
@@ -138,7 +138,6 @@ export class FormBlogsComponent implements OnInit {
 
         let data = {
           'categorie_id': this.categorie_id,
-          'perfils_id': this.perfils_id,
           'blogtitulo': this.titulo,
           'blogdescripcion': this.descripcion,
           'blogcontenido': this.datos,

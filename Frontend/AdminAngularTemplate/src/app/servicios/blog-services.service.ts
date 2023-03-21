@@ -25,7 +25,6 @@ export class BlogServicesService {
 
     let formData = new FormData();
     formData.append('categorie_id', _datos.categorie_id);
-    formData.append('perfil_id', _datos.perfils_id);
     formData.append('blogtitulo', _datos.blogtitulo);
     formData.append('blogdescripcion', _datos.blogdescripcion);
     formData.append('blogcontenido', _datos.blogcontenido);
@@ -106,6 +105,23 @@ export class BlogServicesService {
 
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  ObtenerBlogPorPerfil(_cate_id:any){
+    let url = this.urlAWS + 'ObtenerBlogPorPerfil?cate_id='+_cate_id;
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
         }
       }, error => {

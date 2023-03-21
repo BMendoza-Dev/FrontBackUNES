@@ -98,6 +98,7 @@ export class LastNewsAgreeComponent {
   }
 
   dataPaginate(_event: any) {
+    this.page=1;
     this.blogFilter = [];
     if (this.search == "") {
 
@@ -105,7 +106,7 @@ export class LastNewsAgreeComponent {
 
       for (const x of this.listBlog) {
         
-        if (x._blogtitulo.indexOf(this.search) > -1) {
+        if (x._blogtitulo.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
           this.blogFilter.push(x);
 
         };

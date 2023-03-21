@@ -28,33 +28,22 @@ export const routes: Routes = [
     children: [
       {
         path: 'asambleista',
-        canActivate: [AsambLoginGuard],
         loadChildren: () => import('./views/Asambleista/perfil/perfil.module').then((m) => m.PerfilModule)
-        
       },
 
       {
         path: 'administrador_nav_1',
         loadChildren: () => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule),
-        data: {
-          permissions: 'super_administrador',
-          permissions2: ''
-        },
-        canActivate: [RolesGuard],
+        
       },
 
       {
         path: 'administrador_nav_2',
-        loadChildren: () => import('./views/Admin/biografia/biografia.module').then((m) => m.BiografiaModule),
-        data: {
-          permissions: 'super_administrador',
-          permissions2: 'asambleista'
-        },
-        canActivate: [RolesGuard],
+        loadChildren: () => import('./views/Asambleista/biografia/biografia.module').then((m) => m.BiografiaModule),
+        
       },
       {
         path: 'inicio',
-        canActivate: [InicioLoginGuard],
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
@@ -62,13 +51,8 @@ export const routes: Routes = [
         path: 'blogs',
         loadChildren: () =>
         import('./views/blogs/blogs.module').then((m) => m.BlogsModule),
-        data: {
-          permissions: 'super_administrador',
-          permissions2: 'asambleista'
-        },
-        canActivate: [RolesGuard],
+        
       },
-
       {
         path: 'profile',
         loadChildren: () =>

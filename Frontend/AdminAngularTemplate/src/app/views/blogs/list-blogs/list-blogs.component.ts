@@ -24,7 +24,7 @@ export class ListBlogsComponent implements OnInit {
   constructor(private localServi: LocalProyectService,private scriptService: ScripServiceService, private service: BlogServicesService, private sanitizer: DomSanitizer) {
     localServi.$emitter5.subscribe((data:any) => {
       this._categoria_id=data
-      this.blogList();
+      this.ObtenerBlogPorPerfil();
     });
   }
 
@@ -33,13 +33,13 @@ export class ListBlogsComponent implements OnInit {
   idBlog: number;
 
   ngOnInit(): void {
-    this.blogList();
+    this.ObtenerBlogPorPerfil();
     
   }
 
 
-  blogList() {
-    this.service.listarBlog(this._categoria_id).then((data: any) => {
+  ObtenerBlogPorPerfil() {
+    this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
       
       if(data.length >0){
         this.listBlog = data.map((value: any) => ({
@@ -97,6 +97,7 @@ export class ListBlogsComponent implements OnInit {
   }
 
   dataPaginate(_event: any) {
+    this.page=1;
     this.blogFilter = [];
     if (this.search == "") {
 
@@ -104,7 +105,7 @@ export class ListBlogsComponent implements OnInit {
 
       for (const x of this.listBlog) {
         
-        if (x._blogtitulo.indexOf(this.search) > -1) {
+        if (x._blogtitulo.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
           this.blogFilter.push(x);
 
         };
@@ -186,7 +187,7 @@ export class ListBlogsComponent implements OnInit {
       }
       this.clear();
       this.alert();
-      this.blogList();
+      this.ObtenerBlogPorPerfil();
     }).catch(error => {
       console.log(error);
     })

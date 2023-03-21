@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import Echo from 'laravel-echo';
 
 
 @Injectable({
@@ -28,6 +29,20 @@ export class LoginService {
       }, error => {
         reject(error);
       });
+    });
+  }
+
+  getSockets(): Echo{
+    return new Echo({
+      broadcaster: 'pusher',
+      key: 'apprc_key',
+      wsHost: 'ec2-54-236-56-219.compute-1.amazonaws.com',
+      cluster: 'mt1',
+      //wsPort: 6001,
+      disableStats: true,
+      forceTLS:false,
+      encrypted:false,
+      enabledTransports:['ws']
     });
   }
 }

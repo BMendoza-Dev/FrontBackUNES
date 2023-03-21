@@ -33,6 +33,23 @@ export class LocalProyectService {
     this.$emitter5.emit(value);
   }
 
+  userPermissions:any = {
+    '/administrador_nav_1': ['super_administrador'],
+    '/administrador_nav_1/admin': ['super_administrador'],
+    '/administrador_nav_1/asambleistas': ['super_administrador'],
+    '/administrador_nav_1/delegados': ['super_administrador'],
+    '/administrador_nav_2/biografia': ['asambleista'],
+    '/blogs': ['asambleista','super_administrador'],
+    '/blogs/form-blogs': ['asambleista','super_administrador'],
+    '/blogs/utlimas-noticias': ['super_administrador'],
+    '/blogs/lista-blogs': ['asambleista','super_administrador']
+  };
+
+  hasPermission(route: any, userRole: string): boolean {
+    const allowedRoles = this.userPermissions[route];
+    let valor = allowedRoles.includes(userRole)
+    return valor;
+  }
  
 
 

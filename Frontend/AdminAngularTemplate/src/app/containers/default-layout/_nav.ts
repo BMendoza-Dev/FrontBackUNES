@@ -245,10 +245,7 @@ export const navItems: INavData[] = [
 ];
 
 export const navItem: INavData[] = [
-  {
-    title: true,
-    name: 'Cuentas',  
-  },
+
   {
     name: 'Cuentas',
     url: '/administrador_nav_1',
@@ -266,14 +263,12 @@ export const navItem: INavData[] = [
         name: 'Delegados',
         url: '/administrador_nav_1/delegados',
       }
-    ],
-    permissions:['super_administrador']
+    ]
   },
   {
     name: 'Biografias',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
-    permissions:['asambleista']
   },
   {
     name: 'Blogs',
@@ -286,13 +281,12 @@ export const navItem: INavData[] = [
       },
       {
         name: 'Últimas Noticias',
-        url: '/blogs/utlimas-noticias'
+        url: '/blogs/utlimas-noticias',
       },
       {
         name: 'Lista de Blogs',
-        url: '/blogs/lista-blogs'
+        url: '/blogs/lista-blogs',
       }
-    ],
-    permissions:['super_administrador'],
+    ]
   }
 ];

@@ -148,6 +148,7 @@ export class TableAsambleistaComponent implements OnInit {
 
   cuentasFilter: any = [];
   dataPaginate(_event: any) {
+    this.page=1;
     this.cuentasFilter = [];
     //this.cuentasPaginateFilter=[];
     if (this.search == "") {

@@ -3,7 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
+import Echo from 'laravel-echo';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
+import { LoginService } from 'src/app/servicios/login.service';
 @Component({
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
@@ -16,13 +18,24 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   public newMessages = new Array(4)
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
+  echo: Echo;
 
-  constructor(private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
+  constructor(private service:LoginService,private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
     super();
+    this.echo = this.service.getSockets();
   }
 
   ngOnInit(): void {
+    console.log("Implement 1");
+    this.echo.channel('channel-NotifyBlosAdmin.admin')
+        .listen('NotifyEventBlog', (resp:any) => {
+          console.log(resp)
+        });
     this.mostrarImg();
+  }
+
+  listNotifi(){
+
   }
 
   salir() {
