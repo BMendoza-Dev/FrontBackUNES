@@ -49,9 +49,10 @@ class BlogsController extends Controller
             }
         
         $blog->image()->createMany($urlimagenes2);
+        
         if($request->ultimanoticia==true){
+            
             self::make_blogs_notify($blog);
-          //  $user->notify(new NotifyEventBlog($article));
 
             $notify= auth()->user()->notifications->map(function($notify){
                 return [
@@ -93,15 +94,32 @@ class BlogsController extends Controller
                 }]);
             }
         }
-        
+        if($request->ultimanoticia==true){
+            self::make_blogs_notify($blog);
+
+            $notify= auth()->user()->notifications->map(function($notify){
+                return [
+                    'blogtitulo'=> $notify->data['blogtitulo'],
+                    'blogdescripcion'=> $notify->data['blogdescripcion'],
+                    'blogcontenido'=> $notify->data['blogcontenido'],
+                    'categorie'=> $notify->data['categorie_id'],
+                    'perfil'=> $notify->data['perfil'],
+                    'user'=> $notify->data['user']
+                ];
+
+            });
+            event(new NotifyEventBlog($notify));
+
+        }
 
         return  response()->json('200');
     }
 
     static function make_blogs_notify($blog){
-        User::with(['roles'=> function ($query){
+        
+        User::whereHas('roles', function ($query){
             $query->where('slug','super_administrador');
-        }])->each(function(User $user)use($blog){
+        })->each(function(User $user)use($blog){
             $user->notify(new NotifyBlogsPorAprobar($blog));
         });
     }
