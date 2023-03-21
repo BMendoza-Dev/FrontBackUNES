@@ -18,16 +18,16 @@ class NotifyEventBlog implements  ShouldBroadcast
     /**
      * @var array
      */
-    public $response;
+    public $blog;
     /**
      * 
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($blog)
     {
-        $this->response = $data->$request->toArray();
+        $this->blog = $blog;
     }
 
     /**

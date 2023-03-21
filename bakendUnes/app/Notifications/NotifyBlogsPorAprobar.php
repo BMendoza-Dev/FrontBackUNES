@@ -29,7 +29,7 @@ class NotifyBlogsPorAprobar extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+       return ['database'];
     }
 
     /**
@@ -54,12 +54,13 @@ class NotifyBlogsPorAprobar extends Notification
      */
     public function toArray($notifiable)
     {
-        $perfil->auth()->user()->load('Perfil');
+        $perfil=auth()->user()->load('Perfil');
+
         return [
-        'blogtitulo'=>    $this->blogblogtitulo,
-        'blogdescripcion'=>  $this->blogblogdescripcion,
-        'blogcontenido'=>  $this->blogblogcontenido,
-        'categorie_id'=> $this->blogcategorie_id,
+        'blogtitulo'=>    $this->blog->blogtitulo,
+        'blogdescripcion'=>  $this->blog->blogdescripcion,
+        'blogcontenido'=>  $this->blog->blogcontenido,
+        'categorie_id'=> $this->blog->categorie_id,
         'perfil'=>  $perfil->perfil->usedFirstName." ".$perfil->perfil->usedLastName,
         'user'=> auth()->user()->name
         ];

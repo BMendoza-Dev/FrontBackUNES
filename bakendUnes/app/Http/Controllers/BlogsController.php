@@ -13,6 +13,7 @@ use App\Models\Nota;
 use App\Events\ChatEvent;
 use App\Events\DirectMessageEvent;
 use App\Events\NotifyEventBlog;
+use App\Notifications\NotifyBlogsPorAprobar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -48,7 +49,8 @@ class BlogsController extends Controller
         
         $blog->image()->createMany($urlimagenes2);
         if($request->ultimanoticia==true){
-           // event(new NotifyEventBlog($data));
+            self::make_blogs_notify($blog);
+            event(new NotifyEventBlog($blog));
 
         }
         
@@ -80,6 +82,14 @@ class BlogsController extends Controller
         
 
         return  response()->json('200');
+    }
+
+    static function make_blogs_notify($blog){
+        User::with(['roles'=> function ($query){
+            $query->where('slug','super_administrador');
+        }])->each(function(User $user)use($blog){
+            $user->notify(new NotifyBlogsPorAprobar($blog));
+        });
     }
 
     public function ListarCateBlog(){
