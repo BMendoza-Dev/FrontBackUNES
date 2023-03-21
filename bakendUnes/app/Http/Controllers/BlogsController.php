@@ -64,7 +64,6 @@ class BlogsController extends Controller
                 ];
 
             });
-            return $notify;
             event(new NotifyEventBlog($notify));
 
         }
