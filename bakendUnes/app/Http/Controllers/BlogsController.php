@@ -24,7 +24,8 @@ class BlogsController extends Controller
     }
 
     public function CrearBlog(Request $request){
-        
+
+ 
         if($request->blog_id==null){
             $Categoria = Categorie::findOrFail($request->categorie_id);
 
@@ -50,7 +51,21 @@ class BlogsController extends Controller
         $blog->image()->createMany($urlimagenes2);
         if($request->ultimanoticia==true){
             self::make_blogs_notify($blog);
-            event(new NotifyEventBlog($blog));
+          //  $user->notify(new NotifyEventBlog($article));
+
+            $notify= auth()->user()->notifications->map(function($notify){
+                return [
+                    'blogtitulo'=> $notify->data['blogtitulo'],
+                    'blogdescripcion'=> $notify->data['blogdescripcion'],
+                    'blogcontenido'=> $notify->data['blogcontenido'],
+                    'categorie'=> $notify->data['categorie_id'],
+                    'perfil'=> $notify->data['perfil'],
+                    'user'=> $notify->data['user']
+                ];
+
+            });
+            return $notify;
+            event(new NotifyEventBlog($notify));
 
         }
         
