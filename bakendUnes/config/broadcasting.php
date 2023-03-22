@@ -37,7 +37,7 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'host' => '127.0.0.1',
+                'host' => 'ec2-54-236-56-219.compute-1.amazonaws.com',
                 'useTLS' => true,
                 'encrypted' => true,
                 'port' => 6001,
