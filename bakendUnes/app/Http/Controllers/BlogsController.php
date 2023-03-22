@@ -249,6 +249,14 @@ class BlogsController extends Controller
         return  response()->json(['exito'=>'200 ']);
       }
 
+      public function EditCategoria(Request $request){
+        if($request->categoria_id==null || $request->categoria_id==''||$request->categorianame==null || $request->categorianame==''){
+            return  response()->json(['error'=>'417 ']);
+        }
+        Categorie::where('id',$request->categoria_id)->update(['categorianame'=>$request->categorianame]);
+        return  response()->json(['exito'=>'200 ']);
+      }
+
       public function send(Request $request) {
         broadcast(new ChatEvent($request->message))->toOthers();
 
