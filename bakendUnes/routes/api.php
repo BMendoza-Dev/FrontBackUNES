@@ -190,6 +190,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ObtenerBlog',[BlogsController::class, 'ObtenerBlog']);
     Route::get('ObtenerBlogPorPerfil',[BlogsController::class, 'ObtenerBlogPorPerfil']);
     Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
+    Route::post('CreateCategoria',[BlogsController::class, 'CreateCategoria']);
 
     Route::get('listarVotacionesAsambleista',[VotacionesController::class, 'listarVotacionesAsambleista']);
 

@@ -238,6 +238,17 @@ class BlogsController extends Controller
 
       }
 
+
+      public function CreateCategoria(Request $request){
+        if($request->categorianame==null || $request->categorianame==''){
+            return  response()->json(['error'=>'417 ']);
+        }
+        $CateNew = new Categorie;
+        $CateNew->categorianame = $request->categorianame;
+        $CateNew->save();
+        return  response()->json(['exito'=>'200 ']);
+      }
+
       public function send(Request $request) {
         broadcast(new ChatEvent($request->message))->toOthers();
 
