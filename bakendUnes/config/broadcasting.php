@@ -43,6 +43,11 @@ return [
                 'port' => 443,
                 'scheme' => 'https'
             ],
+            'client_options' => [
+                // for self signed ssl cert
+                'verify' => false, // <- Added this
+                // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
+            ],
 
         ],
 
