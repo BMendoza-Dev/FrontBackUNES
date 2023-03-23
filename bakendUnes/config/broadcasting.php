@@ -40,15 +40,9 @@ return [
                 'host' => '127.0.0.1',
                 'useTLS' => true,
                 'encrypted' => true,
-                'port' => 443,
-                'scheme' => 'https'
+                'port' => 6001,
+                'scheme' => 'http'
             ],
-            'client_options' => [
-                // for self signed ssl cert
-                'verify' => false, // <- Added this
-                // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
-            ],
-
         ],
 
         'ably' => [
