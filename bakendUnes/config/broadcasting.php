@@ -40,12 +40,8 @@ return [
                 'host' => '127.0.0.1',
                 'useTLS' => true,
                 'encrypted' => true,
-                'port' => 6001,
-                'scheme' => 'https',
-                'curl_options' => [
-                    CURLOPT_SSL_VERIFYHOST => 0,
-                    CURLOPT_SSL_VERIFYPEER => 0
-                ],
+                'port' => 443,
+                'scheme' => 'https'
             ],
             'client_options' => [
                 // for self signed ssl cert
