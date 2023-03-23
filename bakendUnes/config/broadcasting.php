@@ -41,14 +41,17 @@ return [
                 'useTLS' => true,
                 'encrypted' => true,
                 'port' => 443,
-                'scheme' => 'https'
+                'scheme' => 'https',
+                'curl_options' => [
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0
+                ],
             ],
             'client_options' => [
                 // for self signed ssl cert
                 'verify' => false, // <- Added this
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
             ],
-            
 
         ],
 
