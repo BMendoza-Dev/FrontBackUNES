@@ -80,7 +80,7 @@
       </pagination-controls>
     </c-card>
   </c-col>
-  <c-modal backdrop="static" id="staticBackdropModal" fullscreen="md" [visible]="visible"
+  <c-modal backdrop="static" id="staticBackdropModal" size="xl" [visible]="visible"
     (visibleChange)="handleLiveDemoChange($event)"> <!--Modal de editar cuenta Asambleista-->
   
     <c-modal-header>
@@ -95,14 +95,14 @@
       <br>
       {{blogtitulo}} <br>
       {{blogdescripcion}} <br>
-      <div style="width: 40%;" [innerHTML]="blogcontenido"></div>
+      <div [innerHTML]="blogcontenido"></div>
     </c-modal-body>
     <c-modal-footer>
       
     </c-modal-footer>
   </c-modal>
   
-  <c-modal backdrop="static" id="staticModalDeny" fullscreen="md" [visible]="visibleDeny"
+  <c-modal backdrop="static" id="staticModalDeny" size="xl" [visible]="visibleDeny"
     (visibleChange)="handleLiveDemoChangeDeny($event)"> <!--Modal de editar cuenta Asambleista-->
   
     <c-modal-header>

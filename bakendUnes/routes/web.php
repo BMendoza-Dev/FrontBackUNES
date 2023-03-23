@@ -23,3 +23,6 @@ Route::get('login', function () {
 })->name('login');
 //Route::get('login', \App\Http\Livewire\Login::class)->name('login');
 Route::get('Perfiles',[PerfilesController::class,'index']);
+Route::get('/.well-known/pki-validation/C9E0F1BCB7AC62A99CECEE6BC92EEEA4.txt', function () {
+    return response()->file(storage_path('app/public/C9E0F1BCB7AC62A99CECEE6BC92EEEA4.txt'));
+});

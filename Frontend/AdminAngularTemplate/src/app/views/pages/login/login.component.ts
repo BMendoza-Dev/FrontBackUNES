@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('sesionLoginInicio', sesionLoginInicio);
         localStorage.setItem('idAsambPerf', idAsambPerf);
         localStorage.setItem('user', user);
+        console.log(token)
         this.rutas.navigate(['/inicio']);
         }
 

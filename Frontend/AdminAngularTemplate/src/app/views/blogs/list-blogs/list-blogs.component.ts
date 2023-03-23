@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './list-blogs.component.html',
   styleUrls: ['./list-blogs.component.scss']
 })
-export class ListBlogsComponent implements OnInit {
+export class ListBlogsComponent implements OnInit,OnDestroy {
   visible: boolean = false;
   visibleDeny: boolean = false;
   customStylesValidated2: boolean = false;
@@ -37,9 +37,9 @@ export class ListBlogsComponent implements OnInit {
     
   }
 
-
+  cerrarSuscrib:any
   ObtenerBlogPorPerfil() {
-    this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
+  this.cerrarSuscrib = this.service.ObtenerBlogPorPerfil(this._categoria_id).subscribe((data: any) => {
       
       if(data.length >0){
         this.listBlog = data.map((value: any) => ({
@@ -50,11 +50,10 @@ export class ListBlogsComponent implements OnInit {
           _perfil_id: value.perfil_id,
           _imagen: this.trasformaImagen(value.imagen)
         })); 
+        
       }else{
         this.listBlog = '';
       }
-    }, (error) => {
-      console.log(error);
     })
   }
 
@@ -249,6 +248,9 @@ export class ListBlogsComponent implements OnInit {
     console.log('Submit... 2');
   }
 
-
+ngOnDestroy(){
+  this.cerrarSuscrib.unsubscribe();
+  
+}
 
 }

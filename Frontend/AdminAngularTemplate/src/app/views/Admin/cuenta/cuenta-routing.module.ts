@@ -4,50 +4,50 @@ import { FormsAdministradorComponent } from './forms-administrador/forms-adminis
 import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
 
 
-import {NgautoperfilComponent} from './ngautoperfil/ngautoperfil.component'
+import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component'
 import { TablaPracticaComponent } from './tabla-practica/tabla-practica.component';
 
 const routes: Routes = [{
   path: '',
-    data: {
-      title: 'administrador_nav_1'
+  data: {
+    title: 'administrador_nav_1'
+  },
+  children: [
+    {
+      path: '',
+      pathMatch: 'full',
+      redirectTo: 'administrador_nav_1'
     },
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'administrador_nav_1'
-      },
-      {
-        path: 'asambleistas',
-        component: NgautoperfilComponent,
-        data: {
-          title: 'Asambleistas'
-        }
-      },
-      {
-        path: 'delegados',
-        component: FormsDelegadoComponent,
-        data: {
-          title: 'Delegados'
-        }
-      },
-      {
-        path: 'admin',
-        component: FormsAdministradorComponent,
-        data: {
-          title: 'Administrador'
-        }
-      },
-      {
-        path: 'pracTable',
-        component: TablaPracticaComponent,
-        data: {
-          title: 'Tabla'
-        }
+    {
+      path: 'asambleistas',
+      component: NgautoperfilComponent,
+      data: {
+        title: 'Asambleistas'
       }
+    },
+    {
+      path: 'delegados',
+      component: FormsDelegadoComponent,
+      data: {
+        title: 'Delegados'
+      }
+    },
+    {
+      path: 'admin',
+      component: FormsAdministradorComponent,
+      data: {
+        title: 'Administrador'
+      }
+    },
+    {
+      path: 'pracTable',
+      component: TablaPracticaComponent,
+      data: {
+        title: 'Tabla'
+      }
+    }
 
-    ]
+  ]
 }
 ];
 

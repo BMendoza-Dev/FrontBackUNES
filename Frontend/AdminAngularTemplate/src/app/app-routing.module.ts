@@ -58,6 +58,12 @@ export const routes: Routes = [
         loadChildren: () =>
         import('./views/profile/profile.module').then((m) => m.ProfileModule)
       },
+      {
+        path: 'admin-categoria',
+        loadChildren: () =>
+        import('./views/Admin/categoria/categoria.module').then((m) => m.CategoriaModule)
+      },
+
 
 
 

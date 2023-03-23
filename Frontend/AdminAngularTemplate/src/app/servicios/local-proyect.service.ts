@@ -42,10 +42,13 @@ export class LocalProyectService {
     '/blogs': ['asambleista','super_administrador'],
     '/blogs/form-blogs': ['asambleista','super_administrador'],
     '/blogs/utlimas-noticias': ['super_administrador'],
-    '/blogs/lista-blogs': ['asambleista','super_administrador']
+    '/blogs/lista-blogs': ['asambleista','super_administrador'],
+    '/admin-categoria' : ['super_administrador'],
+    '/admin-categoria/form-categoria' : ['super_administrador'],
   };
 
   hasPermission(route: any, userRole: string): boolean {
+    
     const allowedRoles = this.userPermissions[route];
     let valor = allowedRoles.includes(userRole)
     return valor;

@@ -20,7 +20,7 @@ export class NgautoperfilComponent implements OnInit {
     this.cargarPerfilesAsam();
   }
 
-  cargarPerfilesAsam() { //Carga los datos en el ng-autocomplete
+  cargarPerfilesAsam() {//Carga los datos en el ng-autocomplete
     this.administradorService.ListarPerfileSiAsambleista().then(data => {
       this.dataAsmbleista = data;
       var datoPrueba: any = [{ id: this.dataAsmbleista[0].id, name: this.dataAsmbleista[0].firstName + ' ' + this.dataAsmbleista[0].lastName, idPos: 0 }];
@@ -55,6 +55,7 @@ export class NgautoperfilComponent implements OnInit {
   }
 
   selectEvent(item: any) {
+    
     // Evento para obtener valor del ng-autocomplete
     this.cargarPerfilesAsam();
     this.idAsambleiApiAsam = item.id;
@@ -63,18 +64,20 @@ export class NgautoperfilComponent implements OnInit {
   }
 
   onChangeSearch(val: any) {
+    
     val;
   }
 
   onFocused(e: any) {
+    this.cargarPerfilesAsam();
   }
 
   onClear() {
+    
     this.asamPerfil = false;
   }
 
   onMensaje(habilitarCampos: boolean) {
-    this.cargarPerfilesAsam();
     this.habilitarCampos = habilitarCampos;
     
   }

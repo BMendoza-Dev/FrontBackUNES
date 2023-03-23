@@ -38,7 +38,7 @@ export class LoginService {
       key: 'apprc_key',
       wsHost: 'ec2-54-236-56-219.compute-1.amazonaws.com',
       cluster: 'mt1',
-      //wsPort: 6001,
+      //wssPort: 6001,
       disableStats: true,
       forceTLS:false,
       encrypted:false,

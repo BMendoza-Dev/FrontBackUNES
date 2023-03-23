@@ -22,7 +22,8 @@ export class DefaultLayoutComponent implements OnInit {
   constructor(private authService: LocalProyectService) { }
 
   getFilteredNavItems(): any[] {
-    const userRole:any = localStorage.getItem('sesionLoginInicio'); // replace with actual user role
+    const userRole:any = localStorage.getItem('sesionLoginInicio'); 
+    // replace with actual user role
     return navItem
       .filter((item:any) => this.authService.hasPermission(item.url, userRole))
       .map((item:any) => {
@@ -41,13 +42,13 @@ export class DefaultLayoutComponent implements OnInit {
   ngOnInit(): void {
     let sesionLoginInicio: any = localStorage.getItem('sesionLoginInicio');
     this.navItems = this.getFilteredNavItems();
-    debugger
+    
     /*let NavItem: any = []; let i = 0
     navItem.forEach((element: any) => {
-      debugger
+      
       if(element.children){
         let dato: any = element.children;
-        debugger
+        
         for (let index = 0; index < dato.length; index++) {
           if(dato.length > 0){
             dato.forEach((element:any) => {
@@ -56,13 +57,13 @@ export class DefaultLayoutComponent implements OnInit {
 
           }
           if (sesionLoginInicio.includes(dato[index].permissions)) {
-            debugger
+            
           }
         }
-        debugger
+        
       }
       if (element.permissions) {
-        debugger
+        
         let dato: any = element.permissions;
         for (let index = 0; index < dato.length; index++) {
           if (sesionLoginInicio.includes(dato[index])) {

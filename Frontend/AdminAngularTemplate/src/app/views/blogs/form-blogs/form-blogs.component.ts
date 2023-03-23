@@ -148,7 +148,7 @@ export class FormBlogsComponent implements OnInit {
         
         this.service.crear_updateBlog(data).then((result: any) => {
           result; 
-
+          
         }).catch((error) => {
           console.log(error);
         })

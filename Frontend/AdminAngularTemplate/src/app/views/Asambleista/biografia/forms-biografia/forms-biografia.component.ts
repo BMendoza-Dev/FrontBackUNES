@@ -20,7 +20,7 @@ export class FormsBiografiaComponent implements OnInit {
   urltw: any = "";
   urlit: any = "";
   urlttk: any = "";
-  datosAsambleistas: any; keyword = 'name'; dataAsmbleista: any = []; idAsambleiApiAsam: string = ""; asamPerfil: boolean = false; idPosicionDataAsam: any;
+  datosAsambleistas: any; keyword = 'name'; dataAsmbleista: any = []; idAsambleiApiAsam: any = localStorage.getItem('idAsambPerf'); asamPerfil: boolean = false; idPosicionDataAsam: any;
 
   urlSet: any;
   urlGet: any = ''; 
@@ -65,37 +65,12 @@ export class FormsBiografiaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show('sample');
-    this.cargarPerfilesAsam();
+    //this.spinner.show('sample');
+    this.cargarBiografiaAsam();
   }
 
-  habilitar() {
-    if (this.idAsambleiApiAsam != "")
-      this.habilitarCampos = !this.habilitarCampos
-  }
-
-  clearVariables() {
-    this.habilitarCampos = !this.habilitarCampos;
-    this.idAsambleiApiAsam = "";
-    this.datos = ""; this.urlfb = ""; this.urlit = ""; this.urlttk = ""; this.urltw = "";
-    this.urlGet = "";
-  }
-  deshabilitar() {
-    Swal.fire({
-      title: '¿Estas seguro?',
-      text: "¡No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, cancélalo!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.clearVariables();
-      }
-    })
-
-  }
+  
+  
 
   public onSelectFile(event: any) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
@@ -139,10 +114,8 @@ export class FormsBiografiaComponent implements OnInit {
           'urlttk': this.urlttk,
           'binImg': this.urlSet
         };
-
-
+        
         this.adminService.updateBiografia(data).then(() => {
-          this.clearVariables();
         }).catch(error => {
           console.log(error);
         })
@@ -155,13 +128,7 @@ export class FormsBiografiaComponent implements OnInit {
 
   }
 
-  selectEvent(item: any) {
-    // Evento para obtener valor del ng-autocomplete
-    //this.cargarPerfilesAsam();
-    this.idAsambleiApiAsam = item.id;
-    this.cargarBiografiaAsam();
-
-  }
+  
 
   trasformaImagen(img: any) {
     let objectURL = 'data:image/jpeg;base64,' + img;
@@ -184,33 +151,14 @@ export class FormsBiografiaComponent implements OnInit {
         
         this.datos = biografia.perfil;
         
-        this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw;
+        this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw; this.urlSet = biografia['image'][0].imagen;
       }
     }).catch(error => {
       console.log(error);
     })
   }
 
-  cargarPerfilesAsam() { //Carga los datos en el ng-autocomplete
-    this.adminService.cargarPerfiles().then(data => {
-      this.dataAsmbleista = data;
-      var datoPrueba: any = [{ id: this.dataAsmbleista[1].id, name: this.dataAsmbleista[1].firstName + ' ' + this.dataAsmbleista[1].lastName, idPos: 1 }];
-      for (var i = 2; i < this.dataAsmbleista.length; i++) {
-        if (this.dataAsmbleista[i].active == 1) {
-          datoPrueba.push({
-            "id": this.dataAsmbleista[i].id,
-            "name": this.dataAsmbleista[i].firstName + " " + this.dataAsmbleista[i].lastName,
-            "idPos": i
-          });
-        }
-      }
-      this.datosAsambleistas = datoPrueba;
-      this.spinner.hide('sample');
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
+  
   onClear() {
     this.idAsambleiApiAsam = "";
   }

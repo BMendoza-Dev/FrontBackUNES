@@ -266,6 +266,11 @@ export const navItem: INavData[] = [
     ]
   },
   {
+    name:'Categorías',
+    url: '/admin-categoria/form-categoria',
+    iconComponent: { name: 'cil-user' },
+  },
+  {
     name: 'Biografias',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },

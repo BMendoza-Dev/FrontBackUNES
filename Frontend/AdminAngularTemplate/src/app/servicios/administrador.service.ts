@@ -204,4 +204,41 @@ export class AdministradorService {
     });
   }
 
+  CreateCategoria(_data:any){
+    let url = this.urlAWS+'CreateCategoria';
+    let formData = new FormData();
+    formData.append('categorianame', _data.categorianame);
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  EditCategoria(_data:any){
+    let url = this.urlAWS+'EditCategoria';
+    let formData = new FormData();
+    formData.append('categorianame', _data.categorianame);
+    formData.append('categoria_id', _data.categoria_id);
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
 }

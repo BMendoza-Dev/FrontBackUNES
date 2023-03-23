@@ -1,0 +1,163 @@
+<c-col> <!--Input de crear Cuenta de asambleistas-->
+    <c-card style="margin-bottom: 1%;">
+      <c-nav xs="12" layout="justified" variant="pills">
+        <c-nav-item>
+          <span [active]="true" cNavLink>
+            CATEGORÍA DE LOS BLOGS
+          </span>
+        </c-nav-item>
+      </c-nav>
+    </c-card>
+  </c-col>
+ 
+  
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Crear Categoría de Blog</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()"
+          class="row g-3 needs-validation align-items-center" cRow>
+          <!--Form Cuenta Asistente-->
+          <label cLabel="col" cCol [sm]="2" for="inputEmail3">
+            Categoría:<span class="is-required">*</span>
+          </label>
+          <c-col md="6" *ngIf="simpleForm.controls['category'] as ctrl" >
+            <input cFormControl id="category" formControlName="category"
+            placeholder="Categoría..." autocomplete="off" required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "/>
+              <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                <ng-container *ngIf="ctrl.errors as errors">
+                  <div *ngIf="errors['required']">Se requiere una categoría</div>
+                  <div *ngIf="errors['pattern']">
+                    {{ formErrors.username.pattern }}
+                  </div>
+                </ng-container>
+              </c-form-feedback>
+          </c-col>
+         <!--Botones-->
+          <c-col md="4">
+            <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
+            [tabindex]="'0'">
+              Crear Categoría
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header>
+          <strong>Categorías Registradas</strong>
+        </c-card-header>
+        <c-card-body>
+          <c-col md="5" style="margin-left: 56%;">
+            <c-input-group class="mb-3">
+              <input [(ngModel)]="search" (ngModelChange)="dataPaginate($event)" id="search" name="search"
+                aria-describedby="basic-addon2" aria-label="Categoría" cFormControl
+                placeholder="Categoría" />
+              <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+            </c-input-group>
+          </c-col>
+          <table hover striped cTable>
+            <thead cTableColor="dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="search == ''; else filtro">
+                <tr *ngFor="let item of dataCat | paginate:{itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems : count,
+                    id: 'paginado'
+                    }; let i = index ">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{item.categorianame}}</td>
+                  <td>
+                    <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+                    <button (click)="toggleLiveDemo()"
+                      (click)="camposInputEditar(item.categorianame,item.id)" type="button"
+                      class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                        width="20"></svg>&nbsp;Editar</button>
+    
+                  </td>
+                </tr>
+              </ng-container>
+    
+              <ng-template #filtro>
+                <tr *ngFor="let item of catFilter | paginate:{itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems : count,
+                    id: 'paginado'
+                    }; let i = index , index as id">
+                  <th scope="row">{{id+1}}</th>
+                  <td>{{item.categorianame}}</td>
+                  <td>
+                    <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+                    <button (click)="toggleLiveDemo()"
+                      (click)="camposInputEditar(item.categorianame,item.id)" type="button"
+                      class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                        width="20"></svg>&nbsp;Editar</button>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </c-card-body>
+        <pagination-controls previousLabel="Prev" nextLabel="Next"
+          (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
+        </pagination-controls>
+      </c-card>
+    </c-col>
+  
+    <c-modal backdrop="static" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)"
+    size="lg"> <!--Modal de editar cuenta Asambleista-->
+  
+    <c-modal-header>
+      <h5 cModalTitle>Editar Categoría</h5>
+      <button (click)="clear();toggleLiveDemo()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+      <form cForm [formGroup]="simpleFormEdit" novalidate (ngSubmit)="onSubmitEdit()"
+          class="row g-3 needs-validation align-items-center" cRow>
+          <!--Form Cuenta Asistente-->
+          <label cLabel="col" cCol [sm]="2" for="inputEmail3">
+            Categoría:<span class="is-required">*</span>
+          </label>
+          <c-col md="6" *ngIf="simpleFormEdit.controls['category'] as ctrl" >
+            <input cFormControl id="category" formControlName="category"
+            placeholder="Categoría..." autocomplete="off" required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "/>
+              <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                <ng-container *ngIf="ctrl.errors as errors">
+                  <div *ngIf="errors['required']">Se requiere una categoría</div>
+                  <div *ngIf="errors['pattern']">
+                    {{ formErrors.username.pattern }}
+                  </div>
+                </ng-container>
+              </c-form-feedback>
+          </c-col>
+         <!--Botones-->
+          <c-col md="4">
+            <button cButton color="success" type="submit" [disabled]="simpleFormEdit.pristine || simpleFormEdit.invalid"
+            [tabindex]="'0'">
+              Editar Categoría
+            </button>
+          </c-col>
+        </form>
+    </c-modal-body>
+  </c-modal>
