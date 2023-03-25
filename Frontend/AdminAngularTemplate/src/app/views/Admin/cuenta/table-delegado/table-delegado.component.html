@@ -8,8 +8,8 @@
       <c-col md="5" style="margin-left: 56%;">
         <c-input-group class="mb-3">
           <input [(ngModel)]="search" (ngModelChange)="dataPaginate($event)" id="search" name="search"
-            aria-describedby="basic-addon2" aria-label="Nombres y Apellidos" cFormControl
-            placeholder="Nombres y Apellidos" />
+            aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl
+            placeholder="Usuarios" />
           <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
         </c-input-group>
       </c-col>
@@ -17,7 +17,7 @@
         <thead cTableColor="dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombres y Apellidos</th>
+            <th scope="col">Usuarios</th>
             <th scope="col">Correo</th>
             <th scope="col">Estado</th>
             <th scope="col">Opciones</th>
@@ -48,6 +48,7 @@
 
               </td>
             </tr>
+            <h1 *ngIf="dataTabla == ''">No existen registros</h1>
           </ng-container>
 
           <ng-template #filtro>
@@ -73,6 +74,7 @@
                     width="20"></svg>&nbsp;Editar</button>
               </td>
             </tr>
+            <h1 *ngIf="cuentasFilter == ''">No existen registros</h1>
           </ng-template>
 
         </tbody>
@@ -147,9 +149,10 @@
         </select>
         <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
       </c-col>
+
       <c-col md="6">
         <label cLabel for="validationCustomUsername">Asambleistas</label>
-        <ng-autocomplete #atributosAutoCompl [data]="dataAsam" [searchKeyword]="keyword"
+        <ng-autocomplete #atributosAutoCompl [data]="dataAsam" #autoComplete [searchKeyword]="keyword"
           placeholder="Seleccione un asambleista" (selected)='selectEvent($event)' [itemTemplate]="itemTemplate"
           [notFoundTemplate]="notFoundTemplate" [minQueryLength]="3">
         </ng-autocomplete>
@@ -160,12 +163,13 @@
           <div [innerHTML]="notFound"></div>
         </ng-template>
       </c-col>
+
       <!--Botones Editar-->
       <c-col xs="12">
         <button (click)="toggleLiveDemo()" (click)="updateAsisCuentas()" cButton class="me-1" color="success">
           Editar
         </button>
-        <button (click)="toggleLiveDemo()" (click)="limpiarModal()" cButton color="danger" type="reset">
+        <button (click)="toggleLiveDemo()" cButton color="danger" >
           Cancelar
         </button>
       </c-col>

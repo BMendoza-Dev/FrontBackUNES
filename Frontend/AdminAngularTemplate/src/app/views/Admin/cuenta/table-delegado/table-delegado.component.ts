@@ -9,6 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./table-delegado.component.scss']
 })
 export class TableDelegadoComponent implements OnInit{
+  nameAuto: any;
 
   constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter2.subscribe(() => {
@@ -26,20 +27,22 @@ export class TableDelegadoComponent implements OnInit{
 
   ngOnInit(): void {
     this.cargarTabla();
-    //this.cargarCuentaAsambleistaAutoCom();
+    this.cargarCuentaAsambleistaAutoCom();
   }
 
   dataTabla: any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
   editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
-  estado: number; id: number; id_perfil: number; dataAsam: any = [];
+  estado: number; id: number; id_perfil: number; dataAsam: any = []; keyword = 'name'; @ViewChild('autoComplete') valueAutocomplete:any;
   cargarTabla() {
     //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaByRol("asistente").then(data => {
+    this.administradorService.cargarCuentaByRol("asistente").then((data:any) => {
+      if(data.code != 404){
       this.dataTabla = data;
       
       this.limpiarModal();
       //this.spinner.hide('sample');
+      }
     }).catch(error => {
       console.log(error);
     })
@@ -61,7 +64,7 @@ export class TableDelegadoComponent implements OnInit{
   updateAsisCuentas() {
 
     let formUpdateAsambleista = {
-      'name': this.editNombre_ApellidoAsambleista.toUpperCase(),
+      'name': this.editNombre_ApellidoAsambleista,
       'email': this.editCorreoAsistente,
       'password': this.editContrasenaAsistente,
       'perfil_id': this.id_perfil,
@@ -110,14 +113,19 @@ export class TableDelegadoComponent implements OnInit{
     this.estado = this.datosAsistenteInput[2];
     this.id = this.datosAsistenteInput[3];
     this.id_perfil = this.datosAsistenteInput[4];
+    this.dataAsam.forEach((item:any) =>{
+      if(item.perfil_id == this.id_perfil){
+        this.valueAutocomplete.query = item.name;
+        debugger
+      }
+    }) 
+    debugger
+     
   }
 
 
   limpiarModal() {
-    this.editNombre_ApellidoAsambleista = "";
-    this.editCorreoAsistente = "";
-    this.editContrasenaAsistente = "";
-    this.search = "";
+    
 
   }
 
@@ -145,13 +153,12 @@ export class TableDelegadoComponent implements OnInit{
   }
 
 
-  keyword = 'name';
+  
   cargarCuentaAsambleistaAutoCom() {
-    this.administradorService.cargarCuentaByRol("asambleista").then(data => {
+    this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
       this.dataAsam = data;
       //this.POSTS = this.dataTabla;
       //this.limpiarModal();
-
     }).catch(error => {
       console.log(error);
     })
@@ -162,7 +169,6 @@ export class TableDelegadoComponent implements OnInit{
     // Evento para obtener valor del ng-autocomplete
     this.cargarCuentaAsambleistaAutoCom();
     this.id_perfil = item.perfil_id;
-
   }
 
 
@@ -170,7 +176,6 @@ export class TableDelegadoComponent implements OnInit{
   public visible = false;
   toggleLiveDemo() {
     this.visible = !this.visible;
-
   }
 
   handleLiveDemoChange(event: any) {

@@ -43,7 +43,7 @@ export class FormsAdministradorComponent implements OnInit {
   idAsambleiApiAsis: string = ""; notFound: any = "No se encuentra asambleista";
 
   ngOnInit(): void {
-    this.cargarCuentasAsambleista();
+    //this.cargarCuentasAsambleista();
   }
 
   onSubmit2() {
@@ -101,7 +101,7 @@ export class FormsAdministradorComponent implements OnInit {
     console.log('Reset... 2');
   }
 
-  cargarCuentasAsambleista() {
+  /*cargarCuentasAsambleista() {
     this.adminService.cargarCuentaByRol("asambleista").then(data => {
       this.dataAsmbleista = data;
       var datoPrueba: any = [{ id: this.dataAsmbleista[0].perfil_id, name: this.dataAsmbleista[0].name }];
@@ -117,7 +117,7 @@ export class FormsAdministradorComponent implements OnInit {
     }).catch(error => {
       console.log(error);
     });
-  }
+  }*/
 
   salir() {
   }

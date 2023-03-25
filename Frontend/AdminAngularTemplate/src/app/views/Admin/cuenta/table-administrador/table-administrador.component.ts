@@ -35,19 +35,20 @@ export class TableAdministradorComponent implements OnInit{
     this.cargarTabla();
   }
 
-  dataTabla: any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
+  dataTabla:any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
   editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
   estado: number; id: number; id_perfil: number; dataAsam: any = [];
   cargarTabla() {
-    
+    this.dataTabla; debugger
     //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaByRol("super_administrador").then(data => {
-      
+    this.administradorService.cargarCuentaByRol("super_administrador").then((data:any) => {
+      if(data.code != 404){
       this.dataTabla = data;
-      
+      debugger
       this.limpiarModal();
       this.spinner.hide('sample');
+      }
     }).catch(error => {
       console.log(error);
     })
@@ -69,7 +70,7 @@ export class TableAdministradorComponent implements OnInit{
   updateAsisCuentas() {
 
     let formUpdateAsambleista = {
-      'name': this.editUsuarioAdmin.toUpperCase(),
+      'name': this.editUsuarioAdmin,
       'email': this.editCorreoAdmin,
       'password': this.editContrasenaAdmin,
       'perfil_id': 1,
@@ -149,7 +150,7 @@ export class TableAdministradorComponent implements OnInit{
 
         };
       };
-      this.cuentasFilter
+      this.cuentasFilter; debugger
     }
   }
 
