@@ -30,3 +30,8 @@
 .ng-autocomplete ::ng-deep .autocomplete-container ::ng-deep .not-found {
     border: 0;
 }
+.is-required {
+    margin-left: 2px;
+    color: red;
+    font-weight: bold;
+  }

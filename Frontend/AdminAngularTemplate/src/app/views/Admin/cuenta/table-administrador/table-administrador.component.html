@@ -8,8 +8,8 @@
         <c-col md="5" style="margin-left: 56%;">
           <c-input-group class="mb-3">
             <input [(ngModel)]="search" (ngModelChange)="dataPaginate($event)" id="search" name="search"
-              aria-describedby="basic-addon2" aria-label="Nombres y Apellidos" cFormControl
-              placeholder="Nombres y Apellidos" />
+              aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl
+              placeholder="Usuarios" />
             <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
           </c-input-group>
         </c-col>
@@ -17,7 +17,7 @@
           <thead cTableColor="dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Nombres y Apellidos</th>
+              <th scope="col">Usuarios</th>
               <th scope="col">Correo</th>
               <th scope="col">Estado</th>
               <th scope="col">Opciones</th>
@@ -48,6 +48,7 @@
   
                 </td>
               </tr>
+              <h1 *ngIf="dataTabla.length == 0">No existen registros</h1>
             </ng-container>
   
             <ng-template #filtro>
@@ -73,10 +74,13 @@
                       width="20"></svg>&nbsp;Editar</button>
                 </td>
               </tr>
+              <h1 *ngIf="cuentasFilter.length == 0">No existen registros</h1>
             </ng-template>
   
           </tbody>
         </table>
+
+        
   
       </c-card-body>
   
@@ -100,21 +104,21 @@
         class="row g-3 needs-validation">
         <!--Form Asambleista Editar -->
         <c-col md="6">
-          <label cLabel for="editAdmin">Usuario<span class="is-required"></span></label>
+          <label cLabel for="editAdmin">Usuario<span class="is-required">*</span></label>
           <input [(ngModel)]="editUsuarioAdmin" name="editAdmin" id="editAdmin" cFormControl required
             type="text" value="" />
           <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
           <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
         </c-col>
         <c-col md="6">
-          <label cLabel for="editCorreoAdmin">Correo electrónico<span class="is-required"></span></label>
+          <label cLabel for="editCorreoAdmin">Correo electrónico<span class="is-required">*</span></label>
           <input [(ngModel)]="editCorreoAdmin" name="editCorreoAdmin" cFormControl id="editCorreoAdmin"
             required type="email" placeholder="name@example.com" />
           <c-form-feedback [valid]="false">Por favor, ingrese un correo electrónico</c-form-feedback>
           <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
         </c-col>
         <c-col md="6">
-          <label cLabel for="editContAdmin">Contraseña<span class="is-required"></span></label>
+          <label cLabel for="editContAdmin">Contraseña</label>
           <c-input-group class="has-validation">
             <input [(ngModel)]="editContrasenaAdmin" name="editContAdmin" id="editContAdmin"
               aria-describedby="inputGroupPrepend" cFormControl required [type]="iconEyeAsam" />
@@ -139,8 +143,7 @@
           </c-input-group>
         </c-col>
         <c-col xs="6">
-          <label cLabel for="editEstadoAdmin">Estado de la cuenta<span
-              class="is-required"></span></label>
+          <label cLabel for="editEstadoAdmin">Estado de la cuenta<span class="is-required">*</span></label>
           <select name="editEstadoAdmin" [(ngModel)]="estado" aria-label="Default select example" cSelect>
             <option value=1>Habilitar</option>
             <option value=0>Deshabilitar</option>

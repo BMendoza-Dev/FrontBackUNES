@@ -93,7 +93,7 @@
                   " />
               <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
                 <ng-container *ngIf="ctrl.errors as errors">
-                  <div *ngIf="errors['required']">Se requiere contraseña</div>
+                  <div *ngIf="errors['required']">Se requiere contraseña:</div>
                   <div *ngIf="errors['minlength']">
                     {{ formErrors['password'].minLength }}
                   </div>
@@ -105,7 +105,7 @@
             </c-col>
           </c-row>
           <c-row class="mb-1">
-            <label cCol [sm]="4" cLabel="col" for="confirmPassword">Confirm password</label>
+            <label cCol [sm]="4" cLabel="col" for="confirmPassword">Confirmar contraseña:</label>
             <c-col [sm]="8" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
               <input [(ngModel)]="contrasenaConf" cFormControl id="confirmPassword" type="password"
                 formControlName="confirmPassword" placeholder="Confirmar contraseña" autocomplete="off" required

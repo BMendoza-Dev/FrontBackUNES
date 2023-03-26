@@ -59,7 +59,7 @@ export class TableAsambleistaComponent implements OnInit {
   updateAsambCuentas() {
 
     let formUpdateAsambleista = {
-      'name': this.editNombre_ApellidoAsambleista.toUpperCase(),
+      'name': this.editNombre_ApellidoAsambleista,
       'email': this.editCorreoAsambleista,
       'password': this.editContrasenaAsambleista,
       'perfil_id': this.id_perfil,
@@ -101,11 +101,14 @@ export class TableAsambleistaComponent implements OnInit {
   cargarTabla() {
     //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaByRol("asambleista").then(data => {
-      this.dataTabla = data;
+    this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
+      if(data.code != 404){
+        this.dataTabla = data;
+      debugger
       //this.POSTS = this.dataTabla;
       this.limpiarModal();
       //this.spinner.hide('sample');
+      }
     }).catch(error => {
       console.log(error);
     })
