@@ -38,11 +38,11 @@ export class LoginService {
       key: 'apprc_key',
       wsHost: 'rc5appmobile.tech',
       cluster: 'mt1',
-      wsPort: 443,
-      //forceTLS:false,
-      disableStats: true,
-      //encrypted:true,
-      enabledTransports:['wss']
+    //  wsPort: 6001,
+      forceTLS:true,
+  //    disableStats: true,
+      encrypted:true,
+      enabledTransports:['wss','ws']
     });
   }
 }
