@@ -32,53 +32,52 @@ class PerfilesController extends Controller
             'password' => '397A24432646294A404E635266556A586E5A7234753778214125442A472D4B6150645367566B59703373357638792F423F4528482B4D6251655468576D5A7134',
         ]);
         $token = $tokenapi->json();
-        Categorie::create(['categorianame'=>'Agenda']);
-        Categorie::create(['categorianame'=>'Opinion']);
-        Categorie::create(['categorianame'=>'Entrevistas']);
-        Categorie::create(['categorianame'=>'Fizcalisamos']);
-        Categorie::create(['categorianame'=>'Legislamos']);
-        
-
-        Permisos::create([
-            'nombre'=>'Seccion Admin',
-            'slug'=>'admin',
-            'descripcion'=>'Accede a la vista principal de administrador',       
-           ]);
-   
-           Permisos::create([
-            'nombre'=>'Appmobile',
-            'slug'=>'appmobile',
-            'descripcion'=>'Acceso a la app mobile',       
-           ]);
-   
-
-
-           Permisos::create([
-            'nombre'=>'Asambleista',
-            'slug'=>'asambleista',
-            'descripcion'=>'Accede a la vista principal de administrador',       
-           ]);
-
-           Roles::create([
-           'nombre'=>'Super Administrador',
-           'slug'=>'super_administrador',
-           'descripcion'=>'Tiene acceso a todo',
-           'fullacceso'=>'yes'
-           ]); 
-
-           Roles::create([
-            'nombre'=>'Asambleista',
-            'slug'=>'asambleista',
-            'descripcion'=>'Tiene acceso las opciones de los Asambleistas',
-            'fullacceso'=>'no'
-            ]); 
-
-            Roles::create([
-                'nombre'=>'Asistente',
-                'slug'=>'asistente',
-                'descripcion'=>'Tiene acceso las opciones de los Asistente',
-                'fullacceso'=>'no'
-                ]);
+        Categorie::insert([
+            ['categorianame' => 'Agenda'],
+            ['categorianame' => 'Opinion'],
+            ['categorianame' => 'Entrevistas'],
+            ['categorianame' => 'Fizcalisamos'],
+            ['categorianame' => 'Legislamos'],
+        ]);
+    
+        Permisos::insert([
+            [
+                'nombre' => 'Seccion Admin',
+                'slug' => 'admin',
+                'descripcion' => 'Accede a la vista principal de administrador',
+            ],
+            [
+                'nombre' => 'Appmobile',
+                'slug' => 'appmobile',
+                'descripcion' => 'Acceso a la app mobile',
+            ],
+            [
+                'nombre' => 'Asambleista',
+                'slug' => 'asambleista',
+                'descripcion' => 'Accede a la vista principal de administrador',
+            ],
+        ]);
+    
+        Roles::insert([
+            [
+                'nombre' => 'Super Administrador',
+                'slug' => 'super_administrador',
+                'descripcion' => 'Tiene acceso a todo',
+                'fullacceso' => 'yes',
+            ],
+            [
+                'nombre' => 'Asambleista',
+                'slug' => 'asambleista',
+                'descripcion' => 'Tiene acceso las opciones de los Asambleistas',
+                'fullacceso' => 'no',
+            ],
+            [
+                'nombre' => 'Asistente',
+                'slug' => 'asistente',
+                'descripcion' => 'Tiene acceso las opciones de los Asistente',
+                'fullacceso' => 'no',
+            ],
+        ]);
            
 
         $Ambitoterritorial = Http::withHeaders([
