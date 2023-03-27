@@ -41,7 +41,7 @@ return [
                // 'useTLS' => false,
                // 'encrypted' => false,
                 'port' => 6001,
-                'scheme' => 'https'
+                'scheme' => 'http'
             ],
 
         ],
