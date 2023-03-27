@@ -23,6 +23,7 @@ class PerfilesController extends Controller
 
     public function index()
     {
+        set_time_limit(300000);
         $validacion= Perfil::get();
         if(!$validacion->isEmpty()){
             return response()->json("Perfiles Cargados en la base de datos.");;
