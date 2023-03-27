@@ -22,16 +22,16 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   constructor(private service:LoginService,private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
     super();
-    //this.echo = this.service.getSockets();
+    this.echo = this.service.getSockets();
   }
 
   ngOnInit(): void {
-    /*console.log("Implement 1");
+    console.log("Implement 1");
     this.echo.channel('channel-NotifyBlosAdmin.admin')
         .listen('NotifyEventBlog', (resp:any) => {
           console.log(resp)
         });
-    this.mostrarImg();*/
+    this.mostrarImg();
   }
 
   listNotifi(){

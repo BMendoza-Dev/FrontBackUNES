@@ -36,13 +36,13 @@ export class LoginService {
     return new Echo({
       broadcaster: 'pusher',
       key: 'apprc_key',
-      wsHost: 'ec2-54-236-56-219.compute-1.amazonaws.com',
+      wsHost: 'rc5appmobile.tech',
       cluster: 'mt1',
-      //wssPort: 6001,
+      wsPort: 443,
+      //forceTLS:false,
       disableStats: true,
-      forceTLS:false,
-      encrypted:false,
-      enabledTransports:['ws']
+      //encrypted:true,
+      enabledTransports:['wss']
     });
   }
 }

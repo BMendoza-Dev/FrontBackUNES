@@ -71,5 +71,9 @@
   "engines": {
     "node": "^14.20.0 || ^16.13.0 || ^18.10.0",
     "npm": ">= 6"
-  }
+  },
+  "description": "[![@coreui angular](https://img.shields.io/badge/@coreui%20-angular-lightgrey.svg?style=flat-square)](https://github.com/coreui/angular)\r [![npm-coreui-angular-next][npm-coreui-angular-badge-next]][npm-coreui-angular]\r [![NPM downloads][npm-coreui-angular-download]][npm-coreui-angular]  \r [![@coreui coreui](https://img.shields.io/badge/@coreui%20-coreui-lightgrey.svg?style=flat-square)](https://github.com/coreui/coreui)\r [![npm package][npm-coreui-badge]][npm-coreui]\r [![NPM downloads][npm-coreui-download]][npm-coreui]  \r ![angular](https://img.shields.io/badge/angular-^15.0.0-lightgrey.svg?style=flat-square&logo=angular)",
+  "main": "karma.conf.js",
+  "author": "",
+  "license": "ISC"
 }
