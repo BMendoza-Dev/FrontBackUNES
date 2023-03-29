@@ -159,9 +159,4 @@
   </c-modal-footer>
 </c-modal>
 
-<div *ngIf="spinnerConfig['fullScreen']">
-  <ngx-spinner name='sample' [bdColor]="spinnerConfig['bdColor']" size="medium" [color]="spinnerConfig['color']"
-    [type]="spinnerConfig['type']" [showSpinner]="spinnerConfig['showSpinner']">
-    <p style="color: white">Cargando...</p>
-  </ngx-spinner>
-</div>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

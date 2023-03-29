@@ -57,7 +57,7 @@ const APP_CONTAINERS = [
 
 
 /**Importaciones Manuales */
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FiltroCuentasPipe } from './pipes/filtro-cuentas.pipe';
@@ -97,7 +97,8 @@ import {MatIconModule} from '@angular/material/icon';
     AutocompleteLibModule,
     AlertModule,
     MatBadgeModule,
-    MatIconModule
+    MatIconModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

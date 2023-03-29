@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
@@ -10,7 +10,9 @@ import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angula
 import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from '@coreui/angular';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { AlertModule } from '@coreui/angular';
     Page500Component
   ],
   imports: [
+    NgxSpinnerModule,
     CommonModule,
     PagesRoutingModule,
     CardModule,
@@ -28,8 +31,10 @@ import { AlertModule } from '@coreui/angular';
     IconModule,
     FormModule,
     FormsModule,
-    AlertModule
-  ]
+    AlertModule,
+    HttpClientModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PagesModule {
 }

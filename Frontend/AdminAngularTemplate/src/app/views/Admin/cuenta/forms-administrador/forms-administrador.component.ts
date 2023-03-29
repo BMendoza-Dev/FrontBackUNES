@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import Swal from 'sweetalert2';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 
 /** passwords must match - custom validator */
 export class PasswordValidators {
@@ -29,7 +30,8 @@ export class PasswordValidators {
 })
 export class FormsAdministradorComponent implements OnInit {
 
-  constructor(public validationFormsService: ValidationFormsService, private adminService: AdministradorService, 
+  constructor(private spinnerService:SpinnerService,public validationFormsService: ValidationFormsService, 
+    private adminService: AdministradorService, 
     private localServi: LocalProyectService, private formBuilder: FormBuilder) { 
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -59,6 +61,7 @@ export class FormsAdministradorComponent implements OnInit {
   }
 
   guardarCuentaAdmin() {
+    this.spinnerService.llamarSpinner();
     let formAsambleista = {
       'name': this.simpleForm.value.username,
       'email': this.simpleForm.value.email,
@@ -72,6 +75,7 @@ export class FormsAdministradorComponent implements OnInit {
       this.submitted = false;
       this.simpleForm.reset();
       this.onReset2();
+      Swal.fire('Guardado!', '', 'success');
     }).catch(error => {
       console.log(error);
     })
@@ -89,7 +93,8 @@ export class FormsAdministradorComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.guardarCuentaAdmin();
-          Swal.fire('Guardado!', '', 'success')
+          
+          
         } else if (result.isDenied) {
           Swal.fire('No se a guardado la cuenta', '', 'info')
         }
@@ -99,6 +104,7 @@ export class FormsAdministradorComponent implements OnInit {
   onReset2() {
     this.localServi.emitirEventoTablaAdministrador();
     console.log('Reset... 2');
+    
   }
 
   /*cargarCuentasAsambleista() {

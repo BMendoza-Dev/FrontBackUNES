@@ -21,6 +21,8 @@ export class LoginService {
     let url = this.urlAWS+'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
+
+    
     
     return new Promise((resolve, reject) => {
       this.http.post(url, formData).subscribe(res => {
@@ -32,7 +34,7 @@ export class LoginService {
     });
   }
 
-  getSockets(): Echo{
+  /*getSockets(): Echo{
     return new Echo({
       broadcaster: 'pusher',
       key: 'apprc_key',
@@ -44,5 +46,5 @@ export class LoginService {
       encrypted:true,
       enabledTransports:['wss','ws']
     });
-  }
+  }*/
 }

@@ -3,6 +3,7 @@ import { AdministradorService } from './../../../../servicios/administrador.serv
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 
 @Component({
   selector: 'app-table-asambleista',
@@ -11,7 +12,7 @@ import { LocalProyectService } from './../../../../servicios/local-proyect.servi
 })
 export class TableAsambleistaComponent implements OnInit {
 
-  constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
+  constructor(private spinnerService:SpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter.subscribe(() => {
       this.cargarTabla();
     });
@@ -57,7 +58,7 @@ export class TableAsambleistaComponent implements OnInit {
   }
 
   updateAsambCuentas() {
-
+    this.spinnerService.llamarSpinner();
     let formUpdateAsambleista = {
       'name': this.editNombre_ApellidoAsambleista,
       'email': this.editCorreoAsambleista,
@@ -72,7 +73,7 @@ export class TableAsambleistaComponent implements OnInit {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 2000,
+        timer: 7000,
         timerProgressBar: false,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -99,13 +100,14 @@ export class TableAsambleistaComponent implements OnInit {
   }
 
   cargarTabla() {
-    //this.spinner.show('sample');
+    this.spinnerService.llamarSpinner();
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
       if(data.code != 404){
         this.dataTabla = data;
       debugger
       //this.POSTS = this.dataTabla;
+      this.spinnerService.detenerSpinner();
       this.limpiarModal();
       //this.spinner.hide('sample');
       }

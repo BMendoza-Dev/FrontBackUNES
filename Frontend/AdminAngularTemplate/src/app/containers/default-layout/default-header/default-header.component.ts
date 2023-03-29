@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 import Echo from 'laravel-echo';
@@ -20,18 +21,18 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   public newNotifications = new Array(5)
   echo: Echo;
 
-  constructor(private service:LoginService,private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
+  constructor(public rutas: Router,private service:LoginService,private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
     super();
-    this.echo = this.service.getSockets();
+    //this.echo = this.service.getSockets();
   }
 
   ngOnInit(): void {
     console.log("Implement 1");
-    this.echo.channel('channel-NotifyBlosAdmin.admin')
+    /*this.echo.channel('channel-NotifyBlosAdmin.admin')
         .listen('NotifyEventBlog', (resp:any) => {
           console.log(resp)
         });
-    this.mostrarImg();
+    this.mostrarImg();*/
   }
 
   listNotifi(){
@@ -47,6 +48,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     localStorage.removeItem('email');
     localStorage.removeItem('idAsambPerf');
     localStorage.removeItem('user');
+    this.rutas.navigate(['/login']);
   }
 
   thumbnail: any;

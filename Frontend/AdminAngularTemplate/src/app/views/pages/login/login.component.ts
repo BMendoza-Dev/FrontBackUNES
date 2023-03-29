@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../servicios/login.service'
+import { SpinnerService } from '../../../servicios/spinner.service'
+
 import * as CryptoJS from 'crypto-js';
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,17 +13,19 @@ import * as CryptoJS from 'crypto-js';
 })
 export class LoginComponent implements OnInit {
 
-  email: string = ""; msgEmail = "";
+  email: string = ""; msgError = "Cuenta de usuario no válido.";
   password: string = "";
   arrayData: any;
   loginForm = false;
   msgPass = "";
-  constructor(public login: LoginService, public rutas: Router) { }
-
+  visible = false;
+  dismissible = true;
+  constructor(public login: LoginService, public rutas: Router, private spinnerService:SpinnerService) { }
+  
    
 
   ngOnInit(): void {
-
+    
   }
 
   onSubmit1() {
@@ -31,10 +36,16 @@ export class LoginComponent implements OnInit {
 
   iniciarSesion() {
     if (this.email == "" || !this.email.includes('@') || this.email.length < 6 || this.password == "") {
-      if (this.password == "") { this.msgPass = "Ingrese una contraseña" }
-      if (!this.email.includes('@') || this.email.length < 6) { this.msgEmail = "Ingrese un correo electrónico" }
+      debugger
+      if (this.password == "") { 
+        this.msgError = "Ingrese una contraseña" 
+      }
+      if (!this.email.includes('@')) { 
+        this.msgError = "Ingrese un correo electrónico"; this.visible=true 
+      }
 
     } else {
+      this.spinnerService.llamarSpinner();
       let inputlogin = {
         "email": this.email,
         "password": this.password
@@ -56,11 +67,15 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('sesionLoginInicio', sesionLoginInicio);
         localStorage.setItem('idAsambPerf', idAsambPerf);
         localStorage.setItem('user', user);
-        console.log(token)
+        console.log(token);
+        this.spinnerService.detenerSpinner();
         this.rutas.navigate(['/inicio']);
+        }else{
+          this.msgError = "Cuenta de usuario no válido.";
         }
 
       }).catch(error => {
+        debugger
         this.rutas.navigate(['/404']);
 
       })

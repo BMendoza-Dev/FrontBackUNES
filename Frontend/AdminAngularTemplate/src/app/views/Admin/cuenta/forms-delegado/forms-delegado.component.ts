@@ -5,6 +5,7 @@ import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { ValidationFormsService } from 'src/app/servicios/validation-forms.service';
 import Swal from 'sweetalert2';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 export class PasswordValidators {
   static confirmPassword(control: AbstractControl): ValidationErrors | null {
     const password = control.get("password");
@@ -25,7 +26,8 @@ export class PasswordValidators {
 })
 export class FormsDelegadoComponent implements OnInit {
 
-  constructor(private adminService: AdministradorService, private localServi: LocalProyectService,
+  constructor(private spinnerService:SpinnerService,
+    private adminService: AdministradorService, private localServi: LocalProyectService,
     public validationFormsService: ValidationFormsService, private formBuilder: FormBuilder) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -52,6 +54,7 @@ export class FormsDelegadoComponent implements OnInit {
 
 
   guardarCuentaAsistente() {
+    this.spinnerService.llamarSpinner();
     let formAsambleista = {
       'name': this.simpleForm.value.username,
       'email': this.simpleForm.value.email,
@@ -63,6 +66,7 @@ export class FormsDelegadoComponent implements OnInit {
     
     this.adminService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
       this.submitted = false;
+      Swal.fire('Guardado!', '', 'success')
       this.onReset2();
     }).catch(error => {
       console.log(error);
@@ -81,7 +85,7 @@ export class FormsDelegadoComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.guardarCuentaAsistente();
-          Swal.fire('Guardado!', '', 'success')
+          
         } else if (result.isDenied) {
           Swal.fire('No se a guardado la cuenta', '', 'info')
         }
@@ -89,7 +93,6 @@ export class FormsDelegadoComponent implements OnInit {
   }
 
   onReset2() {
-    
     this.idAsambleiApiAsis = 0;
     let usernameControl = this.simpleForm.get('userAssam');
     usernameControl?.setValue('');

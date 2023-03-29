@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { AdministradorService } from './../../../../servicios/administrador.service';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
 import Swal from 'sweetalert2';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 @Component({
   selector: 'app-ngautoperfil',
   templateUrl: './ngautoperfil.component.html',
@@ -9,7 +10,8 @@ import Swal from 'sweetalert2';
 })
 export class NgautoperfilComponent implements OnInit {
 
-  constructor(private administradorService: AdministradorService, private localProyectService: LocalProyectService) { }
+  constructor(private administradorService: AdministradorService, 
+    private localProyectService: LocalProyectService) { }
 
   datosngautoperfil: any = [];
   dataAsmbleista: any = []; datosAsambleistas: any; activiteNavAsis: boolean = false; activiteNavAsam: boolean = true; nombreAsambleista: string = ""; apellidoAsambleista: string = ""; correoAsambleista: string = ""; contrasenaAsambleista: string = "";
@@ -21,6 +23,7 @@ export class NgautoperfilComponent implements OnInit {
   }
 
   cargarPerfilesAsam() {//Carga los datos en el ng-autocomplete
+    
     this.administradorService.ListarPerfileSiAsambleista().then(data => {
       this.dataAsmbleista = data;
       var datoPrueba: any = [{ id: this.dataAsmbleista[0].id, name: this.dataAsmbleista[0].firstName + ' ' + this.dataAsmbleista[0].lastName, idPos: 0 }];
@@ -31,9 +34,7 @@ export class NgautoperfilComponent implements OnInit {
             "idPos": i
           });
       }
-      
       this.datosAsambleistas = datoPrueba;
-      
     }).catch(error => {
       console.log(error);
     })

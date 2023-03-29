@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
 import { ValidationFormsService } from 'src/app/servicios/validation-forms.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 
 export class PasswordValidators {
   static confirmPassword(control: AbstractControl): ValidationErrors | null {
@@ -48,7 +49,8 @@ export class FormsAsamDeleComponent implements OnInit {
   formErrors: any;
   formControls!: string[];
   formControlsDele!: string[];
-  constructor(private administradorService: AdministradorService, private locaServicio: LocalProyectService
+  constructor(private administradorService: AdministradorService, private spinnerService:SpinnerService,
+    private locaServicio: LocalProyectService
     ,public validationFormsService: ValidationFormsService,private formBuilder: FormBuilder) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -94,7 +96,6 @@ export class FormsAsamDeleComponent implements OnInit {
 
 
   onReset1() {
-    
     this.delegadoCuentaCampos = false;
     this.locaServicio.emitirEventoTablaAsalbleista();
     this.habilitarCampos.emit(false);
@@ -102,6 +103,7 @@ export class FormsAsamDeleComponent implements OnInit {
   }
 
   guardarCuentaAsambleista() {
+    this.spinnerService.llamarSpinner();
     let formAsambleista = {
       'name': this.simpleForm.value.username,
       'email': this.simpleForm.value.email,
@@ -112,7 +114,8 @@ export class FormsAsamDeleComponent implements OnInit {
     }
     
     this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
-      
+      Swal.fire('Guardado!', '', 'success')
+      this.onReset1();
     }).catch(error => {
       console.log(error);
     })
@@ -121,6 +124,7 @@ export class FormsAsamDeleComponent implements OnInit {
   }
 
   guardarCuentaAsistente() {
+    this.spinnerService.llamarSpinner();
     let formAsambleista = {
       'name': this.simpleFormDele.value.usernameDele,
       'email': this.simpleFormDele.value.emailDele,
@@ -130,7 +134,7 @@ export class FormsAsamDeleComponent implements OnInit {
       'estado': 1
     }
     
-    this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(data => {
+    this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
 
     }).catch(error => {
       console.log(error);
@@ -148,9 +152,6 @@ export class FormsAsamDeleComponent implements OnInit {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
             this.guardarCuentaAsambleista();
-            Swal.fire('Guardado!', '', 'success')
-            this.onReset1();
-
           } else if (result.isDenied) {
             Swal.fire('No se a guardado la cuenta', '', 'info')
           }
@@ -166,8 +167,6 @@ export class FormsAsamDeleComponent implements OnInit {
           if (result.isConfirmed) {
             this.guardarCuentaAsambleista();
             this.guardarCuentaAsistente();
-            Swal.fire('Guardado!', '', 'success')
-            this.onReset1();
           } else if (result.isDenied) {
             Swal.fire('No se a guardado la cuenta', '', 'info')
           }

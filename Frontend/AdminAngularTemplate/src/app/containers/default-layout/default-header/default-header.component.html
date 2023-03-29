@@ -17,18 +17,16 @@
 
     <c-header-nav class="d-none d-lg-flex">
       <c-nav-item>
-        <a (click)="listNotifi" cNavLink>
-          <svg cIcon name="cilBell" size="lg"></svg>
-        </a>
+        <ng-container *ngTemplateOutlet="userDropdownNotif"></ng-container>
         
       </c-nav-item>
       <c-nav-item>
-        <a routerLink="./" cNavLink>
+        <a  cNavLink>
           <svg cIcon name="cilList" size="lg"></svg>
         </a>
       </c-nav-item>
       <c-nav-item>
-        <a routerLink="./" cNavLink>
+        <a  cNavLink>
           <svg cIcon name="cilEnvelopeOpen" size="lg"></svg>
         </a>
       </c-nav-item>
@@ -40,6 +38,55 @@
   </c-container>
 </ng-container>
 <!--</c-header>-->
+
+<ng-template #userDropdownNotif>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button
+      cButton
+      color=""
+      [caret]="false"
+      cDropdownToggle
+      class="py-0"
+    >
+    <a cNavLink>
+      <svg cIcon name="cilBell" size="lg"></svg>
+    </a>
+    </button>
+    
+    <ul cDropdownMenu [ngStyle]="{'min-width.px': 300 }" class="pt-0 pr-5 w-auto">
+      <li>
+        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Noticaciones</h6>
+      </li>
+      <li>
+        <a routerLink="./" cDropdownItem>
+          <svg cIcon class="me-2" name="cilBell"></svg>
+          <div class="texto">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet nisi id erat viverra suscipit. Suspendisse quis augue eu justo auctor iaculis.
+          </div>
+        </a>
+      <li>
+        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Otras Notificaciones</h6>
+      </li>
+      <li></li>
+      <li>
+        <a routerLink="./profile/config" cDropdownItem>
+          <svg cIcon class="me-2" name="cilUser"></svg>
+          Profile
+        </a>
+      </li>
+      <li>
+        <hr cDropdownDivider/>
+      </li>
+      <li>
+        <a (click)="salir()" routerLink="./" cDropdownItem>
+          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+          Lock Account
+        </a>
+      </li>
+      <li></li>
+    </ul>
+  </c-dropdown>
+</ng-template>
 
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
@@ -137,7 +184,7 @@
         <hr cDropdownDivider/>
       </li>
       <li>
-        <a (click)="salir()" routerLink="./" cDropdownItem>
+        <a (click)="salir()" cDropdownItem>
           <svg cIcon class="me-2" name="cilLockLocked"></svg>
           Lock Account
         </a>

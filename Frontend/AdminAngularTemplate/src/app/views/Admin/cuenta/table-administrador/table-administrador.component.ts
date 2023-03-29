@@ -3,6 +3,7 @@ import { AdministradorService } from './../../../../servicios/administrador.serv
 import Swal from 'sweetalert2';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 
 @Component({
   selector: 'app-table-administrador',
@@ -14,9 +15,9 @@ export class TableAdministradorComponent implements OnInit{
   editContrasenaAdmin: any;
   editUsuarioAdmin: any;
 
-  constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
+  constructor(private spinnerService:SpinnerService,private spinner: NgxSpinnerService, 
+    private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter3.subscribe(() => {
-      
       this.cargarTabla();
     });
   }
@@ -39,7 +40,7 @@ export class TableAdministradorComponent implements OnInit{
   editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
   estado: number; id: number; id_perfil: number; dataAsam: any = [];
   cargarTabla() {
-    this.dataTabla; debugger
+    this.spinnerService.llamarSpinner();
     //this.spinner.show('sample');
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("super_administrador").then((data:any) => {
@@ -47,7 +48,7 @@ export class TableAdministradorComponent implements OnInit{
       this.dataTabla = data;
       debugger
       this.limpiarModal();
-      this.spinner.hide('sample');
+      this.spinnerService.detenerSpinner();
       }
     }).catch(error => {
       console.log(error);
@@ -68,7 +69,7 @@ export class TableAdministradorComponent implements OnInit{
   }
 
   updateAsisCuentas() {
-
+    this.spinnerService.llamarSpinner();
     let formUpdateAsambleista = {
       'name': this.editUsuarioAdmin,
       'email': this.editCorreoAdmin,
@@ -83,7 +84,7 @@ export class TableAdministradorComponent implements OnInit{
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 2000,
+        timer: 7000,
         timerProgressBar: false,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -155,9 +156,6 @@ export class TableAdministradorComponent implements OnInit{
   }
 
 
-
-
-
   public visible = false;
   toggleLiveDemo() {
     this.visible = !this.visible;
@@ -168,13 +166,4 @@ export class TableAdministradorComponent implements OnInit{
     this.visible = event;
   }
 
-  spinnerConfig = {
-    bdColor: 'rgba(0, 0, 0, 0.8)',
-    size: 'medium',
-    color: '#fff',
-    type: 'square-jelly-box',
-    fullScreen: true,
-    template: null,
-    showSpinner: false
-  };
 }

@@ -1,57 +1,59 @@
-<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+<div style="background-image: url('../../../../assets/img/imgAsamblea.jpg')"
+  class="bg-light min-vh-100 d-flex flex-row align-items-center">
   <c-container>
     <c-row class="justify-content-center">
       <c-col md="8">
         <c-card-group>
-          <c-card class="p-4">
-            <c-card-body>
-              <form cForm [validated]="loginForm" (ngSubmit)="onSubmit1()" class="row needs-validation">
-                <h1>Acceso</h1>
-                <p class="text-medium-emphasis">Iniciar sesión en su cuenta</p>
+          <c-card style="background-color: #4d5dac;" class="text-white p-3">
+            <c-card-body style="margin-top: 50px;">
+              <form>
+                <h1 style="color: whitesmoke;font-weight: bold; ">Iniciar Sesión</h1>
+                <p style="color: white;" >Iniciar sesión con su cuenta
+                </p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input [(ngModel)]="email" minlength="6" type="email" name="correo" required cFormControl placeholder="Correo electrónico" />
-                  <c-form-feedback [valid]="false">¡{{msgEmail}}!</c-form-feedback>
+                  <input [(ngModel)]="email" minlength="6" type="email" name="correo" required cFormControl
+                    placeholder="Correo electrónico" />
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
                   <input [(ngModel)]="password" name="pass" autoComplete="current-password" cFormControl
-                    placeholder="Contraseña" type="password" id="pass" required value=""/>
-                    <c-form-feedback [valid]="false" >¡{{msgPass}}!</c-form-feedback>
+                    placeholder="Contraseña" type="password" id="pass" required value="" />
                 </c-input-group>
-              <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
                   <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-                      <path
-                          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    <path
+                      d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                   </symbol>
-              </svg>
-              <c-alert color="danger" class="d-flex align-items-center">
+                </svg>
+                <c-alert [(visible)]="visible" [dismissible]="dismissible" color="warning" fade *ngIf="visible"
+                  color="danger" class="d-flex align-items-center">
                   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
-                      <use xlink:href="#exclamation-triangle-fill" />
+                    <use xlink:href="#exclamation-triangle-fill" />
                   </svg>
-                  <div><b>Error: </b> Cuenta de usuario no válido.</div>
-              </c-alert>
+                  <div style="font-size: 14px;"><b>Error: </b> {{msgError}}</div>
+                </c-alert>
                 <c-row>
                   <c-col xs="6">
-                    <button (click)="iniciarSesion()" type="submit" cButton class="px-4" color="primary">
+                    <button (click)="iniciarSesion()" type="submit" cButton class="px-4" style="background-color: #079044 ; --cui-btn-border-color: none;">
                       Acceso
-                    </button> 
+                    </button>
                   </c-col>
                 </c-row>
               </form>
             </c-card-body>
           </c-card>
-          <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
+          <c-card >
             <c-card-body class="text-center">
-              <div>
-                <h2>RC5</h2>
-                <p>
-                  Despues se ve que se pone para llenar espacio (imagen o texto)
-                </p>
+              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                <div>
+                  <img src="../../../../assets/img/Logo_UNES.png" style="max-width: 190px;">
+                </div>
               </div>
             </c-card-body>
           </c-card>
@@ -59,4 +61,5 @@
       </c-col>
     </c-row>
   </c-container>
+  <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 </div>

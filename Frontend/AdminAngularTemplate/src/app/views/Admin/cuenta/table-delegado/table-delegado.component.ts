@@ -3,6 +3,7 @@ import { AdministradorService } from './../../../../servicios/administrador.serv
 import Swal from 'sweetalert2';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 @Component({
   selector: 'app-table-delegado',
   templateUrl: './table-delegado.component.html',
@@ -11,7 +12,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class TableDelegadoComponent implements OnInit{
   nameAuto: any;
 
-  constructor(private spinner: NgxSpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
+  constructor(private spinnerService:SpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter2.subscribe(() => {
       this.cargarTabla();
     }); 
@@ -34,12 +35,12 @@ export class TableDelegadoComponent implements OnInit{
   editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
   estado: number; id: number; id_perfil: number; dataAsam: any = []; keyword = 'name'; @ViewChild('autoComplete') valueAutocomplete:any;
   cargarTabla() {
-    //this.spinner.show('sample');
+    this.spinnerService.llamarSpinner();
     //Carga los datos de las cuentas de asambleistas en una tabla
     this.administradorService.cargarCuentaByRol("asistente").then((data:any) => {
       if(data.code != 404){
       this.dataTabla = data;
-      
+      this.spinnerService.detenerSpinner();
       this.limpiarModal();
       //this.spinner.hide('sample');
       }
@@ -62,7 +63,7 @@ export class TableDelegadoComponent implements OnInit{
   }
 
   updateAsisCuentas() {
-
+    this.spinnerService.llamarSpinner();
     let formUpdateAsambleista = {
       'name': this.editNombre_ApellidoAsambleista,
       'email': this.editCorreoAsistente,
@@ -77,7 +78,7 @@ export class TableDelegadoComponent implements OnInit{
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 2000,
+        timer: 7000,
         timerProgressBar: false,
         didOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
