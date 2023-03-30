@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import * as ClassicEditor from '../../../ckeditor 5/ckBuildD/build/ckeditor';
 import Swal from 'sweetalert2';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 @Component({
   selector: 'app-form-blogs',
   templateUrl: './form-blogs.component.html',
@@ -11,13 +12,12 @@ export class FormBlogsComponent implements OnInit {
   urlGet: any = '';
   urlSet: any = '';
 
-  constructor(private service: BlogServicesService) { }
+  constructor(private spinnerService:SpinnerService,private service: BlogServicesService) { }
 
   public datos: any = ""; public Editor: any = ClassicEditor;
   titulo: string; descripcion: string; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
   listCateg:any;
   ngOnInit(): void {
-    
     this.listarCategoriasBlog();
   }
 
@@ -135,7 +135,7 @@ export class FormBlogsComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-
+        this.spinnerService.llamarSpinner();
         let data = {
           'categorie_id': this.categorie_id,
           'blogtitulo': this.titulo,
@@ -147,13 +147,14 @@ export class FormBlogsComponent implements OnInit {
         }
         
         this.service.crear_updateBlog(data).then((result: any) => {
-          result; 
           
+          this.spinnerService.detenerSpinner();
+          
+          this.onReset2();
         }).catch((error) => {
           console.log(error);
         })
-        Swal.fire('Guardado!', '', 'success')
-        this.onReset2();
+        
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la cuenta', '', 'info')
       }
@@ -162,6 +163,7 @@ export class FormBlogsComponent implements OnInit {
   }
 
   onReset2() {
+    Swal.fire('Guardado!', '', 'success')
     this.categorie_id = "Seleccione una categoria"; this.titulo = ""; this.descripcion = ""; this.datos = ""
     this.blog_id = ""; this.check = false; this.urlSet = ""; this.urlGet = ""; this.importante = 0;
   }

@@ -38,14 +38,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { ListBlogsComponent } from './list-blogs/list-blogs.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SelectCategoriaComponent } from './select-categoria/select-categoria.component';
 import { FiltroCuentasPipe } from 'src/app/pipes/filtro-cuentas.pipe';
 import { LastNewsAgreeComponent } from './last-news-agree/last-news-agree.component';
 @NgModule({
   declarations: [
     FormBlogsComponent,
     ListBlogsComponent,
-    SelectCategoriaComponent,
     FiltroCuentasPipe,
     LastNewsAgreeComponent
   ],

@@ -34,7 +34,7 @@ export class LoginService {
     });
   }
 
-  /*getSockets(): Echo{
+  getSockets(): Echo{
     return new Echo({
       broadcaster: 'pusher',
       key: 'apprc_key',
@@ -46,5 +46,5 @@ export class LoginService {
       encrypted:true,
       enabledTransports:['wss','ws']
     });
-  }*/
+  }
 }

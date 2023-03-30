@@ -46,7 +46,7 @@ export class TableAdministradorComponent implements OnInit{
     this.administradorService.cargarCuentaByRol("super_administrador").then((data:any) => {
       if(data.code != 404){
       this.dataTabla = data;
-      debugger
+      
       this.limpiarModal();
       this.spinnerService.detenerSpinner();
       }
@@ -151,7 +151,7 @@ export class TableAdministradorComponent implements OnInit{
 
         };
       };
-      this.cuentasFilter; debugger
+      this.cuentasFilter; 
     }
   }
 

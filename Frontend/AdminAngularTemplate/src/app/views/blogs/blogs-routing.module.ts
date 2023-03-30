@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormBlogsComponent } from './form-blogs/form-blogs.component';
+import { LastNewsAgreeComponent } from './last-news-agree/last-news-agree.component';
 import { ListBlogsComponent } from './list-blogs/list-blogs.component';
-import { SelectCategoriaComponent } from './select-categoria/select-categoria.component';
 
 const routes: Routes = [
   {
@@ -24,22 +24,15 @@ const routes: Routes = [
         }
       },
       {
-        path: 'list-blogs',
-        component: ListBlogsComponent,
-        data: {
-          title: 'List Blogs'
-        }
-      },
-      {
         path: 'utlimas-noticias',
-        component: SelectCategoriaComponent,
+        component: LastNewsAgreeComponent,
         data: {
           title: 'Ultimas Noticias'
         }
       },
       {
         path: 'lista-blogs',
-        component: SelectCategoriaComponent,
+        component: ListBlogsComponent,
         data: {
           title: 'Lista de Blogs'
         }

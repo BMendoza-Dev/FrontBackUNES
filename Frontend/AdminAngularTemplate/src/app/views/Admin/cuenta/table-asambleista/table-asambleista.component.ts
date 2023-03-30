@@ -105,12 +105,11 @@ export class TableAsambleistaComponent implements OnInit {
     this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
       if(data.code != 404){
         this.dataTabla = data;
-      debugger
       //this.POSTS = this.dataTabla;
-      this.spinnerService.detenerSpinner();
       this.limpiarModal();
       //this.spinner.hide('sample');
       }
+      this.spinnerService.detenerSpinner();
     }).catch(error => {
       console.log(error);
     })

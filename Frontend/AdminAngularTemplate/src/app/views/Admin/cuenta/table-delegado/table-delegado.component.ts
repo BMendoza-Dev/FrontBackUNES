@@ -40,10 +40,10 @@ export class TableDelegadoComponent implements OnInit{
     this.administradorService.cargarCuentaByRol("asistente").then((data:any) => {
       if(data.code != 404){
       this.dataTabla = data;
-      this.spinnerService.detenerSpinner();
       this.limpiarModal();
       //this.spinner.hide('sample');
       }
+      this.spinnerService.detenerSpinner();
     }).catch(error => {
       console.log(error);
     })
@@ -117,10 +117,10 @@ export class TableDelegadoComponent implements OnInit{
     this.dataAsam.forEach((item:any) =>{
       if(item.perfil_id == this.id_perfil){
         this.valueAutocomplete.query = item.name;
-        debugger
+        
       }
     }) 
-    debugger
+    
      
   }
 
@@ -157,7 +157,11 @@ export class TableDelegadoComponent implements OnInit{
   
   cargarCuentaAsambleistaAutoCom() {
     this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
-      this.dataAsam = data;
+      this.dataAsam = data.map((item:any) =>{
+        if(item.estado == 1){
+          return item
+        } 
+      });
       //this.POSTS = this.dataTabla;
       //this.limpiarModal();
     }).catch(error => {

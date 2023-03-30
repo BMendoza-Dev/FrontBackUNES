@@ -98,7 +98,6 @@ import {MatIconModule} from '@angular/material/icon';
     AlertModule,
     MatBadgeModule,
     MatIconModule,
-    BrowserAnimationsModule
   ],
   providers: [
     {

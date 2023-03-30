@@ -134,7 +134,7 @@ export class ConfigProfileComponent implements OnInit{
   cargarInputAdmin() {
     //this.spinner.show('sample');
     this.adminService.cargarCuentaConfig().then(data => {
-      this.datos = data; debugger
+      this.datos = data; 
       this.usuario = this.datos[0].name;
       this.correo = this.datos[0].email;
       //this.spinner.hide('sample');

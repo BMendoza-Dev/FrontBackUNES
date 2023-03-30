@@ -3,6 +3,7 @@ import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,19 +15,18 @@ export class LastNewsAgreeComponent {
   visible: boolean = false;
   visibleDeny: boolean = false;
   customStylesValidated2: boolean = false;
-  motivoTitulo: string  = '';
+  motivoTitulo: string = '';
   motivoText: string = '';
   search = "";
   page: number = 1;
   count: number = 0;
   tableSize: number = 6;
   blogFilter: any = [];
-  @Input() nameCat:any; _categoria_id:any=0;
-  constructor(private localServi: LocalProyectService,private scriptService: ScripServiceService, private service: BlogServicesService, private sanitizer: DomSanitizer) {
-    localServi.$emitter5.subscribe((data:any) => {
-      this._categoria_id=data
-      this.blogList();
-    });
+  @Input() nameCat: any; _categoria_id: any = 0;
+  listCateg: any;
+  categorie_id: any = "Todas las categorías";
+  constructor(private spinnerService: SpinnerService, private scriptService: ScripServiceService, private service: BlogServicesService, private sanitizer: DomSanitizer) {
+    
   }
 
   listBlog: any; urlGet: SafeUrl; blogtitulo: string; blogdescripcion: string; blogcontenido: SafeHtml; fecha: any;
@@ -34,15 +34,39 @@ export class LastNewsAgreeComponent {
   idBlog: number;
 
   ngOnInit(): void {
+    this.listarCategoriasBlog();
     this.blogList();
-    
+  }
+
+  listarCategoriasBlog(){
+    this.service.ListarCateBlog().then((data:any) =>{
+      this.listCateg = data;
+    })
+  }
+
+  cargarLitBlog(value: any) {
+    debugger
+    if (value == 'Todas las categorías') {
+      value = 0;
+      this.nameCat = "";
+    } else {
+      this.listCateg.forEach((element: any) => {
+        if (element.id == value) {
+          this.nameCat = element.categorianame;
+        }
+      });
+    }
+    this._categoria_id=value;
+    this.blogList();
   }
 
 
   blogList() {
+
+    this.spinnerService.llamarSpinner();
     this.service.listarBlog(this._categoria_id).then((data: any) => {
-      
-      if(data.length >0){
+
+      if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
           _blogtitulo: value.blogtitulo,
@@ -50,47 +74,17 @@ export class LastNewsAgreeComponent {
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
           _imagen: this.trasformaImagen(value.imagen)
-        })); 
-      }else{
+        }));
+      } else {
         this.listBlog = '';
       }
-    }, (error) => {
+      this.spinnerService.detenerSpinner();
+    }).catch((error) => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
 
-  ejercicio1() {
-    var nacimiento: any = new Date(2001, 3, 9);
-    var hoy: any = new Date()
-
-    var tiempoPasado = hoy - nacimiento
-    var segs = 1000;
-    var mins = segs * 60;
-    var hours = mins * 60;
-    var days = hours * 24;
-    var months = days * 30.416666666666668;
-    var years = months * 12;
-
-    //calculo 
-    var anos = Math.floor(tiempoPasado / years);
-
-    tiempoPasado = tiempoPasado - (anos * years);
-    var meses = Math.floor(tiempoPasado / months)
-
-    tiempoPasado = tiempoPasado - (meses * months);
-    var dias = Math.floor(tiempoPasado / days)
-
-    tiempoPasado = tiempoPasado - (dias * days);
-    var horas = Math.floor(tiempoPasado / hours)
-
-    tiempoPasado = tiempoPasado - (horas * hours);
-    var minutos = Math.floor(tiempoPasado / mins)
-
-    tiempoPasado = tiempoPasado - (minutos * mins);
-    var segundos = Math.floor(tiempoPasado / segs)
-
-    console.log(`Han pasado ${anos} años, ${meses} meses,  ${dias} dias, ${horas} horas, y ${minutos} minutos desde que naciste. Ya chocheas...!!`)
-  }
   trasformaImagen(img: any) {
     let objectURL = 'data:image/jpeg;base64,' + img;
     //this.urlGet = this.sanitizer.bypassSecurityTrustUrl(objectURL);
@@ -98,14 +92,14 @@ export class LastNewsAgreeComponent {
   }
 
   dataPaginate(_event: any) {
-    this.page=1;
+    this.page = 1;
     this.blogFilter = [];
     if (this.search == "") {
 
     } else {
 
       for (const x of this.listBlog) {
-        
+
         if (x._blogtitulo.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
           this.blogFilter.push(x);
 
@@ -120,7 +114,9 @@ export class LastNewsAgreeComponent {
   }
 
   blogGet(id: any) {
+
     this.idBlog = id;
+    this.spinnerService.llamarSpinner()
     this.service.getBlog(id).then((data: any) => {
       this.categoria = data[0].categoria;
       this.blogtitulo = data[0].blogtitulo;
@@ -130,9 +126,10 @@ export class LastNewsAgreeComponent {
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
           console.log('script loaded ', data);
-        }).catch(error => console.log(error));
-      
-    }, (error) => {
+        }).catch(error => { this.spinnerService.detenerSpinner(); console.log(error) });
+      this.spinnerService.detenerSpinner();
+    }).catch((error) => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -145,15 +142,15 @@ export class LastNewsAgreeComponent {
     this.visible = event;
   }
 
-  toggleLiveDemoDeny(){
+  toggleLiveDemoDeny() {
     this.visibleDeny = !this.visibleDeny;
     this.customStylesValidated2 = false;
   }
 
-  handleLiveDemoChangeDeny(event:any){
+  handleLiveDemoChangeDeny(event: any) {
     this.visibleDeny = event;
   }
-  alert(){
+  alert() {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -170,20 +167,21 @@ export class LastNewsAgreeComponent {
       title: 'Cuenta actualizada!'
     })
   }
-  
-  blogAprobarDeny(value:number){
+
+  blogAprobarDeny(value: number) {
+    this.spinnerService.llamarSpinner();
     let datos = {
       'id': this.idBlog,
       'aprobado': value,
       'description': this.motivoText,
       'titulo': this.motivoTitulo
     }
-    
+
     this.service.AprobarBlogEnUltimaNoticias(datos).then(() => {
-      
-      if(value == 0){
+
+      if (value == 0) {
         this.toggleLiveDemoDeny();
-      }else{
+      } else {
         this.toggleLiveDemo();
       }
       this.clear();
@@ -195,6 +193,7 @@ export class LastNewsAgreeComponent {
   }
 
   aprobarUltNotc(value: number) {
+    this.spinnerService.llamarSpinner();
     if (value == 0) {
       this.toggleLiveDemo();
       this.toggleLiveDemoDeny();
@@ -224,14 +223,14 @@ export class LastNewsAgreeComponent {
     this.aprobarUltNotc(value);
   }
 
-  denyBlog(){
-    if(this.motivoTitulo != '' && this.motivoText != '' ){
+  denyBlog() {
+    if (this.motivoTitulo != '' && this.motivoText != '') {
       this.blogAprobarDeny(0);
-      
-    }else{
-      
+
+    } else {
+
     }
-    
+
   }
 
   clear(): void {

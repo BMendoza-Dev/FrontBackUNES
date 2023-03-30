@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   iniciarSesion() {
     if (this.email == "" || !this.email.includes('@') || this.email.length < 6 || this.password == "") {
-      debugger
+      
       if (this.password == "") { 
         this.msgError = "Ingrese una contraseña" 
       }
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         }
 
       }).catch(error => {
-        debugger
+        
         this.rutas.navigate(['/404']);
 
       })

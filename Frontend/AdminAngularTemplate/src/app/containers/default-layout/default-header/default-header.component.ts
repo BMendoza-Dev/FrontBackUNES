@@ -15,6 +15,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   @Input() sidebarId: string = "sidebar";
   @Input() childMessage: string;
+  texto = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor, augue eu convallis eleifend, massa ex bibendum dolor, eget iaculis justo velit sit amet quam.';
 
   public newMessages = new Array(4)
   public newTasks = new Array(5)
@@ -23,16 +24,16 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   constructor(public rutas: Router,private service:LoginService,private classToggler: ClassToggleService, private administradorService: AdministradorService, private sanitizer: DomSanitizer) {
     super();
-    //this.echo = this.service.getSockets();
+    this.echo = this.service.getSockets();
   }
 
   ngOnInit(): void {
     console.log("Implement 1");
-    /*this.echo.channel('channel-NotifyBlosAdmin.admin')
+    this.echo.channel('channel-NotifyBlosAdmin.admin')
         .listen('NotifyEventBlog', (resp:any) => {
           console.log(resp)
         });
-    this.mostrarImg();*/
+    this.mostrarImg();
   }
 
   listNotifi(){

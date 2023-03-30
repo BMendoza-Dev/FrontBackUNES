@@ -3,6 +3,7 @@ import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-list-blogs',
@@ -21,11 +22,10 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
   tableSize: number = 6;
   blogFilter: any = [];
   @Input() nameCat:any; _categoria_id:any=0;
-  constructor(private localServi: LocalProyectService,private scriptService: ScripServiceService, private service: BlogServicesService, private sanitizer: DomSanitizer) {
-    localServi.$emitter5.subscribe((data:any) => {
-      this._categoria_id=data
-      this.ObtenerBlogPorPerfil();
-    });
+  listCateg: any;
+  categorie_id: any = "Todas las categorías";
+  constructor(private spinnerService:SpinnerService,private scriptService: ScripServiceService, 
+    private service: BlogServicesService, private sanitizer: DomSanitizer) {
   }
 
   listBlog: any; urlGet: SafeUrl; blogtitulo: string; blogdescripcion: string; blogcontenido: SafeHtml; fecha: any;
@@ -33,13 +33,37 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
   idBlog: number;
 
   ngOnInit(): void {
+    this.listarCategoriasBlog();
     this.ObtenerBlogPorPerfil();
-    
+  }
+
+  listarCategoriasBlog(){
+    this.service.ListarCateBlog().then((data:any) =>{
+      this.listCateg = data;
+    })
+  }
+
+  cargarLitBlog(value: any) {
+    debugger
+    if (value == 'Todas las categorías') {
+      value = 0;
+      this.nameCat = "";
+    } else {
+      this.listCateg.forEach((element: any) => {
+        if (element.id == value) {
+          this.nameCat = element.categorianame;
+        }
+      });
+    }
+    this._categoria_id=value;
+    this.ObtenerBlogPorPerfil();
   }
 
   cerrarSuscrib:any
   ObtenerBlogPorPerfil() {
-  this.cerrarSuscrib = this.service.ObtenerBlogPorPerfil(this._categoria_id).subscribe((data: any) => {
+    
+    this.spinnerService.llamarSpinner();
+  this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
       
       if(data.length >0){
         this.listBlog = data.map((value: any) => ({
@@ -50,45 +74,15 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
           _perfil_id: value.perfil_id,
           _imagen: this.trasformaImagen(value.imagen)
         })); 
-        
+        this.spinnerService.detenerSpinner();
       }else{
         this.listBlog = '';
+        this.spinnerService.detenerSpinner();
       }
+      
     })
   }
 
-  ejercicio1() {
-    var nacimiento: any = new Date(2001, 3, 9);
-    var hoy: any = new Date()
-
-    var tiempoPasado = hoy - nacimiento
-    var segs = 1000;
-    var mins = segs * 60;
-    var hours = mins * 60;
-    var days = hours * 24;
-    var months = days * 30.416666666666668;
-    var years = months * 12;
-
-    //calculo 
-    var anos = Math.floor(tiempoPasado / years);
-
-    tiempoPasado = tiempoPasado - (anos * years);
-    var meses = Math.floor(tiempoPasado / months)
-
-    tiempoPasado = tiempoPasado - (meses * months);
-    var dias = Math.floor(tiempoPasado / days)
-
-    tiempoPasado = tiempoPasado - (dias * days);
-    var horas = Math.floor(tiempoPasado / hours)
-
-    tiempoPasado = tiempoPasado - (horas * hours);
-    var minutos = Math.floor(tiempoPasado / mins)
-
-    tiempoPasado = tiempoPasado - (minutos * mins);
-    var segundos = Math.floor(tiempoPasado / segs)
-
-    console.log(`Han pasado ${anos} años, ${meses} meses,  ${dias} dias, ${horas} horas, y ${minutos} minutos desde que naciste. Ya chocheas...!!`)
-  }
   trasformaImagen(img: any) {
     let objectURL = 'data:image/jpeg;base64,' + img;
     //this.urlGet = this.sanitizer.bypassSecurityTrustUrl(objectURL);
@@ -118,6 +112,8 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
   }
 
   blogGet(id: any) {
+    
+    this.spinnerService.llamarSpinner();
     this.idBlog = id;
     this.service.getBlog(id).then((data: any) => {
       this.categoria = data[0].categoria;
@@ -129,8 +125,9 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
         .then(data => {
           console.log('script loaded ', data);
         }).catch(error => console.log(error));
-      
-    }, (error) => {
+    this.spinnerService.detenerSpinner();
+    }).catch((error) => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -169,68 +166,6 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
     })
   }
   
-  blogAprobarDeny(value:number){
-    let datos = {
-      'id': this.idBlog,
-      'aprobado': value,
-      'description': this.motivoText,
-      'titulo': this.motivoTitulo
-    }
-    
-    this.service.AprobarBlogEnUltimaNoticias(datos).then(() => {
-      
-      if(value == 0){
-        this.toggleLiveDemoDeny();
-      }else{
-        this.toggleLiveDemo();
-      }
-      this.clear();
-      this.alert();
-      this.ObtenerBlogPorPerfil();
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
-  aprobarUltNotc(value: number) {
-    if (value == 0) {
-      this.toggleLiveDemo();
-      this.toggleLiveDemoDeny();
-    } else {
-      Swal.fire({
-        title: 'Estas seguro?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Aprobar',
-        denyButtonText: 'Cancelar',
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          this.blogAprobarDeny(value)
-        }
-      })
-    }
-  }
-
-  accept() {
-    let value: number = 1
-    this.aprobarUltNotc(value);
-  }
-
-  deny() {
-    let value: number = 0;
-    this.aprobarUltNotc(value);
-  }
-
-  denyBlog(){
-    if(this.motivoTitulo != '' && this.motivoText != '' ){
-      this.blogAprobarDeny(0);
-      
-    }else{
-      
-    }
-    
-  }
 
   clear(): void {
     this.scriptService.removeScript('twitter');
@@ -249,7 +184,7 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
   }
 
 ngOnDestroy(){
-  this.cerrarSuscrib.unsubscribe();
+ 
   
 }
 

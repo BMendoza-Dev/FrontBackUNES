@@ -121,7 +121,7 @@ export class BlogServicesService {
       'Authorization': "Bearer " + this.token
     });
 
-    /*return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
         }
@@ -129,20 +129,5 @@ export class BlogServicesService {
         reject(error);
       });
     });
-  }*/
-
-  return this.http.get(url, { headers: httpheaders }).pipe(
-    map(res => {
-      // Aquí puedes manipular los datos recibidos
-      return res;
-    }),
-    catchError(error => {
-      console.error(error);
-      return throwError(error);
-    }),
-    tap(() => {
-      // Aquí puedes hacer algo adicional después de recibir la respuesta
-    })
-  )
   }
 }

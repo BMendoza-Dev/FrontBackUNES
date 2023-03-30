@@ -1,4 +1,18 @@
 <c-col xs="12">
+  <c-card class="mb-4">
+      <c-card-header>
+          <strong>Categorías de los blogs</strong>
+      </c-card-header>
+      <c-card-body>
+          <select [(ngModel)]="categorie_id" (ngModelChange)="cargarLitBlog(categorie_id)" aria-label="Categoria" cSelect class="mb-3">
+              <option [value]="">Todas las categorías</option>
+              <option *ngFor="let item of listCateg" [ngValue]="item.id">{{item.categorianame}}</option>
+          </select>
+      </c-card-body>
+  </c-card>
+  </c-col>
+
+<c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
         <strong>Listas de Blog {{nameCat}}</strong>
@@ -97,38 +111,7 @@
       {{blogdescripcion}} <br>
       <div [innerHTML]="blogcontenido"></div>
     </c-modal-body>
-    <c-modal-footer>
-      
-    </c-modal-footer>
   </c-modal>
   
-  <c-modal backdrop="static" id="staticModalDeny" size="xl" [visible]="visibleDeny"
-    (visibleChange)="handleLiveDemoChangeDeny($event)"> <!--Modal de editar cuenta Asambleista-->
-  
-    <c-modal-header>
-      <h5 cModalTitle>Motivos</h5>
-      <button (click)="toggleLiveDemo();toggleLiveDemoDeny()" cButtonClose></button>
-    </c-modal-header>
-    <c-modal-body>
-      <form #customStylesForm="ngForm" (ngSubmit)="onSubmit2()" [validated]="customStylesValidated2" cForm>
-        <div class="mb-3">
-          <label cLabel for="tituloValidation">Titulo del motivo</label>
-          <input [(ngModel)]="motivoTitulo" name="tituloValidation" cFormControl id="tituloValidation" required
-            type="text" value="" />
-        </div>
-        <div class="mb-3">
-          <label cLabel for="motivoValidation">Motivo</label>
-          <textarea [(ngModel)]="motivoText" cFormControl required name="motivoValidation" id="motivoValidation" value=""
-            rows="3"></textarea>
-        </div>
-  
-        <c-modal-footer>
-          <button (click)="toggleLiveDemo();toggleLiveDemoDeny()" cButton color="secondary">
-            Cerrar
-          </button>
-          <button cButton class="me-1" type="submit" (click)="denyBlog()" color="primary">Aceptar</button>
-        </c-modal-footer>
-      </form>
-    </c-modal-body>
-  
-  </c-modal>
+
+  <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
