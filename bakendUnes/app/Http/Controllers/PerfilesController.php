@@ -43,9 +43,9 @@ class PerfilesController extends Controller
     
         Permisos::insert([
             [
-                'nombre' => 'Seccion Admin',
-                'slug' => 'admin',
-                'descripcion' => 'Accede a la vista principal de administrador',
+                'nombre' => 'Seccion inicio',
+                'slug' => 'inicio',
+                'descripcion' => 'Accede a la vista de inicio',
             ],
             [
                 'nombre' => 'Appmobile',
@@ -53,32 +53,85 @@ class PerfilesController extends Controller
                 'descripcion' => 'Acceso a la app mobile',
             ],
             [
-                'nombre' => 'Asambleista',
-                'slug' => 'asambleista',
-                'descripcion' => 'Accede a la vista principal de administrador',
+                'nombre' => 'Registrador de Usuarios',
+                'slug' => 'RegiterUser',
+                'descripcion' => 'Accede a la seccion de registro de usuarios en sus diferentes niveles',
+            ],
+            [
+                'nombre' => 'Actualizador de Usuarios',
+                'slug' => 'UpdateUser',
+                'descripcion' => 'Puede actualizar usuarios en los diferentes niveles (le aparece el boton de editar)',
+            ],
+            [
+                'nombre' => 'Ve los usuarios registrado',
+                'slug' => 'ViewUser',
+                'descripcion' => 'Puede ver todos los usuarios registrados y su informacion',
+            ],
+            [
+                'nombre' => 'Aprobardor o denegardor blogs en ultimas noticias',
+                'slug' => 'AprobarBlogs',
+                'descripcion' => 'tiene permisos para acceder a las vistas para aprobar o denegar blogs para que aparezcan en la seccion de ultimas noticias de la aplicacion',
+            ],
+            [
+                'nombre' => 'Ve lista de blogs en ultimas noticias',
+                'slug' => 'listarblogsporaprobar',
+                'descripcion' => 'tiene permisos para acceder a las vistas para ver blogs que estan a la espera de ser aprobados a para que aparezcan en ultimas noticias',
+            ],
+            [
+                'nombre' => 'Ve lista de blogs aprobados en noticias',
+                'slug' => 'listarblogsaprobados',
+                'descripcion' => 'tiene permisos para acceder a las vistas para ver blogs que estan aprobados para que aparezcan en ultimas noticias',
+            ],
+            [
+                'nombre' => 'Creador de blogs',
+                'slug' => 'creadorDeBlogs',
+                'descripcion' => 'tiene permisos para acceder a las vistas para crear blogs',
+            ],
+            [
+                'nombre' => 'Ver blogs creados',
+                'slug' => 'VerBlogs',
+                'descripcion' => 'tiene permisos para acceder a las vistas ver los blogs',
+            ],
+            [
+                'nombre' => 'Editor de blogs',
+                'slug' => 'EditaBlogs',
+                'descripcion' => 'tiene permisos para acceder a las vistas de editar blos',
             ],
         ]);
     
-        Roles::insert([
-            [
-                'nombre' => 'Super Administrador',
-                'slug' => 'super_administrador',
-                'descripcion' => 'Tiene acceso a todo',
-                'fullacceso' => 'yes',
-            ],
-            [
-                'nombre' => 'Asambleista',
-                'slug' => 'asambleista',
-                'descripcion' => 'Tiene acceso las opciones de los Asambleistas',
-                'fullacceso' => 'no',
-            ],
-            [
-                'nombre' => 'Asistente',
-                'slug' => 'asistente',
-                'descripcion' => 'Tiene acceso las opciones de los Asistente',
-                'fullacceso' => 'no',
-            ],
-        ]);
+        $superAdmin = [
+            'nombre' => 'Super Administrador',
+            'slug' => 'super_administrador',
+            'descripcion' => 'Tiene acceso a todo',
+            'fullacceso' => 'yes',
+        ];
+        
+        $asambleista = [
+            'nombre' => 'Asambleista',
+            'slug' => 'asambleista',
+            'descripcion' => 'Tiene acceso a las opciones de los Asambleistas',
+            'fullacceso' => 'no',
+        ];
+        
+        $asistente = [
+            'nombre' => 'Asistente',
+            'slug' => 'asistente',
+            'descripcion' => 'Tiene acceso a las opciones de los Asistentes',
+            'fullacceso' => 'no',
+        ];
+        
+        $superAdmin = Roles::create($superAdmin);
+        $superAdmin->permisos()->sync([1,3,4,5,6,7,8,9,10,11]);
+        
+        $asambleista = Roles::create($asambleista);
+        $asambleista->permisos()->sync([1,9,10,11]);
+        
+        $asistente = Roles::create($asistente);
+        $asistente->permisos()->sync([1,9,10,11]);
+        
+     //   $roles = [$superAdmin, $asambleista, $asistente];
+        
+       // Roles::insert($roles);
            
 
         $Ambitoterritorial = Http::withHeaders([
