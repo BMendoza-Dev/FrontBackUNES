@@ -10,7 +10,7 @@ import { navItem } from './_nav';
 export class DefaultLayoutComponent implements OnInit {
 
   parentMessage = "message from parent";
-
+  navItemCopy:any;
   public navItems: any;
   public perfectScrollbarConfig = {
     suppressScrollX: true,
@@ -18,12 +18,17 @@ export class DefaultLayoutComponent implements OnInit {
 
 
 
-  constructor(private authService: LocalProyectService) { }
+  constructor(private authService: LocalProyectService) { 
+    this.navItemCopy = [...navItem];  debugger
+    this.navItems = this.getFilteredNavItems();
+    
+  }
 
   getFilteredNavItems(): any[] {
+    
     const userRole:any = localStorage.getItem('sesionLoginInicio'); 
     // replace with actual user role
-    return navItem
+    return this.navItemCopy
       .filter((item:any) => this.authService.hasPermission(item.url, userRole))
       .map((item:any) => {
         if (item.children) {
@@ -39,8 +44,8 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let sesionLoginInicio: any = localStorage.getItem('sesionLoginInicio');
-    this.navItems = this.getFilteredNavItems();
+    
+    //this.navItems = this.getFilteredNavItems();
     
     /*let NavItem: any = []; let i = 0
     navItem.forEach((element: any) => {

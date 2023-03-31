@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
         let sesionLoginInicio = this.arrayData['usuario'][0]['roles'][0].slug;
         let idAsambPerf = this.arrayData['usuario'][0].perfil_id;
         let user = this.arrayData['usuario'][0].name;
+        let id_user = this.arrayData['usuario'][0].id;
         let key = "GAMABAML"
         if (data.error != "Unauthorized") {
         localStorage.clear();
@@ -68,6 +69,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('sesionLoginInicio', sesionLoginInicio);
         localStorage.setItem('idAsambPerf', idAsambPerf);
         localStorage.setItem('user', user);
+        localStorage.setItem('idUser', id_user);
         console.log(token);
         this.spinnerService.detenerSpinner();
         this.rutas.navigate(['/inicio']);

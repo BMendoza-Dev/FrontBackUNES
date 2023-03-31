@@ -29,7 +29,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("Implement 1");
-    this.echo.channel('channel-NotifyBlosAdmin.'+localStorage.getItem('sesionLoginInicio'))
+    this.echo.channel('channel-NotifyBlosAdmin.'+localStorage.getItem('sesionLoginInicio')+'.'+localStorage.getItem('idUser'))
         .listen('NotifyEventBlog', (resp:any) => {
           console.log(resp)
         });
