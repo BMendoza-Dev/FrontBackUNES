@@ -69,7 +69,7 @@ class BlogsController extends Controller
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
             })->each(function(User $user)use($notify){
-                event(new NotifyEventBlog($notify,$user->perfil->slug,$user->id));
+                event(new NotifyEventBlog($notify,$user->roles->slug,$user->id));
             });
        //     event(new NotifyEventBlog($notify,'super_administrador',));
 
