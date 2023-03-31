@@ -30,8 +30,8 @@ class NotifyEventBlog implements  ShouldBroadcast
     public function __construct($blog,$rol,$to_id)
     {
         $this->blog = $blog;
-        $this->rol= 'super_administrador';
-        $this->to_id= 1;
+        $this->rol= $rol;
+        $this->to_id= $to_id;
     }
 
     /**
