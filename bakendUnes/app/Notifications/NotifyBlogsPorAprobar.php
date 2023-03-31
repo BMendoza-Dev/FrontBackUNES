@@ -19,7 +19,7 @@ class NotifyBlogsPorAprobar extends Notification
      */
     private $date;
 
-    public function __construct(Blog $blog,$date,$id_to)
+    public function __construct(Blog $blog,$date)
     {
         $this->blog = $blog;
         $this->date = $date;
