@@ -1,0 +1,45 @@
+  .hint {
+      font-size: 14px;
+      margin-top: 5px;
+      margin-bottom: 0;
+      color: #999;
+  }
+
+  .hint.end {
+      text-align: right;
+  }
+
+  #message-length {
+      font-weight: bold;
+  }
+
+  .is-required {
+      margin-left: 2px;
+      color: red;
+      font-weight: bold;
+  }
+
+  .image-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+  }
+
+  .image-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .image-container label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }

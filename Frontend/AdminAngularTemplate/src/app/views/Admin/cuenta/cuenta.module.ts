@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component';
@@ -49,16 +49,16 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { FiltroCuentasPipe } from 'src/app/pipes/filtro-cuentas.pipe';
 import { TablaPracticaComponent } from './tabla-practica/tabla-practica.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
-import {MatIconModule} from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsAdministradorComponent,
     TableAdministradorComponent,
     TablaPracticaComponent,
-    
+
   ],
   imports: [
     NgxSpinnerModule,

@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './last-news-agree.component.html',
   styleUrls: ['./last-news-agree.component.scss']
 })
-export class LastNewsAgreeComponent {
+export class LastNewsAgreeComponent implements OnInit {
   visible: boolean = false;
   visibleDeny: boolean = false;
   customStylesValidated2: boolean = false;
@@ -45,7 +45,7 @@ export class LastNewsAgreeComponent {
   }
 
   cargarLitBlog(value: any) {
-    debugger
+    
     if (value == 'Todas las categorías') {
       value = 0;
       this.nameCat = "";
@@ -128,6 +128,7 @@ export class LastNewsAgreeComponent {
           console.log('script loaded ', data);
         }).catch(error => { this.spinnerService.detenerSpinner(); console.log(error) });
       this.spinnerService.detenerSpinner();
+      this.toggleLiveDemo();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
       console.log(error);
@@ -155,7 +156,7 @@ export class LastNewsAgreeComponent {
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 2000,
+      timer: 7000,
       timerProgressBar: false,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -193,7 +194,7 @@ export class LastNewsAgreeComponent {
   }
 
   aprobarUltNotc(value: number) {
-    this.spinnerService.llamarSpinner();
+    
     if (value == 0) {
       this.toggleLiveDemo();
       this.toggleLiveDemoDeny();

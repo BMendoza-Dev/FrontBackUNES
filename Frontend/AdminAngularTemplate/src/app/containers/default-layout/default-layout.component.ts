@@ -12,7 +12,6 @@ export class DefaultLayoutComponent implements OnInit {
   parentMessage = "message from parent";
 
   public navItems: any;
-  Rol = localStorage.getItem('sesionLoginInicio');
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };

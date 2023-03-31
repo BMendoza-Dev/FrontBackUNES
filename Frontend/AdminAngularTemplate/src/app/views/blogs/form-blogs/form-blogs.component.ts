@@ -3,6 +3,7 @@ import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import * as ClassicEditor from '../../../ckeditor 5/ckBuildD/build/ckeditor';
 import Swal from 'sweetalert2';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
+import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-form-blogs',
   templateUrl: './form-blogs.component.html',
@@ -11,13 +12,30 @@ import { SpinnerService } from 'src/app/servicios/spinner.service';
 export class FormBlogsComponent implements OnInit {
   urlGet: any = '';
   urlSet: any = '';
+  @Input() datosEdit:any;
+  @Output() cargarListBlog = new EventEmitter<void>();
+  constructor(private spinnerService:SpinnerService,private service: BlogServicesService) { 
+    
+  }
 
-  constructor(private spinnerService:SpinnerService,private service: BlogServicesService) { }
+  miControl:any = new FormControl('', Validators.required);
 
   public datos: any = ""; public Editor: any = ClassicEditor;
-  titulo: string; descripcion: string; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
-  listCateg:any;
+  titulo: string=''; descripcion: string = ''; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
+  listCateg:any; frameWidth: number = 900;
+  frameHeight: number = 250; 
   ngOnInit(): void {
+    
+    if(this.datosEdit){
+      this.urlGet = this.datosEdit.urlGet;
+      this.categorie_id = this.datosEdit.categoria;
+      this.titulo = this.datosEdit.blogtitulo;
+      this.descripcion = this.datosEdit.blogdescripcion;
+      this.datos = this.datosEdit.blogcontenido;
+      this.blog_id = this.datosEdit.id;
+      this.urlSet = this.datosEdit.urlSet
+    }
+    
     this.listarCategoriasBlog();
   }
 
@@ -162,8 +180,30 @@ export class FormBlogsComponent implements OnInit {
 
   }
 
+  alert() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 7000,
+      timerProgressBar: false,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    Toast.fire({
+      icon: 'success',
+      title: 'Cuenta actualizada!'
+    })
+  }
+
   onReset2() {
     Swal.fire('Guardado!', '', 'success')
+    if(this.datosEdit){
+      this.alert();
+      this.cargarListBlog.emit();
+    }
     this.categorie_id = "Seleccione una categoria"; this.titulo = ""; this.descripcion = ""; this.datos = ""
     this.blog_id = ""; this.check = false; this.urlSet = ""; this.urlGet = ""; this.importante = 0;
   }

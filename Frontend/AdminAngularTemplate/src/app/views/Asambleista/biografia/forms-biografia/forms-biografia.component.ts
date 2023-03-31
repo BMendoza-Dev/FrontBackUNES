@@ -2,6 +2,7 @@ import { Component, ElementRef, OnChanges, OnDestroy, OnInit, ViewChild } from '
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 import Swal from 'sweetalert2';
 import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
 
@@ -13,7 +14,7 @@ import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
 export class FormsBiografiaComponent implements OnInit {
 
   //@ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
-  constructor(private adminService: AdministradorService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
+  constructor(private spinnerService:SpinnerService,private adminService: AdministradorService, private sanitizer: DomSanitizer) {
   }
 
   urlfb: any = "";
@@ -105,6 +106,7 @@ export class FormsBiografiaComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        this.spinnerService.llamarSpinner();
         let data = {
           'id': this.idAsambleiApiAsam,
           'perfil': this.datos,
@@ -116,11 +118,12 @@ export class FormsBiografiaComponent implements OnInit {
         };
         
         this.adminService.updateBiografia(data).then(() => {
+          Swal.fire('Guardado!', '', 'success')
+          this.spinnerService.detenerSpinner();
         }).catch(error => {
           console.log(error);
         })
-        Swal.fire('Guardado!', '', 'success')
-
+      
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la cuenta', '', 'info')
       }
@@ -135,7 +138,7 @@ export class FormsBiografiaComponent implements OnInit {
     this.urlGet = this.sanitizer.bypassSecurityTrustUrl(objectURL);
   }
   cargarBiografiaAsam() {
-
+    this.spinnerService.llamarSpinner();
     this.adminService.cargarBiografia(this.idAsambleiApiAsam).then(data => {
       let biografia: any = data
 
@@ -153,6 +156,7 @@ export class FormsBiografiaComponent implements OnInit {
         
         this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw; this.urlSet = biografia['image'][0].imagen;
       }
+      this.spinnerService.detenerSpinner();
     }).catch(error => {
       console.log(error);
     })
@@ -162,17 +166,6 @@ export class FormsBiografiaComponent implements OnInit {
   onClear() {
     this.idAsambleiApiAsam = "";
   }
-
-  spinnerConfig = {
-    bdColor: 'rgba(0, 0, 0, 0.8)',
-    size: 'medium',
-    color: '#fff',
-    type: 'square-jelly-box',
-    fullScreen: true,
-    template: null,
-    showSpinner: false
-  };
-
 
   async redSocial(URL: any) {
     if (URL == "facebook") {

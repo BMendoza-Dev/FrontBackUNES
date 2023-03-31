@@ -29,7 +29,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("Implement 1");
-    this.echo.channel('channel-NotifyBlosAdmin.admin')
+    this.echo.channel('channel-NotifyBlosAdmin.'+localStorage.getItem('sesionLoginInicio'))
         .listen('NotifyEventBlog', (resp:any) => {
           console.log(resp)
         });
@@ -41,14 +41,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   }
 
   salir() {
-    localStorage.removeItem('sesionLogin');
-    localStorage.removeItem('rol');
-    localStorage.removeItem('color');
-    localStorage.removeItem('sesionLoginInicio');
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    localStorage.removeItem('idAsambPerf');
-    localStorage.removeItem('user');
+    localStorage.clear();
     this.rutas.navigate(['/login']);
   }
 

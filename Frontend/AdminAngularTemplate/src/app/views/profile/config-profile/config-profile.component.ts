@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { ValidationFormsService } from "src/app/servicios/validation-forms.service";
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 
 export class PasswordValidators {
   static confirmPassword(control: AbstractControl): ValidationErrors | null {
@@ -30,7 +31,7 @@ export class ConfigProfileComponent implements OnInit{
   formErrors: any;
   formControls!: string[];
 
-  constructor(private spinner: NgxSpinnerService, private adminService: AdministradorService, private formBuilder: FormBuilder,
+  constructor(private spinnerService:SpinnerService, private adminService: AdministradorService, private formBuilder: FormBuilder,
     public validationFormsService: ValidationFormsService, public rutas: Router) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -185,12 +186,7 @@ export class ConfigProfileComponent implements OnInit{
   }
 
   salir() {
-    localStorage.removeItem('sesionLogin');
-    localStorage.removeItem('rol');
-    localStorage.removeItem('color');
-    localStorage.removeItem('sesionLoginInicio');
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
+    localStorage.clear();
   }
 
   spinnerConfig = {

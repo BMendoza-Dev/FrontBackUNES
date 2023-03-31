@@ -7,20 +7,17 @@ import * as CryptoJS from 'crypto-js';
 export class AdministradorService {
   urlAWS: any;
   urlLocal: string;
-  token: any;
-  cry: any = localStorage.getItem("token");
-  key = "GAMABAML"
+  
   constructor(private http: HttpClient) {
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.token = CryptoJS.AES.decrypt(this.cry.trim(), this.key.trim()).toString(CryptoJS.enc.Utf8);
   }
 
   cargarCuentaByRol(slug: any) {
     let url = this.urlAWS + 'ListarUserPorRol?slug=' + slug;
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -41,7 +38,7 @@ export class AdministradorService {
     let url = this.urlAWS + 'ListarPerfiles';
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -58,7 +55,7 @@ export class AdministradorService {
     let url = this.urlAWS + 'ListarPerfileSiAsambleista';
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -95,7 +92,7 @@ export class AdministradorService {
     formData.append('perfil_id', _data.perfil_id);
     formData.append('estado', _data.estado);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -120,7 +117,7 @@ export class AdministradorService {
     formData.append('id', _data.id);
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -136,7 +133,7 @@ export class AdministradorService {
   getImg(_id: any) {
     let url = this.urlAWS + 'ObtenerImagen?id=' + _id;
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return this.http.get(url, { headers: httpheaders });
@@ -156,7 +153,7 @@ export class AdministradorService {
     formData.append('imagen', _data.binImg);
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
@@ -174,7 +171,7 @@ export class AdministradorService {
 
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -191,7 +188,7 @@ export class AdministradorService {
   cargarCuentaConfig() {
     let url = this.urlAWS+'Admin';
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -209,7 +206,7 @@ export class AdministradorService {
     let formData = new FormData();
     formData.append('categorianame', _data.categorianame);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -228,7 +225,7 @@ export class AdministradorService {
     formData.append('categorianame', _data.categorianame);
     formData.append('categoria_id', _data.categoria_id);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {

@@ -62,7 +62,8 @@ export class LoginComponent implements OnInit {
         let user = this.arrayData['usuario'][0].name;
         let key = "GAMABAML"
         if (data.error != "Unauthorized") {
-        localStorage.setItem('token', CryptoJS.AES.encrypt(token.trim(),key.trim()).toString());
+        localStorage.clear();
+        localStorage.setItem('token', token);
         localStorage.setItem('email', this.email);
         localStorage.setItem('sesionLoginInicio', sesionLoginInicio);
         localStorage.setItem('idAsambPerf', idAsambPerf);

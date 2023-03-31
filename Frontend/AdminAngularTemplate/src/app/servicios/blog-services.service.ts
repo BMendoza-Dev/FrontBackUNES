@@ -8,20 +8,16 @@ import { catchError, map, tap, throwError } from 'rxjs';
 export class BlogServicesService {
   urlLocal: string;
   urlAWS: string;
-  token: any;
-  cry: any = localStorage.getItem("token");
-  key = "GAMABAML"
   constructor(private http: HttpClient) {
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.token = CryptoJS.AES.decrypt(this.cry.trim(), this.key.trim()).toString(CryptoJS.enc.Utf8);
   }
 
   crear_updateBlog(_datos: any) {
     let url = this.urlAWS + 'CrearBlog'
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     let formData = new FormData();
@@ -47,7 +43,7 @@ export class BlogServicesService {
     let url = this.urlAWS + 'ListarCateBlog'
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     return new Promise((resolve, reject) => {
@@ -63,7 +59,7 @@ export class BlogServicesService {
   listarBlog(_cate_id:any) {
     let url = this.urlAWS + 'ListarBlogsPorAprobar?cate_id='+_cate_id;
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
@@ -78,7 +74,7 @@ export class BlogServicesService {
   getBlog(id: any) {
     let url = this.urlAWS + 'ObtenerBlog?id=' + id;
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
@@ -95,7 +91,7 @@ export class BlogServicesService {
     let url = this.urlAWS + 'AprobarBlogEnUltimaNoticias'
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
     let formData = new FormData();
@@ -118,9 +114,10 @@ export class BlogServicesService {
     let url = this.urlAWS + 'ObtenerBlogPorPerfil?cate_id='+_cate_id;
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + this.token
+      'Authorization': "Bearer " + localStorage.getItem("token")
     });
 
+    
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {

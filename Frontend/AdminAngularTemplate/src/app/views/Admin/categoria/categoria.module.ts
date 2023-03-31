@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CategoriaRoutingModule } from './categoria-routing.module';
@@ -9,6 +9,7 @@ import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AccordionModule, AlertModule, BadgeModule, BreadcrumbModule, ButtonGroupModule, ButtonModule, CardModule, CarouselModule, CollapseModule, DropdownModule, FormModule, GridModule, ListGroupModule, ModalModule, NavModule, PlaceholderModule, PopoverModule, ProgressModule, SharedModule, SpinnerModule, TableModule, TabsModule, TooltipModule, UtilitiesModule } from '@coreui/angular';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -47,7 +48,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AlertModule,
     ModalModule,
     ReactiveFormsModule,
-    NgxPaginationModule
-  ]
+    NgxPaginationModule,
+    NgxSpinnerModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CategoriaModule { }

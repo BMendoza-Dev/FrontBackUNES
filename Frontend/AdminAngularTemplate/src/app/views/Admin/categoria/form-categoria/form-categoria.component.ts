@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 import { ValidationFormsService } from 'src/app/servicios/validation-forms.service';
 import Swal from 'sweetalert2';
 
@@ -19,7 +20,7 @@ export class FormCategoriaComponent {
   formControls!: string[];
   search = ""; page: number = 1; tableSize: number = 10; count: number = 0;
   dataCat: any = []; catFilter: any = [];
-  constructor(private service: BlogServicesService, private serviceAdmin:AdministradorService,
+  constructor(private spinnerService:SpinnerService,private service: BlogServicesService, private serviceAdmin:AdministradorService,
     public validationFormsService: ValidationFormsService, private formBuilder: FormBuilder) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -28,20 +29,37 @@ export class FormCategoriaComponent {
   }
 
   cargarCatBlog() {
+    this.spinnerService.llamarSpinner();
     this.service.ListarCateBlog().then((_cat: any) => {
       this.dataCat = _cat;
-      
+      this.spinnerService.detenerSpinner();
     }).catch(error => {
       console.log(error)
     })
   }
 
   guardarCatBlog(){
+    this.spinnerService.llamarSpinner();
     let formCatBlog= {
       'categorianame': this.simpleForm.value.category,
     }
     
     this.serviceAdmin.CreateCategoria(formCatBlog).then(()=>{
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 7000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'Categoría actualizada!'
+      })
       this.submitted = false;
       this.simpleForm.reset();
       this.onReset2();
@@ -50,6 +68,7 @@ export class FormCategoriaComponent {
 
   onReset2(){
     this.cargarCatBlog();
+    Swal.fire('Guardado!', '', 'success')
   }
 
   crearCatBlog() {
@@ -62,7 +81,7 @@ export class FormCategoriaComponent {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.guardarCatBlog();
-        Swal.fire('Guardado!', '', 'success')
+        
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la categoría', '', 'info')
       }
@@ -139,6 +158,7 @@ categoria_id:any;
   }
 
   updateCatBlog(){
+    this.spinnerService.llamarSpinner();
     let formCatBlog= {
       'categoria_id':this.categoria_id,
       'categorianame': this.simpleFormEdit.value.category,
@@ -162,7 +182,6 @@ categoria_id:any;
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.updateCatBlog();
-        Swal.fire('Guardado!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la edición', '', 'info')
       }

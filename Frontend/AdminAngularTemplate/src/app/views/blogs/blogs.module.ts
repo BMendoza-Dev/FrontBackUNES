@@ -35,7 +35,7 @@ import {
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { IconModule } from '@coreui/icons-angular';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListBlogsComponent } from './list-blogs/list-blogs.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltroCuentasPipe } from 'src/app/pipes/filtro-cuentas.pipe';
@@ -81,7 +81,8 @@ import { LastNewsAgreeComponent } from './last-news-agree/last-news-agree.compon
     NgxSpinnerModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule 
   ]
 })
 export class BlogsModule { }

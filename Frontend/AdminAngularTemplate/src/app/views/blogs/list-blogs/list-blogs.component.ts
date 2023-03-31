@@ -10,21 +10,24 @@ import Swal from 'sweetalert2';
   templateUrl: './list-blogs.component.html',
   styleUrls: ['./list-blogs.component.scss']
 })
-export class ListBlogsComponent implements OnInit,OnDestroy {
+export class ListBlogsComponent implements OnInit, OnDestroy {
   visible: boolean = false;
   visibleDeny: boolean = false;
   customStylesValidated2: boolean = false;
-  motivoTitulo: string  = '';
+  motivoTitulo: string = '';
   motivoText: string = '';
   search = "";
   page: number = 1;
   count: number = 0;
   tableSize: number = 6;
   blogFilter: any = [];
-  @Input() nameCat:any; _categoria_id:any=0;
+  @Input() nameCat: any; _categoria_id: any = 0;
   listCateg: any;
   categorie_id: any = "Todas las categorías";
-  constructor(private spinnerService:SpinnerService,private scriptService: ScripServiceService, 
+  listblogEdit: boolean = false;
+  datosEdit: any;
+  categoriaId: any;
+  constructor(private spinnerService: SpinnerService, private scriptService: ScripServiceService,
     private service: BlogServicesService, private sanitizer: DomSanitizer) {
   }
 
@@ -37,14 +40,14 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
     this.ObtenerBlogPorPerfil();
   }
 
-  listarCategoriasBlog(){
-    this.service.ListarCateBlog().then((data:any) =>{
+  listarCategoriasBlog() {
+    this.service.ListarCateBlog().then((data: any) => {
       this.listCateg = data;
     })
   }
 
   cargarLitBlog(value: any) {
-    debugger
+    
     if (value == 'Todas las categorías') {
       value = 0;
       this.nameCat = "";
@@ -55,17 +58,17 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
         }
       });
     }
-    this._categoria_id=value;
+    this._categoria_id = value;
     this.ObtenerBlogPorPerfil();
   }
 
-  cerrarSuscrib:any
+  cerrarSuscrib: any
   ObtenerBlogPorPerfil() {
-    
+
     this.spinnerService.llamarSpinner();
-  this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
-      
-      if(data.length >0){
+    this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
+
+      if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
           _blogtitulo: value.blogtitulo,
@@ -73,13 +76,14 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
           _imagen: this.trasformaImagen(value.imagen)
-        })); 
+        }));
+
         this.spinnerService.detenerSpinner();
-      }else{
+      } else {
         this.listBlog = '';
         this.spinnerService.detenerSpinner();
       }
-      
+
     })
   }
 
@@ -90,14 +94,14 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
   }
 
   dataPaginate(_event: any) {
-    this.page=1;
+    this.page = 1;
     this.blogFilter = [];
     if (this.search == "") {
 
     } else {
 
       for (const x of this.listBlog) {
-        
+
         if (x._blogtitulo.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
           this.blogFilter.push(x);
 
@@ -112,20 +116,32 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
   }
 
   blogGet(id: any) {
-    
+
     this.spinnerService.llamarSpinner();
     this.idBlog = id;
     this.service.getBlog(id).then((data: any) => {
+      
       this.categoria = data[0].categoria;
+      this.categoriaId = data[0].categorie_id
       this.blogtitulo = data[0].blogtitulo;
       this.blogdescripcion = data[0].blogdescripcion;
       this.blogcontenido = this.sanitizer.bypassSecurityTrustHtml(data[0].blogcontenido);
       this.urlGet = this.trasformaImagen(data[0].imagen);
+      this.datosEdit = {
+        'id': this.idBlog,
+        'categoria': this.categoriaId,
+        'blogtitulo': this.blogtitulo,
+        'blogdescripcion': this.blogdescripcion,
+        'blogcontenido': data[0].blogcontenido,
+        'urlSet': data[0].imagen,
+        'urlGet':this.urlGet
+      }
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
           console.log('script loaded ', data);
         }).catch(error => console.log(error));
-    this.spinnerService.detenerSpinner();
+      this.spinnerService.detenerSpinner();
+      this.toggleLiveDemo();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
       console.log(error);
@@ -140,15 +156,15 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
     this.visible = event;
   }
 
-  toggleLiveDemoDeny(){
+  toggleLiveDemoDeny() {
     this.visibleDeny = !this.visibleDeny;
     this.customStylesValidated2 = false;
   }
 
-  handleLiveDemoChangeDeny(event:any){
+  handleLiveDemoChangeDeny(event: any) {
     this.visibleDeny = event;
   }
-  alert(){
+  alert() {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -165,7 +181,7 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
       title: 'Cuenta actualizada!'
     })
   }
-  
+
 
   clear(): void {
     this.scriptService.removeScript('twitter');
@@ -183,9 +199,9 @@ export class ListBlogsComponent implements OnInit,OnDestroy {
     console.log('Submit... 2');
   }
 
-ngOnDestroy(){
- 
-  
-}
+  ngOnDestroy() {
+
+
+  }
 
 }

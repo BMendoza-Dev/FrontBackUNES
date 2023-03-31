@@ -271,7 +271,7 @@ export const navItem: INavData[] = [
     iconComponent: { name: 'cil-user' },
   },
   {
-    name: 'Biografias',
+    name: 'Biografia',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
   },
