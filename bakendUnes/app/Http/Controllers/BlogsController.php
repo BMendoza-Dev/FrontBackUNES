@@ -54,22 +54,23 @@ class BlogsController extends Controller
             
             self::make_blogs_notify($blog);
 
-            $notify= auth()->user()->notifications->map(function($notify){
-                return [
-                    'blogtitulo'=> $notify->data['blogtitulo'],
-                    'blogdescripcion'=> $notify->data['blogdescripcion'],
-                    'blogcontenido'=> $notify->data['blogcontenido'],
-                    'categorie'=> $notify->data['categorie_id'],
-                    'perfil'=> $notify->data['perfil'],
-                    'user'=> $notify->data['user'],
-                    'date'=> $notify->data['date']
-                ];
-
-            });
+             
 
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
             })->each(function(User $user)use($notify){
+                $notify=$user->notifications->map(function($notify){
+                    return [
+                        'blogtitulo'=> $notify->data['blogtitulo'],
+                        'blogdescripcion'=> $notify->data['blogdescripcion'],
+                        'blogcontenido'=> $notify->data['blogcontenido'],
+                        'categorie'=> $notify->data['categorie_id'],
+                        'perfil'=> $notify->data['perfil'],
+                        'user'=> $notify->data['user'],
+                        'date'=> $notify->data['date']
+                    ];
+    
+                });
                 event(new NotifyEventBlog($notify,$user->roles[0]->slug,$user->id));
             });
        //     event(new NotifyEventBlog($notify,'super_administrador',));
@@ -107,21 +108,21 @@ class BlogsController extends Controller
         if($request->ultimanoticia==true){
             self::make_blogs_notify($blog);
 
-            $notify= auth()->user()->notifications->map(function($notify){
-                return [
-                    'blogtitulo'=> $notify->data['blogtitulo'],
-                    'blogdescripcion'=> $notify->data['blogdescripcion'],
-                    'blogcontenido'=> $notify->data['blogcontenido'],
-                    'categorie'=> $notify->data['categorie_id'],
-                    'perfil'=> $notify->data['perfil'],
-                    'user'=> $notify->data['user'],
-                    'date'=> $notify->data['date']
-                ];
-
-            });
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
             })->each(function(User $user)use($notify){
+                $notify= $user->notifications->map(function($notify){
+                    return [
+                        'blogtitulo'=> $notify->data['blogtitulo'],
+                        'blogdescripcion'=> $notify->data['blogdescripcion'],
+                        'blogcontenido'=> $notify->data['blogcontenido'],
+                        'categorie'=> $notify->data['categorie_id'],
+                        'perfil'=> $notify->data['perfil'],
+                        'user'=> $notify->data['user'],
+                        'date'=> $notify->data['date']
+                    ];
+    
+                });
                 event(new NotifyEventBlog($notify,$user->roles[0]->slug,$user->id));
             });
 

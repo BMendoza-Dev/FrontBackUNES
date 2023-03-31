@@ -18,10 +18,12 @@ class NotifyBlogsPorAprobar extends Notification
      * @return void
      */
     private $date;
-    public function __construct(Blog $blog,$date)
+
+    public function __construct(Blog $blog,$date,$id_to)
     {
         $this->blog = $blog;
         $this->date = $date;
+
     }
 
     /**
@@ -58,6 +60,7 @@ class NotifyBlogsPorAprobar extends Notification
     public function toArray($notifiable)
     {
         $perfil=auth()->user()->load('Perfil');
+
         $catename= Categorie::findOrFail($this->blog->categorie_id);
         return [
         'id'=>    $this->blog->id,
