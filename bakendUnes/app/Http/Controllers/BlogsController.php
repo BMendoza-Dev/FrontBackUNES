@@ -61,7 +61,8 @@ class BlogsController extends Controller
                     'blogcontenido'=> $notify->data['blogcontenido'],
                     'categorie'=> $notify->data['categorie_id'],
                     'perfil'=> $notify->data['perfil'],
-                    'user'=> $notify->data['user']
+                    'user'=> $notify->data['user'],
+                    'date'=> $notify->data['date']
                 ];
 
             });
@@ -113,7 +114,8 @@ class BlogsController extends Controller
                     'blogcontenido'=> $notify->data['blogcontenido'],
                     'categorie'=> $notify->data['categorie_id'],
                     'perfil'=> $notify->data['perfil'],
-                    'user'=> $notify->data['user']
+                    'user'=> $notify->data['user'],
+                    'date'=> $notify->data['date']
                 ];
 
             });
@@ -224,7 +226,8 @@ class BlogsController extends Controller
                     'blogcontenido'=> $notify->data['blogcontenido'],
                     'categorie'=> $notify->data['categorie_id'],
                     'perfil'=> $notify->data['perfil'],
-                    'user'=> $notify->data['user']
+                    'user'=> $notify->data['user'],
+                    'date'=> $notify->data['date']
                 ];
 
             });
