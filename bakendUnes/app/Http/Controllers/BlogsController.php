@@ -58,7 +58,7 @@ class BlogsController extends Controller
 
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
-            })->each(function(User $user)use($notify){
+            })->each(function(User $user){
                 $notify=$user->notifications->map(function($notify){
                     return [
                         'blogtitulo'=> $notify->data['blogtitulo'],
@@ -110,7 +110,7 @@ class BlogsController extends Controller
 
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
-            })->each(function(User $user)use($notify){
+            })->each(function(User $user){
                 $notify= $user->notifications->map(function($notify){
                     return [
                         'blogtitulo'=> $notify->data['blogtitulo'],
