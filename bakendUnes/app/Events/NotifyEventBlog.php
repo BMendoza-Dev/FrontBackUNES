@@ -19,8 +19,8 @@ class NotifyEventBlog implements  ShouldBroadcast
      * @var array
      */
     public $blog;
-    public $rol;
-    public $to_id;
+    private $rol;
+    private $to_id;
     /**
      * 
      * Create a new event instance.
