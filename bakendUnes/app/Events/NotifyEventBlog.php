@@ -25,9 +25,11 @@ class NotifyEventBlog implements  ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($blog)
+    public function __construct($blog,$rol,$to_id)
     {
         $this->blog = $blog;
+        $this->rol= $rol;
+        $this->to_id= $to_id;
     }
 
     /**
@@ -38,6 +40,7 @@ class NotifyEventBlog implements  ShouldBroadcast
     public function broadcastOn()
     {
        // return new PrivateChannel("channel-NotifyBlosAdmin.{$this->response['permission']}");
-        return new Channel("channel-NotifyBlosAdmin.admin");
+     return new Channel("channel-NotifyBlosAdmin.{$this->rol}.{$this->to_id}");
+      //  return new Channel("channel-NotifyBlosAdmin.admin");
     }
 }

@@ -65,7 +65,12 @@ class BlogsController extends Controller
                 ];
 
             });
-            event(new NotifyEventBlog($notify));
+            User::whereHas('roles', function ($query){
+                $query->where('slug','super_administrador');
+            })->each(function(User $user){
+                event(new NotifyEventBlog($notify,'super_administrador',$user->id));
+            });
+       //     event(new NotifyEventBlog($notify,'super_administrador',));
 
         }
         
