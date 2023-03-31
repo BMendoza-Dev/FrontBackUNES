@@ -117,7 +117,11 @@ class BlogsController extends Controller
                 ];
 
             });
-            event(new NotifyEventBlog($notify));
+            User::whereHas('roles', function ($query){
+                $query->where('slug','super_administrador');
+            })->each(function(User $user)use($notify){
+                event(new NotifyEventBlog($notify,$user->roles[0]->slug,$user->id));
+            });
 
         }
 
@@ -129,7 +133,7 @@ class BlogsController extends Controller
         User::whereHas('roles', function ($query){
             $query->where('slug','super_administrador');
         })->each(function(User $user)use($blog){
-            $user->notify(new NotifyBlogsPorAprobar($blog));
+            $user->notify(new NotifyBlogsPorAprobar($blog,'Revisar Blog'));
         });
     }
 
@@ -180,11 +184,18 @@ class BlogsController extends Controller
      }
      public function AprobarBlogEnUltimaNoticias(Request $request){
         $blog =  Blog::findOrFail($request->id);
+        
+       // $blog =  $blogs = Blog::with('perfil.user')->where('id', $request->id)->get();
+       
+
+             
         if($request->aprobado==true){
        
         $blog->aprobado=$request->aprobado;
         
         $blog->update();
+        self::make_blogs_notify_aprovate($blog,'Blog Aprobado');
+       
         return ['respuesta'=>'200', 'menssaje'=>'Actualizado a Ultimas noticias'];
         }else{
             $blog->ultimanoticia=false;
@@ -195,10 +206,31 @@ class BlogsController extends Controller
                 'user_id'=>Auth::user()->id
                 ]);
                 $blog->update();
+                self::make_blogs_notify_aprovate($blog,'Blog Rechazado');
                 return ['respuesta'=>'200', 'menssaje'=>'comentario creado correctamente'];
         }
         
      }
+
+     static function make_blogs_notify_aprovate($blog,$date){
+        
+        $blog->load('perfil.user');
+        foreach($blog->perfil->user as $usernotify){
+            $usernotify->notify(new NotifyBlogsPorAprobar($blog,$date));
+            $notify=  $usernotify->notifications->map(function($notify){
+                return [
+                    'blogtitulo'=> $notify->data['blogtitulo'],
+                    'blogdescripcion'=> $notify->data['blogdescripcion'],
+                    'blogcontenido'=> $notify->data['blogcontenido'],
+                    'categorie'=> $notify->data['categorie_id'],
+                    'perfil'=> $notify->data['perfil'],
+                    'user'=> $notify->data['user']
+                ];
+
+            });
+            event(new NotifyEventBlog($notify,$usernotify->roles[0]->slug,$usernotify->id));
+        }
+    }
 
      public function ObtenerBlog(Request $request){
         if($request->id==null || $request->id=='' ){

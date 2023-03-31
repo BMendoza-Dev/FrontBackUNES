@@ -42,7 +42,7 @@ class NotifyEventBlog implements  ShouldBroadcast
     public function broadcastOn()
     {
        // return new PrivateChannel("channel-NotifyBlosAdmin.{$this->response['permission']}");
-     return new Channel("channel-NotifyBlosAdmin.{$this->rol}.{$this->to_id}");
+     return new PrivateChannel("channel-NotifyBlosAdmin.{$this->rol}.{$this->to_id}");
       //  return new Channel("channel-NotifyBlosAdmin.admin");
     }
 }

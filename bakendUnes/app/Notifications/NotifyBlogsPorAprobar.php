@@ -17,9 +17,11 @@ class NotifyBlogsPorAprobar extends Notification
      *
      * @return void
      */
-    public function __construct(Blog $blog)
+    private $date;
+    public function __construct(Blog $blog,$date)
     {
         $this->blog = $blog;
+        $this->date = $date;
     }
 
     /**
@@ -64,7 +66,8 @@ class NotifyBlogsPorAprobar extends Notification
         'blogcontenido'=>  $this->blog->blogcontenido,
         'categorie_id'=> $catename->categorianame,
         'perfil'=>  $perfil->perfil->usedFirstName." ".$perfil->perfil->usedLastName,
-        'user'=> auth()->user()->name
+        'user'=> auth()->user()->name,
+        'date'=> $this->date
         ];
     }
 }
