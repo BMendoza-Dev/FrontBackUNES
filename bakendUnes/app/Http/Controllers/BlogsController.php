@@ -71,9 +71,11 @@ class BlogsController extends Controller
         
         return  response()->json('200');
         }else{
+           
         $Categoria = Categorie::findOrFail($request->categorie_id);
-        $Perfil = Perfil::findOrFail($request->perfils_id);
+        
         $blog= Blog::findOrFail($request->blog_id);
+        
         $blog->blogtitulo= $request->blogtitulo;
         $blog->blogdescripcion=$request->blogdescripcion;
         $blog->blogcontenido=$request->blogcontenido;
@@ -85,6 +87,7 @@ class BlogsController extends Controller
         $blog->perfil_id=$perfil_id->perfil->id;
         $blog->users_id=auth()->user()->id;
         $blog->update();
+        
             if($request->imagen!=null){
             $urlimagenes2=[];
             $urlimagenes2['imagen']=['imagen' =>  base64_decode($request->imagen)];

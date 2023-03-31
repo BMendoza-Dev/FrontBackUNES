@@ -97,6 +97,16 @@ class PerfilesController extends Controller
                 'slug' => 'EditaBlogs',
                 'descripcion' => 'tiene permisos para acceder a las vistas de editar blos',
             ],
+            [
+                'nombre' => 'Notificacion de aprobar blog ultima noticia Admin',
+                'slug' => 'NotifyBlogAprobar',
+                'descripcion' => 'Pemite escuchar todas las notificaciones cuando se crea un blog a aprobarse para ultimas noticias',
+            ],
+            [
+                'nombre' => 'Notificacion de blog denegado o aprobado para los usuarios o el usuario del perfil al que se le creo un nuevo blog ',
+                'slug' => 'Notifyblog',
+                'descripcion' => 'Pemite escuchar las notificaciones relacionadas a la aprobacion o denegacion del blog creado para ultima noticia',
+            ],
         ]);
     
         $superAdmin = [
@@ -121,10 +131,10 @@ class PerfilesController extends Controller
         ];
         
         $superAdmin = Roles::create($superAdmin);
-        $superAdmin->permisos()->sync([1,3,4,5,6,7,8,9,10,11]);
+        $superAdmin->permisos()->sync([1,3,4,5,6,7,8,9,10,11,12]);
         
         $asambleista = Roles::create($asambleista);
-        $asambleista->permisos()->sync([1,9,10,11]);
+        $asambleista->permisos()->sync([1,9,10,11,13]);
         
         $asistente = Roles::create($asistente);
         $asistente->permisos()->sync([1,9,10,11]);
@@ -142,7 +152,6 @@ class PerfilesController extends Controller
 
         foreach (collect($Ambitoterritorial->json()) as $Ambitoterritorialaux){
             $territorial = new Divisionterritorial();
-
             $territorial->id= $Ambitoterritorialaux['id'];
             $territorial->name= $Ambitoterritorialaux['name'];
             $territorial->save();
