@@ -16,7 +16,7 @@ use App\Events\NotifyEventBlog;
 use App\Notifications\NotifyBlogsPorAprobar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-
+use Carbon\Carbon;
 class BlogsController extends Controller
 {
     public function index(){
@@ -187,7 +187,12 @@ class BlogsController extends Controller
      }
      public function AprobarBlogEnUltimaNoticias(Request $request){
         $blog =  Blog::findOrFail($request->id);
-        
+        $fechaHora1 = Carbon::parse($blog->updated_at);
+        $fechaHora2 = Carbon::parse($request->updated_at);
+
+        if (!$fechaHora1->equalTo($fechaHora2)) {
+            return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado debido a que el creador lo ha modificado'];
+        } 
        // $blog =  $blogs = Blog::with('perfil.user')->where('id', $request->id)->get();
        
 
