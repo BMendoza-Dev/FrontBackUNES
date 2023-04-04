@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Echo from 'laravel-echo';
 
 
@@ -9,26 +9,31 @@ import Echo from 'laravel-echo';
 export class LoginService {
   urlLocal: string;
   urlAWS: string;
-
+  url:string;
 
   constructor(private http: HttpClient) { 
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
+    this.url = this.urlAWS;
   }
 
   ValidarLogin(data: any) {
     let formData = new FormData();
-    let url = this.urlAWS+'Login';
+    let url = this.url+'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
 
-    
+    const httpheaders = new HttpHeaders({
+      'Accept': 'application/json'
+    });
     
     return new Promise((resolve, reject) => {
-      this.http.post(url, formData).subscribe(res => {
+      this.http.post(url, formData, {headers:httpheaders}).subscribe(res => {
         resolve(res); {
+          
         }
       }, error => {
+        
         reject(error);
       });
     });

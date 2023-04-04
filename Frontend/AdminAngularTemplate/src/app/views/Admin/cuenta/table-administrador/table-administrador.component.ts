@@ -51,6 +51,7 @@ export class TableAdministradorComponent implements OnInit{
       this.spinnerService.detenerSpinner();
       }
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -97,6 +98,7 @@ export class TableAdministradorComponent implements OnInit{
       })
       this.cargarTabla();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }

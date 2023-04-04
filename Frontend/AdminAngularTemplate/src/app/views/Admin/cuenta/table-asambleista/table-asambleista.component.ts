@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministradorService } from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
-import { NgxSpinnerService } from "ngx-spinner";
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
 
@@ -45,9 +44,6 @@ export class TableAsambleistaComponent implements OnInit {
     console.log('Submit... 1');
   }
 
-  //cargarTableFroms(datos:any){
-  //this.cargarTabla();
-  //}
 
   cambiarIconAsam() { //Cambio de Icono en el Password Input Asambleista
     if (this.iconEyeAsam == "text") {
@@ -87,6 +83,7 @@ export class TableAsambleistaComponent implements OnInit {
       this.cargarTabla();
 
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -111,6 +108,7 @@ export class TableAsambleistaComponent implements OnInit {
       }
       this.spinnerService.detenerSpinner();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -123,9 +121,7 @@ export class TableAsambleistaComponent implements OnInit {
     this.datosAsambleistasInput.push(estado);
     this.datosAsambleistasInput.push(id);
     this.datosAsambleistasInput.push(perfil_id)
-
     this.cargarCamposModalEdit();
-    //this.locaServicio.emitirEventoModalAsalbleistaEditar();
   }
 
   cargarCamposModalEdit() {
@@ -144,20 +140,12 @@ export class TableAsambleistaComponent implements OnInit {
 
   }
 
-  /*onTableSizeChange(event:any):void{
-    this.tableSize = event.target.value;
-    this.page = 1;
-    
-  }*/
-
   cuentasFilter: any = [];
   dataPaginate(_event: any) {
     this.page=1;
     this.cuentasFilter = [];
-    //this.cuentasPaginateFilter=[];
     if (this.search == "") {
 
-      //this.citasMGPaginate = this.citasMG.slice(0, 10);
     } else {
 
       for (const x of this.dataTabla) {
@@ -169,14 +157,5 @@ export class TableAsambleistaComponent implements OnInit {
     }
   }
 
-  spinnerConfig = {
-    bdColor: 'rgba(0, 0, 0, 0.8)',
-    size: 'medium',
-    color: '#fff',
-    type: 'square-jelly-box',
-    fullScreen: true,
-    template: null,
-    showSpinner: false
-  };
 
 }

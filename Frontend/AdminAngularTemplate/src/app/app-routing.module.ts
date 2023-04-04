@@ -9,8 +9,6 @@ import { RegisterComponent } from './views/pages/register/register.component';
 
 import { AdminLoginGuard } from './guards/admin-login.guard';
 import { AsambLoginGuard } from './guards/asamb-login.guard';
-import { InicioLoginGuard } from './guards/inicio-login.guard'
-import { RolesGuard } from './guards/roles.guard'
 
 
 export const routes: Routes = [
@@ -26,19 +24,17 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
-      {
-        path: 'asambleista',
-        loadChildren: () => import('./views/Asambleista/perfil/perfil.module').then((m) => m.PerfilModule)
-      },
 
       {
         path: 'administrador_nav_1',
+        canActivate:[AdminLoginGuard],
         loadChildren: () => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule),
         
       },
 
       {
         path: 'administrador_nav_2',
+        canActivate:[AsambLoginGuard],
         loadChildren: () => import('./views/Asambleista/biografia/biografia.module').then((m) => m.BiografiaModule),
         
       },
@@ -60,15 +56,13 @@ export const routes: Routes = [
       },
       {
         path: 'admin-categoria',
+        canActivate:[AdminLoginGuard],
         loadChildren: () =>
         import('./views/Admin/categoria/categoria.module').then((m) => m.CategoriaModule)
       },
 
 
-
-
-
-
+      
       {
         path: 'theme',
         loadChildren: () =>

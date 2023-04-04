@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsBiografiaComponent } from './forms-biografia/forms-biografia.component';
+import { AsambLoginGuard } from 'src/app/guards/asamb-login.guard';
 
 const routes: Routes = [
   {
@@ -10,13 +11,9 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'administrador_nav_2'
-      },
-      {
         path: 'biografia',
         component: FormsBiografiaComponent,
+        canActivate:[AsambLoginGuard],
         data: {
           title: 'Biografia'
         }

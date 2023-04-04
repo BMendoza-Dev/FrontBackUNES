@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { debounce, debounceTime, map, Observable, startWith } from 'rxjs';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { ValidationFormsService } from 'src/app/servicios/validation-forms.service';
 import Swal from 'sweetalert2';
@@ -69,6 +68,7 @@ export class FormsDelegadoComponent implements OnInit {
       Swal.fire('Guardado!', '', 'success')
       this.onReset2();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -102,8 +102,10 @@ export class FormsDelegadoComponent implements OnInit {
   }
 
   cargarCuentasAsambleista() {
-    this.adminService.cargarCuentaByRol("asambleista").then(data => {
+    this.adminService.cargarCuentaByRol("asambleista").then((data:any) => {
       this.dataAsmbleista = data;
+      
+      if(data.code != 404){
       var datoPrueba: any = [{ id: this.dataAsmbleista[0].perfil_id, name: this.dataAsmbleista[0].name }];
       for (var i = 1; i < this.dataAsmbleista.length; i++) {
         if (this.dataAsmbleista[i].estado == 1) {
@@ -115,7 +117,9 @@ export class FormsDelegadoComponent implements OnInit {
       }
       this.dataAsmbleista = datoPrueba;
       this.cargarAutoComplete();
+    }
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     });
   }

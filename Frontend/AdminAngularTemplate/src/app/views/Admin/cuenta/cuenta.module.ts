@@ -8,7 +8,6 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { IconModule } from '@coreui/icons-angular';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   ButtonGroupModule,
@@ -46,9 +45,6 @@ import { FormsAdministradorComponent } from './forms-administrador/forms-adminis
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TableAdministradorComponent } from './table-administrador/table-administrador.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
-import { FiltroCuentasPipe } from 'src/app/pipes/filtro-cuentas.pipe';
-import { TablaPracticaComponent } from './tabla-practica/tabla-practica.component';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -69,7 +65,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TableDelegadoComponent,
     FormsAdministradorComponent,
     TableAdministradorComponent,
-    TablaPracticaComponent,
 
   ],
   imports: [

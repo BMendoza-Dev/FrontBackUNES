@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   templateUrl: './list-blogs.component.html',
   styleUrls: ['./list-blogs.component.scss']
 })
-export class ListBlogsComponent implements OnInit, OnDestroy {
+export class ListBlogsComponent implements OnInit {
   visible: boolean = false;
   visibleDeny: boolean = false;
   customStylesValidated2: boolean = false;
@@ -43,6 +43,9 @@ export class ListBlogsComponent implements OnInit, OnDestroy {
   listarCategoriasBlog() {
     this.service.ListarCateBlog().then((data: any) => {
       this.listCateg = data;
+    }).catch(error => {
+      this.spinnerService.detenerSpinner();
+      console.log(error)
     })
   }
 
@@ -83,7 +86,9 @@ export class ListBlogsComponent implements OnInit, OnDestroy {
         this.listBlog = '';
         this.spinnerService.detenerSpinner();
       }
-
+    }).catch(error =>{
+      this.spinnerService.detenerSpinner();
+      console.log(error)
     })
   }
 
@@ -139,7 +144,8 @@ export class ListBlogsComponent implements OnInit, OnDestroy {
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
           console.log('script loaded ', data);
-        }).catch(error => console.log(error));
+        }).catch(error => 
+          console.log(error));
       this.spinnerService.detenerSpinner();
       this.toggleLiveDemo();
     }).catch((error) => {
@@ -169,7 +175,7 @@ export class ListBlogsComponent implements OnInit, OnDestroy {
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 2000,
+      timer: 7000,
       timerProgressBar: false,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -181,7 +187,6 @@ export class ListBlogsComponent implements OnInit, OnDestroy {
       title: 'Cuenta actualizada!'
     })
   }
-
 
   clear(): void {
     this.scriptService.removeScript('twitter');
@@ -199,9 +204,6 @@ export class ListBlogsComponent implements OnInit, OnDestroy {
     console.log('Submit... 2');
   }
 
-  ngOnDestroy() {
-
-
-  }
+  
 
 }

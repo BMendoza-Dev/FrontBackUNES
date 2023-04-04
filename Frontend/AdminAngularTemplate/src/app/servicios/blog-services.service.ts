@@ -8,16 +8,19 @@ import { catchError, map, tap, throwError } from 'rxjs';
 export class BlogServicesService {
   urlLocal: string;
   urlAWS: string;
+  url:string;
   constructor(private http: HttpClient) {
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
+    this.url = this.urlAWS
   }
 
   crear_updateBlog(_datos: any) {
-    let url = this.urlAWS + 'CrearBlog'
+    let url = this.url + 'CrearBlog'
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     let formData = new FormData();
@@ -40,10 +43,11 @@ export class BlogServicesService {
   }
 
   ListarCateBlog() {
-    let url = this.urlAWS + 'ListarCateBlog'
+    let url = this.url + 'ListarCateBlog'
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -57,9 +61,10 @@ export class BlogServicesService {
   }
 
   listarBlog(_cate_id:any) {
-    let url = this.urlAWS + 'ListarBlogsPorAprobar?cate_id='+_cate_id;
+    let url = this.url + 'ListarBlogsPorAprobar?cate_id='+_cate_id;
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
@@ -72,9 +77,10 @@ export class BlogServicesService {
   }
 
   getBlog(id: any) {
-    let url = this.urlAWS + 'ObtenerBlog?id=' + id;
+    let url = this.url + 'ObtenerBlog?id=' + id;
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
@@ -88,10 +94,11 @@ export class BlogServicesService {
 
   AprobarBlogEnUltimaNoticias(_datos: any) {
 
-    let url = this.urlAWS + 'AprobarBlogEnUltimaNoticias'
+    let url = this.url + 'AprobarBlogEnUltimaNoticias'
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     let formData = new FormData();
@@ -111,13 +118,12 @@ export class BlogServicesService {
   }
 
   ObtenerBlogPorPerfil(_cate_id:any){
-    let url = this.urlAWS + 'ObtenerBlogPorPerfil?cate_id='+_cate_id;
+    let url = this.url + 'ObtenerBlogPorPerfil?cate_id='+_cate_id;
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
-
-    
     return new Promise((resolve, reject) => {
       this.http.get(url, { headers: httpheaders }).subscribe(res => {
         resolve(res); {

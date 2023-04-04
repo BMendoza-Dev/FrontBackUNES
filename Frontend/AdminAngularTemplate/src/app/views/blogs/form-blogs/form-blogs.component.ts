@@ -12,21 +12,20 @@ import { FormControl, Validators } from '@angular/forms';
 export class FormBlogsComponent implements OnInit {
   urlGet: any = '';
   urlSet: any = '';
-  @Input() datosEdit:any;
+  @Input() datosEdit: any;
   @Output() cargarListBlog = new EventEmitter<void>();
-  constructor(private spinnerService:SpinnerService,private service: BlogServicesService) { 
-    
+  constructor(private spinnerService: SpinnerService, private service: BlogServicesService) {
+
   }
 
-  miControl:any = new FormControl('', Validators.required);
+  miControl: any = new FormControl('', Validators.required);
 
   public datos: any = ""; public Editor: any = ClassicEditor;
-  titulo: string=''; descripcion: string = ''; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
-  listCateg:any; frameWidth: number = 900;
-  frameHeight: number = 250; 
+  titulo: string = ''; descripcion: string = ''; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
+  listCateg: any; frameWidth: number = 900;
+  frameHeight: number = 250;
   ngOnInit(): void {
-    
-    if(this.datosEdit){
+    if (this.datosEdit) {
       this.urlGet = this.datosEdit.urlGet;
       this.categorie_id = this.datosEdit.categoria;
       this.titulo = this.datosEdit.blogtitulo;
@@ -35,12 +34,11 @@ export class FormBlogsComponent implements OnInit {
       this.blog_id = this.datosEdit.id;
       this.urlSet = this.datosEdit.urlSet
     }
-    
     this.listarCategoriasBlog();
   }
 
-  listarCategoriasBlog(){
-    this.service.ListarCateBlog().then((data:any) =>{
+  listarCategoriasBlog() {
+    this.service.ListarCateBlog().then((data: any) => {
       this.listCateg = data;
     })
   }
@@ -50,16 +48,14 @@ export class FormBlogsComponent implements OnInit {
       'heading', '|',
       'fontfamily', 'fontsize',
       'alignment',
-      'fontColor', 'fontBackgroundColor', '|',
+      'fontColor', '|',
       'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
       'link', '|',
-      'bulletedList', '-', 'numberedList', 'todoList', '|',
+      'bulletedList', 'numberedList', 'todoList', '|',
       'code', 'htmlEmbed', '|',
-      'insertTable', '|',
       'imageUpload', 'blockQuote', '|',
-      'todoList'
-      ,
-      'undo', 'redo',],
+      'todoList', 'undo', 'redo'],
+    shouldNotGroupWhenFull: true,
     heading: {
       options: [
         { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
@@ -106,7 +102,6 @@ export class FormBlogsComponent implements OnInit {
           value: '75'
         }
       ],
-
       // You need to configure the image toolbar, too, so it shows the new style
       // buttons as well as the resize buttons.
       toolbar: [
@@ -117,6 +112,7 @@ export class FormBlogsComponent implements OnInit {
         'toggleImageCaption',
       ]
     },
+
     lenguage: 'es'
   }
 
@@ -163,16 +159,15 @@ export class FormBlogsComponent implements OnInit {
           'imagen': this.urlSet,
           'blog_id': this.blog_id
         }
-        
-        this.service.crear_updateBlog(data).then((result: any) => {
-          
+
+        this.service.crear_updateBlog(data).then( () => {
           this.spinnerService.detenerSpinner();
-          
           this.onReset2();
         }).catch((error) => {
+          this.spinnerService.detenerSpinner();
           console.log(error);
         })
-        
+
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la cuenta', '', 'info')
       }
@@ -200,7 +195,7 @@ export class FormBlogsComponent implements OnInit {
 
   onReset2() {
     Swal.fire('Guardado!', '', 'success')
-    if(this.datosEdit){
+    if (this.datosEdit) {
       this.alert();
       this.cargarListBlog.emit();
     }

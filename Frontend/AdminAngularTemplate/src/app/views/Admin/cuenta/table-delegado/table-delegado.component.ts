@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdministradorService } from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
-import { NgxSpinnerService } from "ngx-spinner";
 import { SpinnerService } from 'src/app/servicios/spinner.service';
 @Component({
   selector: 'app-table-delegado',
@@ -40,11 +39,10 @@ export class TableDelegadoComponent implements OnInit{
     this.administradorService.cargarCuentaByRol("asistente").then((data:any) => {
       if(data.code != 404){
       this.dataTabla = data;
-      this.limpiarModal();
-      //this.spinner.hide('sample');
       }
       this.spinnerService.detenerSpinner();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -91,6 +89,7 @@ export class TableDelegadoComponent implements OnInit{
       })
       this.cargarTabla();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -124,12 +123,6 @@ export class TableDelegadoComponent implements OnInit{
      
   }
 
-
-  limpiarModal() {
-    
-
-  }
-
   onTableDataChange(event: any) {
     this.page = event;
   }
@@ -157,14 +150,15 @@ export class TableDelegadoComponent implements OnInit{
   
   cargarCuentaAsambleistaAutoCom() {
     this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
+      if(data.code != 404){
       this.dataAsam = data.map((item:any) =>{
         if(item.estado == 1){
           return item
         } 
       });
-      //this.POSTS = this.dataTabla;
-      //this.limpiarModal();
+    }
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -187,14 +181,5 @@ export class TableDelegadoComponent implements OnInit{
     this.visible = event;
   }
 
-  spinnerConfig = {
-    bdColor: 'rgba(0, 0, 0, 0.8)',
-    size: 'medium',
-    color: '#fff',
-    type: 'square-jelly-box',
-    fullScreen: true,
-    template: null,
-    showSpinner: false
-  };
 
 }

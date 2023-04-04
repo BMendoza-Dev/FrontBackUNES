@@ -1,7 +1,10 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import Echo from 'laravel-echo';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
+import { LoginService } from 'src/app/servicios/login.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
 import Swal from 'sweetalert2';
@@ -24,9 +27,16 @@ export class LastNewsAgreeComponent implements OnInit {
   blogFilter: any = [];
   @Input() nameCat: any; _categoria_id: any = 0;
   listCateg: any;
-  categorie_id: any = "Todas las categorías";
-  constructor(private spinnerService: SpinnerService, private scriptService: ScripServiceService, private service: BlogServicesService, private sanitizer: DomSanitizer) {
-    
+  categorie_id: any = "Todas las categorías"; echo: Echo;
+  updated_at: any;
+  constructor(private serviceLogin:LoginService,public rutas: Router, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
+     private service: BlogServicesService, private sanitizer: DomSanitizer) {
+      this.echo = this.serviceLogin.getSockets();
+      let rol = localStorage.getItem('sesionLoginInicio'); let id = localStorage.getItem('idUser');
+      this.echo.channel('channel-NotifyBlosAdmin.'+rol+'.'+id)
+        .listen('NotifyEventBlog', () => {
+          this.blogList();
+        });
   }
 
   listBlog: any; urlGet: SafeUrl; blogtitulo: string; blogdescripcion: string; blogcontenido: SafeHtml; fecha: any;
@@ -80,6 +90,8 @@ export class LastNewsAgreeComponent implements OnInit {
       }
       this.spinnerService.detenerSpinner();
     }).catch((error) => {
+      
+      if(error.status){this.rutas.navigate(['/login']);}
       this.spinnerService.detenerSpinner();
       console.log(error);
     })
@@ -118,6 +130,7 @@ export class LastNewsAgreeComponent implements OnInit {
     this.idBlog = id;
     this.spinnerService.llamarSpinner()
     this.service.getBlog(id).then((data: any) => {
+      this.updated_at = data[0].updated_at;
       this.categoria = data[0].categoria;
       this.blogtitulo = data[0].blogtitulo;
       this.blogdescripcion = data[0].blogdescripcion;
@@ -175,11 +188,12 @@ export class LastNewsAgreeComponent implements OnInit {
       'id': this.idBlog,
       'aprobado': value,
       'description': this.motivoText,
-      'titulo': this.motivoTitulo
+      'titulo': this.motivoTitulo,
+      'updated_at':  this.updated_at
     }
 
-    this.service.AprobarBlogEnUltimaNoticias(datos).then(() => {
-
+    this.service.AprobarBlogEnUltimaNoticias(datos).then((data) => {
+data;debugger
       if (value == 0) {
         this.toggleLiveDemoDeny();
       } else {
@@ -189,6 +203,7 @@ export class LastNewsAgreeComponent implements OnInit {
       this.alert();
       this.blogList();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -227,9 +242,6 @@ export class LastNewsAgreeComponent implements OnInit {
   denyBlog() {
     if (this.motivoTitulo != '' && this.motivoText != '') {
       this.blogAprobarDeny(0);
-
-    } else {
-
     }
 
   }
@@ -250,6 +262,9 @@ export class LastNewsAgreeComponent implements OnInit {
     console.log('Submit... 2');
   }
 
-
+  ngOnDestroy():void{
+    
+    this.echo.leaveAllChannels();
+  }
 
 }

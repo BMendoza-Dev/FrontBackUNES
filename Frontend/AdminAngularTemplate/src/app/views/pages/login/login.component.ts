@@ -20,12 +20,14 @@ export class LoginComponent implements OnInit {
   msgPass = "";
   visible = false;
   dismissible = true;
-  constructor(public login: LoginService, public rutas: Router, private spinnerService:SpinnerService) { }
+  constructor(public login: LoginService, public rutas: Router, 
+    private spinnerService:SpinnerService) { }
   
    
 
   ngOnInit(): void {
-    
+    this.spinnerService.detenerSpinner();
+    localStorage.clear();
   }
 
   onSubmit1() {
@@ -35,16 +37,20 @@ export class LoginComponent implements OnInit {
 
 
   iniciarSesion() {
-    if (this.email == "" || !this.email.includes('@') || this.email.length < 6 || this.password == "") {
+    
+    if (this.email == "" || !this.email.includes('@') || this.password == "") {
       
       if (this.password == "") { 
-        this.msgError = "Ingrese una contraseña" 
+        this.msgError = "Ingrese una contraseña"; this.visible=true 
+        
       }
       if (!this.email.includes('@')) { 
         this.msgError = "Ingrese un correo electrónico"; this.visible=true 
+        
       }
 
     } else {
+      
       this.spinnerService.llamarSpinner();
       let inputlogin = {
         "email": this.email,
@@ -52,7 +58,10 @@ export class LoginComponent implements OnInit {
       }
 
       this.login.ValidarLogin(inputlogin).then((data: any) => {
-        this.arrayData = data;
+        
+        if (data.code != "401") {
+          this.arrayData = data;
+        
         //localStorage.setItem('sesionLogin', this.arrayData['result'][0].id_cuenta);
         //localStorage.setItem('rol', this.arrayData['result'][0].rol.rol);
         //localStorage.setItem('sesionLoginInicio', this.arrayData['result'][0].rol.rol);
@@ -62,8 +71,7 @@ export class LoginComponent implements OnInit {
         let user = this.arrayData['usuario'][0].name;
         let id_user = this.arrayData['usuario'][0].id;
         let key = "GAMABAML"
-        if (data.error != "Unauthorized") {
-        localStorage.clear();
+        //localStorage.clear();
         localStorage.setItem('token', token);
         localStorage.setItem('email', this.email);
         localStorage.setItem('sesionLoginInicio', sesionLoginInicio);
@@ -74,11 +82,13 @@ export class LoginComponent implements OnInit {
         this.spinnerService.detenerSpinner();
         this.rutas.navigate(['/inicio']);
         }else{
-          this.msgError = "Cuenta de usuario no válido.";
+          this.spinnerService.detenerSpinner();
+          this.msgError = "Cuenta de usuario no válido."; this.visible=true 
         }
 
-      }).catch(error => {
+      }).catch((error:any) => {
         
+        error; 
         this.rutas.navigate(['/404']);
 
       })

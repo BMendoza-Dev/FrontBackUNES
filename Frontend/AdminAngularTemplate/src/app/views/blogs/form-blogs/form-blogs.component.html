@@ -27,7 +27,7 @@
             <p class="hint end"><span id="message-length"></span> {{descripcion.length}} / 120</p>
         </div>
         <div class="mb-3">
-            <label cLabel="" for="exampleFormControlCkeditor">Contenido:<span class="is-required">*</span></label>
+            <label cLabel for="exampleFormControlCkeditor">Contenido:<span class="is-required">*</span></label>
             <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
             {{datos}}
         </div>

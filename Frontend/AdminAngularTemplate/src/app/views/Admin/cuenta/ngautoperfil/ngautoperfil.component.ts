@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AdministradorService } from './../../../../servicios/administrador.service';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
-import Swal from 'sweetalert2';
-import { SpinnerService } from 'src/app/servicios/spinner.service';
 @Component({
   selector: 'app-ngautoperfil',
   templateUrl: './ngautoperfil.component.html',

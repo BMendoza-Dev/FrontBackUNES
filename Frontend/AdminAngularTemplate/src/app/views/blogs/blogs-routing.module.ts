@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormBlogsComponent } from './form-blogs/form-blogs.component';
 import { LastNewsAgreeComponent } from './last-news-agree/last-news-agree.component';
 import { ListBlogsComponent } from './list-blogs/list-blogs.component';
+import { AdminLoginGuard } from 'src/app/guards/admin-login.guard';
+import { AsambLoginGuard } from 'src/app/guards/asamb-login.guard';
+import {CombiGuard} from 'src/app/guards/combi.guard'
 
 const routes: Routes = [
   {
@@ -12,13 +15,9 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'blogs'
-      },
-      {
         path: 'form-blogs',
         component: FormBlogsComponent,
+        canActivate:[CombiGuard],
         data: {
           title: 'Form Blogs'
         }
@@ -26,6 +25,7 @@ const routes: Routes = [
       {
         path: 'utlimas-noticias',
         component: LastNewsAgreeComponent,
+        canActivate:[AdminLoginGuard],
         data: {
           title: 'Ultimas Noticias'
         }
@@ -33,6 +33,7 @@ const routes: Routes = [
       {
         path: 'lista-blogs',
         component: ListBlogsComponent,
+        canActivate:[CombiGuard],
         data: {
           title: 'Lista de Blogs'
         }

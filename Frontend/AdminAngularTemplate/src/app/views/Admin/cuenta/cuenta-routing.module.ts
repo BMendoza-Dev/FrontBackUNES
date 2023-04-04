@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsAdministradorComponent } from './forms-administrador/forms-administrador.component';
 import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
-
-
 import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component'
-import { TablaPracticaComponent } from './tabla-practica/tabla-practica.component';
+import { AdminLoginGuard } from 'src/app/guards/admin-login.guard';
 
 const routes: Routes = [{
   path: '',
@@ -14,13 +12,9 @@ const routes: Routes = [{
   },
   children: [
     {
-      path: '',
-      pathMatch: 'full',
-      redirectTo: 'administrador_nav_1'
-    },
-    {
       path: 'asambleistas',
       component: NgautoperfilComponent,
+      canActivate:[AdminLoginGuard],
       data: {
         title: 'Asambleistas'
       }
@@ -28,6 +22,7 @@ const routes: Routes = [{
     {
       path: 'delegados',
       component: FormsDelegadoComponent,
+      canActivate:[AdminLoginGuard],
       data: {
         title: 'Delegados'
       }
@@ -35,15 +30,9 @@ const routes: Routes = [{
     {
       path: 'admin',
       component: FormsAdministradorComponent,
+      canActivate:[AdminLoginGuard],
       data: {
         title: 'Administrador'
-      }
-    },
-    {
-      path: 'pracTable',
-      component: TablaPracticaComponent,
-      data: {
-        title: 'Tabla'
       }
     }
 

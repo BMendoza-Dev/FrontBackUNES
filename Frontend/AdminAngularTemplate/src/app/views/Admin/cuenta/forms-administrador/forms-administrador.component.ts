@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { ValidationFormsService } from "src/app/servicios/validation-forms.service";
-import { Router } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
 import Swal from 'sweetalert2';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
@@ -77,6 +75,7 @@ export class FormsAdministradorComponent implements OnInit {
       this.onReset2();
       Swal.fire('Guardado!', '', 'success');
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
@@ -107,26 +106,6 @@ export class FormsAdministradorComponent implements OnInit {
     
   }
 
-  /*cargarCuentasAsambleista() {
-    this.adminService.cargarCuentaByRol("asambleista").then(data => {
-      this.dataAsmbleista = data;
-      var datoPrueba: any = [{ id: this.dataAsmbleista[0].perfil_id, name: this.dataAsmbleista[0].name }];
-      for (var i = 1; i < this.dataAsmbleista.length; i++) {
-        if (this.dataAsmbleista[i].estado == 1) {
-          datoPrueba.push({
-            "id": this.dataAsmbleista[i].perfil_id,
-            "name": this.dataAsmbleista[i].name,
-          });
-        }
-      }
-      this.dataAsmbleista = datoPrueba;
-    }).catch(error => {
-      console.log(error);
-    });
-  }*/
-
-  salir() {
-  }
 
   spinnerConfig = {
     bdColor: 'rgba(0, 0, 0, 0.8)',
@@ -154,7 +133,6 @@ export class FormsAdministradorComponent implements OnInit {
       // TODO: Submit form value
       console.warn(this.simpleForm.value);
       this.crearCuentaAdmin();
-      this.salir();
       //this.rutas.navigate(['./']);
     }
   }

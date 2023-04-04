@@ -48,9 +48,9 @@ export class LocalProyectService {
   };
 
   hasPermission(route: any, userRole: string): boolean {
-    
     const allowedRoles = this.userPermissions[route];
     let valor = allowedRoles.includes(userRole)
+    
     return valor;
   }
  

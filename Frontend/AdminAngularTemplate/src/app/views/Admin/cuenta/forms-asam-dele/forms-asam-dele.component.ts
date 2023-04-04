@@ -117,6 +117,7 @@ export class FormsAsamDeleComponent implements OnInit {
       Swal.fire('Guardado!', '', 'success')
       this.onReset1();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
 
@@ -137,6 +138,7 @@ export class FormsAsamDeleComponent implements OnInit {
     this.administradorService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
 
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }

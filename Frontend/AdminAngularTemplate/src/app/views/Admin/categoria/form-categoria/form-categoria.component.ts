@@ -34,6 +34,7 @@ export class FormCategoriaComponent {
       this.dataCat = _cat;
       this.spinnerService.detenerSpinner();
     }).catch(error => {
+      this.spinnerService.detenerSpinner();
       console.log(error)
     })
   }
@@ -63,6 +64,9 @@ export class FormCategoriaComponent {
       this.submitted = false;
       this.simpleForm.reset();
       this.onReset2();
+    }).catch(error =>{
+      this.spinnerService.detenerSpinner();
+      console.log(error)
     })
   }
 
@@ -122,8 +126,6 @@ categoria_id:any;
     this.visible = event;
   }
 
-  clear() { }
-  salir() { }
   onValidate() {
     this.submitted = true;
     // stop here if form is invalid
@@ -137,8 +139,6 @@ categoria_id:any;
       // TODO: Submit form value
       console.warn(this.simpleForm.value);
       this.crearCatBlog();
-      this.salir();
-      //this.rutas.navigate(['./']);
     }
   }
 
@@ -201,7 +201,6 @@ categoria_id:any;
       // TODO: Submit form value
       console.warn(this.simpleFormEdit.value);
       this.editCat();
-      this.salir();
       //this.rutas.navigate(['./']);
     }
   }

@@ -1,6 +1,6 @@
 import { INavData } from '@coreui/angular';
 
-export const navItems: INavData[] = [
+/*export const navItems: INavData[] = [
   {
     name: 'inicio',
     url: '/inicio',
@@ -242,26 +242,30 @@ export const navItems: INavData[] = [
       }
     ]
   },
-];
+];*/
 
 export const navItem: INavData[] = [
 
   {
     name: 'Cuentas',
     url: '/administrador_nav_1',
+    permission:['super_administrador'],
     iconComponent: { name: 'cil-user' },
     children: [
       {
         name: 'Administradores',
         url: '/administrador_nav_1/admin',
+        permission:['super_administrador'],
       },
       {
         name: 'Asambleistas',
         url: '/administrador_nav_1/asambleistas',
+        permission:['super_administrador'],
       },
       {
         name: 'Delegados',
         url: '/administrador_nav_1/delegados',
+        permission:['super_administrador'],
       }
     ]
   },
@@ -269,28 +273,34 @@ export const navItem: INavData[] = [
     name:'Categorías',
     url: '/admin-categoria/form-categoria',
     iconComponent: { name: 'cil-user' },
+    permission:['super_administrador'],
   },
   {
     name: 'Biografia',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
+    permission:['asambleista'],
   },
   {
     name: 'Blogs',
     url: '/blogs',
     iconComponent: { name: 'cil-user' },
+    permission:['super_administrador','asambleista'],
     children: [
       {
         name: 'Crear Blog',
         url: '/blogs/form-blogs',
+        permission:['super_administrador','asambleista'],
       },
       {
         name: 'Últimas Noticias',
         url: '/blogs/utlimas-noticias',
+        permission:['super_administrador'],
       },
       {
         name: 'Lista de Blogs',
         url: '/blogs/lista-blogs',
+        permission:['super_administrador','asambleista'],
       }
     ]
   }

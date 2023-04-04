@@ -5,19 +5,21 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class AdministradorService {
-  urlAWS: any;
+  urlAWS: string;
   urlLocal: string;
-  
+  url:string;
   constructor(private http: HttpClient) {
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
+    this.url = this.urlAWS
   }
 
   cargarCuentaByRol(slug: any) {
-    let url = this.urlAWS + 'ListarUserPorRol?slug=' + slug;
+    let url = this.url + 'ListarUserPorRol?slug=' + slug;
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -35,10 +37,11 @@ export class AdministradorService {
 
 
   cargarPerfiles() {
-    let url = this.urlAWS + 'ListarPerfiles';
+    let url = this.url + 'ListarPerfiles';
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -52,10 +55,11 @@ export class AdministradorService {
   }
 
   ListarPerfileSiAsambleista() {
-    let url = this.urlAWS + 'ListarPerfileSiAsambleista';
+    let url = this.url + 'ListarPerfileSiAsambleista';
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -68,21 +72,10 @@ export class AdministradorService {
     });
   }
 
-  /*verImagen(){
-    let urlApp = 'http://apiapp.asambleanacional.gob.ec';
-    const httpheaders = new HttpHeaders({
-      'Content-Type': 'application/jason',
-      'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2ODU2NkQ1OTcxMzM3NDM2NzczOTdBMjQ0MzI2NDYyOTQ4NDA0RDYzNTE2NjU0NkE1NzZFNUE3MjM0NzUzNzc4MjE0MTI1NDQyQTQ3MkQ0QjYxNTA2NDUyNjc1NTZCNTg3MDMyNzMzNTc2Mzg3OTJGNDIzRjQ1Mjg0ODJCNEQ2MiIsInNjb3BlIjoicmVhZCIsImlhdCI6MTY3NDYyNjczNywiZXhwIjoxNjc0NjI4NTM3fQ.haWI6vfcO9but9oETAzaj_Na1JwcUOuYI8n0-Iu7L9WA8LsvRE7ENNJJZQh_kp9oPaet3eX0gJvj_JrMHHx5yg',
-      'responseType' : 'blob'
-    });
-    
-    return this.http.get(urlApp + 'assemblyMembersResource/getPhoto/2308', {headers: httpheaders});
-    
-    //return this.http.get(urlApp + '/periodsResource/territorialDivision/', {headers: httpheaders});
-  }*/
+  
 
   registerCuentaAsambleistaAsistente(_data: any) {
-    let url = this.urlAWS + 'Register';
+    let url = this.url + 'Register';
 
     let formData = new FormData();
     formData.append('name', _data.name);
@@ -92,7 +85,8 @@ export class AdministradorService {
     formData.append('perfil_id', _data.perfil_id);
     formData.append('estado', _data.estado);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -106,7 +100,7 @@ export class AdministradorService {
   }
 
   updateAsamAsisCuentas(_data: any) {
-    let url = this.urlAWS + 'Update';
+    let url = this.url + 'Update';
 
     let formData = new FormData();
     formData.append('name', _data.name);
@@ -117,7 +111,8 @@ export class AdministradorService {
     formData.append('id', _data.id);
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -131,9 +126,10 @@ export class AdministradorService {
   }
 
   getImg(_id: any) {
-    let url = this.urlAWS + 'ObtenerImagen?id=' + _id;
+    let url = this.url + 'ObtenerImagen?id=' + _id;
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return this.http.get(url, { headers: httpheaders });
@@ -142,7 +138,7 @@ export class AdministradorService {
 
 
   updateBiografia(_data: any) {
-    let url = this.urlAWS + 'RegistrarBiografia';
+    let url = this.url + 'RegistrarBiografia';
     let formData = new FormData();
     formData.append('urlfb', _data.urlfb);
     formData.append('urltw', _data.urltw);
@@ -153,7 +149,8 @@ export class AdministradorService {
     formData.append('imagen', _data.binImg);
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
@@ -167,11 +164,11 @@ export class AdministradorService {
   }
 
   cargarBiografia(_id: any) {
-    let url = this.urlAWS + 'ObtenerBiografia?id=' + _id;
-
+    let url = this.url + 'ObtenerBiografia?id=' + _id;
 
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -186,9 +183,10 @@ export class AdministradorService {
   }
 
   cargarCuentaConfig() {
-    let url = this.urlAWS+'Admin';
+    let url = this.url+'Admin';
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -202,11 +200,12 @@ export class AdministradorService {
   }
 
   CreateCategoria(_data:any){
-    let url = this.urlAWS+'CreateCategoria';
+    let url = this.url+'CreateCategoria';
     let formData = new FormData();
     formData.append('categorianame', _data.categorianame);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {
@@ -220,12 +219,13 @@ export class AdministradorService {
   }
 
   EditCategoria(_data:any){
-    let url = this.urlAWS+'EditCategoria';
+    let url = this.url+'EditCategoria';
     let formData = new FormData();
     formData.append('categorianame', _data.categorianame);
     formData.append('categoria_id', _data.categoria_id);
     const httpheaders = new HttpHeaders({
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
     });
 
     return new Promise((resolve, reject) => {

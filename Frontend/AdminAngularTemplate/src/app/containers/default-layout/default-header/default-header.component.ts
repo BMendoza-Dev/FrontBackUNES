@@ -27,9 +27,10 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     this.echo = this.service.getSockets();
   }
 
+ 
   ngOnInit(): void {
-    console.log("Implement 1");
-    this.echo.channel('channel-NotifyBlosAdmin.'+localStorage.getItem('sesionLoginInicio')+'.'+localStorage.getItem('idUser'))
+    let rol = localStorage.getItem('sesionLoginInicio'); let id = localStorage.getItem('idUser');
+   this.echo.channel('channel-NotifyBlosAdmin.'+rol+'.'+id)
         .listen('NotifyEventBlog', (resp:any) => {
           console.log(resp)
         });
@@ -40,8 +41,12 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   }
 
-  salir() {
+  ngOnDestroy(){
+    this.echo.leaveAllChannels();
     localStorage.clear();
+  }
+
+  salir() {
     this.rutas.navigate(['/login']);
   }
 
