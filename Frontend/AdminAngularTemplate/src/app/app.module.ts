@@ -63,7 +63,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FiltroCuentasPipe } from './pipes/filtro-cuentas.pipe';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
@@ -98,6 +99,8 @@ import {MatIconModule} from '@angular/material/icon';
     AlertModule,
     MatBadgeModule,
     MatIconModule,
+    InfiniteScrollModule,
+    NgxPaginationModule
   ],
   providers: [
     {

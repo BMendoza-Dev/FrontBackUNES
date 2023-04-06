@@ -28,14 +28,14 @@ export class LastNewsAgreeComponent implements OnInit {
   @Input() nameCat: any; _categoria_id: any = 0;
   listCateg: any;
   categorie_id: any = "Todas las categorías"; echo: Echo;
-  updated_at: any;
+  updated_at: any; 
   constructor(private serviceLogin:LoginService,public rutas: Router, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
      private service: BlogServicesService, private sanitizer: DomSanitizer) {
       this.echo = this.serviceLogin.getSockets();
       let rol = localStorage.getItem('sesionLoginInicio'); let id = localStorage.getItem('idUser');
       this.echo.channel('channel-NotifyBlosAdmin.'+rol+'.'+id)
         .listen('NotifyEventBlog', () => {
-          this.blogList();
+          this.blogList(1);
         });
   }
 
@@ -45,7 +45,7 @@ export class LastNewsAgreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarCategoriasBlog();
-    this.blogList();
+    this.blogList(0);
   }
 
   listarCategoriasBlog(){
@@ -67,13 +67,14 @@ export class LastNewsAgreeComponent implements OnInit {
       });
     }
     this._categoria_id=value;
-    this.blogList();
+    this.blogList(0);
   }
 
 
-  blogList() {
-
-    this.spinnerService.llamarSpinner();
+  blogList(num:number) {
+    if(num==0){
+      this.spinnerService.llamarSpinner();
+    }
     this.service.listarBlog(this._categoria_id).then((data: any) => {
 
       if (data.length > 0) {
@@ -192,16 +193,24 @@ export class LastNewsAgreeComponent implements OnInit {
       'updated_at':  this.updated_at
     }
 
-    this.service.AprobarBlogEnUltimaNoticias(datos).then((data) => {
-data;debugger
-      if (value == 0) {
-        this.toggleLiveDemoDeny();
-      } else {
+    this.service.AprobarBlogEnUltimaNoticias(datos).then((data:any) => {
+      if(data.error != 500){
+        if (value == 0) {
+          this.toggleLiveDemoDeny();
+        } else {
+          this.toggleLiveDemo();
+        }
+        this.alert();
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: data.menssaje,
+        })
         this.toggleLiveDemo();
       }
+      this.blogList(0);
       this.clear();
-      this.alert();
-      this.blogList();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       console.log(error);

@@ -43,6 +43,7 @@
     "crypto-js": "^4.1.1",
     "laravel-echo": "^1.15.0",
     "moment": "^2.29.4",
+    "ngx-infinite-scroll": "^15.0.0",
     "ngx-pagination": "^6.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-spinner": "^15.0.1",

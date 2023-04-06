@@ -1,24 +1,14 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
 <ng-container>
   <c-container [fluid]="true">
-    <button
-      toggle="visible"
-      cHeaderToggler
-      [cSidebarToggle]="sidebarId"
-      class="ps-1"
-    >
-      <svg cIcon
-        name="cilMenu"
-        size="lg"
-      ></svg>
+    <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="ps-1">
+      <svg cIcon name="cilMenu" size="lg"></svg>
     </button>
     <c-header-nav class="d-none d-lg-flex me-auto">
     </c-header-nav>
 
-    <c-header-nav class="d-none d-lg-flex">
-      <c-nav-item>
-        <ng-container *ngTemplateOutlet="userDropdownNotif"></ng-container>
-      </c-nav-item>
+    <c-header-nav class="d-none d-lg-flex ">
+      <ng-container *ngTemplateOutlet="userDropdownNotif"></ng-container>
     </c-header-nav>
     <c-header-nav class="ms-3">
       <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
@@ -29,58 +19,76 @@
 <!--</c-header>-->
 
 <ng-template #userDropdownNotif>
-  <c-dropdown alignment="end" variant="nav-item">
-    <button
-      cButton
-      color=""
-      [caret]="false"
-      cDropdownToggle
-      class="py-0"
-    >
-    <a cNavLink>
-      <svg cIcon name="cilBell" size="lg"></svg>
-    </a>
+  <c-dropdown autoClose="outside" alignment="end" variant="nav-item">
+    <button cButton color="" [caret]="false" cDropdownToggle class="position-relative py-0">
+      <a style="margin: 5px;">
+        <svg cIcon name="cilBell" size="lg" [ngClass]="{'bell': rotateAnimation}"></svg>
+      </a>
+      <c-badge color="danger" position="top-end" shape="rounded-pill">{{total==0 ? '': total}}</c-badge>
     </button>
-    
     <ul cDropdownMenu [ngStyle]="{'min-width.px': 300 }" class="pt-0 pr-5 w-auto">
-      <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Noticaciones</h6>
+      <li style="display: flex; align-items: center; background-color: #EBEDEF;">
+        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Notificaciones</h6>
+        
+        <c-dropdown  direction="dropstart"  variant="btn-group">
+          <button color="" [caret]="false" cButton cDropdownToggle class="  ">
+            <a >
+              <svg cIcon name="cilOptions" size="lg" ></svg>
+            </a>
+          </button>
+          <ul cDropdownMenu>
+            <li><button cDropdownItem>Marcar todas como leidas</button></li>
+          </ul>
+        </c-dropdown>
       </li>
-      <li>
-        <a cDropdownItem >
-          <svg cIcon class="me-2" name="cilBell"></svg>
-            {{texto | slice:0:50 }}... <br>
-        </a>
-      <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Otras Notificaciones</h6>
-      </li>
-      <li></li>
-      <li>
-        <a  cDropdownItem>
-          <svg cIcon class="me-2" name="cilUser"></svg>
-          Profile
-        </a>
-      </li>
+      
+      <div id="container" class="rounded" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="150"
+        (scrolled)="onScroll()" [scrollWindow]="false">
+        <div class="content " *ngIf="notifiData.length > 0 ">
+          <li *ngFor="let item of notifiData | paginate:{itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems : count,
+            id: 'paginado'
+            } ">
+            <a >
+            <c-container>
+              <c-row  [md]="12">
+                <c-col md="1">
+                  <svg cIcon name="cilOptions" ></svg>
+                </c-col>
+                <c-col md="11">
+                  <span class="userB">{{item.user}} </span><span class="dateB">a publicado un blog.
+                    <span>{{item.date}}:</span></span><span class="titleB"> "{{item.blogtitulo | slice:0:35 }}
+                    {{item.blogtitulo.length > 35? '...':''}}"</span><br>
+                  <span
+                      class="perfilB"> Asambleista: <span style="font-size: 13px; font-weight: normal !important;">
+                        {{item.perfil}}</span></span> <span class="time">Hace 20 segundos</span>
+
+                </c-col>
+              </c-row>
+            </c-container>
+          </a>
+          </li>
+
+        </div>
+      </div>
+      <ng-container *ngIf="notifiData.length == 0">
+        <li>
+          <a cDropdownItem>
+            <svg cIcon class="me-2" name="cilBell"></svg>
+            <span>No hay notificaciones</span> <br>
+          </a>
+        </li>
+      </ng-container>
     </ul>
+
   </c-dropdown>
 </ng-template>
 
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
-    <button
-      cButton
-      color=""
-      [caret]="false"
-      cDropdownToggle
-      class="py-0"
-    >
-      <c-avatar
-        cTextColor="primary"
-        shape="rounded-1"
-        size="md"
-        [src]='thumbnail'
-        status="success"
-      >
+    <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
+      <c-avatar cTextColor="primary" shape="rounded-1" size="md" [src]='thumbnail' status="success">
       </c-avatar>
     </button>
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">
@@ -158,7 +166,7 @@
         </a>
       </li>
       <li>
-        <hr cDropdownDivider/>
+        <hr cDropdownDivider />
       </li>
       <li>
         <a (click)="salir()" cDropdownItem>
@@ -170,4 +178,3 @@
     </ul>
   </c-dropdown>
 </ng-template>
-

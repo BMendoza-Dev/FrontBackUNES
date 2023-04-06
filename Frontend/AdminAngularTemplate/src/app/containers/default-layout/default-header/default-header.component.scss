@@ -1,4 +1,74 @@
-.texto {
-    width: 300px; /* Establece el ancho del contenedor */
-    word-wrap: break-word; /* Permite que las palabras se dividan en varias líneas */
+.search-results {
+        height: 20rem;
+        overflow: scroll;
+      }
+
+
+  #container {
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    padding: 0px;
+    height: 500px;
+    overflow: auto;
+  }
+  
+  #container .content {
+    width: 400px;word-wrap: break-word; /* o overflow-wrap: break-word */
+    
+  }
+  
+  #container .content li {
+    list-style-type: none;
+  }
+  
+  #container .content li a {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .titleB{
+    font-size: 15px;
+  }
+
+  .userB{
+    font-weight: bold; 
+  }
+
+  .dateB{
+    font-size: 15px;
+  }
+
+  .perfilB{
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .time{
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
+    color: blue;
+  }
+  
+
+
+  @keyframes bell {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(30deg);
+    }
+    100% {
+      transform: rotate(-30deg);
+    }
+  }
+  
+  .bell {
+    animation-name: bell;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
   }
