@@ -6,8 +6,7 @@
     </button>
     <c-header-nav class="d-none d-lg-flex me-auto">
     </c-header-nav>
-
-    <c-header-nav class="d-none d-lg-flex ">
+    <c-header-nav class="ms-auto">
       <ng-container *ngTemplateOutlet="userDropdownNotif"></ng-container>
     </c-header-nav>
     <c-header-nav class="ms-3">
@@ -26,23 +25,30 @@
       </a>
       <c-badge color="danger" position="top-end" shape="rounded-pill">{{total==0 ? '': total}}</c-badge>
     </button>
-    <ul cDropdownMenu [ngStyle]="{'min-width.px': 300 }" class="pt-0 pr-5 w-auto">
-      <li style="display: flex; align-items: center; background-color: #EBEDEF;">
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Notificaciones</h6>
-        
-        <c-dropdown  direction="dropstart"  variant="btn-group">
-          <button color="" [caret]="false" cButton cDropdownToggle class="  ">
-            <a >
-              <svg cIcon name="cilOptions" size="lg" ></svg>
-            </a>
-          </button>
-          <ul cDropdownMenu>
-            <li><button cDropdownItem>Marcar todas como leidas</button></li>
-          </ul>
-        </c-dropdown>
-      </li>
-      
-      <div id="container" class="rounded" infiniteScroll [infiniteScrollDistance]="0" [infiniteScrollThrottle]="150"
+    <ul cDropdownMenu [ngStyle]="{'min-width.px': 400 }" class="pt-0 pr-5 w-auto">
+      <c-containet style="display: flex; background-color: #EBEDEF;">
+        <c-row >
+          <c-col md="10">
+            <h6 cDropdownHeader class="bg-light fw-semibold py-2">Notificaciones</h6>
+          </c-col>
+          <c-col md="1">
+            <c-dropdown direction="dropstart" variant="btn-group">
+              <button style="margin-left: 100px; " color="" [caret]="false" cButton cDropdownToggle>
+                <a>
+                  <svg cIcon name="cilOptions" size="lg"></svg>
+                </a>
+              </button>
+              <ul cDropdownMenu>
+                <li><button cDropdownItem><svg cIcon name="cilCheck" size="md" style="margin-right: 10px;"></svg>Marcar
+                    todas como leídas</button></li>
+              </ul>
+            </c-dropdown>
+          </c-col>
+        </c-row>
+      </c-containet>
+
+
+      <div id="container" class="rounded" infiniteScroll [infiniteScrollDistance]=".5" [infiniteScrollThrottle]="150"
         (scrolled)="onScroll()" [scrollWindow]="false">
         <div class="content " *ngIf="notifiData.length > 0 ">
           <li *ngFor="let item of notifiData | paginate:{itemsPerPage: tableSize,
@@ -50,26 +56,25 @@
             totalItems : count,
             id: 'paginado'
             } ">
-            <a >
-            <c-container>
-              <c-row  [md]="12">
-                <c-col md="1">
-                  <svg cIcon name="cilOptions" ></svg>
-                </c-col>
-                <c-col md="11">
-                  <span class="userB">{{item.user}} </span><span class="dateB">a publicado un blog.
-                    <span>{{item.date}}:</span></span><span class="titleB"> "{{item.blogtitulo | slice:0:35 }}
-                    {{item.blogtitulo.length > 35? '...':''}}"</span><br>
-                  <span
-                      class="perfilB"> Asambleista: <span style="font-size: 13px; font-weight: normal !important;">
-                        {{item.perfil}}</span></span> <span class="time">Hace 20 segundos</span>
-
-                </c-col>
-              </c-row>
-            </c-container>
-          </a>
+            <a>
+              
+              <i class="fa fa-list-alt"  aria-hidden="true" style="color: blue;margin-right: 3px;"></i>
+                <span class="userB">{{item.user}} </span><span class="dateB">a publicado un blog.
+                  <span>{{item.date}}:</span></span><span class="titleB"> "{{item.blogtitulo | slice:0:45 }}
+                  {{item.blogtitulo.length > 45? '...':''}}"</span><br>
+                <span class="perfilB"> Asambleista: <span style="font-size: 13px; font-weight: normal !important;">
+                    {{item.perfil}}</span></span> <span class="time">Hace 20 segundos</span>
+            </a>
           </li>
-
+          <p *ngIf="notifiData.length >=  tableSize" cPlaceholderAnimation="glow">
+            <span   cBgColor="dark" style="width: 40%; margin-left: 3%;" cPlaceholder></span>
+            <span cBgColor="secondary" style="width: 50%; margin-left: 3%;" cPlaceholder></span>
+            <span cBgColor="secondary" style="width: 50%; margin-left: 3%;" cPlaceholder></span>
+            <span cBgColor="secondary" style="width: 40%; margin-left: 3%;" cPlaceholder></span><br>
+            <span  style="width: 20%; margin-left: 3%;" cPlaceholder></span>
+            <span cBgColor="secondary" style="width: 10%; margin-left: 3%;" cPlaceholder></span><br>
+            <span cBgColor="primary" style="width: 10%; margin-left: 3%;" cPlaceholder></span>
+          </p>
         </div>
       </div>
       <ng-container *ngIf="notifiData.length == 0">

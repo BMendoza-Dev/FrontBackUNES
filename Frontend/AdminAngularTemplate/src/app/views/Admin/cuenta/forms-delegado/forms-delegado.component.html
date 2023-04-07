@@ -1,138 +1,123 @@
-<c-col> <!--Input de crear Cuenta de asambleistas-->
-  <c-card style="margin-bottom: 1%;">
-    <c-nav xs="12" layout="justified" variant="pills">
-      <c-nav-item>
-        <span [active]="true" cNavLink>
-          DELEGADOS
-        </span>
-      </c-nav-item>
-    </c-nav>
-  </c-card>
-</c-col>
-
-<c-col xs="12">
-  <c-card class="mb-4">
-    <c-card-header ngPreserveWhitespaces>
-      <strong>Crear Cuenta Asistente</strong>
-    </c-card-header>
-    <c-card-body>
-      <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="row g-3 needs-validation">
-        <!--Form Cuenta Asistente-->
-        <c-col md="6" *ngIf="simpleForm.controls['username'] as ctrl">
-          <label cLabel for="username">Usuario<span class="is-required">*</span></label>
-          <input cFormControl id="username" formControlName="username" placeholder="Usuario"
-            autocomplete="off" required [valid]="
+<c-card class="mb-4">
+  <c-card-header ngPreserveWhitespaces>
+    <strong>Crear Cuenta Asistente</strong>
+  </c-card-header>
+  <c-card-body>
+    <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="row g-3 needs-validation">
+      <!--Form Cuenta Asistente-->
+      <c-col md="6" *ngIf="simpleForm.controls['username'] as ctrl">
+        <label cLabel for="username">Usuario<span class="is-required">*</span></label>
+        <input cFormControl id="username" formControlName="username" placeholder="Usuario" autocomplete="off" required
+          [valid]="
               ctrl.touched && ctrl.valid
                 ? true
                 : (submitted || ctrl.touched) && ctrl.invalid
                 ? false
                 : undefined
             " />
-          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-            <ng-container *ngIf="ctrl.errors as errors">
-              <div *ngIf="errors['required']">Se requiere un nombre de usuario</div>
-              <div *ngIf="errors['minlength']">
-                {{ formErrors.username.minLength }}
-              </div>
-              <div *ngIf="errors['pattern']">
-                {{ formErrors.username.pattern }}
-              </div>
-            </ng-container>
-          </c-form-feedback>
-        </c-col>
-        <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
-          <label cLabel for="email">Correo electrónico<span class="is-required">*</span></label>
-          <input cFormControl  id="email" type="email" formControlName="email"
-            placeholder="Email" autocomplete="off" required [valid]="
+        <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+          <ng-container *ngIf="ctrl.errors as errors">
+            <div *ngIf="errors['required']">Se requiere un nombre de usuario</div>
+            <div *ngIf="errors['minlength']">
+              {{ formErrors.username.minLength }}
+            </div>
+            <div *ngIf="errors['pattern']">
+              {{ formErrors.username.pattern }}
+            </div>
+          </ng-container>
+        </c-form-feedback>
+      </c-col>
+      <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
+        <label cLabel for="email">Correo electrónico<span class="is-required">*</span></label>
+        <input cFormControl id="email" type="email" formControlName="email" placeholder="Email" autocomplete="off"
+          required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
                 : (submitted || ctrl.touched) && ctrl.invalid
                 ? false
                 : undefined
             " />
-          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-            <ng-container *ngIf="ctrl.errors as errors">
-              <div *ngIf="errors['required']">Se requiere un correo electronico</div>
-              <div *ngIf="errors['email']">
-                {{ formErrors.email?.email }}
-              </div>
-            </ng-container>
-          </c-form-feedback>
-        </c-col>
-        <c-col md="6" *ngIf="simpleForm.controls['password'] as ctrl">
-          <label cLabel for="password">Contraseña<span class="is-required">*</span></label>
-          <input cFormControl id="password" type="password" formControlName="password"
-            placeholder="Contraseña" autocomplete="Nueva contraseña" required [valid]="
+        <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+          <ng-container *ngIf="ctrl.errors as errors">
+            <div *ngIf="errors['required']">Se requiere un correo electronico</div>
+            <div *ngIf="errors['email']">
+              {{ formErrors.email?.email }}
+            </div>
+          </ng-container>
+        </c-form-feedback>
+      </c-col>
+      <c-col md="6" *ngIf="simpleForm.controls['password'] as ctrl">
+        <label cLabel for="password">Contraseña<span class="is-required">*</span></label>
+        <input cFormControl id="password" type="password" formControlName="password" placeholder="Contraseña"
+          autocomplete="Nueva contraseña" required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
                 : (submitted || ctrl.touched) && ctrl.invalid
                 ? false
                 : undefined
             " />
-          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-            <ng-container *ngIf="ctrl.errors as errors">
-              <div *ngIf="errors['required']">Se requiere contraseña</div>
-              <div *ngIf="errors['minlength']">
-                {{ formErrors['password'].minLength }}
-              </div>
-              <div *ngIf="errors['pattern']">
-                {{ formErrors['password'].pattern }}
-              </div>
-            </ng-container>
-          </c-form-feedback>
-        </c-col>
-        <c-col md="6" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
-          <label cLabel for="confirmPassword">Confirmar contraseña<span class="is-required">*</span></label>
-          <input cFormControl id="confirmPassword" type="password"
-            formControlName="confirmPassword" placeholder="Confirmar contraseña" autocomplete="off" required [valid]="
+        <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+          <ng-container *ngIf="ctrl.errors as errors">
+            <div *ngIf="errors['required']">Se requiere contraseña</div>
+            <div *ngIf="errors['minlength']">
+              {{ formErrors['password'].minLength }}
+            </div>
+            <div *ngIf="errors['pattern']">
+              {{ formErrors['password'].pattern }}
+            </div>
+          </ng-container>
+        </c-form-feedback>
+      </c-col>
+      <c-col md="6" *ngIf="simpleForm.controls['confirmPassword'] as ctrl">
+        <label cLabel for="confirmPassword">Confirmar contraseña<span class="is-required">*</span></label>
+        <input cFormControl id="confirmPassword" type="password" formControlName="confirmPassword"
+          placeholder="Confirmar contraseña" autocomplete="off" required [valid]="
               ctrl.touched && ctrl.valid
                 ? true
                 : (submitted || ctrl.touched) && ctrl.invalid
                 ? false
                 : undefined
             " />
-          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-            <ng-container *ngIf="ctrl.errors as errors">
-              <div *ngIf="errors['passwordMismatch']">
-                {{ formErrors['confirmPassword'].passwordMismatch }}
-              </div>
-              <div *ngIf="errors['required']">{{ formErrors['confirmPassword'].required }}</div>
-            </ng-container>
-          </c-form-feedback>
-        </c-col>
-        <c-col md="6" *ngIf="simpleForm.controls['userAssam'] as ctrl">
-          <label cLabel for="userAssam">Asambleistas<span class="is-required">*</span></label>
-          <input id="userAssam" (ngModelChange)="cargarAutoComplete()" formControlName="userAssam"  [matAutocomplete]="auto" 
-          cFormControl  placeholder="Asambleista.."
-            autocomplete="off" required [valid]="
+        <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+          <ng-container *ngIf="ctrl.errors as errors">
+            <div *ngIf="errors['passwordMismatch']">
+              {{ formErrors['confirmPassword'].passwordMismatch }}
+            </div>
+            <div *ngIf="errors['required']">{{ formErrors['confirmPassword'].required }}</div>
+          </ng-container>
+        </c-form-feedback>
+      </c-col>
+      <c-col md="6" *ngIf="simpleForm.controls['userAssam'] as ctrl">
+        <label cLabel for="userAssam">Asambleistas<span class="is-required">*</span></label>
+        <input id="userAssam" (ngModelChange)="cargarAutoComplete()" formControlName="userAssam"
+          [matAutocomplete]="auto" cFormControl placeholder="Asambleista.." autocomplete="off" required [valid]="
             ctrl.touched && ctrl.valid
               ? true
               : (submitted || ctrl.touched) && ctrl.invalid
               ? false
               : undefined
-          "/>
-            
-          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
-            <ng-container *ngIf="ctrl.errors as errors">
-              <div *ngIf="errors['required']">Se requiere un asambleista</div>
-            </ng-container>
-          </c-form-feedback>
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions" [value]="option.name">
-              {{option.name}}
-            </mat-option>
-          </mat-autocomplete>
-        </c-col> 
-      </form>
-      <c-col style="margin-top: 10px;" xs="12">
-        <button (click)="onSubmit()" cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
-          [tabindex]="'0'">
-          Crear Cuenta
-        </button>
+          " />
+
+        <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+          <ng-container *ngIf="ctrl.errors as errors">
+            <div *ngIf="errors['required']">Se requiere un asambleista</div>
+          </ng-container>
+        </c-form-feedback>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option.name">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
       </c-col>
-    </c-card-body>
-  </c-card>
-</c-col>
+    </form>
+    <c-col style="margin-top: 10px;" xs="12">
+      <button (click)="onSubmit()" cButton color="success" type="submit"
+        [disabled]="simpleForm.pristine || simpleForm.invalid" [tabindex]="'0'">
+        Crear Cuenta
+      </button>
+    </c-col>
+  </c-card-body>
+</c-card>
 
 <app-table-delegado></app-table-delegado>
 

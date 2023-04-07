@@ -1,93 +1,61 @@
-<!--Tablas de cuentas de Asambleistas-->
-<c-col xs="12">
-  <c-card class="mb-4">
-    <c-card-header>
-      <strong>Cuentas Registradas</strong>
-    </c-card-header>
-    <c-card-body>
-      <c-col md="5" style="margin-left: 56%;">
-        <c-input-group class="mb-3">
-          <input [(ngModel)]="search" (ngModelChange)="dataPaginate($event)" id="search" name="search"
-            aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl
-            placeholder="Usuarios" />
-          <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
-        </c-input-group>
-      </c-col>
-      <table hover striped cTable>
-        <thead cTableColor="dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Usuarios</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="search == ''; else filtro">
-            <tr *ngFor="let item of dataTabla | paginate:{itemsPerPage: tableSize,
+<c-card class="mb-4">
+  <c-card-header>
+    <strong>Cuentas Registradas</strong>
+  </c-card-header>
+  <c-card-body>
+    <c-col md="5">
+      <c-input-group class="mb-3">
+        <input [(ngModel)]="search" (ngModelChange)="dataPaginate()" id="search" name="search"
+          aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl placeholder="Usuarios" />
+        <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+      </c-input-group>
+    </c-col>
+    <table hover striped cTable>
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Usuarios</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="dataTabla.length > 0">
+          <tr *ngFor="let item of dataTabla | filtroCuentas:search | paginate:{itemsPerPage: tableSize,
                 currentPage: page,
                 totalItems : count,
                 id: 'paginado'
                 }; let i = index , index as id ">
-              <th scope="row">{{id+1}}</th>
-              <td>{{item.name}}</td>
-              <td>{{item.email}}</td>
-              <td>
-                <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
-                  Habilitado
-                </c-badge>
-                <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
-              </td>
-              <td>
-                <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
-                <button (click)="toggleLiveDemo()"
-                  (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
-                  class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
-                    width="20"></svg>&nbsp;Editar</button>
+            <th scope="row">{{id+1}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>
+              <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
+                Habilitado
+              </c-badge>
+              <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
+            </td>
+            <td>
+              <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+              <button (click)="toggleLiveDemo()"
+                (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
+                class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                  width="20"></svg>&nbsp;Editar</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <ng-container *ngIf="dataTabla.length <= 0">
+      <c-alert color="danger">No existen cuentas Registradas!</c-alert>
+    </ng-container>
+  </c-card-body>
+  <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true"
+    id="paginado">
+  </pagination-controls>
+</c-card>
 
-              </td>
-            </tr>
-            <h1 *ngIf="dataTabla == ''">No existen registros</h1>
-          </ng-container>
-
-          <ng-template #filtro>
-            <tr *ngFor="let item of cuentasFilter | paginate:{itemsPerPage: tableSize,
-                currentPage: page,
-                totalItems : count,
-                id: 'paginado'
-                }; let i = index , index as id">
-              <th scope="row">{{id+1}}</th>
-              <td>{{item.name}}</td>
-              <td>{{item.email}}</td>
-              <td>
-                <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
-                  Habilitado
-                </c-badge>
-                <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
-              </td>
-              <td>
-                <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
-                <button (click)="toggleLiveDemo()"
-                  (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
-                  class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
-                    width="20"></svg>&nbsp;Editar</button>
-              </td>
-            </tr>
-            <h1 *ngIf="cuentasFilter == ''">No existen registros</h1>
-          </ng-template>
-
-        </tbody>
-      </table>
-
-    </c-card-body>
-
-    <pagination-controls  previousLabel="Prev" nextLabel="Next"
-      (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
-    </pagination-controls>
-
-  </c-card>
-</c-col>
 
 <!--Modal-->
 <!--Modal de editar cuenta Asistente-->
@@ -169,7 +137,7 @@
         <button (click)="toggleLiveDemo()" (click)="updateAsisCuentas()" cButton class="me-1" color="success">
           Editar
         </button>
-        <button (click)="toggleLiveDemo()" cButton color="danger" >
+        <button (click)="toggleLiveDemo()" cButton color="danger">
           Cancelar
         </button>
       </c-col>

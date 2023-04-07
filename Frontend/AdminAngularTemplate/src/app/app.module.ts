@@ -41,6 +41,7 @@ import {
   SidebarModule,
   TabsModule,
   UtilitiesModule,
+  PlaceholderModule
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -100,7 +101,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatBadgeModule,
     MatIconModule,
     InfiniteScrollModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    PlaceholderModule, 
   ],
   providers: [
     {

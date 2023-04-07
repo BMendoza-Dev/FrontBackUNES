@@ -1,166 +1,137 @@
 <!--Tablas de cuentas de Asambleistas-->
-<c-col xs="12">
-    <c-card class="mb-4">
-      <c-card-header>
-        <strong>Cuentas Registradas</strong>
-      </c-card-header>
-      <c-card-body>
-        <c-col md="5" style="margin-left: 56%;">
-          <c-input-group class="mb-3">
-            <input [(ngModel)]="search" (ngModelChange)="dataPaginate($event)" id="search" name="search"
-              aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl
-              placeholder="Usuarios" />
-            <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
-          </c-input-group>
-        </c-col>
-        <table hover striped cTable>
-          <thead cTableColor="dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Usuarios</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngIf="search == ''; else filtro">
-              <tr *ngFor="let item of dataTabla | paginate:{itemsPerPage: tableSize,
-                  currentPage: page,
-                  totalItems : count,
-                  id: 'paginado'
-                  }; let i = index ">
-                <th scope="row">{{i+1}}</th>
-                <td>{{item.name}}</td>
-                <td>{{item.email}}</td>
-                <td>
-                  <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
-                    Habilitado
-                  </c-badge>
-                  <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
-                </td>
-                <td>
-                  <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
-                  <button (click)="toggleLiveDemo()"
-                    (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
-                    class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
-                      width="20"></svg>&nbsp;Editar</button>
-  
-                </td>
-              </tr>
-              <h1 *ngIf="dataTabla.length == 0">No existen registros</h1>
-            </ng-container>
-  
-            <ng-template #filtro>
-              <tr *ngFor="let item of cuentasFilter | paginate:{itemsPerPage: tableSize,
-                  currentPage: page,
-                  totalItems : count,
-                  id: 'paginado'
-                  }; let i = index , index as id">
-                <th scope="row">{{id+1}}</th>
-                <td>{{item.name}}</td>
-                <td>{{item.email}}</td>
-                <td>
-                  <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
-                    Habilitado
-                  </c-badge>
-                  <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
-                </td>
-                <td>
-                  <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
-                  <button (click)="toggleLiveDemo()"
-                    (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
-                    class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
-                      width="20"></svg>&nbsp;Editar</button>
-                </td>
-              </tr>
-              <h1 *ngIf="cuentasFilter.length == 0">No existen registros</h1>
-            </ng-template>
-  
-          </tbody>
-        </table>
+<c-card class="mb-4">
+  <c-card-header>
+    <strong>Cuentas Registradas</strong>
+  </c-card-header>
+  <c-card-body>
+    <div style="text-align: right;">
+      <c-col md="5">
+        <c-input-group class="mb-3">
+          <input [(ngModel)]="search" (ngModelChange)="dataPaginate()" id="search" name="search"
+            aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl placeholder="Usuarios" />
+          <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+        </c-input-group>
+      </c-col>
+    </div>
+    <table hover striped cTable>
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Usuarios</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="dataTabla.length > 0">
+        <tr *ngFor="let item of dataTabla | filtroCuentas:search | paginate:{itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems : count,
+          id: 'paginado'
+          }; let i = index ">
+          <ng-container *ngIf="item.validar != 'Sin registros';else func">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.name}}</td>
+          <td>{{item.email}}</td>
+          <td>
+            <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
+              Habilitado
+            </c-badge>
+            <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
+          </td>
+          <td>
+            <button (click)="toggleLiveDemo()"
+              (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
+              class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                width="20"></svg>&nbsp;Editar</button>
+          </td>
+        </ng-container>
+        <ng-template #func>
+          <c-alert color="danger">No existen cuentas Registradas!</c-alert>
+        </ng-template>
+        </tr>
 
-        
-  
-      </c-card-body>
-  
-      <pagination-controls previousLabel="Prev" nextLabel="Next"
-        (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
-      </pagination-controls>
-  
-    </c-card>
-  </c-col>
-  
-  <!--Modal-->
-  <!--Modal de editar cuenta Asistente-->
-  <c-modal backdrop="static" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)"
-    size="lg"> <!--Modal de editar cuenta Asambleista-->
-  
-    <c-modal-header ngPreserveWhitespaces>
-      Editar Cuenta de Asistente
-    </c-modal-header>
-    <c-modal-body>
-      <form #customStylesForm="ngForm" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm
-        class="row g-3 needs-validation">
-        <!--Form Asambleista Editar -->
-        <c-col md="6">
-          <label cLabel for="editAdmin">Usuario<span class="is-required">*</span></label>
-          <input [(ngModel)]="editUsuarioAdmin" name="editAdmin" id="editAdmin" cFormControl required
-            type="text" value="" />
+      </ng-container>
+      </tbody>
+    </table>
+    <ng-container *ngIf="dataTabla.length <= 0">
+      <c-alert color="danger">No existen cuentas Registradas!</c-alert>
+    </ng-container>
+  </c-card-body>
+  <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true"
+    id="paginado">
+  </pagination-controls>
+</c-card>
+
+<!--Modal-->
+<!--Modal de editar cuenta Asistente-->
+<c-modal backdrop="static" id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)"
+  size="lg"> <!--Modal de editar cuenta Asambleista-->
+  <c-modal-header ngPreserveWhitespaces>
+    Editar Cuenta de Asistente
+  </c-modal-header>
+  <c-modal-body>
+    <form #customStylesForm="ngForm" (ngSubmit)="onSubmit()" [validated]="customStylesValidated" cForm
+      class="row g-3 needs-validation">
+      <!--Form Asambleista Editar -->
+      <c-col md="6">
+        <label cLabel for="editAdmin">Usuario<span class="is-required">*</span></label>
+        <input [(ngModel)]="editUsuarioAdmin" name="editAdmin" id="editAdmin" cFormControl required type="text"
+          value="" />
+        <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+        <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
+      </c-col>
+      <c-col md="6">
+        <label cLabel for="editCorreoAdmin">Correo electrónico<span class="is-required">*</span></label>
+        <input [(ngModel)]="editCorreoAdmin" name="editCorreoAdmin" cFormControl id="editCorreoAdmin" required
+          type="email" placeholder="name@example.com" />
+        <c-form-feedback [valid]="false">Por favor, ingrese un correo electrónico</c-form-feedback>
+        <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+      </c-col>
+      <c-col md="6">
+        <label cLabel for="editContAdmin">Contraseña</label>
+        <c-input-group class="has-validation">
+          <input [(ngModel)]="editContrasenaAdmin" name="editContAdmin" id="editContAdmin"
+            aria-describedby="inputGroupPrepend" cFormControl required [type]="iconEyeAsam" />
+          <ng-template #Eyeslashfill>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+              class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+              <path
+                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+              <path
+                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+            </svg>
+          </ng-template>
+          <span (click)="cambiarIconAsam()" cInputGroupText id="inputGroupPrepend">
+            <svg *ngIf="iconEyeAsam == 'password' else Eyeslashfill" xmlns="http://www.w3.org/2000/svg" width="20"
+              height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+            </svg>
+          </span>
+          <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
           <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-          <c-form-feedback [valid]="false">Por favor, ingrese nombres</c-form-feedback>
-        </c-col>
-        <c-col md="6">
-          <label cLabel for="editCorreoAdmin">Correo electrónico<span class="is-required">*</span></label>
-          <input [(ngModel)]="editCorreoAdmin" name="editCorreoAdmin" cFormControl id="editCorreoAdmin"
-            required type="email" placeholder="name@example.com" />
-          <c-form-feedback [valid]="false">Por favor, ingrese un correo electrónico</c-form-feedback>
-          <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-        </c-col>
-        <c-col md="6">
-          <label cLabel for="editContAdmin">Contraseña</label>
-          <c-input-group class="has-validation">
-            <input [(ngModel)]="editContrasenaAdmin" name="editContAdmin" id="editContAdmin"
-              aria-describedby="inputGroupPrepend" cFormControl required [type]="iconEyeAsam" />
-            <ng-template #Eyeslashfill>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                <path
-                  d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
-                <path
-                  d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
-              </svg>
-            </ng-template>
-            <span (click)="cambiarIconAsam()" cInputGroupText id="inputGroupPrepend">
-              <svg *ngIf="iconEyeAsam == 'password' else Eyeslashfill" xmlns="http://www.w3.org/2000/svg" width="20"
-                height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-              </svg>
-            </span>
-            <c-form-feedback [valid]="false">Por favor, ingrese una contraseña</c-form-feedback>
-            <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-          </c-input-group>
-        </c-col>
-        <c-col xs="6">
-          <label cLabel for="editEstadoAdmin">Estado de la cuenta<span class="is-required">*</span></label>
-          <select name="editEstadoAdmin" [(ngModel)]="estado" aria-label="Default select example" cSelect>
-            <option value=1>Habilitar</option>
-            <option value=0>Deshabilitar</option>
-          </select>
-          <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
-        </c-col>
-        <!--Botones Editar-->
-        <c-col xs="12">
-          <button (click)="toggleLiveDemo()" (click)="updateAsisCuentas()" cButton class="me-1" color="success">
-            Editar
-          </button>
-          <button (click)="toggleLiveDemo()" (click)="limpiarModal()" cButton color="danger" type="reset">
-            Cancelar
-          </button>
-        </c-col>
-      </form>
-    </c-modal-body>
-  </c-modal>
-  <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-  
+        </c-input-group>
+      </c-col>
+      <c-col xs="6">
+        <label cLabel for="editEstadoAdmin">Estado de la cuenta<span class="is-required">*</span></label>
+        <select name="editEstadoAdmin" [(ngModel)]="estado" aria-label="Default select example" cSelect>
+          <option value=1>Habilitar</option>
+          <option value=0>Deshabilitar</option>
+        </select>
+        <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
+      </c-col>
+      <!--Botones Editar-->
+      <c-col xs="12">
+        <button (click)="toggleLiveDemo()" (click)="updateAsisCuentas()" cButton class="me-1" color="success">
+          Editar
+        </button>
+        <button (click)="toggleLiveDemo()" (click)="limpiarModal()" cButton color="danger" type="reset">
+          Cancelar
+        </button>
+      </c-col>
+    </form>
+  </c-modal-body>
+</c-modal>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

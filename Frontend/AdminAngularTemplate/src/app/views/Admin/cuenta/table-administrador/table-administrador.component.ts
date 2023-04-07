@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdministradorService } from './../../../../servicios/administrador.service';
 import Swal from 'sweetalert2';
 import { LocalProyectService } from './../../../../servicios/local-proyect.service';
@@ -8,53 +8,55 @@ import { SpinnerService } from 'src/app/servicios/spinner.service';
 @Component({
   selector: 'app-table-administrador',
   templateUrl: './table-administrador.component.html',
-  styleUrls: ['./table-administrador.component.scss']
+  styleUrls: ['./table-administrador.component.scss'],
+
 })
-export class TableAdministradorComponent implements OnInit{
+export class TableAdministradorComponent implements OnInit {
   editCorreoAdmin: any;
   editContrasenaAdmin: any;
   editUsuarioAdmin: any;
+  search = "";
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
+  dataTabla: any = []; validTabla = true;
+  customStylesValidated = false;
+  iconEyeAsam: string = "password";
+  estado: number; id: number; id_perfil: number;
+  public visible = false;
 
-  constructor(private spinnerService:SpinnerService,private spinner: NgxSpinnerService, 
+  constructor(private spinnerService: SpinnerService, private spinner: NgxSpinnerService,
     private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
     locaServicio.$emitter3.subscribe(() => {
       this.cargarTabla();
     });
   }
 
-
-  
-  search = "";
-  title = 'pagination';
-  POSTS: any;
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 10;
-  tableSizes: any = [5, 10, 15, 20];
-
   ngOnInit(): void {
     this.cargarTabla();
   }
 
-  dataTabla:any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
-  editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
-  estado: number; id: number; id_perfil: number; dataAsam: any = [];
   cargarTabla() {
     this.spinnerService.llamarSpinner();
-    //this.spinner.show('sample');
-    //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaByRol("super_administrador").then((data:any) => {
-      if(data.code != 404){
-      this.dataTabla = data;
-      
-      this.limpiarModal();
-      this.spinnerService.detenerSpinner();
+    this.administradorService.cargarCuentaByRol("super_administrador").then((data: any) => {
+      if (data.code != 404) {
+        this.dataTabla = data;
+        if(this.dataTabla.length<=0){
+          this.validTabla = true;
+        }else{
+          this.validTabla =false;
+        }
+        this.limpiarModal();
       }
+      this.spinnerService.detenerSpinner();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
+
+  
 
   onSubmit() {
     this.customStylesValidated = true;
@@ -104,25 +106,13 @@ export class TableAdministradorComponent implements OnInit{
   }
 
   camposInputEditar(name: any, email: any, estado: any, id: any, perfil_id: any) {
-    this.datosAsistenteInput = [];
-
-    this.datosAsistenteInput.push(name);
-    this.datosAsistenteInput.push(email);
-    this.datosAsistenteInput.push(estado);
-    this.datosAsistenteInput.push(id);
-    this.datosAsistenteInput.push(perfil_id)
-    
-    this.cargarCamposModalEdit();
-
+    this.editUsuarioAdmin = name;
+    this.editCorreoAdmin = email;
+    this.estado = estado;
+    this.id = id;
+    this.id_perfil = perfil_id;
   }
 
-  cargarCamposModalEdit() {
-    this.editUsuarioAdmin = this.datosAsistenteInput[0];
-    this.editCorreoAdmin = this.datosAsistenteInput[1];
-    this.estado = this.datosAsistenteInput[2];
-    this.id = this.datosAsistenteInput[3];
-    this.id_perfil = this.datosAsistenteInput[4];
-  }
 
 
   limpiarModal() {
@@ -130,38 +120,18 @@ export class TableAdministradorComponent implements OnInit{
     this.editCorreoAdmin = "";
     this.editContrasenaAdmin = "";
     this.search = "";
-
   }
 
   onTableDataChange(event: any) {
     this.page = event;
-
   }
 
-  cuentasFilter: any = [];
-  dataPaginate(_event: any) {
-    this.page=1;
-    this.cuentasFilter = [];
-    if (this.search == "") {
-
-    } else {
-
-      for (const x of this.dataTabla) {
-
-        if (x.name.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
-          this.cuentasFilter.push(x);
-
-        };
-      };
-      this.cuentasFilter; 
-    }
+  dataPaginate() {
+    this.page = 1;
   }
 
-
-  public visible = false;
   toggleLiveDemo() {
     this.visible = !this.visible;
-
   }
 
   handleLiveDemoChange(event: any) {

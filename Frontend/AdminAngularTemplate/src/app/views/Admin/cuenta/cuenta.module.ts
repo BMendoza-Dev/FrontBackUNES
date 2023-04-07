@@ -56,6 +56,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FiltroCuentasPipe } from 'src/app/pipes/filtro-cuentas.pipe';
 @NgModule({
   declarations: [
     NgautoperfilComponent,
@@ -65,7 +66,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TableDelegadoComponent,
     FormsAdministradorComponent,
     TableAdministradorComponent,
-
+    FiltroCuentasPipe
   ],
   imports: [
     NgxSpinnerModule,

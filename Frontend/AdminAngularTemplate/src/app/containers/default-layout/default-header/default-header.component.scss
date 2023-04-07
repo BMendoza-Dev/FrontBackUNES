@@ -51,6 +51,14 @@
     justify-content: flex-start;
     color: blue;
   }
+
+  li {
+    cursor: pointer;
+  }
+  li:hover {
+    background-color: #f2f2f2;
+  }
+  
   
 
 

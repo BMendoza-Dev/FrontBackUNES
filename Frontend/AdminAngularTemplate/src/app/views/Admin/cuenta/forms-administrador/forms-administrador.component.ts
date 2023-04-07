@@ -1,24 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ValidationFormsService } from "src/app/servicios/validation-forms.service";
 import Swal from 'sweetalert2';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
-
+import { PasswordValidators } from 'src/app/classLocal/PasswordValidators'
 /** passwords must match - custom validator */
-export class PasswordValidators {
-  static confirmPassword(control: AbstractControl): ValidationErrors | null {
-    const password = control.get("password");
-    const confirm = control.get("confirmPassword");
-    if (password?.valid && password?.value === confirm?.value) {
-      confirm?.setErrors(null);
-      return null;
-    }
-    confirm?.setErrors({ passwordMismatch: true });
-    return { passwordMismatch: true };
-  }
-}
+
 
 @Component({
   selector: 'app-forms-administrador',
@@ -28,34 +17,20 @@ export class PasswordValidators {
 })
 export class FormsAdministradorComponent implements OnInit {
 
-  constructor(private spinnerService:SpinnerService,public validationFormsService: ValidationFormsService, 
-    private adminService: AdministradorService, 
-    private localServi: LocalProyectService, private formBuilder: FormBuilder) { 
-    this.formErrors = this.validationFormsService.errorMessages;
-    this.createForm();
-  }
-
   simpleForm!: FormGroup;
   submitted = false;
   formErrors: any;
   formControls!: string[];
- iconEyeAsistente: string = "password"; dataAsmbleista: any = []; keyword = 'name';
-  idAsambleiApiAsis: string = ""; notFound: any = "No se encuentra asambleista";
+
+  constructor(private spinnerService: SpinnerService, public validationFormsService: ValidationFormsService,
+    private adminService: AdministradorService,
+    private localServi: LocalProyectService, private formBuilder: FormBuilder) {
+    this.formErrors = this.validationFormsService.errorMessages;
+    this.createForm();
+  }
+
 
   ngOnInit(): void {
-    //this.cargarCuentasAsambleista();
-  }
-
-  onSubmit2() {
-    console.log('Submit... 2');
-  }
-
-  cambiarIconAdmin() { //Cambio de Icono en el Password Input Delegado
-    if (this.iconEyeAsistente == "text") {
-      this.iconEyeAsistente = "password";
-    } else {
-      this.iconEyeAsistente = "text";
-    }
   }
 
   guardarCuentaAdmin() {
@@ -68,7 +43,7 @@ export class FormsAdministradorComponent implements OnInit {
       'perfil_id': 1,
       'estado': 1
     }
-    
+
     this.adminService.registerCuentaAsambleistaAsistente(formAsambleista).then(() => {
       this.submitted = false;
       this.simpleForm.reset();
@@ -83,42 +58,24 @@ export class FormsAdministradorComponent implements OnInit {
 
 
   crearCuentaAdmin() { //Crear la cuenta con los inputs con valores de Asistente
-      Swal.fire({
-        title: 'Esta seguro que desea crear una cuenta?',
-        showDenyButton: false,
-        showCancelButton: true,
-        confirmButtonText: 'Crear',
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          this.guardarCuentaAdmin();
-          
-          
-        } else if (result.isDenied) {
-          Swal.fire('No se a guardado la cuenta', '', 'info')
-        }
-      })
+    Swal.fire({
+      title: 'Esta seguro que desea crear una cuenta?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.guardarCuentaAdmin();
+      } else if (result.isDenied) {
+        Swal.fire('No se a guardado la cuenta', '', 'info')
+      }
+    })
   }
 
   onReset2() {
     this.localServi.emitirEventoTablaAdministrador();
-    console.log('Reset... 2');
-    
   }
-
-
-  spinnerConfig = {
-    bdColor: 'rgba(0, 0, 0, 0.8)',
-    size: 'medium',
-    color: '#fff',
-    type: 'square-jelly-box',
-    fullScreen: true,
-    template: null,
-    showSpinner: false
-  };
-
-
- 
 
   onValidate() {
     this.submitted = true;

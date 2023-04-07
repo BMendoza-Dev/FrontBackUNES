@@ -8,14 +8,7 @@ import { SpinnerService } from 'src/app/servicios/spinner.service';
   templateUrl: './table-delegado.component.html',
   styleUrls: ['./table-delegado.component.scss']
 })
-export class TableDelegadoComponent implements OnInit{
-  nameAuto: any;
-
-  constructor(private spinnerService:SpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
-    locaServicio.$emitter2.subscribe(() => {
-      this.cargarTabla();
-    }); 
-  }
+export class TableDelegadoComponent implements OnInit {
 
   search = "";
   title = 'pagination';
@@ -24,6 +17,13 @@ export class TableDelegadoComponent implements OnInit{
   count: number = 0;
   tableSize: number = 10;
   tableSizes: any = [5, 10, 15, 20];
+  public visible = false;
+  notFound: any = "No se encuentra asambleista";
+  constructor(private spinnerService: SpinnerService, private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
+    locaServicio.$emitter2.subscribe(() => {
+      this.cargarTabla();
+    });
+  }
 
   ngOnInit(): void {
     this.cargarTabla();
@@ -31,14 +31,14 @@ export class TableDelegadoComponent implements OnInit{
   }
 
   dataTabla: any = []; customStylesValidated = false; editNombre_ApellidoAsambleista: string = ""; editCorreoAsistente: string = "";
-  editContrasenaAsistente: any = ""; iconEyeAsam: string = "password"; datosAsistenteInput: any = [];
-  estado: number; id: number; id_perfil: number; dataAsam: any = []; keyword = 'name'; @ViewChild('autoComplete') valueAutocomplete:any;
+  editContrasenaAsistente: any = ""; iconEyeAsam: string = "password";
+  estado: number; id: number; id_perfil: number; dataAsam: any = []; keyword = 'name'; @ViewChild('autoComplete') valueAutocomplete: any;
   cargarTabla() {
     this.spinnerService.llamarSpinner();
     //Carga los datos de las cuentas de asambleistas en una tabla
-    this.administradorService.cargarCuentaByRol("asistente").then((data:any) => {
-      if(data.code != 404){
-      this.dataTabla = data;
+    this.administradorService.cargarCuentaByRol("asistente").then((data: any) => {
+      if (data.code != 404) {
+        this.dataTabla = data;
       }
       this.spinnerService.detenerSpinner();
     }).catch(error => {
@@ -95,32 +95,18 @@ export class TableDelegadoComponent implements OnInit{
   }
 
   camposInputEditar(name: any, email: any, estado: any, id: any, perfil_id: any) {
-    this.datosAsistenteInput = [];
-
-    this.datosAsistenteInput.push(name);
-    this.datosAsistenteInput.push(email);
-    this.datosAsistenteInput.push(estado);
-    this.datosAsistenteInput.push(id);
-    this.datosAsistenteInput.push(perfil_id)
-    
-    this.cargarCamposModalEdit();
-
-  }
-
-  cargarCamposModalEdit() {
-    this.editNombre_ApellidoAsambleista = this.datosAsistenteInput[0];
-    this.editCorreoAsistente = this.datosAsistenteInput[1];
-    this.estado = this.datosAsistenteInput[2];
-    this.id = this.datosAsistenteInput[3];
-    this.id_perfil = this.datosAsistenteInput[4];
-    this.dataAsam.forEach((item:any) =>{
-      if(item.perfil_id == this.id_perfil){
+    this.editNombre_ApellidoAsambleista = name;
+    this.editCorreoAsistente = email;
+    this.estado = estado;
+    this.id = id;
+    this.id_perfil = perfil_id;
+    this.dataAsam.forEach((item: any) => {
+      debugger
+      if (item.perfil_id == this.id_perfil) {
         this.valueAutocomplete.query = item.name;
-        
+        debugger
       }
-    }) 
-    
-     
+    })
   }
 
   onTableDataChange(event: any) {
@@ -128,51 +114,36 @@ export class TableDelegadoComponent implements OnInit{
   }
 
   cuentasFilter: any = [];
-  dataPaginate(_event: any) {
-    this.page=1;
-    this.cuentasFilter = [];
-    if (this.search == "") {
-
-    } else {
-
-      for (const x of this.dataTabla) {
-
-        if (x.name.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
-          this.cuentasFilter.push(x);
-
-        };
-      };
-      this.cuentasFilter
-    }
+  dataPaginate() {
+    this.page = 1;
   }
 
-
-  
   cargarCuentaAsambleistaAutoCom() {
-    this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
-      if(data.code != 404){
-      this.dataAsam = data.map((item:any) =>{
-        if(item.estado == 1){
-          return item
-        } 
-      });
-    }
+    this.administradorService.cargarCuentaByRol("asambleista").then((data: any) => {
+      if (data.code != 404) {
+        this.dataAsam = data.map((item: any) => {
+          debugger
+          if (item.estado == 1) {
+            return item
+          } else {
+            return { perfil_id: 1 }
+          }
+        });
+        this.dataAsam; debugger
+      }
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
 
-  notFound: any = "No se encuentra asambleista";
   selectEvent(item: any) {
     // Evento para obtener valor del ng-autocomplete
     this.cargarCuentaAsambleistaAutoCom();
     this.id_perfil = item.perfil_id;
   }
 
-
-
-  public visible = false;
+  
   toggleLiveDemo() {
     this.visible = !this.visible;
   }

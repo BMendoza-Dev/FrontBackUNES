@@ -44,7 +44,6 @@ import { LastNewsAgreeComponent } from './last-news-agree/last-news-agree.compon
   declarations: [
     FormBlogsComponent,
     ListBlogsComponent,
-    FiltroCuentasPipe,
     LastNewsAgreeComponent
   ],
   imports: [

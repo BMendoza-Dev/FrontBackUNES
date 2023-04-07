@@ -8,20 +8,20 @@ import { LocalProyectService } from './../../../../servicios/local-proyect.servi
 })
 export class NgautoperfilComponent implements OnInit {
 
+  datosngautoperfil: any = [];
+  dataAsmbleista: any = []; datosAsambleistas: any; 
+  idAsambleiApiAsam: string = ""; asamPerfil: boolean = false; 
+  idPosicionDataAsam: any; keyword = 'name';
+  notFound: any = "No se encuentra asambleista";
+  habilitarCampos: boolean = false;
   constructor(private administradorService: AdministradorService, 
     private localProyectService: LocalProyectService) { }
-
-  datosngautoperfil: any = [];
-  dataAsmbleista: any = []; datosAsambleistas: any; activiteNavAsis: boolean = false; activiteNavAsam: boolean = true; nombreAsambleista: string = ""; apellidoAsambleista: string = ""; correoAsambleista: string = ""; contrasenaAsambleista: string = "";
-  idAsambleiApiAsam: string = ""; asamPerfil: boolean = false; idPosicionDataAsam: any; keyword = 'name';
-  notFound: any = "No se encuentra asambleista";
 
   ngOnInit(): void {
     this.cargarPerfilesAsam();
   }
 
   cargarPerfilesAsam() {//Carga los datos en el ng-autocomplete
-    
     this.administradorService.ListarPerfileSiAsambleista().then(data => {
       this.dataAsmbleista = data;
       var datoPrueba: any = [{ id: this.dataAsmbleista[0].id, name: this.dataAsmbleista[0].firstName + ' ' + this.dataAsmbleista[0].lastName, idPos: 0 }];
@@ -39,7 +39,7 @@ export class NgautoperfilComponent implements OnInit {
   }
 
 
-  habilitarCampos: boolean = false;
+  
   habilitar() { // Habilitar los input de Cuenta Asambleistas
     if (this.idAsambleiApiAsam != "" && this.asamPerfil == true) {
       this.habilitarCampos = true;
@@ -54,7 +54,6 @@ export class NgautoperfilComponent implements OnInit {
   }
 
   selectEvent(item: any) {
-    
     // Evento para obtener valor del ng-autocomplete
     this.cargarPerfilesAsam();
     this.idAsambleiApiAsam = item.id;
@@ -62,23 +61,17 @@ export class NgautoperfilComponent implements OnInit {
     this.idPosicionDataAsam = item.idPos;
   }
 
-  onChangeSearch(val: any) {
-    
-    val;
-  }
 
   onFocused(e: any) {
     this.cargarPerfilesAsam();
   }
 
   onClear() {
-    
     this.asamPerfil = false;
   }
 
   onMensaje(habilitarCampos: boolean) {
     this.habilitarCampos = habilitarCampos;
-    
   }
 
 

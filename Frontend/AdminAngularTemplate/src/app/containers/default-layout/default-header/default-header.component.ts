@@ -27,7 +27,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   rotateAnimation = false;
   notifiData: any[] = [
-    {'blogtitulo':'Lorem Ipsum is simply dummy text of the printing and typeset dasd sdas das dasdas dasda sd dasda dasdasd asd ', 'date':'revisar blog', 'perfil':'Luisa Gonzales','user':'Guido Mendoza'},
+    {'blogtitulo':'Lo Ipsum is simply dummy text of the printing and typeset dasd sdas das dasdas dasda sd dasda dasdasd asd ', 'date':'revisar blog', 'perfil':'Luisa Gonzales','user':'Guido Mendoza'},
     {'blogtitulo':'Lorem Ipsum is simply dummy text of the printing and typeset', 'date':'revisar blog', 'perfil':'Luisa Gonzales','user':'Guido Mendoza'},
     {'blogtitulo':'Lorem Ipsum is simply dummy text of the printing and typeset', 'date':'revisar blog', 'perfil':'Luisa Gonzales','user':'Guido Mendoza'},
     {'blogtitulo':'Lorem Ipsum is simply dummy text of the printing and typeset', 'date':'revisar blog', 'perfil':'Luisa Gonzales','user':'Guido Mendoza'},
@@ -88,9 +88,11 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   contrador:number = 10;
   onScroll() {
-    // cargar más elementos
+    setTimeout(() => {
+      // cargar más elementos
     this.contrador = this.contrador + 10;
     this.tableSize = this.contrador;
+    }, 1000);
     
     debugger
   }

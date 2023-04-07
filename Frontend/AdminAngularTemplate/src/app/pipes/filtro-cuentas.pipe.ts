@@ -21,8 +21,19 @@ export class FiltroCuentasPipe implements PipeTransform {
       return items;
     }
     searchText = searchText.toLowerCase();
-    return items.filter(item => {
-      return item.name.toLowerCase().includes(searchText);
+    const filteredItems = items.filter((item:any) => {
+      return Object.values(item).some((val:any) => {
+        if (val === null) {
+          return false;
+        }
+        return val.toString().toLowerCase().includes(searchText);
+      });
     });
+
+    if (filteredItems.length === 0) {
+      return [{ 'validar': 'Sin registros' }];
+    }
+    console.log(filteredItems)
+    return filteredItems;
   }
 }

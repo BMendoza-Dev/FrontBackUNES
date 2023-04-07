@@ -88,6 +88,7 @@ export class TableAsambleistaComponent implements OnInit {
     })
   }
 
+
   limpiarModal() {
     this.editContrasenaAsambleista = "";
     this.editNombre_ApellidoAsambleista = "";
@@ -102,11 +103,9 @@ export class TableAsambleistaComponent implements OnInit {
     this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
       if(data.code != 404){
         this.dataTabla = data;
-      //this.POSTS = this.dataTabla;
-      this.limpiarModal();
-      //this.spinner.hide('sample');
+        this.spinnerService.detenerSpinner();
       }
-      this.spinnerService.detenerSpinner();
+      
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       console.log(error);
@@ -141,20 +140,8 @@ export class TableAsambleistaComponent implements OnInit {
   }
 
   cuentasFilter: any = [];
-  dataPaginate(_event: any) {
+  dataPaginate() {
     this.page=1;
-    this.cuentasFilter = [];
-    if (this.search == "") {
-
-    } else {
-
-      for (const x of this.dataTabla) {
-        if (x.name.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
-          this.cuentasFilter.push(x);
-        };
-      };
-      this.cuentasFilter;
-    }
   }
 
 
