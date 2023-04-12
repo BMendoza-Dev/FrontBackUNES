@@ -70,7 +70,7 @@ return [
     */
 
     //'timezone' => 'America/Guayaquil',
-    'timezone' => 'America/Lima',
+    'timezone' => 'America/Guayaquil',
 
     /*
     |--------------------------------------------------------------------------

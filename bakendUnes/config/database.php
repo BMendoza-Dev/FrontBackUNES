@@ -16,6 +16,7 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
+    'timezone' => 'America/Guayaquil',
 
     /*
     |--------------------------------------------------------------------------
