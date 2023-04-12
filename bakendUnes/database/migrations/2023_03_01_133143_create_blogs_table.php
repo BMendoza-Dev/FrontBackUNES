@@ -25,8 +25,7 @@ return new class extends Migration
             $table->foreignId('categorie_id')->references('id')->on('categories');
             $table->foreignId('perfil_id')->references('id')->on('perfils');
             $table->foreignId('users_id')->references('id')->on('users');
-            $table->timestamp('created_at')->nullable(false)->default(null)->change();
-            $table->timestamp('updated_at')->nullable(false)->default(null)->change();
+            $table->timestamps();
         });
     }
 
