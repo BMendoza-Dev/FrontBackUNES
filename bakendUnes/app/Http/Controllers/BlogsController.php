@@ -194,8 +194,9 @@ class BlogsController extends Controller
      public function AprobarBlogEnUltimaNoticias(Request $request){
         $blog =  Blog::findOrFail($request->id);
         $fechaHora1 = Carbon::parse($blog->updated_at);
-        $fechaHora2 = Carbon::parse(Carbon::createFromFormat('Y-m-d H:i:s', $request->updated_at, 'America/Guayaquil'));
         var_dump(DateTimeZone::listIdentifiers(DateTimeZone::ALL));
+        $fechaHora2 = Carbon::parse(Carbon::createFromFormat('Y-m-d H:i:s', $request->updated_at, 'America/Guayaquil'));
+        
         if (!$fechaHora1->equalTo($fechaHora2)) {
             return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado debido a que el creador lo ha modificado'];
         } 
