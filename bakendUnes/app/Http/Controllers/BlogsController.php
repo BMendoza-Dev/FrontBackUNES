@@ -196,7 +196,7 @@ class BlogsController extends Controller
         $fechaHora1 = Carbon::parse($blog->updated_at);
         $fechaHora2 = Carbon::parse(Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $request->updated_at)->setTimezone('America/Guayaquil'));
 
-        dd($fechaHora1);
+        dd($fechaHora2);
         return  response()->json(['fecha blog'=>$fechaHora1,'fehca frontend'->$fechaHora2]);
 
         if (!$fechaHora1->equalTo($fechaHora2)) {
