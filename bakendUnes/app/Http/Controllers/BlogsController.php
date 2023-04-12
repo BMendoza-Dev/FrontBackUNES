@@ -67,7 +67,8 @@ class BlogsController extends Controller
                         'categorie'=> $notify->data['categorie_id'],
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
-                        'date'=> $notify->data['date']
+                        'date'=> $notify->data['date'],
+                        'time'=> $notify->created_at
                     ];
     
                 });

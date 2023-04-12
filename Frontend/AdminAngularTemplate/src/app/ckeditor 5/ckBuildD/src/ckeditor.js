@@ -7,10 +7,6 @@ import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
-import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
-import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript';
-import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript';
-import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
@@ -42,9 +38,7 @@ Editor.builtinPlugins = [
 	Alignment,
 	Autoformat,
 	BlockQuote,
-	Bold, Subscript, Superscript,
-	Strikethrough,
-	Underline,
+	Bold,
 	CloudServices,
 	Code,
 	Essentials,
