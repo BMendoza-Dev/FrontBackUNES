@@ -179,7 +179,7 @@ class BlogsController extends Controller
                     'perfil_id' => $blog->perfil_id,
                     'users_id' => $blog->users_id,
                     'created_at' => $blog->created_at,
-                    'updated_at' => $blog->updated_at,
+                    'updated_at' => Carbon::parse($blog->updated_at),
                     'perfil' => $blog->perfil,
                     'imagen' => $blog->image->imagen
                 ];
