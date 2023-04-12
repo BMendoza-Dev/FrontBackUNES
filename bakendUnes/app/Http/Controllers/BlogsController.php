@@ -69,7 +69,7 @@ class BlogsController extends Controller
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
-                        'time'=> $created_at->diffForHumans($now)
+                        'time'=> $created_at->diffForHumans($now,['locale' => 'es'])
                     ];
     
                 });
