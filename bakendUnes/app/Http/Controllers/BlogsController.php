@@ -54,12 +54,13 @@ class BlogsController extends Controller
             
             self::make_blogs_notify($blog);
 
-             
+            $now = Carbon::now();
 
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
             })->each(function(User $user){
                 $notify=$user->notifications->map(function($notify){
+                    $created_at = Carbon::parse($notify->created_at);
                     return [
                         'blogtitulo'=> $notify->data['blogtitulo'],
                         'blogdescripcion'=> $notify->data['blogdescripcion'],
@@ -68,7 +69,7 @@ class BlogsController extends Controller
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
-                        'time'=> $notify->created_at
+                        'time'=> $created_at->diffForHumans($now)
                     ];
     
                 });
