@@ -188,6 +188,7 @@ class BlogsController extends Controller
                 return  response()->json(['error'=>'404']);
             }
 
+            dd($blogs->updated_at);
         return  response()->json($blogs);
            
      }
