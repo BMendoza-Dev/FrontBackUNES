@@ -194,9 +194,7 @@ class BlogsController extends Controller
      public function AprobarBlogEnUltimaNoticias(Request $request){
         $blog =  Blog::findOrFail($request->id);
         $fechaHora1 = Carbon::parse($blog->updated_at);
-        $fechaHora2 = Carbon::parse(Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $request->updated_at)->setTimezone('America/Guayaquil'));
-
-        dd($fechaHora2);
+        $fechaHora2 = Carbon::parse(Carbon::createFromFormat('Y-m-d H:i:s', $request->updated_at, 'America/Guayaquil'));
         return  response()->json(['fecha blog'=>$fechaHora1,'fehca frontend'->$fechaHora2]);
 
         if (!$fechaHora1->equalTo($fechaHora2)) {
