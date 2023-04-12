@@ -59,7 +59,7 @@ class BlogsController extends Controller
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
             })->each(function(User $user) use ($now){
-                $notify=$user->notifications->map(function($notify){
+                $notify=$user->notifications->map(function($notify) use ($now){
                     $created_at = Carbon::parse($notify->created_at);
                     return [
                         'blogtitulo'=> $notify->data['blogtitulo'],
