@@ -69,7 +69,7 @@ class BlogsController extends Controller
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
-                        'time'=> $created_at->diffForHumans($now,['locale' => 'es'])
+                        'time'=> $created_at->diffForHumans($now)
                     ];
     
                 });
@@ -110,10 +110,13 @@ class BlogsController extends Controller
         if($request->ultimanoticia==true){
             self::make_blogs_notify($blog);
 
+             $now = Carbon::now();
+
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
-            })->each(function(User $user){
-                $notify= $user->notifications->map(function($notify){
+            })->each(function(User $user) use ($now){
+                $notify=$user->notifications->map(function($notify) use ($now){
+                    $created_at = Carbon::parse($notify->created_at);
                     return [
                         'blogtitulo'=> $notify->data['blogtitulo'],
                         'blogdescripcion'=> $notify->data['blogdescripcion'],
@@ -121,7 +124,8 @@ class BlogsController extends Controller
                         'categorie'=> $notify->data['categorie_id'],
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
-                        'date'=> $notify->data['date']
+                        'date'=> $notify->data['date'],
+                        'time'=> $created_at->diffForHumans($now)
                     ];
     
                 });

@@ -69,7 +69,8 @@ return [
     |
     */
 
-    'timezone' => 'America/Guayaquil',
+    //'timezone' => 'America/Guayaquil',
+    'timezone' => 'America/Lima',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +109,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'es_ES',
 
     /*
     |--------------------------------------------------------------------------
