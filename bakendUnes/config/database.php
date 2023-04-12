@@ -16,7 +16,7 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
-    'timezone' => 'America/Guayaquil',
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -45,6 +45,7 @@ return [
         ],
 
         'mysql' => [
+            'timezone' => 'America/Guayaquil',
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
