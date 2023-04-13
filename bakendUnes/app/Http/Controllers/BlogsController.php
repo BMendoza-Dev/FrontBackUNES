@@ -166,7 +166,6 @@ class BlogsController extends Controller
         return $query;
     })
     ->get()->map(function($blog) {
-        $createdAtLocal = $blog->updated_at->timezone('America/Guayaquil')->toISOString();
                 return [
                     'id' => $blog->id,
                     'blogtitulo' => $blog->blogtitulo,
@@ -180,7 +179,7 @@ class BlogsController extends Controller
                     'perfil_id' => $blog->perfil_id,
                     'users_id' => $blog->users_id,
                     'created_at' => $blog->created_at,
-                    'updated_at' => $createdAtLocal,
+                    'updated_at' => $blog->updated_at,
                     'perfil' => $blog->perfil,
                     'imagen' => $blog->image->imagen
                 ];
