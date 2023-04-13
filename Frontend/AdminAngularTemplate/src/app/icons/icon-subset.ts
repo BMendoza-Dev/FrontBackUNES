@@ -92,7 +92,8 @@ import {
   cilUserFollow,
   cilUserUnfollow,
   cilLowVision,
-  cilSearch
+  cilSearch,
+  cilDataTransferUp
 } from '@coreui/icons';
 
 export const iconSubset = {
@@ -189,7 +190,8 @@ export const iconSubset = {
   cilUserFollow,
   cilUserUnfollow,
   cilLowVision,
-  cilSearch
+  cilSearch,
+  cilDataTransferUp
 };
 
 export enum IconSubset {
@@ -286,5 +288,6 @@ export enum IconSubset {
   cilUserFollow = 'cilUserFollow',
   cilUserUnfollow = 'cilUserUnfollow',
   cilLowVision = 'cilLowVision',
-  cilSearch = 'cilSearch'
+  cilSearch = 'cilSearch',
+  cilDataTransferUp = 'cilDataTransferUp'
 }

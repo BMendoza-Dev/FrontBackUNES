@@ -1,9 +1,8 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import Echo from 'laravel-echo';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
-import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
@@ -24,8 +23,7 @@ export class LastNewsAgreeComponent implements OnInit {
   page: number = 1;
   count: number = 0;
   tableSize: number = 6;
-  blogFilter: any = [];
-  @Input() nameCat: any; _categoria_id: any = 0;
+  nameCat: any; _categoria_id: any = 0;
   listCateg: any;
   categorie_id: any = "Todas las categorías"; echo: Echo;
   updated_at: any; 
@@ -76,7 +74,7 @@ export class LastNewsAgreeComponent implements OnInit {
       this.spinnerService.llamarSpinner();
     }
     this.service.listarBlog(this._categoria_id).then((data: any) => {
-
+      this.page = 1;
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
@@ -106,20 +104,6 @@ export class LastNewsAgreeComponent implements OnInit {
 
   dataPaginate(_event: any) {
     this.page = 1;
-    this.blogFilter = [];
-    if (this.search == "") {
-
-    } else {
-
-      for (const x of this.listBlog) {
-
-        if (x._blogtitulo.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
-          this.blogFilter.push(x);
-
-        };
-      };
-      this.blogFilter
-    }
   }
 
   onTableDataChange(event: any) {
@@ -131,6 +115,7 @@ export class LastNewsAgreeComponent implements OnInit {
     this.idBlog = id;
     this.spinnerService.llamarSpinner()
     this.service.getBlog(id).then((data: any) => {
+      console.log(data)
       this.updated_at = data[0].updated_at;
       this.categoria = data[0].categoria;
       this.blogtitulo = data[0].blogtitulo;
@@ -192,8 +177,10 @@ export class LastNewsAgreeComponent implements OnInit {
       'titulo': this.motivoTitulo,
       'updated_at':  this.updated_at
     }
+    
 
     this.service.AprobarBlogEnUltimaNoticias(datos).then((data:any) => {
+      
       if(data.error != 500){
         if (value == 0) {
           this.toggleLiveDemoDeny();
@@ -272,7 +259,6 @@ export class LastNewsAgreeComponent implements OnInit {
   }
 
   ngOnDestroy():void{
-    
     this.echo.leaveAllChannels();
   }
 

@@ -14,16 +14,17 @@ export class FormBlogsComponent implements OnInit {
   urlSet: any = '';
   @Input() datosEdit: any;
   @Output() cargarListBlog = new EventEmitter<void>();
+  miControl: any = new FormControl('', Validators.required);
+  public datos: any = ""; public Editor: any = ClassicEditor;
+  titulo: string = ''; descripcion: string = ''; importante = 0; categorie_id: any = "Seleccione una categoría"; blog_id = "";
+  listCateg: any; frameWidth: number = 900;
+  frameHeight: number = 250;
+  check: boolean = false;
   constructor(private spinnerService: SpinnerService, private service: BlogServicesService) {
 
   }
 
-  miControl: any = new FormControl('', Validators.required);
-
-  public datos: any = ""; public Editor: any = ClassicEditor;
-  titulo: string = ''; descripcion: string = ''; importante = 0; categorie_id: any = "Seleccione una categoria"; blog_id = "";
-  listCateg: any; frameWidth: number = 900;
-  frameHeight: number = 250;
+ 
   ngOnInit(): void {
     if (this.datosEdit) {
       this.urlGet = this.datosEdit.urlGet;
@@ -32,14 +33,19 @@ export class FormBlogsComponent implements OnInit {
       this.descripcion = this.datosEdit.blogdescripcion;
       this.datos = this.datosEdit.blogcontenido;
       this.blog_id = this.datosEdit.id;
-      this.urlSet = this.datosEdit.urlSet
+      this.urlSet = this.datosEdit.urlSet;
+      this.importante = this.datosEdit.ultNoticia;
+      debugger
+      this.import(true);
     }
     this.listarCategoriasBlog();
   }
 
   listarCategoriasBlog() {
+    this.spinnerService.llamarSpinner();
     this.service.ListarCateBlog().then((data: any) => {
       this.listCateg = data;
+      this.spinnerService.detenerSpinner();
     })
   }
 
@@ -159,7 +165,7 @@ export class FormBlogsComponent implements OnInit {
           'imagen': this.urlSet,
           'blog_id': this.blog_id
         }
-
+        debugger
         this.service.crear_updateBlog(data).then( () => {
           this.spinnerService.detenerSpinner();
           this.onReset2();
@@ -199,17 +205,25 @@ export class FormBlogsComponent implements OnInit {
       this.alert();
       this.cargarListBlog.emit();
     }
-    this.categorie_id = "Seleccione una categoria"; this.titulo = ""; this.descripcion = ""; this.datos = ""
+    this.categorie_id = "Seleccione una categoría"; this.titulo = ""; this.descripcion = ""; this.datos = ""
     this.blog_id = ""; this.check = false; this.urlSet = ""; this.urlGet = ""; this.importante = 0;
   }
-  check: boolean = false;
-  import() {
-    if (this.importante == 0) {
-      this.importante = 1
-      this.check = true
-    } else {
-      this.importante = 0
-      this.check = false
+  
+  import(_edit:boolean) {
+    if(_edit == true){
+      if (this.importante == 1) {
+        this.check = true
+      } else {
+        this.check = false
+      }
+    }else{
+      if (this.importante == 0) {
+        this.importante = 1
+        this.check = true
+      } else {
+        this.importante = 0
+        this.check = false
+      }
     }
   }
 

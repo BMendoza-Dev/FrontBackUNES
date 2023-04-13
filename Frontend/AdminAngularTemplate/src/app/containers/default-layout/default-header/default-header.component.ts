@@ -73,6 +73,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
         this.toggleAnimation();
         this.total = resp['blog'].length;
         this.notifiData = resp['blog'];
+        console.log(this.notifiData)
+        this.tableSize = 10;
         setTimeout(() => {
           this.toggleAnimation();
           console.log('La función se ha ejecutado después de 3 segundos');
@@ -82,7 +84,6 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.notifiData; 
     this.mostrarImg();
   }
 
@@ -94,7 +95,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     this.tableSize = this.contrador;
     }, 1000);
     
-    debugger
+    
   }
 
   ngOnDestroy() {

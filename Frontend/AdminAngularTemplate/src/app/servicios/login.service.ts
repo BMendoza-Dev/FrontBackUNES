@@ -14,7 +14,7 @@ export class LoginService {
   constructor(private http: HttpClient) { 
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.url = this.urlAWS;
+    this.url = this.urlLocal;
   }
 
   ValidarLogin(data: any) {

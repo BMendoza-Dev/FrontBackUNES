@@ -105,16 +105,6 @@ categoria_id:any;
 
   dataPaginate(_event: any) {
     this.page = 1;
-    this.catFilter = [];
-    if (this.search == "") {
-    } else {
-      for (const x of this.dataCat) {
-        if (x.categorianame.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
-          this.catFilter.push(x);
-        };
-      };
-      this.catFilter
-    }
   }
 
   public visible = false;

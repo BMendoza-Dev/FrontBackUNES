@@ -25,34 +25,34 @@
       </thead>
       <tbody>
         <ng-container *ngIf="dataTabla.length > 0">
-        <tr *ngFor="let item of dataTabla | filtroCuentas:search | paginate:{itemsPerPage: tableSize,
+          <tr *ngFor="let item of dataTabla | filtroCuentas:search | paginate:{itemsPerPage: tableSize,
           currentPage: page,
           totalItems : count,
           id: 'paginado'
           }; let i = index ">
-          <ng-container *ngIf="item.validar != 'Sin registros';else func">
-          <th scope="row">{{i+1}}</th>
-          <td>{{item.name}}</td>
-          <td>{{item.email}}</td>
-          <td>
-            <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
-              Habilitado
-            </c-badge>
-            <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
-          </td>
-          <td>
-            <button (click)="toggleLiveDemo()"
-              (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
-              class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
-                width="20"></svg>&nbsp;Editar</button>
-          </td>
-        </ng-container>
-        <ng-template #func>
-          <c-alert color="danger">No existen cuentas Registradas!</c-alert>
-        </ng-template>
-        </tr>
+            <ng-container *ngIf="item.validar != 'Sin registros';else func">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td>
+                <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
+                  Habilitado
+                </c-badge>
+                <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
+              </td>
+              <td>
+                <button *ngIf="item.email != localEmail" (click)="toggleLiveDemo()"
+                  (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
+                  class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                    width="20"></svg>&nbsp;Editar</button>
+              </td>
+            </ng-container>
+            <ng-template #func>
+              <td colspan="5"><c-alert color="danger">No existen cuentas Registradas!</c-alert></td>
+            </ng-template>
+          </tr>
 
-      </ng-container>
+        </ng-container>
       </tbody>
     </table>
     <ng-container *ngIf="dataTabla.length <= 0">
@@ -114,7 +114,7 @@
           <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
         </c-input-group>
       </c-col>
-      <c-col xs="6">
+      <c-col md="6">
         <label cLabel for="editEstadoAdmin">Estado de la cuenta<span class="is-required">*</span></label>
         <select name="editEstadoAdmin" [(ngModel)]="estado" aria-label="Default select example" cSelect>
           <option value=1>Habilitar</option>

@@ -101,10 +101,10 @@ export class TableDelegadoComponent implements OnInit {
     this.id = id;
     this.id_perfil = perfil_id;
     this.dataAsam.forEach((item: any) => {
-      debugger
+      
       if (item.perfil_id == this.id_perfil) {
         this.valueAutocomplete.query = item.name;
-        debugger
+        
       }
     })
   }
@@ -122,14 +122,14 @@ export class TableDelegadoComponent implements OnInit {
     this.administradorService.cargarCuentaByRol("asambleista").then((data: any) => {
       if (data.code != 404) {
         this.dataAsam = data.map((item: any) => {
-          debugger
+          
           if (item.estado == 1) {
             return item
           } else {
             return { perfil_id: 1 }
           }
         });
-        this.dataAsam; debugger
+        this.dataAsam; 
       }
     }).catch(error => {
       this.spinnerService.detenerSpinner();

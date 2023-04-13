@@ -25,9 +25,11 @@ export class TableAdministradorComponent implements OnInit {
   iconEyeAsam: string = "password";
   estado: number; id: number; id_perfil: number;
   public visible = false;
+  localEmail:any
 
   constructor(private spinnerService: SpinnerService, private spinner: NgxSpinnerService,
     private administradorService: AdministradorService, private locaServicio: LocalProyectService) {
+      this.localEmail = localStorage.getItem('email');
     locaServicio.$emitter3.subscribe(() => {
       this.cargarTabla();
     });

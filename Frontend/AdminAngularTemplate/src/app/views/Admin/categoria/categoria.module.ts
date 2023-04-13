@@ -10,11 +10,12 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AccordionModule, AlertModule, BadgeModule, BreadcrumbModule, ButtonGroupModule, ButtonModule, CardModule, CarouselModule, CollapseModule, DropdownModule, FormModule, GridModule, ListGroupModule, ModalModule, NavModule, PlaceholderModule, PopoverModule, ProgressModule, SharedModule, SpinnerModule, TableModule, TabsModule, TooltipModule, UtilitiesModule } from '@coreui/angular';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FiltroCategoriasPipe } from 'src/app/pipes/filtro-categorias.pipe';
 
 
 @NgModule({
   declarations: [
-    FormCategoriaComponent
+    FormCategoriaComponent,FiltroCategoriasPipe
   ],
   imports: [
     CommonModule,

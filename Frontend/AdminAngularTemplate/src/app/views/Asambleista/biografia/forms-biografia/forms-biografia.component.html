@@ -1,43 +1,35 @@
-<c-col *ngIf="habilitarCampos==false"> <!--Input de crear Cuenta de asambleistas-->
-    <c-card style="margin-bottom: 1%;">
-        <c-nav xs="12" layout="justified" variant="pills">
-            <c-nav-item>
-                <span [active]="true" cNavLink>
-                    BIOGRAFIA DE ASAMBLEISTA
-                </span>
-            </c-nav-item>
-        </c-nav>
-    </c-card>
-</c-col>
+<c-card>
+  <c-card-body>
+    <div class="container">
+      <img *ngIf="urlGet" [src]="urlGet" alt="Descripción de la imagen">
+    </div>
+    <div class="file-input">
+      <input (change)="onSelectFile($event)" type="file" id="file" name="file" />
+      <label for="file">
+        <span>Seleccionar una imagen</span>
+        <svg cIcon class="me-2" name="cilDataTransferUp"></svg>
+      </label>
+    </div>
 
-    <c-card>
-        <c-card-body>
-            <div class="profile-img">
-                <img height="200" class="tamanio" [src]="urlGet" alt="" />
-                <div class="file btn btn-lg btn-primary">
-                    <svg style="margin-top: 5px;" cIcon size="xl" name="cilCamera"> </svg>
-                    <input type='file' id="foto" name="foto" (change)="onSelectFile($event)" />
-                </div>
-            </div>
-            <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
-            {{datos}}
+    <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
+    {{datos}}
 
-            <section class="buttons">
-                <i (click)="redSocial('facebook')"><svg cIcon size="xl" name="cibFacebook"></svg></i>
-                <i (click)="redSocial('twitter')"><svg cIcon size="xl" name="cibTwitter"></svg></i>
-                <i (click)="redSocial('instagram')"><svg cIcon size="xl" name="cibInstagram"></svg></i>
-                <i (click)="redSocial('tiktok')"><svg cIcon size="xl" name="cibTiktok"></svg></i>
-            </section>
-        </c-card-body>
-        <c-card-footer>
-            <c-col style="margin-top: 2%;" xs="12">
-                <button (click)="updateBiografia()" cButton class="me-1" color="success" type="submit">
-                    Actualizar
-                </button>
-            </c-col>
-        </c-card-footer>
-    </c-card>
+    <section class="buttons">
+      <i (click)="redSocial('facebook')"><svg cIcon size="xl" name="cibFacebook"></svg></i>
+      <i (click)="redSocial('twitter')"><svg cIcon size="xl" name="cibTwitter"></svg></i>
+      <i (click)="redSocial('instagram')"><svg cIcon size="xl" name="cibInstagram"></svg></i>
+      <i (click)="redSocial('tiktok')"><svg cIcon size="xl" name="cibTiktok"></svg></i>
+    </section>
+  </c-card-body>
+  <c-card-footer>
+    <c-col style="margin-top: 2%;" xs="12">
+      <button (click)="updateBiografia()" cButton class="me-1" color="success" type="submit">
+        Actualizar
+      </button>
+    </c-col>
+  </c-card-footer>
+</c-card>
 
 
 
-    <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

@@ -1,35 +1,35 @@
 <!--Tablas de cuentas de Asambleistas-->
 
-  <c-card class="mb-4">
-    <c-card-header>
-      <strong>Cuentas Registradas</strong>
-    </c-card-header>
-    <c-card-body>
-      <c-col md="5" >
-        <c-input-group class="mb-3">
-          <input [(ngModel)]="search" id="search" name="search" (ngModelChange)="dataPaginate()"
-            aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl
-            placeholder="Usuarios" />
-          <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
-        </c-input-group>
-      </c-col>
-      <table hover striped cTable>
-        <thead cTableColor="dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Usuarios</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="dataTabla.length > 0">
-            <tr *ngFor="let item of dataTabla | filtroCuentas:search |  paginate:{itemsPerPage: tableSize,
+<c-card class="mb-4">
+  <c-card-header>
+    <strong>Cuentas Registradas</strong>
+  </c-card-header>
+  <c-card-body>
+    <c-col md="5">
+      <c-input-group class="mb-3">
+        <input [(ngModel)]="search" id="search" name="search" (ngModelChange)="dataPaginate()"
+          aria-describedby="basic-addon2" aria-label="Usuarios" cFormControl placeholder="Usuarios" />
+        <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+      </c-input-group>
+    </c-col>
+    <table hover striped cTable>
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Usuarios</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="dataTabla.length > 0">
+          <tr *ngFor="let item of dataTabla | filtroCuentas:search |  paginate:{itemsPerPage: tableSize,
                 currentPage: page,
                 totalItems : count,
                 id: 'paginado'
                 }; let i = index">
+            <ng-container *ngIf="item.validar != 'Sin registros';else func">
               <th scope="row">{{i+1}}</th>
               <td>{{item.name}}</td>
               <td>{{item.email}}</td>
@@ -44,18 +44,22 @@
                   [cModalToggle]="staticBackdropModal.id" type="button" class="btn btn-ghost-info botont"><svg cIcon
                     name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button>
               </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-      <ng-container *ngIf="dataTabla.length <= 0">
-        <c-alert color="danger">No existen cuentas Registradas!</c-alert>
-      </ng-container>
-    </c-card-body>
-    <pagination-controls class="my-pagination" previousLabel="Prev" nextLabel="Next"
-      (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
-    </pagination-controls>
-  </c-card>
+            </ng-container>
+            <ng-template #func>
+              <td colspan="5"><c-alert color="danger">No existen cuentas Registradas!</c-alert></td>
+            </ng-template>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <ng-container *ngIf="dataTabla.length <= 0">
+      <c-alert color="danger">No existen cuentas Registradas!</c-alert>
+    </ng-container>
+  </c-card-body>
+  <pagination-controls class="my-pagination" previousLabel="Prev" nextLabel="Next"
+    (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
+  </pagination-controls>
+</c-card>
 
 <!--Modal-->
 <c-modal backdrop="static" #staticBackdropModal id="staticBackdropModal" size="lg">
@@ -69,8 +73,7 @@
       class="row g-3 needs-validation">
       <!--Form Asambleista Editar -->
       <c-col md="6">
-        <label cLabel for="editNombreAsambleistaValidation">Usuarios<span
-            class="is-required">*</span></label>
+        <label cLabel for="editNombreAsambleistaValidation">Usuarios<span class="is-required">*</span></label>
         <input [(ngModel)]="editNombre_ApellidoAsambleista" name="editNombre_ApellidoAsambleista" cFormControl required
           type="text" value="" />
         <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
@@ -108,7 +111,7 @@
           <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
         </c-input-group>
       </c-col>
-      <c-col xs="6">
+      <c-col md="6">
         <label cLabel for="editContrasenaAsambleistaValidation">Estado de la cuenta<span
             class="is-required">*</span></label>
         <select name="miselect" [(ngModel)]="estado" aria-label="Default select example" cSelect>

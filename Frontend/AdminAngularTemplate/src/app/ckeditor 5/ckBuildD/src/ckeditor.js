@@ -30,7 +30,11 @@ import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
 import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage';
 import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
-import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed'
+import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed';
+import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
+import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
+import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript';
+import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript';
 class Editor extends ClassicEditor { }
 
 // Plugins to include in the build.
@@ -62,7 +66,11 @@ Editor.builtinPlugins = [
 	ImageUpload,
 	Base64UploadAdapter,
 	CodeBlock,
-	HtmlEmbed
+	HtmlEmbed,
+	Underline,
+	Strikethrough, 
+	Subscript,
+	Superscript   
 ];
 
 

@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
 import Swal from 'sweetalert2';
@@ -41,7 +40,6 @@ export class FormsBiografiaComponent implements OnInit {
       'bulletedList',
       'numberedList',
       '|',
-      'htmlEmbed',
       'undo',
       'redo',],
     heading: {
@@ -51,16 +49,6 @@ export class FormsBiografiaComponent implements OnInit {
         { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
         { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
       ]
-    },
-    htmlEmbed: {
-      showPreviews: true,
-      sanitizeHtml: (inputHtml: any) => {
-        const outputHtml = inputHtml;
-        return {
-          html: outputHtml,
-          hasChanged: true
-        };
-      }
     },
     lenguage: 'es'
   }
@@ -156,7 +144,9 @@ export class FormsBiografiaComponent implements OnInit {
         
         this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw; this.urlSet = biografia['image'][0].imagen;
       }
-      this.spinnerService.detenerSpinner();
+      setTimeout(() => {
+        this.spinnerService.detenerSpinner();
+      }, 4000);
     }).catch(error => {
       console.log(error);
     })

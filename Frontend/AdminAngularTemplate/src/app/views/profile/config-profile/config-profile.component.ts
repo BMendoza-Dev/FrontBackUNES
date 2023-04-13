@@ -5,19 +5,9 @@ import { ValidationFormsService } from "src/app/servicios/validation-forms.servi
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { SpinnerService } from 'src/app/servicios/spinner.service';
+import { PasswordValidators } from 'src/app/classLocal/PasswordValidators';
+import Swal from 'sweetalert2';
 
-export class PasswordValidators {
-  static confirmPassword(control: AbstractControl): ValidationErrors | null {
-    const password = control.get("password");
-    const confirm = control.get("confirmPassword");
-    if (password?.valid && password?.value === confirm?.value) {
-      confirm?.setErrors(null);
-      return null;
-    }
-    confirm?.setErrors({ passwordMismatch: true });
-    return { passwordMismatch: true };
-  }
-}
 
 @Component({
   selector: 'app-config-profile',
@@ -25,13 +15,24 @@ export class PasswordValidators {
   styleUrls: ['./config-profile.component.scss'],
   providers: [ValidationFormsService]
 })
-export class ConfigProfileComponent implements OnInit{
+export class ConfigProfileComponent implements OnInit {
   simpleForm!: FormGroup;
   submitted = false;
   formErrors: any;
   formControls!: string[];
+  iconEyeContr = "password"
+  iconEyeConfContr = "password"
+  usuario: any = "";
+  correo: any = "";
+  contrasena: string = "";
+  contrasenaConf: string = "";
+  usuarioEdit: string = "";
+  correoEdit: string = "";
+  datos: any = [];
+  mostrarInput: boolean = true;
+  editarInput: boolean = false;
 
-  constructor(private spinnerService:SpinnerService, private adminService: AdministradorService, private formBuilder: FormBuilder,
+  constructor(private spinnerService: SpinnerService, private adminService: AdministradorService, private formBuilder: FormBuilder,
     public validationFormsService: ValidationFormsService, public rutas: Router) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -40,8 +41,6 @@ export class ConfigProfileComponent implements OnInit{
   createForm() {
     this.simpleForm = this.formBuilder.group(
       {
-        //firstName: ["", [Validators.required]],
-        //lastName: ["", [Validators.required]],
         username: [
           "",
           [
@@ -77,11 +76,23 @@ export class ConfigProfileComponent implements OnInit{
   onReset() {
     this.submitted = false;
     this.simpleForm.reset();
+    this.salir();
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Se actualizó la cuenta!',
+      showConfirmButton: false,
+      timer: 2500
+    })
+    this.spinnerService.detenerSpinner();
+    setTimeout(() => {
+      this.rutas.navigate(['./']);
+    }, 3000);
+    
   }
 
   onValidate() {
     this.submitted = true;
-
     // stop here if form is invalid
     return this.simpleForm.status === "VALID";
   }
@@ -92,61 +103,26 @@ export class ConfigProfileComponent implements OnInit{
     if (this.onValidate()) {
       // TODO: Submit form value
       console.warn(this.simpleForm.value);
-      alert("SUCCESS!");
+      
       this.update();
-      this.salir();
-      this.rutas.navigate(['./']);
+
     }
   }
-
-
-  iconEyeContr = "password"
-  iconEyeConfContr = "password"
-  usuario: string = "";
-  correo: string = "";
-  contrasena: string = "";
-  contrasenaConf: string = "";
-  usuarioEdit: string = "";
-  correoEdit: string = "";
-
 
   ngOnInit() {
     this.cargarInputAdmin();
   }
-
-  cambiarIconContr() { //Cambio de Icono en el Password Input Asambleista
-    if (this.iconEyeContr == "text") {
-      this.iconEyeContr = "password";
-    } else {
-      this.iconEyeContr = "text";
-    }
-  }
-
-  cambiarIconConfContr() { //Cambio de Icono en el Password Input Asambleista
-    if (this.iconEyeConfContr == "text") {
-      this.iconEyeConfContr = "password";
-    } else {
-      this.iconEyeConfContr = "text";
-    }
-  }
-
-
-  datos: any = []
+  
   cargarInputAdmin() {
     //this.spinner.show('sample');
-    this.adminService.cargarCuentaConfig().then(data => {
-      this.datos = data; 
-      this.usuario = this.datos[0].name;
-      this.correo = this.datos[0].email;
-      //this.spinner.hide('sample');
-    }).catch(error => {
-      console.log(error);
-    })
+
+    this.usuario = localStorage.getItem('user');
+    this.correo = localStorage.getItem('email');
+    //this.spinner.hide('sample');
+
   }
 
 
-  mostrarInput: boolean = true;
-  editarInput: boolean = false;
   mostrar() {
     this.mostrarInput = true;
     this.editarInput = false;
@@ -156,47 +132,44 @@ export class ConfigProfileComponent implements OnInit{
   editar() {
     this.mostrarInput = false;
     this.editarInput = true;
-    this.usuarioEdit = this.usuario;
-    this.correoEdit = this.correo;
+    this.simpleForm.get('username')?.setValue( this.usuario);
+    this.simpleForm.get('email')?.setValue(this.correo) ;
+    
   }
 
-  conConVal: any;
   update() {
-    let data = {
-      'name': this.usuarioEdit,
-      'email': this.correoEdit,
-      'password': this.contrasenaConf,
-      'perfil_id': 1,
-      'estado': 1,
-      'id': 1
-    };
-    this.adminService.updateAsamAsisCuentas(data).then(data => {
-      this.onReset();
-    }).catch(error => {
-      console.log(error);
-    })
-  }
 
-  onReset1() {
-    this.correoEdit = "";
-    this.usuarioEdit = "";
-    this.contrasena = "";
-    this.contrasenaConf = "";
-    this.conConVal = undefined;
+    Swal.fire({
+      title: 'Esta seguro que desea actualizar su cuenta?',
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Actulizar',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.spinnerService.llamarSpinner();
+        let data = {
+          'name': this.simpleForm.get('username')?.value,
+          'email': this.simpleForm.get('email')?.value,
+          'password': this.simpleForm.get('confirmPassword')?.value,
+          'perfil_id': localStorage.getItem('idAsambPerf'),
+          'estado': 1,
+          'id': localStorage.getItem('idUser')
+        };
+        debugger
+        this.adminService.updateAsamAsisCuentas(data).then(() => {
+          this.onReset();
+        }).catch(error => {
+          console.log(error);
+        })
+      }
+    })
+    
   }
 
   salir() {
     localStorage.clear();
   }
 
-  spinnerConfig = {
-    bdColor: 'rgba(0, 0, 0, 0.8)',
-    size: 'medium',
-    color: '#fff',
-    type: 'square-jelly-box',
-    fullScreen: true,
-    template: null,
-    showSpinner: false
-  };
 
 }

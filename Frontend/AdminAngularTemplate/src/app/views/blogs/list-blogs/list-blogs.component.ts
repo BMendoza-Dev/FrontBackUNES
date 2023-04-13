@@ -100,20 +100,6 @@ export class ListBlogsComponent implements OnInit {
 
   dataPaginate(_event: any) {
     this.page = 1;
-    this.blogFilter = [];
-    if (this.search == "") {
-
-    } else {
-
-      for (const x of this.listBlog) {
-
-        if (x._blogtitulo.toUpperCase().indexOf(this.search.toUpperCase()) > -1) {
-          this.blogFilter.push(x);
-
-        };
-      };
-      this.blogFilter
-    }
   }
 
   onTableDataChange(event: any) {
@@ -125,7 +111,7 @@ export class ListBlogsComponent implements OnInit {
     this.spinnerService.llamarSpinner();
     this.idBlog = id;
     this.service.getBlog(id).then((data: any) => {
-      
+      console.log(data)
       this.categoria = data[0].categoria;
       this.categoriaId = data[0].categorie_id
       this.blogtitulo = data[0].blogtitulo;
@@ -139,7 +125,8 @@ export class ListBlogsComponent implements OnInit {
         'blogdescripcion': this.blogdescripcion,
         'blogcontenido': data[0].blogcontenido,
         'urlSet': data[0].imagen,
-        'urlGet':this.urlGet
+        'urlGet':this.urlGet,
+        'ultNoticia': data[0].ultimanoticia
       }
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {

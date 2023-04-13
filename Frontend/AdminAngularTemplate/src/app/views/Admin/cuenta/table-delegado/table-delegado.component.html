@@ -27,6 +27,7 @@
                 totalItems : count,
                 id: 'paginado'
                 }; let i = index , index as id ">
+                <ng-container *ngIf="item.validar != 'Sin registros';else func">
             <th scope="row">{{id+1}}</th>
             <td>{{item.name}}</td>
             <td>{{item.email}}</td>
@@ -43,6 +44,10 @@
                 class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
                   width="20"></svg>&nbsp;Editar</button>
             </td>
+          </ng-container>
+          <ng-template #func>
+            <td colspan="5"><c-alert color="danger">No existen cuentas Registradas!</c-alert></td>
+          </ng-template>
           </tr>
         </ng-container>
       </tbody>
@@ -108,7 +113,7 @@
           <c-form-feedback [valid]="true">¡Se ve bien!</c-form-feedback>
         </c-input-group>
       </c-col>
-      <c-col xs="6">
+      <c-col md="6">
         <label cLabel for="editContrasenaAsambleistaValidation">Estado de la cuenta<span
             class="is-required"></span></label>
         <select name="miselect" [(ngModel)]="estado" aria-label="Default select example" cSelect>

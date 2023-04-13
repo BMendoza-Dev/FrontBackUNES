@@ -12,7 +12,7 @@ export class BlogServicesService {
   constructor(private http: HttpClient) {
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.url = this.urlAWS
+    this.url = this.urlLocal
   }
 
   crear_updateBlog(_datos: any) {
@@ -106,7 +106,7 @@ export class BlogServicesService {
     formData.append('aprobado', _datos.aprobado);
     formData.append('description', _datos.description);
     formData.append('titulo', _datos.titulo);
-
+    formData.append('updated_at', _datos.updated_at)
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
         resolve(res); {
