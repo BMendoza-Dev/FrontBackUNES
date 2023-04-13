@@ -69,7 +69,7 @@ class NotifyBlogsPorAprobar extends Notification
         'blogcontenido'=>  $this->blog->blogcontenido,
         'categorie_id'=> $catename->categorianame,
         'perfil'=>  $perfil->perfil->usedFirstName." ".$perfil->perfil->usedLastName,
-        'perfil_id'=>  $perfil->perfil->id,
+        'perfilid'=>  $perfil->perfil->id,
         'user'=> auth()->user()->name,
         'date'=> $this->date
         ];
