@@ -67,6 +67,7 @@ class BlogsController extends Controller
                         'blogcontenido'=> $notify->data['blogcontenido'],
                         'categorie'=> $notify->data['categorie_id'],
                         'perfil'=> $notify->data['perfil'],
+                        'id-notify'=> $notify->id,
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
                         'time'=> $created_at->diffForHumans($now)
