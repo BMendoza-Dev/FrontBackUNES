@@ -193,10 +193,13 @@ class BlogsController extends Controller
      }
      public function AprobarBlogEnUltimaNoticias(Request $request){
         $blog =  Blog::findOrFail($request->id);
-        $fechaHora1 = Carbon::parse($blog->updated_at);
-        $fechaHora2 = Carbon::parse($request->updated_at)->subHours(4);
+        $fechaHora1 = Carbon::parse($blog->updated_at)->format('Y-m-d\TH:i:s.u\Z');
+        $fechaHora2 = Carbon::parse($request->updated_at)->subHours(5)->format('Y-m-d\TH:i:s.u\Z');
         
-        if (!$fechaHora1->equalTo($fechaHora2)) {
+    //    $aux2=$fechaHora1->equalTo($fechaHora2);
+     //   return  response()->json(['bdd'=>$fechaHora1,'pw'=>$fechaHora2]);;
+
+        if ($fechaHora1!=$fechaHora2) {
             return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado debido a que el creador lo ha modificado'];
         } 
        // $blog =  $blogs = Blog::with('perfil.user')->where('id', $request->id)->get();
