@@ -1,8 +1,28 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.container img {
-    margin: auto;
-}
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Aplica una sombra suave a la imagen */
+    border-radius: 5px; /* Agrega una esquina redondeada a la imagen */
+    transition: transform 0.3s ease-in-out; /* Agrega una transición suave al transformar la imagen */
+  }
+  
+  img:hover {
+    transform: scale(1.1); /* Escala la imagen ligeramente al pasar el cursor sobre ella */
+  }
+
+  .innerHtml {
+    text-align: justify;
+  }
+  
+  .innerHtml * {
+    text-align: justify;
+  }

@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
+import moment from 'moment';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
@@ -78,7 +79,8 @@ export class ListBlogsComponent implements OnInit {
           _blogdescripcion: value.blogdescripcion,
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
-          _imagen: this.trasformaImagen(value.imagen)
+          //_imagen: this.trasformaImagen(value.imagen)
+          _updated_at:moment(value.updated_at).locale('es').fromNow() 
         }));
 
         this.spinnerService.detenerSpinner();

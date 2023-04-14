@@ -250,7 +250,7 @@ export const navItem: INavData[] = [
     name: 'Cuentas',
     url: '/administrador_nav_1',
     permission:['super_administrador'],
-    iconComponent: { name: 'cil-user' },
+    iconComponent: { name: 'cil-user-follow' },
     children: [
       {
         name: 'Administradores',
@@ -272,25 +272,25 @@ export const navItem: INavData[] = [
   {
     name:'Categorías',
     url: '/admin-categoria/form-categoria',
-    iconComponent: { name: 'cil-user' },
+    iconComponent: { name: 'cil-list' },
     permission:['super_administrador'],
   },
   {
     name: 'Biografia',
     url: '/administrador_nav_2/biografia',
     iconComponent: { name: 'cil-user' },
-    permission:['asambleista'],
+    permission:['asambleista','asistente'],
   },
   {
     name: 'Blogs',
     url: '/blogs',
-    iconComponent: { name: 'cil-user' },
-    permission:['super_administrador','asambleista'],
+    iconComponent: { name: 'cil-notes' },
+    permission:['super_administrador','asambleista','asistente'],
     children: [
       {
         name: 'Crear Blog',
         url: '/blogs/form-blogs',
-        permission:['super_administrador','asambleista'],
+        permission:['super_administrador','asambleista','asistente'],
       },
       {
         name: 'Últimas Noticias',
@@ -300,7 +300,7 @@ export const navItem: INavData[] = [
       {
         name: 'Lista de Blogs',
         url: '/blogs/lista-blogs',
-        permission:['super_administrador','asambleista'],
+        permission:['super_administrador','asambleista','asistente'],
       }
     ]
   }

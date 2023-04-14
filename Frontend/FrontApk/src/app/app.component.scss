@@ -11,29 +11,7 @@
   margin-bottom: 60px;
 }
 
-.menu-items {
-  margin: 0px;
 
-  ion-icon{
-    margin-right: 20px;
-    color: #86979f;
-  }
-
-  ion-item{
-    padding-left: 20px;
-    margin-bottom: 10px;
-  }
-
-  .active{
-    border-left: 5px solid;
-    color: #628cff;
-    padding-left: 15px;
-
-    ion-icon{
-      color: #628cff;
-    }
-  }
-}
 
 .header-content{
   position: absolute;
@@ -41,14 +19,8 @@
   left: 15px;
   display: flex;
   align-items: center;
-
-  
 }
 
-
-ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
-}
 
 @font-face {
   font-family: 'Gotham-Black';
@@ -75,13 +47,19 @@ ion-menu ion-content {
   src: url('../assets/Font/Gotham-Ultra.woff2') format('woff2');
 } 
 
+ion-label.title{
+  margin-left: 5px;
+  font-size: 13px;
+  font-family: 'Gotham-Medium';
+}
+
 ion-menu.md ion-content {
   --padding-start: 8px;
   --padding-end: 8px;
   --padding-top: 20px;
   --padding-bottom: 20px;
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
-
 
 
 ion-menu.md ion-note {
@@ -136,13 +114,18 @@ ion-menu.md ion-item ion-label {
   font-weight: 500;
   font-family: 'Gotham-Book';
 }
-h4{
-  font-size: 13px;
-  font-family: 'Gotham-Medium';
+
+ion-menu.ios ion-item ion-label {
+  font-weight: 500;
+  font-family: 'Gotham-Book';
 }
 
 ion-menu.ios ion-content {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 20px;
   --padding-bottom: 20px;
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
 ion-menu.ios ion-list {

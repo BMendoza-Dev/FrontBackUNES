@@ -16,6 +16,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "importHelpers": true,
     "target": "ES2022",

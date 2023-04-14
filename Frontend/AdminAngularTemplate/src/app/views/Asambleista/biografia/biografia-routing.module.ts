@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsBiografiaComponent } from './forms-biografia/forms-biografia.component';
-import { AsambLoginGuard } from 'src/app/guards/asamb-login.guard';
+import { CombiGuard } from 'src/app/guards/combi.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: 'biografia',
         component: FormsBiografiaComponent,
-        canActivate:[AsambLoginGuard],
+        canActivate:[CombiGuard],
         data: {
           title: 'Biografia'
         }

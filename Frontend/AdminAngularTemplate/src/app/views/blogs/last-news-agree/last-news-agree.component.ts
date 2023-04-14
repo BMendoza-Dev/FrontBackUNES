@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import Echo from 'laravel-echo';
+import moment from 'moment';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
+import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { LoginService } from 'src/app/servicios/login.service';
 import { ScripServiceService } from 'src/app/servicios/scrip-service.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
@@ -19,7 +21,7 @@ export class LastNewsAgreeComponent implements OnInit {
   customStylesValidated2: boolean = false;
   motivoTitulo: string = '';
   motivoText: string = '';
-  search = "";
+  search:any = "";
   page: number = 1;
   count: number = 0;
   tableSize: number = 6;
@@ -27,7 +29,8 @@ export class LastNewsAgreeComponent implements OnInit {
   listCateg: any;
   categorie_id: any = "Todas las categorías"; echo: Echo;
   updated_at: any; 
-  constructor(private serviceLogin:LoginService,public rutas: Router, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
+  constructor(private localServi: LocalProyectService,
+    private serviceLogin:LoginService,public rutas: Router, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
      private service: BlogServicesService, private sanitizer: DomSanitizer) {
       this.echo = this.serviceLogin.getSockets();
       let rol = localStorage.getItem('sesionLoginInicio'); let id = localStorage.getItem('idUser');
@@ -42,6 +45,11 @@ export class LastNewsAgreeComponent implements OnInit {
   idBlog: number;
 
   ngOnInit(): void {
+    this.localServi.dataNotifyId$.subscribe((data)=>{
+      if(data){
+        this.blogGet(data);
+      }
+    })
     this.listarCategoriasBlog();
     this.blogList(0);
   }
@@ -62,7 +70,7 @@ export class LastNewsAgreeComponent implements OnInit {
         if (element.id == value) {
           this.nameCat = element.categorianame;
         }
-      });
+      }); 
     }
     this._categoria_id=value;
     this.blogList(0);
@@ -74,6 +82,7 @@ export class LastNewsAgreeComponent implements OnInit {
       this.spinnerService.llamarSpinner();
     }
     this.service.listarBlog(this._categoria_id).then((data: any) => {
+      console.log(data);
       this.page = 1;
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
@@ -82,11 +91,13 @@ export class LastNewsAgreeComponent implements OnInit {
           _blogdescripcion: value.blogdescripcion,
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
-          _imagen: this.trasformaImagen(value.imagen)
+          //_imagen: this.trasformaImagen(value.imagen),
+          _updated_at:moment(value.updated_at).locale('es').fromNow() 
         }));
       } else {
         this.listBlog = '';
       }
+      
       this.spinnerService.detenerSpinner();
     }).catch((error) => {
       
@@ -136,6 +147,7 @@ export class LastNewsAgreeComponent implements OnInit {
 
   toggleLiveDemo() {
     this.visible = !this.visible;
+    this.localServi.dataNotifyIdSource.next(null);
   }
 
   handleLiveDemoChange(event: any) {
@@ -155,7 +167,7 @@ export class LastNewsAgreeComponent implements OnInit {
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 7000,
+      timer: 3000,
       timerProgressBar: false,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)

@@ -27,14 +27,12 @@ export const routes: Routes = [
 
       {
         path: 'administrador_nav_1',
-        canActivate:[AdminLoginGuard],
         loadChildren: () => import('./views/Admin/cuenta/cuenta.module').then((m) => m.CuentaModule),
         
       },
 
       {
         path: 'administrador_nav_2',
-        canActivate:[AsambLoginGuard],
         loadChildren: () => import('./views/Asambleista/biografia/biografia.module').then((m) => m.BiografiaModule),
         
       },
@@ -56,7 +54,6 @@ export const routes: Routes = [
       },
       {
         path: 'admin-categoria',
-        canActivate:[AdminLoginGuard],
         loadChildren: () =>
         import('./views/Admin/categoria/categoria.module').then((m) => m.CategoriaModule)
       },

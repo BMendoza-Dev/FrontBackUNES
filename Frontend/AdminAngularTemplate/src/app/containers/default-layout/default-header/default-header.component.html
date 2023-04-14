@@ -18,13 +18,14 @@
 <!--</c-header>-->
 
 <ng-template #userDropdownNotif>
-  <c-dropdown autoClose="outside" alignment="end" variant="nav-item">
-    <button cButton color="" [caret]="false" cDropdownToggle class="position-relative py-0">
+  <c-dropdown [autoClose]="autoClose" alignment="end" variant="nav-item">
+    <button (click)="cargarNotif()" cButton color="" [caret]="false" cDropdownToggle class="position-relative py-0">
       <a style="margin: 5px;">
         <svg cIcon name="cilBell" size="lg" [ngClass]="{'bell': rotateAnimation}"></svg>
       </a>
       <c-badge color="danger" position="top-end" shape="rounded-pill">{{total==0 ? '': total}}</c-badge>
     </button>
+    
     <ul cDropdownMenu [ngStyle]="{'min-width.px': 400 }" class="pt-0 pr-5 w-auto">
       <c-containet style="display: flex; background-color: #EBEDEF;">
         <c-row>
@@ -39,7 +40,7 @@
                 </a>
               </button>
               <ul cDropdownMenu>
-                <li><button cDropdownItem><svg cIcon name="cilCheck" size="md" style="margin-right: 10px;"></svg>Marcar
+                <li><button cDropdownItem ><svg cIcon name="cilCheck" size="md" style="margin-right: 10px;"></svg>Marcar
                     todas como leídas</button></li>
               </ul>
             </c-dropdown>
@@ -47,26 +48,31 @@
         </c-row>
       </c-containet>
 
-
       <div id="container" class="rounded" infiniteScroll [infiniteScrollDistance]=".5" [infiniteScrollThrottle]="150"
         (scrolled)="onScroll()" [scrollWindow]="false">
-        <div  class="content " *ngIf="notifiData.length > 0 ">
-          <li *ngFor="let item of notifiData | paginate:{itemsPerPage: tableSize,
+        <div  class="content " *ngIf="notifiDataFilter.length > 0 ">
+          <li *ngFor="let item of notifiDataFilter | paginate:{itemsPerPage: tableSize,
             currentPage: page,
             totalItems : count,
             id: 'paginado'
             } ">
-            <a>
+            <a (click)="showNotify(10)">
 
               <i class="fa fa-list-alt" aria-hidden="true" style="color: blue;margin-right: 3px;"></i>
               <span class="userB">{{item.user}} </span><span class="dateB">a publicado un blog.
               </span><span class="titleB"> "{{item.blogtitulo | slice:0:45 }}
                 {{item.blogtitulo.length > 45? '...':''}}"</span><br>
               <span class="perfilB"> Asambleista: <span style="font-size: 13px; font-weight: normal !important;">
-                  {{item.perfil}}</span></span> <span class="time">{{item.time}}</span>
+                  {{item.perfil}}</span></span> 
+                  <div class="d-flex justify-content-between time">
+                    <span>{{item.time}}</span>
+                    <span>
+                      <c-badge [color]="item.date == 'Revisar Blog'? danger : primary ">{{item.date}}</c-badge>
+                    </span>
+                  </div>
             </a>
           </li>
-          <p *ngIf="notifiData.length >=  tableSize" cPlaceholderAnimation="glow">
+          <p *ngIf="notifiDataFilter.length >=  tableSize" cPlaceholderAnimation="glow">
             <span cBgColor="dark" style="width: 40%; margin-left: 3%;" cPlaceholder></span>
             <span cBgColor="secondary" style="width: 50%; margin-left: 3%;" cPlaceholder></span>
             <span cBgColor="secondary" style="width: 50%; margin-left: 3%;" cPlaceholder></span>
@@ -77,7 +83,7 @@
           </p>
         </div>
       </div>
-      <ng-container *ngIf="notifiData.length == 0">
+      <ng-container *ngIf="notifiDataFilter.length == 0">
         <li>
           <a cDropdownItem>
             <svg cIcon class="me-2" name="cilBell"></svg>
@@ -98,76 +104,13 @@
     </button>
     <ul cDropdownMenu class="pt-0 pr-5 w-auto">
       <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Account</h6>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilBell"></svg>
-          Updates
-          <c-badge class="ms-2 float-end" color="info">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
-          Messages
-          <c-badge class="ms-2 float-end" color="success">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilTask"></svg>
-          Tasks
-          <c-badge class="ms-2 float-end" color="danger">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name='cilCommentSquare'></svg>
-          Comments
-          <c-badge class="ms-auto" color="warning">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Settings</h6>
+        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Configuración</h6>
       </li>
       <li></li>
       <li>
         <a routerLink="./profile/config" cDropdownItem>
           <svg cIcon class="me-2" name="cilUser"></svg>
-          Profile
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilSettings"></svg>
-          {{childMessage}}
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilCreditCard"></svg>
-          Payments
-          <c-badge class="ms-2 float-end" color="secondary">
-            42
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilFile"></svg>
-          Projects
-          <c-badge class="ms-2 float-end" color="primary">
-            42
-          </c-badge>
+          Perfil
         </a>
       </li>
       <li>
@@ -176,7 +119,7 @@
       <li>
         <a (click)="salir()" cDropdownItem>
           <svg cIcon class="me-2" name="cilLockLocked"></svg>
-          Lock Account
+          Cerrar Sesión
         </a>
       </li>
       <li></li>

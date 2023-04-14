@@ -12,7 +12,7 @@ export class BlogServicesService {
   constructor(private http: HttpClient) {
     this.urlLocal = "http://localhost/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.url = this.urlLocal
+    this.url = this.urlAWS
   }
 
   crear_updateBlog(_datos: any) {

@@ -29,7 +29,7 @@ export class LoginService {
     });
   }
 
-  getSockets(): Echo {
+ /* getSockets(): Echo {
     return new Echo({
       broadcaster: 'pusher',
       key: 'apprc_key',
@@ -45,5 +45,5 @@ export class LoginService {
         rejectUnauthorized: false, // Deshabilitar la validación de certificados
       },
     });
-  }
+  }*/
 }

@@ -17,30 +17,29 @@ export class DefaultLayoutComponent implements OnInit {
 
 
 
-  constructor(private authService: LocalProyectService) { 
+  constructor(private authService: LocalProyectService) {
     this.getFilterNacItems();
-    
+
   }
 
-  getFilterNacItems(){
-    this.navItems = navItem.filter((item:any) => 
-    item.permission.some((p:any) => p === localStorage.getItem('sesionLoginInicio')))
-  .map(item => {
-    if (item.children) {
-      
-      return {
-        ...item,
-        children: item.children.filter((child:any) => child.permission.some((p:any) => p === localStorage.getItem('sesionLoginInicio')))
-      };
-    }
-    return item;
-  })
-  .filter((item:any) => item.permission.some((p:any) => p === localStorage.getItem('sesionLoginInicio')));
+  getFilterNacItems() {
+    this.navItems = navItem.filter((item: any) =>
+      item.permission.some((p: any) => p === localStorage.getItem('sesionLoginInicio')))
+      .map(item => {
+        if (item.children) {
+          return {
+            ...item,
+            children: item.children.filter((child: any) => child.permission.some((p: any) => p === localStorage.getItem('sesionLoginInicio')))
+          };
+        }
+        return item;
+      })
+      .filter((item: any) => item.permission.some((p: any) => p === localStorage.getItem('sesionLoginInicio')));
   }
 
- 
+
 
   ngOnInit(): void {
-  
+
   }
 }

@@ -24,7 +24,7 @@ export class FormBlogsComponent implements OnInit {
 
   }
 
- 
+
   ngOnInit(): void {
     if (this.datosEdit) {
       this.urlGet = this.datosEdit.urlGet;
@@ -59,8 +59,8 @@ export class FormBlogsComponent implements OnInit {
       'link', '|',
       'bulletedList', 'numberedList', 'todoList', '|',
       'code', 'htmlEmbed', '|',
-      'imageUpload', 'blockQuote', '|',
-      'todoList', 'undo', 'redo'],
+      'blockQuote', '|',
+      'undo', 'redo'],
     shouldNotGroupWhenFull: true,
     heading: {
       options: [
@@ -78,45 +78,6 @@ export class FormBlogsComponent implements OnInit {
           hasChanged: true
         };
       }
-    },
-    image: {
-      // Configure the available styles.
-      styles: [
-        'alignLeft', 'alignCenter', 'alignRight'
-      ],
-
-      // Configure the available image resize options.
-      resizeOptions: [
-        {
-          name: 'resizeImage:original',
-          label: 'Original',
-          value: null
-        },
-        {
-          name: 'resizeImage:25',
-          label: '25%',
-          value: '25'
-        },
-        {
-          name: 'resizeImage:50',
-          label: '50%',
-          value: '50'
-        },
-        {
-          name: 'resizeImage:75',
-          label: '75%',
-          value: '75'
-        }
-      ],
-      // You need to configure the image toolbar, too, so it shows the new style
-      // buttons as well as the resize buttons.
-      toolbar: [
-        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
-        '|',
-        'ImageResize',
-        '|',
-        'toggleImageCaption',
-      ]
     },
 
     lenguage: 'es'
@@ -166,7 +127,7 @@ export class FormBlogsComponent implements OnInit {
           'blog_id': this.blog_id
         }
         debugger
-        this.service.crear_updateBlog(data).then( () => {
+        this.service.crear_updateBlog(data).then(() => {
           this.spinnerService.detenerSpinner();
           this.onReset2();
         }).catch((error) => {
@@ -208,15 +169,15 @@ export class FormBlogsComponent implements OnInit {
     this.categorie_id = "Seleccione una categoría"; this.titulo = ""; this.descripcion = ""; this.datos = ""
     this.blog_id = ""; this.check = false; this.urlSet = ""; this.urlGet = ""; this.importante = 0;
   }
-  
-  import(_edit:boolean) {
-    if(_edit == true){
+
+  import(_edit: boolean) {
+    if (_edit == true) {
       if (this.importante == 1) {
         this.check = true
       } else {
         this.check = false
       }
-    }else{
+    } else {
       if (this.importante == 0) {
         this.importante = 1
         this.check = true

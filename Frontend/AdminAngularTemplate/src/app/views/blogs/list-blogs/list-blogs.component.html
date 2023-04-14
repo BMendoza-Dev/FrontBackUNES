@@ -33,19 +33,19 @@
               totalItems : count,
               id: 'paginado'
               }">
-          <c-card *ngIf="item._blogtitulo">
-            <!--img cCardImg="top" [src]="item.imagen"-->
+          <c-card *ngIf="item._blogtitulo" class="mb-1">
+            <c-card-header class="text-center">Categoria</c-card-header>
             <c-card-body>
               <h5 cCardTitle>{{item._blogtitulo}}</h5>
               <p cCardText>
                 {{item._blogdescripcion}}
               </p>
             </c-card-body>
-
-            <c-card-footer>
-              <small class="text-medium-emphasis">{{item._created_at | date: 'M/d/yy'}}</small>
+            <c-card-footer class="text-medium-emphasis" style="display: flex; justify-content: space-between; align-items: center;">
               <button (click)="blogGet(item._id)" cButton color="primary" variant="outline">Ver</button>
+              <span style="font-size: 15px;">{{item._updated_at}}</span>
             </c-card-footer>
+            
           </c-card>
           <c-alert *ngIf="!item._blogtitulo" color="danger">No existen lista de blogs {{nameCat}}!</c-alert>
         </c-col>
@@ -57,7 +57,7 @@
     </pagination-controls>
   </c-card>
 </c-col>
-<c-modal backdrop="static" id="staticBackdropModal" size="xl" [visible]="visible"
+<c-modal backdrop="static" id="staticBackdropModal" size="lg" [visible]="visible"
   (visibleChange)="handleLiveDemoChange($event)" scrollable> <!--Modal de editar cuenta Asambleista-->
 
   <c-modal-header>
@@ -67,7 +67,7 @@
   <c-modal-body>
     <ng-container>
       <div class="container">
-        <img style="text-align: center; justify-content: center;" width="300px" [src]="urlGet">
+        <img *ngIf="urlGet" [src]="urlGet" alt="Descripción de la imagen">
       </div>
       <br>
       {{blogtitulo}} <br>
