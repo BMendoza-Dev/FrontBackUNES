@@ -70,7 +70,7 @@ class BlogsController extends Controller
                         'perfilid'=>  $notify->data['perfilid'],
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
-                        'time'=> $created_at->diffForHumans($now)
+                        'time'=> $notify->created_at
                     ];
     
                 });
@@ -126,7 +126,7 @@ class BlogsController extends Controller
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
-                        'time'=> $created_at->diffForHumans($now)
+                        'time'=> $notify->created_at
                     ];
     
                 });
@@ -233,9 +233,11 @@ class BlogsController extends Controller
      static function make_blogs_notify_aprovate($blog,$date){
         
         $blog->load('perfil.user');
+        $now = Carbon::now();
         foreach($blog->perfil->user as $usernotify){
             $usernotify->notify(new NotifyBlogsPorAprobar($blog,$date));
-            $notify=  $usernotify->notifications->map(function($notify){
+            $notify=  $usernotify->notifications->map(function($notify) use ($now){
+                $created_at = Carbon::parse($notify->created_at);
                 return [
                     'blogtitulo'=> $notify->data['blogtitulo'],
                     'blogdescripcion'=> $notify->data['blogdescripcion'],
@@ -243,6 +245,7 @@ class BlogsController extends Controller
                     'categorie'=> $notify->data['categorie_id'],
                     'perfil'=> $notify->data['perfil'],
                     'user'=> $notify->data['user'],
+                    'time'=> $notify->created_at,
                     'date'=> $notify->data['date']
                 ];
 
