@@ -283,11 +283,13 @@ class BlogsController extends Controller
         }else{
             $blog = Blog::with( 'image','categoria','nota')
             ->where( 'id',$request->id)->get()->map(function($blog) {
-                if($blog->nota->isEmpty()){
-                    $nota = 0;
+                $lastNota = $blog->nota()->latest()->first();
+                if(!$lastNota){
+                    $nota = 'no hay notas';
                 }else{
-                    $nota= $blog->nota;
+                    $nota= $lastNota;
                 }
+
                 return [
                     'id' => $blog->id,
                     'blogtitulo' => $blog->blogtitulo,
