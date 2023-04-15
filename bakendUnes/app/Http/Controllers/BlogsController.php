@@ -70,6 +70,7 @@ class BlogsController extends Controller
                         'perfilid'=>  $notify->data['perfilid'],
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
+                        'idblog'=> $notify->data['id'],
                         'time'=> $notify->created_at
                     ];
     
@@ -125,6 +126,7 @@ class BlogsController extends Controller
                         'categorie'=> $notify->data['categorie_id'],
                         'perfil'=> $notify->data['perfil'],
                         'user'=> $notify->data['user'],
+                        'idblog'=> $notify->data['id'],
                         'date'=> $notify->data['date'],
                         'time'=> $notify->created_at
                     ];
@@ -158,7 +160,7 @@ class BlogsController extends Controller
 
      public function ListarBlogsPorAprobar (Request $request){
         $categoryId=$request->cate_id;
-        $blogs = Blog::with('perfil', 'image')
+        $blogs = Blog::with('perfil', 'image','categoria')
             ->where('aprobado',false)->where('ultimanoticia',true)->when($categoryId, function($query, $categoryId) {
         return $query->whereHas('categoria', function($query) use ($categoryId) {
             $query->where('id', $categoryId);
@@ -177,6 +179,7 @@ class BlogsController extends Controller
                     'aprobado' => $blog->aprobado,
                     'editoriale_id' => $blog->editoriale_id,
                     'categorie_id' => $blog->categorie_id,
+                    'categorianame' => $blog->categoria->categorianame,
                     'perfil_id' => $blog->perfil_id,
                     'users_id' => $blog->users_id,
                     'created_at' => $blog->created_at,
@@ -246,6 +249,7 @@ class BlogsController extends Controller
                     'perfil'=> $notify->data['perfil'],
                     'user'=> $notify->data['user'],
                     'time'=> $notify->created_at,
+                    'idblog'=> $notify->data['id'],
                     'date'=> $notify->data['date']
                 ];
 
