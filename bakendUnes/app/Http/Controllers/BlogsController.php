@@ -204,11 +204,30 @@ class BlogsController extends Controller
      //   return  response()->json(['bdd'=>$fechaHora1,'pw'=>$fechaHora2]);;
 
         if ($fechaHora1!=$fechaHora2) {
-            return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado debido a que el creador lo ha modificado'];
+            return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado ha sufrido cambios previos, por favor actualice la pagina'];
         } 
        // $blog =  $blogs = Blog::with('perfil.user')->where('id', $request->id)->get();
        
+       User::whereHas('roles', function ($query){
+        $query->where('slug','super_administrador');
+    })->each(function(User $user) {
+        $notify=$user->notifications->map(function($notify){
+            $created_at = Carbon::parse($notify->created_at);
+            return [
+                'blogtitulo'=> $notify->data['blogtitulo'],
+                'blogdescripcion'=> $notify->data['blogdescripcion'],
+                'blogcontenido'=> $notify->data['blogcontenido'],
+                'categorie'=> $notify->data['categorie_id'],
+                'perfil'=> $notify->data['perfil'],
+                'user'=> $notify->data['user'],
+                'idblog'=> $notify->data['id'],
+                'date'=> $notify->data['date'],
+                'time'=> $notify->created_at
+            ];
 
+        });
+        event(new NotifyEventBlog($notify,$user->roles[0]->slug,$user->id));
+    });
              
         if($request->aprobado==true){
        
@@ -262,8 +281,13 @@ class BlogsController extends Controller
         if($request->id==null || $request->id=='' ){
             return ['error'=>'404'];
         }else{
-            $blog = Blog::with( 'image','categoria')
+            $blog = Blog::with( 'image','categoria','nota')
             ->where( 'id',$request->id)->get()->map(function($blog) {
+                if($blog->nota->isEmpty()){
+                    $nota = 0;
+                }else{
+                    $nota= $blog->nota;
+                }
                 return [
                     'id' => $blog->id,
                     'blogtitulo' => $blog->blogtitulo,
@@ -276,7 +300,7 @@ class BlogsController extends Controller
                     'created_at' => $blog->created_at,
                     'updated_at' => $blog->updated_at,
                     'imagen' => $blog->image->imagen,
-                    
+                    'nota'=>$nota
                 ];
             });
             if($blog->isEmpty()){
@@ -300,7 +324,7 @@ class BlogsController extends Controller
             });
         }, function($query) {
             return $query;
-        })->get();
+        })->with('categoria')->get();
 
         return response()->json($blog);
 
