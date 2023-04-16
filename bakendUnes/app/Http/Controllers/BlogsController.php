@@ -199,35 +199,35 @@ class BlogsController extends Controller
         $blog =  Blog::findOrFail($request->id);
         $fechaHora1 = Carbon::parse($blog->updated_at)->format('Y-m-d\TH:i:s.u\Z');
         $fechaHora2 = Carbon::parse($request->updated_at)->subHours(5)->format('Y-m-d\TH:i:s.u\Z');
-        
-    //    $aux2=$fechaHora1->equalTo($fechaHora2);
-     //   return  response()->json(['bdd'=>$fechaHora1,'pw'=>$fechaHora2]);;
+
+
+     
+
+    
+    $notificaciones = User::whereHas('roles', function($q) {
+        $q->where('slug', Auth::user()->roles[0]->slug);
+    })->with('roles')->each(function(User $user)use($blog){
+        $user->notifications->map(function($notify) use($blog){
+            if($notify->data['id']==$blog->id){
+
+                $notify->delete();
+            }
+        });
+    });
+
+
+
+    
+
+    
+
 
         if ($fechaHora1!=$fechaHora2) {
             return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado ha sufrido cambios previos, por favor actualice la pagina'];
         } 
        // $blog =  $blogs = Blog::with('perfil.user')->where('id', $request->id)->get();
        
-       User::whereHas('roles', function ($query){
-        $query->where('slug','super_administrador');
-    })->each(function(User $user) {
-        $notify=$user->notifications->map(function($notify){
-            $created_at = Carbon::parse($notify->created_at);
-            return [
-                'blogtitulo'=> $notify->data['blogtitulo'],
-                'blogdescripcion'=> $notify->data['blogdescripcion'],
-                'blogcontenido'=> $notify->data['blogcontenido'],
-                'categorie'=> $notify->data['categorie_id'],
-                'perfil'=> $notify->data['perfil'],
-                'user'=> $notify->data['user'],
-                'idblog'=> $notify->data['id'],
-                'date'=> $notify->data['date'],
-                'time'=> $notify->created_at
-            ];
-
-        });
-        event(new NotifyEventBlog($notify,$user->roles[0]->slug,$user->id));
-    });
+      
              
         if($request->aprobado==true){
        
@@ -249,6 +249,10 @@ class BlogsController extends Controller
                 self::make_blogs_notify_aprovate($blog,'Blog Rechazado');
                 return ['respuesta'=>'200', 'menssaje'=>'comentario creado correctamente'];
         }
+        
+     }
+     static function make_blogs_notify_eliminate($blog,$date){
+        
         
      }
 
