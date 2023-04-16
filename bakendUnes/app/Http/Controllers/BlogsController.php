@@ -72,6 +72,7 @@ class BlogsController extends Controller
                         'date'=> $notify->data['date'],
                         'idblog'=> $notify->data['id'],
                         'leido'=> $notify->read_at,
+                        'id_notify'=> $notify->id,
                         'time'=> $notify->created_at
                     ];
     
@@ -130,6 +131,7 @@ class BlogsController extends Controller
                         'idblog'=> $notify->data['id'],
                         'date'=> $notify->data['date'],
                         'leido'=> $notify->read_at,
+                        'id_notify'=> $notify->id,
                         'time'=> $notify->created_at
                     ];
     
@@ -270,6 +272,7 @@ class BlogsController extends Controller
                     'time'=> $notify->created_at,
                     'idblog'=> $notify->data['id'],
                     'leido'=> $notify->read_at,
+                    'id_notify'=> $notify->id,
                     'date'=> $notify->data['date']
                 ];
 
