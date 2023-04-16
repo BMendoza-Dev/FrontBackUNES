@@ -72,7 +72,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     let rol = localStorage.getItem('sesionLoginInicio'); let id = localStorage.getItem('idUser');
     this.echo.channel('channel-NotifyBlosAdmin.' + rol + '.' + id)
       .listen('NotifyEventBlog', (resp: any) => {
-
+        console.log(resp);
         this.toggleAnimation();
         this.total = resp['blog'].length;
         this.notifiData = resp['blog'];
