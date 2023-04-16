@@ -275,6 +275,31 @@ class BlogsController extends Controller
         
      }
 
+     public function make_notify_read_all(){
+       
+          Auth::user()->unreadNotifications->markAsRead();
+        $now = Carbon::now();
+        $notify= Auth::user()->notifications->map(function($notify) use ($now){
+            $created_at = Carbon::parse($notify->created_at);
+            return [
+                'blogtitulo'=> $notify->data['blogtitulo'],
+                'blogdescripcion'=> $notify->data['blogdescripcion'],
+                'blogcontenido'=> $notify->data['blogcontenido'],
+                'categorie'=> $notify->data['categorie_id'],
+                'perfil'=> $notify->data['perfil'],
+                'user'=> $notify->data['user'],
+                'time'=> $notify->created_at,
+                'idblog'=> $notify->data['id'],
+                'leido'=> $notify->read_at,
+                'id_notify'=> $notify->id,
+                'date'=> $notify->data['date']
+            ];
+
+        });
+        event(new NotifyEventBlog($notify, Auth::user()->roles[0]->slug, Auth::user()->id));
+        
+     }
+
      static function make_blogs_notify_aprovate($blog,$date){
         
         $blog->load('perfil.user');
