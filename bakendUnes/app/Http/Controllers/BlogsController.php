@@ -71,6 +71,7 @@ class BlogsController extends Controller
                         'user'=> $notify->data['user'],
                         'date'=> $notify->data['date'],
                         'idblog'=> $notify->data['id'],
+                        'leido'=> $notify->read_at,
                         'time'=> $notify->created_at
                     ];
     
@@ -128,6 +129,7 @@ class BlogsController extends Controller
                         'user'=> $notify->data['user'],
                         'idblog'=> $notify->data['id'],
                         'date'=> $notify->data['date'],
+                        'leido'=> $notify->read_at,
                         'time'=> $notify->created_at
                     ];
     
@@ -216,12 +218,6 @@ class BlogsController extends Controller
     });
 
 
-
-    
-
-    
-
-
         if ($fechaHora1!=$fechaHora2) {
             return ['error'=>'500', 'menssaje'=>'El Blog no pudo ser actualizado ha sufrido cambios previos, por favor actualice la pagina'];
         } 
@@ -273,6 +269,7 @@ class BlogsController extends Controller
                     'user'=> $notify->data['user'],
                     'time'=> $notify->created_at,
                     'idblog'=> $notify->data['id'],
+                    'leido'=> $notify->read_at,
                     'date'=> $notify->data['date']
                 ];
 
