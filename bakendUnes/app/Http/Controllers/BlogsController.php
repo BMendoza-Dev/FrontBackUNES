@@ -55,7 +55,7 @@ class BlogsController extends Controller
             self::make_blogs_notify($blog);
 
             $now = Carbon::now();
-
+           
             User::whereHas('roles', function ($query){
                 $query->where('slug','super_administrador');
             })->each(function(User $user) use ($now){
@@ -151,6 +151,12 @@ class BlogsController extends Controller
         })->each(function(User $user)use($blog){
             $user->notify(new NotifyBlogsPorAprobar($blog,'Revisar Blog'));
         });
+    }
+
+    public function EliminadoLogicoBlog(Request $request){
+        $blog = Blog::find($request->id);
+        $blog->delete();
+        return  response()->json(['message'=>'Eliminado correctamente','response'=>'200']);
     }
 
     public function ListarCateBlog(){

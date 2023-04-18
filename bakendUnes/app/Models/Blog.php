@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Perfil;
 use App\Models\User;
 use App\Models\Editoriale;
@@ -11,10 +12,12 @@ use App\Models\Categorie;
 use App\Models\Visitante;
 use App\Models\Imagen;
 use App\Models\Nota;
+
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Blog extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
 
     public function perfil(){
     	return $this->belongsTo(Perfil::class);

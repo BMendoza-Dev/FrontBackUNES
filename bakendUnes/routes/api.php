@@ -191,6 +191,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('make_notify_read',[BlogsController::class, 'make_notify_read']);
     Route::get('make_notify_read_all',[BlogsController::class, 'make_notify_read_all']);
     Route::get('ObtenerBlogPorPerfil',[BlogsController::class, 'ObtenerBlogPorPerfil']);
+    Route::get('EliminadoLogicoBlog',[BlogsController::class, 'EliminadoLogicoBlog']);
     Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
     Route::post('CreateCategoria',[BlogsController::class, 'CreateCategoria']);
     Route::post('EditCategoria',[BlogsController::class, 'EditCategoria']);
