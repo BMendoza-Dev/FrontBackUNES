@@ -11,6 +11,8 @@ use Illuminate\Support\Carbon;
 use App\Models\OauthAccessToken;
 use Cookie;
 use App\Models\Roles;
+use App\Events\NotifyEventBlog;
+use App\Notifications\NotifyBlogsPorAprobar;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 class AuthController extends Controller
@@ -40,6 +42,28 @@ class AuthController extends Controller
 
 
         return response()->json(['menssage'=>'registro correcto']);
+    }
+
+    static function Notifique(){
+        $now = Carbon::now();
+        $notify= Auth::user()->notifications->map(function($notify) use ($now){
+            $created_at = Carbon::parse($notify->created_at);
+            return [
+                'blogtitulo'=> $notify->data['blogtitulo'],
+                'blogdescripcion'=> $notify->data['blogdescripcion'],
+                'blogcontenido'=> $notify->data['blogcontenido'],
+                'categorie'=> $notify->data['categorie_id'],
+                'perfil'=> $notify->data['perfil'],
+                'user'=> $notify->data['user'],
+                'time'=> $notify->created_at,
+                'idblog'=> $notify->data['id'],
+                'leido'=> $notify->read_at,
+                'id_notify'=> $notify->id,
+                'date'=> $notify->data['date']
+            ];
+
+        });
+        event(new NotifyEventBlog($notify, Auth::user()->roles[0]->slug, Auth::user()->id));
     }
 
     public function Login(Request $request){

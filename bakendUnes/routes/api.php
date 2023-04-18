@@ -206,6 +206,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     
 
     Route::post('Register',[AuthController::class, 'Register']);
+    Route::get('Notifique',[AuthController::class, 'Notifique']);
     Route::post('Logout',[AuthController::class, 'Logout']);
     Route::post('Update',[AuthController::class, 'Update']);
 });
