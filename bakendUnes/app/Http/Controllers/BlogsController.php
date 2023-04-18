@@ -177,7 +177,7 @@ class BlogsController extends Controller
         });
     }, function($query) {
         return $query;
-    })
+    })->orderByDesc('id')
     ->get()->map(function($blog) {
                 return [
                     'id' => $blog->id,
@@ -383,7 +383,7 @@ class BlogsController extends Controller
             });
         }, function($query) {
             return $query;
-        })->with('categoria')->get();
+        })->with('categoria')->orderByDesc('id')->get();
 
         return response()->json($blog);
 
