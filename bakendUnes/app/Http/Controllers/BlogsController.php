@@ -352,6 +352,7 @@ class BlogsController extends Controller
                     'blogdescripcion' => $blog->blogdescripcion,
                     'blogcontenido' => $blog->blogcontenido,
                     'ultimanoticia' => $blog->ultimanoticia,
+                    'aprobado' => $blog->aprobado,
                     'categorie_id' => $blog->categorie_id,
                     'categoria' =>$blog->categoria->categorianame,
                     'users_id' => $blog->users_id,
