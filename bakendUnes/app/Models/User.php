@@ -11,9 +11,10 @@ use App\Models\Perfil;
 use App\Models\Blog;
 use App\Models\Roles;
 use App\Models\Nota;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

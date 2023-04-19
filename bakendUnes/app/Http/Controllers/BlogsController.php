@@ -159,6 +159,18 @@ class BlogsController extends Controller
         return  response()->json(['message'=>'Eliminado correctamente','response'=>'200']);
     }
 
+    public function EliminadoLogicoCategoria(Request $request){
+        $categoria = Categorie::find($request->id);
+        $categoria->delete();
+        return  response()->json(['message'=>'Eliminado correctamente','response'=>'200']);
+    }
+
+    public function EliminadoLogicoUsuario(Request $request){
+        $user = User::find($request->id);
+        $user->delete();
+        return  response()->json(['message'=>'Eliminado correctamente','response'=>'200']);
+    }
+
     public function ListarCateBlog(){
         $categoria =Categorie::get();
         return response()->json($categoria);
@@ -177,7 +189,7 @@ class BlogsController extends Controller
         });
     }, function($query) {
         return $query;
-    })->orderByDesc('id')
+    })->orderByDesc('updated_at')
     ->get()->map(function($blog) {
                 return [
                     'id' => $blog->id,
@@ -383,7 +395,7 @@ class BlogsController extends Controller
             });
         }, function($query) {
             return $query;
-        })->with('categoria')->orderByDesc('id')->get();
+        })->with('categoria')->orderByDesc('updated_at')->get();
 
         return response()->json($blog);
 

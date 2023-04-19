@@ -185,6 +185,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::post('CrearBlog',[BlogsController::class, 'CrearBlog']);
     Route::get('ListarCateBlog',[BlogsController::class, 'ListarCateBlog']);
+    Route::get('EliminadoLogicoCategoria',[BlogsController::class, 'EliminadoLogicoCategoria']);
     Route::get('ListarBlogPorCat',[BlogsController::class, 'ListarBlogPorCat']);
     Route::get('ListarBlogsPorAprobar',[BlogsController::class, 'ListarBlogsPorAprobar']);
     Route::get('ObtenerBlog',[BlogsController::class, 'ObtenerBlog']);
@@ -201,6 +202,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('ListarUsuariosAsambleistas',[CuentaController::class, 'ListarUsuariosAsambleistas']);
     Route::get('ListarUsuariosAsistentes', [CuentaController::class, 'ListarUsuariosAsistentes']);
+    Route::get('EliminadoLogicoUsuario',[BlogsController::class, 'EliminadoLogicoUsuario']);
     Route::get('ListarUsuariosAdministrador', [CuentaController::class, 'ListarUsuariosAdministrador']);
     Route::get('ListarUserPorRol', [CuentaController::class, 'ListarUserPorRol']);
     Route::get('ListarRoles', [CuentaController::class, 'ListarRoles']);
