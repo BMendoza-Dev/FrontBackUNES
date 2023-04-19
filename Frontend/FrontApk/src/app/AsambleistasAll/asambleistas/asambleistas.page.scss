@@ -47,6 +47,22 @@ ion-label h3{
 ion-label p{
   font-size: 9.5px;
 }
+
+ion-buttons.ios ion-back-button.ios{
+  margin-right: 7px
+}
+
+ion-card.ios {
+  margin: 7px
+}
+
+.sinRegis{
+  font-size: 18px;
+  text-align: center;
+  font-family: "Gotham-Bold";
+}
+
+
 /* Core CSS required for Ionic components to work properly */
 @import '~@ionic/angular/css/core.css';
 

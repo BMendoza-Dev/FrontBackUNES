@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title class="title">REVOLUCIÓN CIUDADANA</ion-title>
     <ion-buttons slot="end">
-      <ion-back-button style="color: white;" defaultHref="/"></ion-back-button>
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
   </ion-toolbar>
@@ -19,11 +19,11 @@
     <div class="linea"></div>
   </div>
 
-  <ion-card>
-    <img src="../../../assets/imgs/noticia2.jpg" />
+  <ion-card [routerLink]="['../inf-ultimas']">
+    <img src="../../../assets/imgs/back_02_home_rc.jpg" />
     <ion-card-header>
         <div class="container">
-          <a href="#" class="users">
+          <a  class="users">
               <!--img src="../../../assets/imgs/luisa-magdalena-gonzalez-alcivar-768x506.jpg" class="image--cover img-responsive"-->
               <div class="container-username">
                 <span class="header-username"> Luisa Gonzáles</span>
@@ -43,16 +43,16 @@
       within an ion-card-content element.
     </ion-card-content-->
 
-    <ion-item>
+    <!--ion-item>
       <ion-icon class="iconLoad2" name="time-outline" slot="start"></ion-icon>
       <span class="fechaCard">2022/10/09</span>
       <ion-button class="botonVer" fill="outline" slot="end" [routerLink]="['../inf-ultimas']">Ver</ion-button>
-    </ion-item>
+    </ion-item-->
   </ion-card>
 
   <ion-card>
-    <img src="../../../assets/imgs/angular-editor-logo.png" />
-    <ion-card-header>
+    <img src="../../../assets/imgs/back_04_home_rc.png" />
+    <ion-card-header >
         <div class="container">
           <a href="#" class="users">
               <!--img src="../../../assets/imgs/luisa-magdalena-gonzalez-alcivar-768x506.jpg" class="image--cover img-responsive"-->
@@ -73,12 +73,6 @@
       This is content, without any paragraph or header tags,
       within an ion-card-content element.
     </ion-card-content-->
-
-    <ion-item>
-      <ion-icon class="iconLoad2" name="time-outline" slot="start"></ion-icon>
-      <span class="fechaCard">2022/10/09</span>
-      <ion-button class="botonVer" fill="outline" slot="end">Ver</ion-button>
-    </ion-item>
     <ion-item style="--ion-background-color: rgb(224, 224, 224);">
       <ion-icon class="iconLoad" name="download-outline" slot="start"></ion-icon>
       <span class="fechaCard">Documento para descargar</span>

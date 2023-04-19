@@ -1,3 +1,4 @@
+
 .title {
   --color: white;
   size: large;
@@ -32,13 +33,11 @@
 
 .profile-img img {
   /* posiciona al centro del contenedor la imagen */
-  object-fit: cover;
   display: flex;
   width: 190px;
   height: 190px;
   align-items: center;
   justify-content: center;
-  border: 7px solid #FFFFFF;
   background-color: #DFE5F2;
   border-radius: 50%;
   box-shadow: 0 0 12px rgba(0, 0, 0, .2);
@@ -48,13 +47,15 @@
   z-index: 1;
 }
 
+
+
 .nameAssam{
   text-align: center;
   margin-top: 60px;
 }
 
 .nameAssam p {
-  font-size: 16.5px;
+  font-size: 14.5px;
   font-family: "Gotham-Bold"; 
 }
 
@@ -65,13 +66,38 @@ ion-segment {
 ion-label p{
   text-align: center;
   margin-top: 5px;
-  font-family: "Gotham-Medium"
+  font-family: "Gotham-Medium";
+  font-size: 12.5px;
 } 
 
-ion-item h3{
-  font-size: 16.5px;
+ion-item ion-label h3{
+  font-size: 12.5px;
   font-family: "Gotham-Bold"
 }
+
+ion-item h3{
+  font-size: 12.5px;
+  font-family: "Gotham-Bold"
+}
+
+
+ion-list ion-button {
+  font-family: "Gotham-Medium"; 
+ }
+
+ ion-segment-button ion-label {
+  font-size: 13px;
+ }
+
+ ion-buttons.ios ion-back-button.ios{
+  margin-right: 7px
+}
+
+.unirButton.md{
+  padding-top: 0px; 
+  padding-bottom: 0px;
+}
+
 
 
 .seccion-perfil-usuario .perfil-usuario-body,

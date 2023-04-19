@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IonInfiniteScroll, LoadingController, NavController } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, IonInfiniteScroll, LoadingController, NavController } from '@ionic/angular';
 import { PerfilAsamService } from '../../api/rest/perfil-asam.service';
 
 @Component({
@@ -10,63 +10,70 @@ import { PerfilAsamService } from '../../api/rest/perfil-asam.service';
 })
 export class AsambleistasPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  constructor(private Nav:NavController ,private rest:PerfilAsamService, public loadCont: LoadingController, private sanitizer: DomSanitizer) { }
+  assamblyfilter = [];
+  constructor(private Nav: NavController, private rest: PerfilAsamService, public loadCont: LoadingController, private sanitizer: DomSanitizer) { }
 
-
-  assambly:any = [];
+  lim = 10;
+  assambly: any = [];
   textoBuscar = "";
   ngOnInit() {
     this.assambly = [];
-    //this.showLoading();
+    this.assamblyfilter = [];
+    this.showLoading();
     this.getAssambly(event);
   }
 
-  goInfAssam(id:any){
+  goInfAssam(id: any) {
     this.Nav.navigateForward(`inf-asambleista/${id}`);
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
   }
 
-   eliminarOrder() {
+  eliminarOrder() {
     this.assambly.splice(0, 1);
-    this.assambly.map((item, i)=> i===0 ? item.order=1 : item.order = this.assambly[i-1].order + 1)
-    
+    this.assambly.map((item, i) => i === 0 ? item.order = 1 : item.order = this.assambly[i - 1].order + 1)
   }
 
-  thumbnail: any; pruebaImagen:any;
+  thumbnail: any; pruebaImagen: any;
   getAssambly(event) {
-    this.rest.getAssamblyList().then(data =>{
-       this.assambly = data;
+    this.rest.getAssamblyList().then(data => {
+      this.assambly = data;
       //this.eliminarOrder();
-       let datoPrueba:any = [{id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName +' '+ this.assambly[1].firstName,territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['image'][0].imagen),curul: this.assambly[1].curul}];
-       for (let i = 2; i < this.assambly.length; i++) {
+      let datoPrueba: any = [{ id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName + ' ' + this.assambly[1].firstName, territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['image'][0].imagen), curul: this.assambly[1].curul }];
+      for (let i = 2; i < this.assambly.length; i++) {
         let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['image'][0].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          datoPrueba.push({
-            "id" : this.assambly[i].id,
-            "LastFirstName" : this.assambly[i].lastName +' '+ this.assambly[i].firstName,
-            "territorialDivision": this.assambly[i].territorialDivision,
-            "imagen": this.thumbnail,
-            "curul": this.assambly[i].curul
-          }); 
-        }
-        this.assambly = datoPrueba;
-        //this.loadCont.dismiss();
-       
-    }).catch(error =>{
-      
+        datoPrueba.push({
+          "id": this.assambly[i].id,
+          "LastFirstName": this.assambly[i].lastName + ' ' + this.assambly[i].firstName,
+          "territorialDivision": this.assambly[i].territorialDivision,
+          "imagen": this.thumbnail,
+          "curul": this.assambly[i].curul
+        });
+      }
+      this.assambly = datoPrueba;
+      this.assamblyfilter = datoPrueba;
+      this.loadCont.dismiss();
+
+    }).catch(error => {
+
       //this.loadCont.dismiss();
       console.log(error);
     })
   }
 
-  toggleInfiniteScroll() {
-    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  onIonInfinite(event) {
+    setTimeout(() => {
+      this.lim += 10;
+      event.target.complete();
+    }, 600);
   }
 
-  buscar(event){
+  buscar(event) {
     this.textoBuscar = event.detail.value;
+    this.assamblyfilter = this.transform(this.assambly, this.textoBuscar);
+    
   }
 
   async showLoading() {
@@ -77,5 +84,14 @@ export class AsambleistasPage implements OnInit {
     });
 
     loading.present();
+  }
+
+  transform(arreglo: any[], texto: string): any[] {
+    if (texto === '') {
+      return arreglo;
+    }
+    return arreglo.filter(item => {
+      return item.LastFirstName.toLowerCase().includes(texto.toLowerCase());
+    });
   }
 }

@@ -4,6 +4,7 @@ import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { SpinnerService } from 'src/app/servicios/spinner.service';
 import Swal from 'sweetalert2';
 import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forms-biografia',
@@ -13,7 +14,8 @@ import * as ClassicEditor from '../../../../ckeditor 5/ckBuildD/build/ckeditor';
 export class FormsBiografiaComponent implements OnInit {
 
   //@ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
-  constructor(private spinnerService:SpinnerService,private adminService: AdministradorService, private sanitizer: DomSanitizer) {
+  constructor(public rutas: Router,
+    private spinnerService: SpinnerService, private adminService: AdministradorService, private sanitizer: DomSanitizer) {
   }
 
   urlfb: any = "";
@@ -23,7 +25,7 @@ export class FormsBiografiaComponent implements OnInit {
   datosAsambleistas: any; keyword = 'name'; dataAsmbleista: any = []; idAsambleiApiAsam: any = localStorage.getItem('idAsambPerf'); asamPerfil: boolean = false; idPosicionDataAsam: any;
 
   urlSet: any;
-  urlGet: any = ''; 
+  urlGet: any = '';
   public Editor: any = ClassicEditor; datos: string = ''; binImg: any; urlImgAssa: any;
   habilitarCampos: boolean = false; notFound: string = "No se encuentra asambleista";
 
@@ -58,9 +60,6 @@ export class FormsBiografiaComponent implements OnInit {
     this.cargarBiografiaAsam();
   }
 
-  
-  
-
   public onSelectFile(event: any) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       let tipoImagen = event.target.files[0].type;
@@ -86,11 +85,11 @@ export class FormsBiografiaComponent implements OnInit {
 
   updateBiografia() {
     Swal.fire({
-      title: 'Esta seguro que desea crear una cuenta?',
+      title: 'Estas seguro?',
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Crear',
-      denyButtonText: `No crear`,
+      confirmButtonText: 'Actualizar',
+      denyButtonText: `No actualizar`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -104,14 +103,16 @@ export class FormsBiografiaComponent implements OnInit {
           'urlttk': this.urlttk,
           'binImg': this.urlSet
         };
-        
+
         this.adminService.updateBiografia(data).then(() => {
           Swal.fire('Guardado!', '', 'success')
           this.spinnerService.detenerSpinner();
         }).catch(error => {
+          if (error.status) { this.rutas.navigate(['/login']); }
+          this.spinnerService.detenerSpinner();
           console.log(error);
         })
-      
+
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la cuenta', '', 'info')
       }
@@ -119,7 +120,7 @@ export class FormsBiografiaComponent implements OnInit {
 
   }
 
-  
+
 
   trasformaImagen(img: any) {
     let objectURL = 'data:image/jpeg;base64,' + img;
@@ -139,20 +140,22 @@ export class FormsBiografiaComponent implements OnInit {
         });
       } else {
         this.trasformaImagen(biografia['image'][0].imagen);
-        
+
         this.datos = biografia.perfil;
-        
+
         this.urlfb = biografia.urlfb; this.urlit = biografia.urlit; this.urlttk = biografia.urlttk; this.urltw = biografia.urltw; this.urlSet = biografia['image'][0].imagen;
       }
       setTimeout(() => {
         this.spinnerService.detenerSpinner();
       }, 4000);
     }).catch(error => {
+      if (error.status) { this.rutas.navigate(['/login']); }
+      this.spinnerService.detenerSpinner();
       console.log(error);
     })
   }
 
-  
+
   onClear() {
     this.idAsambleiApiAsam = "";
   }

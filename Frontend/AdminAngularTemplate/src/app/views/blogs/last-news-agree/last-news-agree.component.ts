@@ -45,7 +45,8 @@ export class LastNewsAgreeComponent implements OnInit {
   idBlog: number;
 
   ngOnInit(): void {
-    this.localServi.dataNotifyId$.subscribe((data)=>{
+    this.localServi.dataNotifyIdRevisar$.subscribe((data)=>{
+      
       if(data){
         this.blogGet(data);
       }
@@ -91,6 +92,7 @@ export class LastNewsAgreeComponent implements OnInit {
           _blogdescripcion: value.blogdescripcion,
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
+          _categorianame:value.categorianame,
           //_imagen: this.trasformaImagen(value.imagen),
           _updated_at:moment(value.updated_at).locale('es').fromNow() 
         }));
@@ -141,13 +143,14 @@ export class LastNewsAgreeComponent implements OnInit {
       this.toggleLiveDemo();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
+      if(error.status){this.rutas.navigate(['/login']);}
       console.log(error);
     })
   }
 
   toggleLiveDemo() {
     this.visible = !this.visible;
-    this.localServi.dataNotifyIdSource.next(null);
+    this.localServi.dataNotifyIdRevisarSource.next(null);
   }
 
   handleLiveDemoChange(event: any) {
@@ -165,7 +168,7 @@ export class LastNewsAgreeComponent implements OnInit {
   alert() {
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top-end',
+      position: 'bottom-end',
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: false,
@@ -176,7 +179,7 @@ export class LastNewsAgreeComponent implements OnInit {
     })
     Toast.fire({
       icon: 'success',
-      title: 'Cuenta actualizada!'
+      title: 'Blog actualizada!'
     })
   }
 
@@ -212,6 +215,7 @@ export class LastNewsAgreeComponent implements OnInit {
       this.clear();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
+      if(error.status){this.rutas.navigate(['/login']);}
       console.log(error);
     })
   }

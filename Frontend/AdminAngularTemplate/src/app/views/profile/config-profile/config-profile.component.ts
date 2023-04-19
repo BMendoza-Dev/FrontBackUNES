@@ -156,7 +156,7 @@ export class ConfigProfileComponent implements OnInit {
           'estado': 1,
           'id': localStorage.getItem('idUser')
         };
-        debugger
+        
         this.adminService.updateAsamAsisCuentas(data).then(() => {
           this.onReset();
         }).catch(error => {

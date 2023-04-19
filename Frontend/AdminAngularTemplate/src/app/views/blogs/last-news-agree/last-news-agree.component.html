@@ -34,7 +34,7 @@
             id: 'paginado'
             }">
           <c-card *ngIf="item._blogtitulo" class="mb-1">
-            <c-card-header class="text-center">Categoria</c-card-header>
+            <c-card-header class="text-center">{{item._categorianame}}</c-card-header>
             <c-card-body>
               <h5 cCardTitle>{{item._blogtitulo}}</h5>
               <p cCardText>

@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import Echo from 'laravel-echo';
-import { LoginService } from '../api/rest/login.service';
-import { PerfilAsamService } from '../api/rest/perfil-asam.service';
-import { ScriptServiceService } from '../api/rest/script-service.service';
-
+import { Device } from '@capacitor/device';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
-  constructor(private service:LoginService,private scriptService: ScriptServiceService, 
-    private sanitizer: DomSanitizer, private login: LoginService, private rest: PerfilAsamService) {
-   
+  identificador: any;
+  uuid: any;
+
+  
+  constructor( ) {
+
     /*const options:any = {
       rejectUnauthorized: false,
       transports: ['websocket']
@@ -33,7 +31,15 @@ export class InicioPage implements OnInit {
     };*/
   }
 
-  ngOnInit() {
+  async myFunction() {
+    const deviceInfo = await Device.getId();
+    this.identificador = deviceInfo.uuid;
+  }
+  
+  // llamado de la función
+
+  ngOnInit():void {
+    this.myFunction();
   }
   ionViewDidLeave() {
     //this.scriptService.removeScript('twitter');

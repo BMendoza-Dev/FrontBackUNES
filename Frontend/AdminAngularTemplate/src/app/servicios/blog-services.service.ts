@@ -133,4 +133,71 @@ export class BlogServicesService {
       });
     });
   }
+
+  viewNotify(_id_notify:any){
+    let url = this.url + 'make_notify_read?notificationId='+ _id_notify;
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  make_notify_read_all(){
+    let url = this.url + 'make_notify_read_all';
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  Notifique(){
+    let url = this.url + 'Notifique';
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  EliminadoLogicoBlog(_idBlog:any){
+    let url = this.url + 'EliminadoLogicoBlog?id='+_idBlog;
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
 }

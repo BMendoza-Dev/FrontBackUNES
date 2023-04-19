@@ -18,7 +18,6 @@ export class InfAsambleistaPage implements OnInit {
   constructor(private Nav:NavController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService, public loadCont: LoadingController) { }
 
   ngOnInit() {
-    //this.showLoading();
     
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getAssambly();
@@ -32,6 +31,7 @@ export class InfAsambleistaPage implements OnInit {
   }
 
   getAssambly() {
+    this.showLoading();
     this.rest.getAssamblyPerfil(this.id_perfil).subscribe((data: any) => {
       
       this.trasformaImagen(data.img);
@@ -47,7 +47,8 @@ export class InfAsambleistaPage implements OnInit {
       this.phone = data.phone,
       this.email = data.email
       this.comisionAss = data.comisiones
-
+      this.loadCont.dismiss();
+      
     },error =>{console.log(error)})
   }
 

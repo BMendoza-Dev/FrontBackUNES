@@ -41,10 +41,16 @@
                 <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
               </td>
               <td>
+
                 <button *ngIf="item.email != localEmail" (click)="toggleLiveDemo()"
                   (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
                   class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
                     width="20"></svg>&nbsp;Editar</button>
+                <button *ngIf="item.email != localEmail" 
+                  (click)="eliminar(item.id)" type="button"
+                  class="btn btn-ghost-danger botont"><svg cIcon name="cilTrash" size="x"
+                    width="20"></svg>&nbsp;Eliminar</button>
+
               </td>
             </ng-container>
             <ng-template #func>

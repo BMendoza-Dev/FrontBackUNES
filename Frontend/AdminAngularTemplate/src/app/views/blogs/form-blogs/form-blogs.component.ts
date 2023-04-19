@@ -35,7 +35,7 @@ export class FormBlogsComponent implements OnInit {
       this.blog_id = this.datosEdit.id;
       this.urlSet = this.datosEdit.urlSet;
       this.importante = this.datosEdit.ultNoticia;
-      debugger
+      
       this.import(true);
     }
     this.listarCategoriasBlog();
@@ -108,46 +108,57 @@ export class FormBlogsComponent implements OnInit {
 
 
   create() {
-    Swal.fire({
-      title: 'Esta seguro que desea crear una cuenta?',
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: 'Crear',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this.spinnerService.llamarSpinner();
-        let data = {
-          'categorie_id': this.categorie_id,
-          'blogtitulo': this.titulo,
-          'blogdescripcion': this.descripcion,
-          'blogcontenido': this.datos,
-          'ultimanoticia': this.importante,
-          'imagen': this.urlSet,
-          'blog_id': this.blog_id
+    if(this.urlGet != '' && this.urlGet != '' && this.categorie_id != 'Seleccione una categoría' && this.titulo!='' && this.descripcion != '' && this.datos != ''){
+      
+      Swal.fire({
+        title: 'Esta seguro que desea crear una cuenta?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Crear',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.spinnerService.llamarSpinner();
+          let data = {
+            'categorie_id': this.categorie_id,
+            'blogtitulo': this.titulo,
+            'blogdescripcion': this.descripcion,
+            'blogcontenido': this.datos,
+            'ultimanoticia': this.importante,
+            'imagen': this.urlSet,
+            'blog_id': this.blog_id
+          }
+          
+          this.service.crear_updateBlog(data).then(() => {
+            this.spinnerService.detenerSpinner();
+            this.onReset2();
+          }).catch((error) => {
+            this.spinnerService.detenerSpinner();
+            console.log(error);
+          })
+  
+        } else if (result.isDenied) {
+          Swal.fire('No se a guardado la cuenta', '', 'info')
         }
-        debugger
-        this.service.crear_updateBlog(data).then(() => {
-          this.spinnerService.detenerSpinner();
-          this.onReset2();
-        }).catch((error) => {
-          this.spinnerService.detenerSpinner();
-          console.log(error);
-        })
-
-      } else if (result.isDenied) {
-        Swal.fire('No se a guardado la cuenta', '', 'info')
-      }
-    })
+      })
+    }else{
+      Swal.fire(
+        'Campos vacíos?',
+        'Tiene que llenar todos los campos!',
+        'question'
+      )
+    }
+    
+    
 
   }
 
   alert() {
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top-end',
+      position: 'bottom-end',
       showConfirmButton: false,
-      timer: 7000,
+      timer: 3000,
       timerProgressBar: false,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -156,7 +167,7 @@ export class FormBlogsComponent implements OnInit {
     })
     Toast.fire({
       icon: 'success',
-      title: 'Cuenta actualizada!'
+      title: 'Blog actualizado!'
     })
   }
 

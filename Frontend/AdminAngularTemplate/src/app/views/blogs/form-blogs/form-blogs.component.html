@@ -11,7 +11,7 @@
         <div class="file-input">
             <input (change)="onSelectFile($event)" type="file" id="file" name="file" />
             <label for="file">
-                <span>Seleccionar una imagen</span>
+                <span>Seleccionar una imagen<span class="is-required">*</span></span>
                 <svg cIcon class="me-2" name="cilDataTransferUp"></svg>
             </label>
         </div>
@@ -24,15 +24,15 @@
         </div>
         <div class="mb-3">
             <label cLabel for="exampleFormControlInput1">Titulo:<span class="is-required">*</span></label>
-            <input cFormControl id="exampleFormControlInput1" maxlength="60" [(ngModel)]="titulo"
+            <input cFormControl id="exampleFormControlInput1" [(ngModel)]="titulo"
                 placeholder="Titulo del blog..." type="text" />
-            <p class="hint end"><span id="message-length"></span> {{titulo.length}} / 60</p>
+            <!--p class="hint end"><span id="message-length"></span> {{titulo.length}} / 60</p-->
         </div>
         <div class="mb-3">
             <label cLabel for="exampleFormControlTextarea1">Descripción:<span class="is-required">*</span></label>
-            <textarea cFormControl id="exampleFormControlTextarea1" maxlength="120" [(ngModel)]="descripcion"
+            <textarea cFormControl id="exampleFormControlTextarea1" [(ngModel)]="descripcion"
                 rows="3"></textarea>
-            <p class="hint end"><span id="message-length"></span> {{descripcion.length}} / 120</p>
+            <!--p class="hint end"><span id="message-length"></span> {{descripcion.length}} / 120</p-->
         </div>
         <div class="mb-3">
             <label cLabel for="exampleFormControlCkeditor">Contenido:<span class="is-required">*</span></label>

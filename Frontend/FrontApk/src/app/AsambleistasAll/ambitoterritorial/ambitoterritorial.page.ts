@@ -18,7 +18,7 @@ export class AmbitoterritorialPage implements OnInit {
   asamTerritorial:any=[];
   assambly:any=[];
   ngOnInit() {
-    //this.showLoading();
+    this.showLoading();
     this.getTerritorialList();
   }
   ionViewDidEnter(){
@@ -33,7 +33,7 @@ export class AmbitoterritorialPage implements OnInit {
     this.rest.getTerritorialList().subscribe(response => {
       this.y=0;
       this.ambitoTerr=response;
-      //this.loadCont.dismiss();
+      this.loadCont.dismiss();
       
         //this.territorialList = response;
         //this.territorialListFiltered = this.territorialList;

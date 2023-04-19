@@ -103,6 +103,8 @@ export class TableAsambleistaComponent implements OnInit {
     this.administradorService.cargarCuentaByRol("asambleista").then((data:any) => {
       if(data.code != 404){
         this.dataTabla = data;
+      }else{
+        this.dataTabla = [];
       }
       this.spinnerService.detenerSpinner();
     }).catch(error => {
@@ -142,6 +144,8 @@ export class TableAsambleistaComponent implements OnInit {
   dataPaginate() {
     this.page=1;
   }
+
+  
 
 
 }

@@ -39,6 +39,8 @@ export class TableDelegadoComponent implements OnInit {
     this.administradorService.cargarCuentaByRol("asistente").then((data: any) => {
       if (data.code != 404) {
         this.dataTabla = data;
+      }else{
+        this.dataTabla = [];
       }
       this.spinnerService.detenerSpinner();
     }).catch(error => {
@@ -152,5 +154,30 @@ export class TableDelegadoComponent implements OnInit {
     this.visible = event;
   }
 
+  eliminar(_id:any){
+
+    Swal.fire({
+      title: 'Estás seguro?',
+      text: "No podrás revertir esto.!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.spinnerService.llamarSpinner();
+        this.administradorService.EliminadoLogicoUsuario(_id).then(()=>{
+          Swal.fire(
+            'Eliminado!',
+            'Su blog ha sido eliminado.',
+            'success'
+          )
+          this.cargarTabla();
+        })
+      }
+    })
+    
+  }
 
 }

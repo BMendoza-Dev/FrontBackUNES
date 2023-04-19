@@ -27,27 +27,30 @@
                 totalItems : count,
                 id: 'paginado'
                 }; let i = index , index as id ">
-                <ng-container *ngIf="item.validar != 'Sin registros';else func">
-            <th scope="row">{{id+1}}</th>
-            <td>{{item.name}}</td>
-            <td>{{item.email}}</td>
-            <td>
-              <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
-                Habilitado
-              </c-badge>
-              <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
-            </td>
-            <td>
-              <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
-              <button (click)="toggleLiveDemo()"
-                (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
-                class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
-                  width="20"></svg>&nbsp;Editar</button>
-            </td>
-          </ng-container>
-          <ng-template #func>
-            <td colspan="5"><c-alert color="danger">No existen cuentas Registradas!</c-alert></td>
-          </ng-template>
+            <ng-container *ngIf="item.validar != 'Sin registros';else func">
+              <th scope="row">{{id+1}}</th>
+              <td>{{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td>
+                <c-badge *ngIf="item.estado==1" class="ms-2" color="success">
+                  Habilitado
+                </c-badge>
+                <c-badge *ngIf="item.estado==0" class="ms-2" color="danger">Deshabilitado</c-badge>
+              </td>
+              <td>
+                <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+                <button (click)="toggleLiveDemo()"
+                  (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button"
+                  class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                    width="20"></svg>&nbsp;Editar</button>
+                <button (click)="eliminar(item.id)"
+                  type="button" class="btn btn-ghost-danger botont"><svg cIcon name="cilTrash" size="x"
+                    width="20"></svg>&nbsp;Eliminar</button>
+              </td>
+            </ng-container>
+            <ng-template #func>
+              <td colspan="5"><c-alert color="danger">No existen cuentas Registradas!</c-alert></td>
+            </ng-template>
           </tr>
         </ng-container>
       </tbody>

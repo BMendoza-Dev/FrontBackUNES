@@ -26,7 +26,7 @@
           id="search" name="search" />
         <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
       </c-input-group> <br>
-      <c-row [gutter]="4" class="mb-3" [md]="2" [xs]="1">
+      <c-row [gutter]="4" class="mb-4" [lg]="2" [md]="1" [xs]="1">
 
         <c-col *ngFor="let item of listBlog | filtroBlogs:search | paginate:{itemsPerPage: tableSize,
               currentPage: page,
@@ -34,18 +34,27 @@
               id: 'paginado'
               }">
           <c-card *ngIf="item._blogtitulo" class="mb-1">
-            <c-card-header class="text-center">Categoria</c-card-header>
+            <c-card-header class="text-medium-emphasis"
+              style="display: flex; justify-content: space-between; align-items: center">
+              <span>{{item._categorianame}}</span>
+              <span *ngIf="item._aprobado==0 && item._ultimanoticia==1" cTooltip="En proceso de aprobación!"
+                cTooltipPlacement="top" class="me-1" color="secondary" style="font-size: 13px;"
+                class="parpadeo">Importante!</span>
+              <span *ngIf="item._aprobado == 1 && item._ultimanoticia == 1" cTooltip="El blog está en la sección importante!"
+                cTooltipPlacement="top" class="me-1" color="secondary" style="font-size: 13px;"
+                class="aprobado">Importante!</span>
+            </c-card-header>
             <c-card-body>
               <h5 cCardTitle>{{item._blogtitulo}}</h5>
               <p cCardText>
                 {{item._blogdescripcion}}
               </p>
             </c-card-body>
-            <c-card-footer class="text-medium-emphasis" style="display: flex; justify-content: space-between; align-items: center;">
+            <c-card-footer class="text-medium-emphasis"
+              style="display: flex; justify-content: space-between; align-items: center;">
               <button (click)="blogGet(item._id)" cButton color="primary" variant="outline">Ver</button>
-              <span style="font-size: 15px;">{{item._updated_at}}</span>
+              <span style="font-size: 15px;">{{item._created_at}}</span>
             </c-card-footer>
-            
           </c-card>
           <c-alert *ngIf="!item._blogtitulo" color="danger">No existen lista de blogs {{nameCat}}!</c-alert>
         </c-col>
@@ -81,6 +90,22 @@
       <button (click)="listblogEdit = true; toggleLiveDemo()" cButton class="me-1" color="success">
         Editar
       </button>
+      <button (click)="eliminar()" cButton class="me-1" color="danger">
+        Eliminar
+      </button>
+      <button *ngIf="actNotas" (click)="toggleCollapse()" cButton class="me-1" color="info">Nota</button>
+      <c-row>
+        <c-col style="margin-top: 10px;" [xs]="12">
+          <div [visible]="visibleNote" cCollapse>
+            <c-card class="mt-6">
+              <c-card-body>
+                <div style="margin-bottom: 2%;"><strong>Titulo:</strong> {{tituloNotas}}</div>
+                <div><strong>Motivo:</strong> {{descriptionNotas}}</div>
+              </c-card-body>
+            </c-card>
+          </div>
+        </c-col>
+      </c-row>
     </c-col>
   </c-modal-footer>
 </c-modal>

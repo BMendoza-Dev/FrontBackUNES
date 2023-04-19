@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import moment from 'moment';
 import { BlogServicesService } from 'src/app/servicios/blog-services.service';
 import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
@@ -28,15 +29,26 @@ export class ListBlogsComponent implements OnInit {
   listblogEdit: boolean = false;
   datosEdit: any;
   categoriaId: any;
-  constructor(private spinnerService: SpinnerService, private scriptService: ScripServiceService,
-    private service: BlogServicesService, private sanitizer: DomSanitizer) {
-  }
-
+  visibleNote = false;
   listBlog: any; urlGet: SafeUrl; blogtitulo: string; blogdescripcion: string; blogcontenido: SafeHtml; fecha: any;
   categoria: string = '';
   idBlog: number;
+  actNotas:boolean = false;
+  tituloNotas: any;
+  descriptionNotas: any;
+  constructor(public rutas: Router,
+    private localServi: LocalProyectService,private spinnerService: SpinnerService, private scriptService: ScripServiceService,
+    private service: BlogServicesService, private sanitizer: DomSanitizer) {
+  }
+
 
   ngOnInit(): void {
+    this.localServi.dataNotifyIdRechazadoAprobado$.subscribe((data:any) =>{
+      
+      if(data){
+        this.blogGet(data);
+      }
+    })
     this.listarCategoriasBlog();
     this.ObtenerBlogPorPerfil();
   }
@@ -44,8 +56,10 @@ export class ListBlogsComponent implements OnInit {
   listarCategoriasBlog() {
     this.service.ListarCateBlog().then((data: any) => {
       this.listCateg = data;
+      
     }).catch(error => {
       this.spinnerService.detenerSpinner();
+      if(error.status){this.rutas.navigate(['/login']);}
       console.log(error)
     })
   }
@@ -68,10 +82,9 @@ export class ListBlogsComponent implements OnInit {
 
   cerrarSuscrib: any
   ObtenerBlogPorPerfil() {
-
     this.spinnerService.llamarSpinner();
     this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
-
+      console.log(data)
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
@@ -79,17 +92,20 @@ export class ListBlogsComponent implements OnInit {
           _blogdescripcion: value.blogdescripcion,
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
+          _categorianame:value['categoria'].categorianame,
+          _aprobado:value.aprobado,
+          _ultimanoticia:value.ultimanoticia,
           //_imagen: this.trasformaImagen(value.imagen)
-          _updated_at:moment(value.updated_at).locale('es').fromNow() 
+          _created_at:moment(value.created_at).locale('es').fromNow() 
         }));
-
-        this.spinnerService.detenerSpinner();
       } else {
         this.listBlog = '';
-        this.spinnerService.detenerSpinner();
       }
+      this.spinnerService.detenerSpinner();
+      
     }).catch(error =>{
       this.spinnerService.detenerSpinner();
+      if(error.status){this.rutas.navigate(['/login']);}
       console.log(error)
     })
   }
@@ -120,6 +136,22 @@ export class ListBlogsComponent implements OnInit {
       this.blogdescripcion = data[0].blogdescripcion;
       this.blogcontenido = this.sanitizer.bypassSecurityTrustHtml(data[0].blogcontenido);
       this.urlGet = this.trasformaImagen(data[0].imagen);
+      if((data[0].aprobado == 1 && data[0].ultimanoticia == 1)){
+        this.actNotas=false;
+      }else if(data[0].aprobado == 0 && data[0].ultimanoticia == 0 && data[0]['nota'].titulo !=undefined){
+        this.actNotas=true; 
+      }else if(data[0].aprobado == 0 && data[0].ultimanoticia == 1 && data[0]['nota'].titulo !=undefined){
+        this.actNotas =false;
+      }
+      
+      if( data[0]['nota'].titulo != undefined){
+      this.tituloNotas = data[0]['nota'].titulo;
+      this.descriptionNotas = data[0]['nota'].description;
+      }else{
+        this.tituloNotas = '';
+        this.descriptionNotas = '';
+      }
+      
       this.datosEdit = {
         'id': this.idBlog,
         'categoria': this.categoriaId,
@@ -139,12 +171,41 @@ export class ListBlogsComponent implements OnInit {
       this.toggleLiveDemo();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
+      if(error.status){this.rutas.navigate(['/login']);}
       console.log(error);
     })
   }
 
   toggleLiveDemo() {
     this.visible = !this.visible;
+    this.visibleNote =false;
+    this.localServi.dataNotifyIdRechazadoAprobadoSource.next(null);
+  }
+
+  eliminar(){
+    
+    Swal.fire({
+      title: 'Estás seguro?',
+      text: "No podrás revertir esto.!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.EliminadoLogicoBlog(this.idBlog).then(()=>{
+          Swal.fire(
+            'Eliminado!',
+            'Su blog ha sido eliminado.',
+            'success'
+          )
+          this.visible = !this.visible;
+          this.ObtenerBlogPorPerfil()
+        })
+      }
+    })
+    
   }
 
   handleLiveDemoChange(event: any) {
@@ -162,9 +223,9 @@ export class ListBlogsComponent implements OnInit {
   alert() {
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top-end',
+      position: 'bottom-end',
       showConfirmButton: false,
-      timer: 7000,
+      timer: 3000,
       timerProgressBar: false,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -173,7 +234,7 @@ export class ListBlogsComponent implements OnInit {
     })
     Toast.fire({
       icon: 'success',
-      title: 'Cuenta actualizada!'
+      title: 'Blog actualizado!'
     })
   }
 
@@ -186,6 +247,8 @@ export class ListBlogsComponent implements OnInit {
     this.urlGet = ''
     this.motivoText = ''
     this.motivoTitulo = ''
+    this.tituloNotas = ''
+    this.descriptionNotas = ''
   }
 
   onSubmit2() {
@@ -193,6 +256,8 @@ export class ListBlogsComponent implements OnInit {
     console.log('Submit... 2');
   }
 
-  
+  toggleCollapse() {
+    this.visibleNote = !this.visibleNote;
+  }
 
 }

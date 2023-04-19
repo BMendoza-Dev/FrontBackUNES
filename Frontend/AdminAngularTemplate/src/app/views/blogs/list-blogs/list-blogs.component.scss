@@ -26,3 +26,23 @@
   .innerHtml * {
     text-align: justify;
   }
+
+  .parpadeo {
+    animation: parpadeo 2s infinite;
+  }
+  
+  @keyframes parpadeo {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+
+  }
+  .aprobado{
+    color: green;  
+  }

@@ -1,17 +1,16 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons [routerLink]="['../../tabs/asambleistas']" slot="end">
-      <ion-icon class="iconBack" name="close-circle-outline"></ion-icon>
-    </ion-buttons>
     <ion-title class="title">ASAMBLEÍSTA</ion-title>
-
+    <ion-buttons slot="end">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="content-img">
     <div class="profile-img">
-      <img height="200" class="tamanio" [src]="urlGet" alt="" />
+      <img  class="tamanio" [src]="urlGet" alt="" />
     </div>
   </div>
 
@@ -92,7 +91,7 @@
     </ng-container>
 
     <ng-container *ngIf="comisiones">
-      <ion-list >
+      <ion-list>
         <ion-item detail="false" *ngFor="let commi of comisionAss">
           <h3 *ngIf="commi.pivot.roleName != ''">{{commi.name}} {{commi.pivot.roleName}}</h3> 
           <h3 *ngIf="commi.pivot.roleName == ''">{{commi.name}} - INTEGRANTE DE LA COMISIÓN</h3>
@@ -102,11 +101,11 @@
   </ion-card>
 
   <ion-card>
-    <ion-list>
-        <ion-button (click)="goInfAssam(id_perfil)" expand="full">BIOGRAFÍA</ion-button>
+    <ion-list class="unirButton">
+        <ion-button size="default" style="font-size: 12.5px;" (click)="goInfAssam(id_perfil)" expand="block">BIOGRAFÍA</ion-button>
     </ion-list>
-    <ion-list>
-        <ion-button (click)="goVotosAssam(id_perfil)" expand="full">VOTACIONES</ion-button>
+    <ion-list class="unirButton">
+        <ion-button size="default" style="font-size: 12.5px;" (click)="goVotosAssam(id_perfil)" expand="block">VOTACIONES</ion-button>
   </ion-list>
   </ion-card>
   

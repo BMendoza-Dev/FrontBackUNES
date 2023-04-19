@@ -303,5 +303,11 @@ export const navItem: INavData[] = [
         permission:['super_administrador','asambleista','asistente'],
       }
     ]
-  }
+  },
+  {
+    name: 'Editorial',
+    url: 'editorial/editorial-list',
+    iconComponent: { name: 'cil-playlist-add' },
+    permission:['super_administrador'],
+  },
 ];

@@ -238,4 +238,39 @@ export class AdministradorService {
     });
   }
 
+  EliminadoLogicoUsuario(_id:any){
+    let url = this.url + 'EliminadoLogicoUsuario?id='+_id;
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  EliminadoLogicoCategoria(_id:any){
+    let url = this.url + 'EliminadoLogicoCategoria?id='+_id;
+
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  
+
 }

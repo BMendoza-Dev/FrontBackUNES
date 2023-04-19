@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title">ASAMBLEÍSTA</ion-title>
+    <ion-title class="title">Asambleístas</ion-title>
     <ion-buttons slot="end">
-      <ion-back-button style="color: white;" defaultHref="/"></ion-back-button>
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
   </ion-toolbar>
@@ -18,44 +18,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!--ion-item *ngFor="let item of assambly | filtro: textoBuscar" style="margin-top: 3px;" size="w" size-lg="2" size-md="2" size-sm="6" size-xs="6" clas="itemList">
-    <ion-avatar  slot="start">
-      <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
-    </ion-avatar>
-    <ion-label>
-      Avatar Item
-    </ion-label>
-  </ion-item-->
-  <ion-card *ngFor="let item of assambly | filtro: textoBuscar">
-    <ion-item (click)="goInfAssam(item.id)">
-      <div style="width: 45px; margin-right: 5px;">
-        <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
-      </div>
-      <ion-label>
-        <h2>{{item.LastFirstName}}</h2>
-        <h3>{{item.territorialDivision}}</h3>
-        <p>Curul {{item.curul}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-card>
-  <!--ion-list>
-      <ion-item *ngFor="let item of assambly | filtro: textoBuscar">
-        <ion-thumbnail slot="start">
+<ion-content >
+ 
+  <div *ngIf="assamblyfilter.length>0 ;else sinRegistro">
+    <ion-card *ngFor="let item of assamblyfilter.slice(0,lim);let index = index">
+      <ion-item (click)="goInfAssam(item.id)">
+        <div style="width: 45px; margin-right: 5px;">
           <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
-        </ion-thumbnail>
+        </div>
         <ion-label>
-          <h2 >{{item.lastName}} {{item.firstName}}</h2>
-          <h3 >{{item.jurisdiction}}</h3>
-          <p >Activo</p>
+          <h2>{{item.LastFirstName}}</h2>
+          <h3>{{item.territorialDivision}}</h3>
+          <p>Curul {{item.curul}}</p>
         </ion-label>
       </ion-item>
-    </ion-list-->
+    </ion-card>
+  </div>
 
-  <!--ion-infinite-scroll  (ionInfinite)="getAssambly($event)">
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="Cargando...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll-->
+  <ng-template #sinRegistro>
+    <ion-card>
+      <p class="sinRegis">Sin registro</p>
+    </ion-card>
+  </ng-template>
+  
+    
+    <ion-infinite-scroll *ngIf="assamblyfilter.length > lim" (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

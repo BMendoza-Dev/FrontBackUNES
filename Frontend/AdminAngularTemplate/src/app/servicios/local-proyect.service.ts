@@ -13,8 +13,11 @@ export class LocalProyectService {
   formAsambleSource = new BehaviorSubject(null);
   formAsamble$ = this.formAsambleSource.asObservable();
 
-  dataNotifyIdSource = new BehaviorSubject(null);
-  dataNotifyId$ = this.dataNotifyIdSource.asObservable();
+  dataNotifyIdRevisarSource = new BehaviorSubject(null);
+  dataNotifyIdRevisar$ = this.dataNotifyIdRevisarSource.asObservable();
+  
+  dataNotifyIdRechazadoAprobadoSource = new BehaviorSubject(null);
+  dataNotifyIdRechazadoAprobado$ = this.dataNotifyIdRechazadoAprobadoSource.asObservable();
 
   emitirEventoTablaAsalbleista() {
     this.$emitter.emit();

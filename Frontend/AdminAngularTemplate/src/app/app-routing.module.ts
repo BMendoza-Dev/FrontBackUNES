@@ -57,6 +57,11 @@ export const routes: Routes = [
         loadChildren: () =>
         import('./views/Admin/categoria/categoria.module').then((m) => m.CategoriaModule)
       },
+      {
+        path: 'editorial',
+        loadChildren: () =>
+        import('./views/Admin/editorial/editorial.module').then((m) => m.EditorialModule)
+      },
 
 
       

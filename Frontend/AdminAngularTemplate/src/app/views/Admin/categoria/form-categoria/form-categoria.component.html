@@ -73,6 +73,9 @@
                 <button (click)="toggleLiveDemo()" (click)="camposInputEditar(item.categorianame,item.id)" type="button"
                   class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
                     width="20"></svg>&nbsp;Editar</button>
+                <button (click)="eliminar(item.id)" type="button"
+                  class="btn btn-ghost-danger botont"><svg cIcon name="cilTrash" size="x"
+                    width="20"></svg>&nbsp;Eliminar</button>
               </td>
             </ng-container>
             <ng-template #func>

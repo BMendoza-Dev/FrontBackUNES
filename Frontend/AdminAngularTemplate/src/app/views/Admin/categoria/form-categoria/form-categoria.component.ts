@@ -20,7 +20,7 @@ export class FormCategoriaComponent {
   formControls!: string[];
   search = ""; page: number = 1; tableSize: number = 10; count: number = 0;
   dataCat: any = []; catFilter: any = [];
-  constructor(private spinnerService:SpinnerService,private service: BlogServicesService, private serviceAdmin:AdministradorService,
+  constructor(private spinnerService: SpinnerService, private service: BlogServicesService, private serviceAdmin: AdministradorService,
     public validationFormsService: ValidationFormsService, private formBuilder: FormBuilder) {
     this.formErrors = this.validationFormsService.errorMessages;
     this.createForm();
@@ -39,13 +39,13 @@ export class FormCategoriaComponent {
     })
   }
 
-  guardarCatBlog(){
+  guardarCatBlog() {
     this.spinnerService.llamarSpinner();
-    let formCatBlog= {
+    let formCatBlog = {
       'categorianame': this.simpleForm.value.category,
     }
-    
-    this.serviceAdmin.CreateCategoria(formCatBlog).then(()=>{
+
+    this.serviceAdmin.CreateCategoria(formCatBlog).then(() => {
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -64,13 +64,13 @@ export class FormCategoriaComponent {
       this.submitted = false;
       this.simpleForm.reset();
       this.onReset2();
-    }).catch(error =>{
+    }).catch(error => {
       this.spinnerService.detenerSpinner();
       console.log(error)
     })
   }
 
-  onReset2(){
+  onReset2() {
     this.cargarCatBlog();
     Swal.fire('Guardado!', '', 'success')
   }
@@ -85,7 +85,7 @@ export class FormCategoriaComponent {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.guardarCatBlog();
-        
+
       } else if (result.isDenied) {
         Swal.fire('No se a guardado la categoría', '', 'info')
       }
@@ -93,8 +93,8 @@ export class FormCategoriaComponent {
   }
 
 
-categoria_id:any;
-  camposInputEditar(categorianame:any, id:any) {
+  categoria_id: any;
+  camposInputEditar(categorianame: any, id: any) {
     this.simpleFormEdit.get('category')?.setValue(categorianame);
     this.categoria_id = id;
   }
@@ -147,22 +147,22 @@ categoria_id:any;
     this.formControls = Object.keys(this.simpleForm.controls);
   }
 
-  updateCatBlog(){
+  updateCatBlog() {
     this.spinnerService.llamarSpinner();
-    let formCatBlog= {
-      'categoria_id':this.categoria_id,
+    let formCatBlog = {
+      'categoria_id': this.categoria_id,
       'categorianame': this.simpleFormEdit.value.category,
     }
-    
-    this.serviceAdmin.EditCategoria(formCatBlog).then(()=>{
+
+    this.serviceAdmin.EditCategoria(formCatBlog).then(() => {
       this.submittedEdit = false;
       this.simpleFormEdit.reset();
-      this.visible=!this.visible;
+      this.visible = !this.visible;
       this.onReset2();
     })
   }
 
-  editCat(){
+  editCat() {
     Swal.fire({
       title: 'Esta seguro que desea editar?',
       showDenyButton: false,
@@ -208,5 +208,31 @@ categoria_id:any;
       }
     );
     this.formControls = Object.keys(this.simpleForm.controls);
+  }
+
+  eliminar(_id: any) {
+
+    Swal.fire({
+      title: 'Estás seguro?',
+      text: "No podrás revertir esto.!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.spinnerService.llamarSpinner();
+        this.serviceAdmin.EliminadoLogicoCategoria(_id).then(() => {
+          Swal.fire(
+            'Eliminado!',
+            'Su blog ha sido eliminado.',
+            'success'
+          )
+          this.cargarCatBlog();
+        })
+      }
+    })
+
   }
 }

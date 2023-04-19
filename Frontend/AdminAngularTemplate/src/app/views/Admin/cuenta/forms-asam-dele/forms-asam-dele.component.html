@@ -97,9 +97,7 @@
     <!--Form de Asambleistas Delegados-->
     <ng-container *ngIf="delegadoCuentaCampos == true">
       <p class="text-medium-emphasis small">
-        A switch has the markup of a custom checkbox but uses the <code>switch</code> boolean
-        properly to render a toggle switch. Switches also support the <code>disabled</code>
-        attribute.
+        La cuenta que se agregará el este <code>formulario</code> es la cuenta que le corresponderá a el asistente del <code>asambleísta</code> seleccionado.
       </p>
       <form cForm [formGroup]="simpleFormDele" novalidate (ngSubmit)="onSubmit()" class="row g-3 needs-validation">
         <c-col md="6" *ngIf="simpleFormDele.controls['usernameDele'] as ctrl">

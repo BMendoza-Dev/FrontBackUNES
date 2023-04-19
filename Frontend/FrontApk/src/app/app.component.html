@@ -8,6 +8,12 @@
         </div>
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" [routerLink]="['inicio']" lines="none" detail="false">
+              <ion-icon slot="start" name="home-outline"></ion-icon>
+              <ion-label>Inicio</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['agenda']" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="calendar-outline"></ion-icon>
               <ion-label>Agenda</ion-label>
