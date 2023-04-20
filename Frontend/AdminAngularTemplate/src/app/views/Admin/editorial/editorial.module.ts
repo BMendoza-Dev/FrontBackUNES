@@ -35,10 +35,20 @@ import {
   PaginationModule,
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
-
+import { CreatEditorialComponent } from './creat-editorial/creat-editorial.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FiltroCreateEditorial } from 'src/app/pipes/filtro-createEditorial.pipe';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
-    ListEditorialComponent
+    ListEditorialComponent,
+    CreatEditorialComponent,
+    FiltroCreateEditorial
   ],
   imports: [
     CommonModule,
@@ -74,8 +84,16 @@ import { IconModule } from '@coreui/icons-angular';
     SpinnerModule,
     HttpClientModule,
     FormModule,
+    FormsModule,
     PaginationModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    NgxPaginationModule,
+    DragDropModule,
+    MatStepperModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatButtonModule
   ]
 })
 export class EditorialModule { }

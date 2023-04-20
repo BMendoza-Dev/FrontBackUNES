@@ -306,8 +306,20 @@ export const navItem: INavData[] = [
   },
   {
     name: 'Editorial',
-    url: 'editorial/editorial-list',
-    iconComponent: { name: 'cil-playlist-add' },
+    url: '/editorial',
+    //iconComponent: { name: 'cil-playlist-add' },
     permission:['super_administrador'],
+    children: [
+      {
+        name: 'Crear Editorial',
+        url: '/editorial/creat-editorial',
+        permission:['super_administrador'],
+      },
+      {
+        name: 'Lista Editorial',
+        url: '/editorial/editorial-list',
+        permission:['super_administrador'],
+      },
+    ]
   },
 ];

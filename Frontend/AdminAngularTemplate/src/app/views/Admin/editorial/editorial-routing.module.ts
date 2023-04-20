@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CombiGuard } from 'src/app/guards/combi.guard';
 import { ListEditorialComponent } from './list-editorial/list-editorial.component';
 import { AdminLoginGuard } from 'src/app/guards/admin-login.guard';
+import { CreatEditorialComponent } from './creat-editorial/creat-editorial.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,14 @@ const routes: Routes = [{
       canActivate: [AdminLoginGuard],
       data: {
         title: 'Editorial lista'
+      }
+    },
+    {
+      path: 'creat-editorial',
+      component: CreatEditorialComponent,
+      canActivate: [AdminLoginGuard],
+      data: {
+        title: 'Crear Editorial'
       }
     }
   ]
