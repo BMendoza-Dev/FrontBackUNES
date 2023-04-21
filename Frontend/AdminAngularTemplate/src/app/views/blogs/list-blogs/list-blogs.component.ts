@@ -84,7 +84,7 @@ export class ListBlogsComponent implements OnInit {
   ObtenerBlogPorPerfil() {
     this.spinnerService.llamarSpinner();
     this.service.ObtenerBlogPorPerfil(this._categoria_id).then((data: any) => {
-      console.log(data)
+      
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,

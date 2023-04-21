@@ -96,14 +96,17 @@
                   <span style="color: rgb(190, 190, 190)">{{item.user}} </span><span style="color: rgb(190, 190, 190)">a
                     publicado un blog.
                   </span><span style="font-size: 15px; color: rgb(190, 190, 190);"> "{{item.blogtitulo | slice:0:45 }}
-                    {{item.blogtitulo.length > 45? '...':''}}"</span><br>
+                    {{item.blogtitulo.length > 60? '...':''}}"</span><br>
+                    <span style="font-size: 14px; color: rgb(190, 190, 190);"> Asambleista: <span
+                      style="color: rgb(190, 190, 190);font-size: 13px; font-weight: normal !important;">
+                      {{item.perfil}}</span></span>
                 </ng-container>
 
                 <ng-container *ngIf="item.date == 'Blog Aprobado' || item.date == 'Blog Rechazado'">
                   <i class="fa fa-list-alt" aria-hidden="true" style="color: rgb(190, 190, 190);margin-right: 3px;"></i>
                   <span style="color: rgb(190, 190, 190)">La publicación del blog.
                   </span><span style="font-size: 15px; color: rgb(190, 190, 190);"> "{{item.blogtitulo | slice:0:45 }}
-                    {{item.blogtitulo.length > 45? '...':''}}"</span><br>
+                    {{item.blogtitulo.length > 60? '...':''}}"</span><br>
                 </ng-container>
                 
                 <div class="d-flex justify-content-between" style="font-size: 12px;

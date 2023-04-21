@@ -1,10 +1,19 @@
-<mat-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
+<mat-stepper [linear]="isLinear" #stepper (selectionChange)="ordenar($event)">
+  <mat-step  errorMessage="Name is required.">
     <ng-template matStepLabel>Seleccionar blogs importantes</ng-template>
     <c-card style="margin-top: 2%;" class="mb-4">
-      <c-card-header>
-        <strong style="text-align: center; display: flex; justify-content: center;">Editorial RC5 #</strong>
+      <c-card-header class="header-flex">
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <strong>Editorial RC5 #</strong>
+        </div>
+        <div>
+            <mat-checkbox  class="example-margin" [checked]="allCompleteBlog" color="primary"
+            [indeterminate]="someCompleteBlog()" (change)="setAllBlog($event.checked)">
+            Marcar todas
+          </mat-checkbox>
+        </div>
       </c-card-header>
+
       <c-card-body>
         <c-row>
           <c-col [md]="6">
@@ -18,20 +27,17 @@
           </c-col>
           <c-col [md]="6">
             <label cLabel for="basic-url">Categoría del blog</label>
-            <select [(ngModel)]="categorie_id" (ngModelChange)="cargarLitBlog(categorie_id)" aria-label="Categoria"
+            <select [(ngModel)]="categorie_id" aria-label="Categoria"
               cSelect class="mb-3">
-              <option [value]="">Todas las categorías</option>
+              <option [ngValue]="0">Todas las categorías</option>
               <option *ngFor="let item of listCateg" [ngValue]="item.id">{{item.categorianame}}</option>
             </select>
           </c-col>
         </c-row>
 
-        <mat-checkbox class="example-margin" [checked]="allCompleteBlog" color="primary"
-          [indeterminate]="someCompleteBlog()" (change)="setAllBlog($event.checked)">
-          Marcar todas
-        </mat-checkbox>
+
         <c-row [gutter]="4" class="mb-4" [lg]="2" [md]="1" [xs]="1">
-          <c-col *ngFor="let item of listBlog | filtroCreateEditorial:search | paginate:{itemsPerPage: tableSize,
+          <c-col *ngFor="let item of chekcList | filtroCreateEditorialCategoria:categorie_id | filtroCreateEditorial:search | paginate:{itemsPerPage: tableSize,
                       currentPage: page,
                       totalItems : count,
                       id: 'paginado'
@@ -55,12 +61,12 @@
                 <span style="font-size: 15px;">{{item._created_at}}</span>
               </c-card-footer>
             </c-card>
-            <c-alert *ngIf="!item._blogtitulo" color="danger">No existen lista de blogs {{nameCat}}!</c-alert>
+            <c-alert *ngIf="!item._blogtitulo" color="danger">No existen lista de blogs </c-alert>
           </c-col>
         </c-row>
-        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"
-        [autoHide]="true" id="paginado">
-      </pagination-controls>
+        <pagination-controls style="text-align: center; display: flex; justify-content: center;" previousLabel="Prev"
+          nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
+        </pagination-controls>
         <div>
           <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
         </div>
@@ -68,44 +74,56 @@
     </c-card>
   </mat-step>
 
-  <mat-step [stepControl]="secondFormGroup" label="Ordenar blogs">
-    <form style="margin-top: 2%;" [formGroup]="secondFormGroup">
-      <c-row cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [gutter]="4" class="mb-4" [lg]="1" [md]="1" [xs]="1">
-        <c-col cdkDrag *ngFor="let item of listBlog | paginate:{itemsPerPage: tableSize,
-                    currentPage: page,
-                    totalItems : count,
-                    id: 'paginado'
-                    }">
-          <c-card *ngIf="item._blogtitulo" class="mb-1">
-            <c-card-header class="text-medium-emphasis">
-              <span style="display: flex; align-items: center; justify-content: center;">{{item._categorianame}} </span>
-            </c-card-header>
-            <c-card-body>
-              <h5 cCardTitle cdkDragPlaceholder>{{item._blogtitulo}}</h5>
-              <p cCardText>
-                {{item._blogdescripcion}}
-              </p>
-            </c-card-body>
-          </c-card>
-          <c-alert *ngIf="!item._blogtitulo" color="danger">No existen lista de blogs {{nameCat}}!</c-alert>
-        </c-col>
-      </c-row>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+
+
+  <mat-step  label="Ordenar blogs" >
+    <form *ngIf="chekcListOrder != ''; else warning" style="margin-top: 2%;" [formGroup]="secondFormGroup">
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <c-accordion [alwaysOpen]="true">
+          <c-accordion-item cdkDrag *ngFor="let item of chekcListOrder" #accordionItem="cAccordionItem"
+            [visible]="item.visible" style="margin-top: 1%;">
+            <ng-template cTemplateId="accordionHeaderTemplate">
+              <button (click)="accordionItem.toggleItem()" [collapsed]="!accordionItem.visible" cAccordionButton>
+                <div class="example-custom-placeholder" *cdkDragPlaceholder></div>{{ item._blogtitulo }}
+              </button>
+            </ng-template>
+            <ng-template cTemplateId="accordionBodyTemplate">
+              <div class="accordion-body">
+                <strong>{{ item._blogdescripcion }}</strong>
+              </div>
+            </ng-template>
+          </c-accordion-item>
+        </c-accordion>
       </div>
+
+      <div style="margin-top: 3%;">
+        <button mat-flat-button color="warn" matStepperPrevious>Atras</button>
+        <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+      </div>
+      
     </form>
+    <ng-template  #warning>
+      <div style="margin-top: 3%;">
+        <c-alert style="margin-top: 30%;" color="danger">No existen lista de blogs para ordenar!</c-alert>
+      </div>
+    </ng-template>
   </mat-step>
 
   <mat-step>
     <ng-template matStepLabel>Hecho</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+    <p>Ya has terminado?</p>
+    <div *ngIf="chekcListOrder != ''; else warning2">
+      <button mat-flat-button color="warn" matStepperPrevious>Atras</button>
+      <button mat-flat-button color="primary" (click)="publicar()">Publicar</button>
     </div>
+
+    <ng-template #warning2>
+      <c-alert style="margin-top: 30%;" color="danger">No existen lista de blogs para publicar!</c-alert>
+    </ng-template>
   </mat-step>
 </mat-stepper>
+
+
 
 <c-modal backdrop="static" id="staticBackdropModal" size="lg" [visible]="visible"
   (visibleChange)="handleLiveDemoChange($event)" scrollable> <!--Modal de editar cuenta Asambleista-->

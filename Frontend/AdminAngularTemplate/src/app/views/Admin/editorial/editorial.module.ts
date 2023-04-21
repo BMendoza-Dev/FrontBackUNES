@@ -39,16 +39,19 @@ import { CreatEditorialComponent } from './creat-editorial/creat-editorial.compo
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltroCreateEditorial } from 'src/app/pipes/filtro-createEditorial.pipe';
+import { FiltroCreateEditorialCategoria } from 'src/app/pipes/filtro-createEditorialCategoria.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
+import {CdkAccordionModule} from '@angular/cdk/accordion';
 @NgModule({
   declarations: [
     ListEditorialComponent,
     CreatEditorialComponent,
-    FiltroCreateEditorial
+    FiltroCreateEditorial,
+    FiltroCreateEditorialCategoria
   ],
   imports: [
     CommonModule,
@@ -93,7 +96,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatStepperModule,
     MatCheckboxModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    CdkAccordionModule
   ]
 })
 export class EditorialModule { }
