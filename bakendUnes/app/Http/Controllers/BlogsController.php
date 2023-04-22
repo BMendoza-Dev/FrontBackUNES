@@ -52,10 +52,10 @@ class BlogsController extends Controller
             if(!$request->file('pdfs')==null && !$request->file('pdfs')==''){
                 $Pdfs= $request->file('pdfs');
 
-              
+                foreach ($Pdfs as $pdf) {
                  //   $contenido['pdf'] = ['pdf'=>file_get_contents($pdf)];
-                    $blog->pdf()->create(['pdf'=>file_get_contents($Pdfs)]);
-             
+                    $blog->pdf()->create(['pdf'=>file_get_contents($pdf)]);
+                }
 
                }
                 
