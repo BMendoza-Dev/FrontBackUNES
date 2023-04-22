@@ -170,9 +170,9 @@ Route::get('/prueva', function (Request $request) {
 
 Route::get('/pruevapdf', function (Request $request) {
 
-    $blog= Blog::find(20);
+    $blog= Blog::find($request->id);
 
-    return response($blog->load('pdf')->pdf[1]->pdf, 200)
+    return response($blog->load('pdf')->pdf[$request->num]->pdf, 200)
         ->header('Content-Type', 'application/pdf');
 });
 
