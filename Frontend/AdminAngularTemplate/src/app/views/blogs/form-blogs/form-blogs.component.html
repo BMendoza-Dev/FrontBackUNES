@@ -24,20 +24,38 @@
         </div>
         <div class="mb-3">
             <label cLabel for="exampleFormControlInput1">Titulo:<span class="is-required">*</span></label>
-            <input cFormControl id="exampleFormControlInput1" [(ngModel)]="titulo"
-                placeholder="Titulo del blog..." type="text" />
+            <input cFormControl id="exampleFormControlInput1" [(ngModel)]="titulo" placeholder="Titulo del blog..."
+                type="text" />
             <!--p class="hint end"><span id="message-length"></span> {{titulo.length}} / 60</p-->
         </div>
         <div class="mb-3">
             <label cLabel for="exampleFormControlTextarea1">Descripción:<span class="is-required">*</span></label>
-            <textarea cFormControl id="exampleFormControlTextarea1" [(ngModel)]="descripcion"
-                rows="3"></textarea>
+            <textarea cFormControl id="exampleFormControlTextarea1" [(ngModel)]="descripcion" rows="3"></textarea>
             <!--p class="hint end"><span id="message-length"></span> {{descripcion.length}} / 120</p-->
         </div>
         <div class="mb-3">
             <label cLabel for="exampleFormControlCkeditor">Contenido:<span class="is-required">*</span></label>
             <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
-           
+            {{datos}}
+        </div>
+        <div class="mb-3">
+            <label cLabel for="exampleFormControlTextarea1">Agregar Pdf:</label>
+            <div class="pdf-list">
+                <div class="pdfs-container">
+                    <div *ngFor="let pdf of pdfs" class="pdf-item">
+                        <i [cTooltip]="pdf.name" class="fas fa-file-pdf fa-2x text-danger"></i>
+                        <button (click)="removePdf(pdf)" class="remove-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <label for="file-upload" class="file-upload-label">
+                    <i class="fas fa-plus fa-2x"></i>
+                    <input id="file-upload" type="file" (change)="onFileSelected($event)">
+                </label>
+            </div>
+
+            <!--p class="hint end"><span id="message-length"></span> {{descripcion.length}} / 120</p-->
         </div>
         <div class="mb-3">
             <c-form-check [switch]="true">
@@ -46,11 +64,11 @@
             </c-form-check>
         </div>
         <c-col style="margin-top: 2%;" xs="12">
-            <button  (click)="create()" style="padding: 0.5% 3% 0.5% 3%;" cButton class="me-2" color="success">
+            <button (click)="create()" style="padding: 0.5% 3% 0.5% 3%;" cButton class="me-2" color="success">
                 {{!datosEdit ? 'Crear':'Actualizar'}}
             </button>
             <button *ngIf="datosEdit" (click)="cargarListBlog.emit()" style="padding: 0.5% 3% 0.5% 3%;" cButton
-                class="me-2" color="success">
+                class="me-2" color="danger">
                 Cancelar
             </button>
         </c-col>

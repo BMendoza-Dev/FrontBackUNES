@@ -14,7 +14,7 @@ export class FiltroCreateEditorialCategoria implements PipeTransform {
   }*/
 
   transform(items: any[], searchText: number): any[] {
-    debugger
+    
     if (!items) {
       return [{ '_blogtitulo': false }];
     }
@@ -26,7 +26,7 @@ export class FiltroCreateEditorialCategoria implements PipeTransform {
     if(searchResults.length == 0){
       return [{ '_blogtitulo': false }];
     }
-    debugger
+    
     return searchResults
 
   }

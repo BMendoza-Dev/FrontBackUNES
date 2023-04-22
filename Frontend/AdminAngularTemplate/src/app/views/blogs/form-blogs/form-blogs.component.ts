@@ -20,6 +20,7 @@ export class FormBlogsComponent implements OnInit {
   listCateg: any; frameWidth: number = 900;
   frameHeight: number = 250;
   check: boolean = false;
+  pdfs: File[] = [];
   constructor(private spinnerService: SpinnerService, private service: BlogServicesService) {
 
   }
@@ -35,7 +36,7 @@ export class FormBlogsComponent implements OnInit {
       this.blog_id = this.datosEdit.id;
       this.urlSet = this.datosEdit.urlSet;
       this.importante = this.datosEdit.ultNoticia;
-      
+
       this.import(true);
     }
     this.listarCategoriasBlog();
@@ -46,6 +47,8 @@ export class FormBlogsComponent implements OnInit {
     this.service.ListarCateBlog().then((data: any) => {
       this.listCateg = data;
       this.spinnerService.detenerSpinner();
+    }).catch(error => {
+      
     })
   }
 
@@ -59,7 +62,7 @@ export class FormBlogsComponent implements OnInit {
       'link', '|',
       'bulletedList', 'numberedList', 'todoList', '|',
       'code', 'htmlEmbed', '|',
-      'blockQuote', '|',
+      'imageUpload', 'blockQuote', '|',
       'undo', 'redo'],
     shouldNotGroupWhenFull: true,
     heading: {
@@ -78,12 +81,52 @@ export class FormBlogsComponent implements OnInit {
           hasChanged: true
         };
       }
+    }, image: {
+      // Configure the available styles.
+      styles: [
+        'alignLeft', 'alignCenter', 'alignRight'
+      ],
+
+      // Configure the available image resize options.
+      resizeOptions: [
+        {
+          name: 'resizeImage:original',
+          label: 'Original',
+          value: null
+        },
+        {
+          name: 'resizeImage:25',
+          label: '25%',
+          value: '25'
+        },
+        {
+          name: 'resizeImage:50',
+          label: '50%',
+          value: '50'
+        },
+        {
+          name: 'resizeImage:75',
+          label: '75%',
+          value: '75'
+        }
+      ],
+
+      // You need to configure the image toolbar, too, so it shows the new style
+      // buttons as well as the resize buttons.
+      toolbar: [
+        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+        '|',
+        'ImageResize',
+        '|',
+        'toggleImageCaption',
+      ]
     },
 
     lenguage: 'es'
   }
 
-  public onSelectFile(event: any) { // called each time file input changes
+  public onSelectFile(event: any) {
+    debugger // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       let tipoImagen = event.target.files[0].type;
       if (tipoImagen == "image/jpeg" || tipoImagen == "image/png" || tipoImagen == "image/svg") {
@@ -108,8 +151,8 @@ export class FormBlogsComponent implements OnInit {
 
 
   create() {
-    if(this.urlGet != '' && this.urlGet != '' && this.categorie_id != 'Seleccione una categoría' && this.titulo!='' && this.descripcion != '' && this.datos != ''){
-      
+    if (this.urlGet != '' && this.urlGet != '' && this.categorie_id != 'Seleccione una categoría' && this.titulo != '' && this.descripcion != '' && this.datos != '') {
+
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
         showDenyButton: false,
@@ -126,30 +169,32 @@ export class FormBlogsComponent implements OnInit {
             'blogcontenido': this.datos,
             'ultimanoticia': this.importante,
             'imagen': this.urlSet,
-            'blog_id': this.blog_id
+            'blog_id': this.blog_id,
+            'pdfs':this.pdfs
           }
-          
-          this.service.crear_updateBlog(data).then(() => {
+
+          this.service.crear_updateBlog(data).then((data) => {
+            console.log("Prueba file: "+data);
             this.spinnerService.detenerSpinner();
             this.onReset2();
           }).catch((error) => {
             this.spinnerService.detenerSpinner();
             console.log(error);
           })
-  
+
         } else if (result.isDenied) {
           Swal.fire('No se a guardado la cuenta', '', 'info')
         }
       })
-    }else{
+    } else {
       Swal.fire(
         'Campos vacíos?',
         'Tiene que llenar todos los campos!',
         'question'
       )
     }
-    
-    
+
+
 
   }
 
@@ -198,5 +243,30 @@ export class FormBlogsComponent implements OnInit {
       }
     }
   }
+
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      let tipoPDF = event.target.files[0].type;
+      if (tipoPDF == "application/pdf") {
+        const file = event.target.files[0];
+        this.pdfs.push(file);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: '¡No es un Pdf..!',
+          text: 'Elija un Pdf.'
+        })
+      }
+    }
+  }
+
+  removePdf(pdf: any) {
+    
+    const index = this.pdfs.indexOf(pdf);
+    if (index >= 0) {
+      this.pdfs.splice(index, 1);
+    }
+  }
+  
 
 }

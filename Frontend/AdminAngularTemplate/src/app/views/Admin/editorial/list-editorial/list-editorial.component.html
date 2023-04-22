@@ -1,0 +1,52 @@
+<c-card class="mb-4">
+    <c-card-header ngPreserveWhitespaces>
+      <strong style="font-size: 16px;">Lista de los editoriales</strong>
+    </c-card-header>
+    <c-card-body>
+      <form  class="row g-2">
+        <div class="col-sm-4">
+          <ng-autocomplete [data]="datosAsambleistas" [searchKeyword]="keyword" placeholder="Seleccione un editorial"
+            (selected)='selectEvent($event)' (inputFocused)='onFocused($event)'
+            (inputCleared)='onClear()' [itemTemplate]="itemTemplateAsam" [notFoundTemplate]="notFoundTemplateAsam"
+            [minQueryLength]="3">
+          </ng-autocomplete>
+
+          <ng-template #itemTemplateAsam let-item>
+            <a [innerHTML]="item.name"></a>
+          </ng-template>
+
+          <ng-template #notFoundTemplateAsam let-item>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+        <table style="margin-top: 2%;" hover striped cTable>
+            <thead cTableColor="dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Usuarios</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+      </form>
+    </c-card-body>
+  </c-card>
+  
+  
+  
+  <div class="pdf-list">
+    <div class="pdfs-container">
+      <div *ngFor="let pdf of pdfs" class="pdf-item">
+        <i [cTooltip]="pdf.name" [cTooltipVisible]="true" class="fas fa-file-pdf fa-2x text-danger"></i>
+      </div>
+    </div>
+    <label for="file-upload" class="file-upload-label">
+      <i  class="fas fa-plus fa-2x"></i>
+      <input id="file-upload" type="file" (change)="onFileSelected($event)">
+    </label>
+  </div>
+  

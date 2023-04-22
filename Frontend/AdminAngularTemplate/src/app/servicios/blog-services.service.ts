@@ -16,6 +16,7 @@ export class BlogServicesService {
   }
 
   crear_updateBlog(_datos: any) {
+    debugger
     let url = this.url + 'CrearBlog'
 
     const httpheaders = new HttpHeaders({
@@ -31,6 +32,10 @@ export class BlogServicesService {
     formData.append('ultimanoticia', _datos.ultimanoticia);
     formData.append('imagen', _datos.imagen);
     formData.append('blog_id', _datos.blog_id);
+    for (let i = 0; i < _datos.pdfs.length; i++) {
+      formData.append('pdfs[]', _datos.pdfs[i], _datos.pdfs[i].name);
+    }
+
 
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {

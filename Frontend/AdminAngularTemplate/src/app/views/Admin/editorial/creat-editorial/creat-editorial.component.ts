@@ -194,7 +194,7 @@ export class CreatEditorialComponent {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, publicar!'
+      confirmButtonText: 'Sí, publicar!'
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(

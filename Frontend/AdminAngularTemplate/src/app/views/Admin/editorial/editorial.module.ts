@@ -46,6 +46,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 @NgModule({
   declarations: [
     ListEditorialComponent,
@@ -97,7 +98,8 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
     MatCheckboxModule,
     MatListModule,
     MatButtonModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    AutocompleteLibModule
   ]
 })
 export class EditorialModule { }
