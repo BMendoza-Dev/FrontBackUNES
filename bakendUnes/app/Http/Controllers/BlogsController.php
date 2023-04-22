@@ -47,9 +47,25 @@ class BlogsController extends Controller
             }else{
                 $urlimagenes2['imagen']=['imagen' => base64_decode($request->imagen) ];
             }
-        
+
+
+            if(!$request->file('pdfs')==null && !$request->file('pdfs')==''){
+                $Pdfs= $request->file('pdfs');
+
+                
+                 //   $contenido['pdf'] = ['pdf'=>file_get_contents($pdf)];
+                    $blog->pdf()->create(['pdf'=>file_get_contents($Pdfs)]);
+                }
+
+             
+                
+            
+       //     $blog->pdf()->createMany($contenido);
         $blog->image()->createMany($urlimagenes2);
+
         
+    /*    return response($blog->load('pdf')->pdf->pdf, 200)
+        ->header('Content-Type', 'application/pdf');*/
         if($request->ultimanoticia==true){
             
             self::make_blogs_notify($blog);

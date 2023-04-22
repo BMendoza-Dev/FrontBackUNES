@@ -11,6 +11,7 @@ use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
 use App\Models\Tema;
+use App\Models\Blog;
 use App\Models\Temaavotacion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -167,7 +168,13 @@ Route::get('/prueva', function (Request $request) {
 });
 
 
+Route::get('/pruevapdf', function (Request $request) {
 
+    $blog= Blog::find(20);
+
+    return response($blog->load('pdf')->pdf[1]->pdf, 200)
+        ->header('Content-Type', 'application/pdf');
+});
 
 
 Route::post('Login',[AuthController::class, 'Login']);

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Perfil;
 use App\Models\User;
-use App\Models\Editoriale;
+use App\Models\Editorial;
 use App\Models\Categorie;
 use App\Models\Visitante;
 use App\Models\Imagen;
+use App\Models\Pdf;
 use App\Models\Nota;
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -27,7 +28,7 @@ class Blog extends Model
     	return $this->belongsTo(User::class);
     }
     public function editoriale(){
-    	return $this->belongsTo(Editoriale::class);
+        return $this->belongsToMany(Editorial::class)->withTimesTamps();
     }
     public function categoria(){
     	return $this->belongsTo(Categorie::class,'categorie_id');
@@ -43,5 +44,8 @@ class Blog extends Model
     
     public function image(){
     	return $this->MorphOne('App\Models\Imagen','imageable');
+    }
+    public function pdf(){
+    	return $this->morphMany('App\Models\Pdf','pdfeable');
     }
 }
