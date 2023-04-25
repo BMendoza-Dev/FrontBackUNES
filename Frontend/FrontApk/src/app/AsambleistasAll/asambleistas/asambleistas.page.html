@@ -19,7 +19,6 @@
 </ion-header>
 
 <ion-content >
- 
   <div *ngIf="assamblyfilter.length>0 ;else sinRegistro">
     <ion-card *ngFor="let item of assamblyfilter.slice(0,lim);let index = index">
       <ion-item (click)="goInfAssam(item.id)">

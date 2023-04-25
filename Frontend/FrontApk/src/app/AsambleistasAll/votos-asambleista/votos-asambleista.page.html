@@ -1,18 +1,21 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons [routerLink]="['../../inf-asambleista/'+id_perfil]" slot="end">
-      <ion-icon class="iconBack" name="close-circle-outline"></ion-icon>
+    <ion-title class="title">Asambleístas</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title class="title">VOTOS DE </ion-title>
-
+    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
   </ion-toolbar>
 </ion-header>
+
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar class="search" placeholder="Buscar Tema" animated
+    <ion-searchbar class="search" placeholder="Buscar tema" animated
       ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
+
+<ion-content></ion-content>
 <!--ion-content>
   <ion-card *ngFor="let item of assambly | filtro: textoBuscar">
     <ion-item (click)="goInfAssam(item.id)">

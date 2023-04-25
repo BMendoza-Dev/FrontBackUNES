@@ -11,7 +11,7 @@
         <div class="file-input">
             <input (change)="onSelectFile($event)" type="file" id="file" name="file" />
             <label for="file">
-                <span>Seleccionar una imagen<span class="is-required">*</span></span>
+                <span>Seleccionar una imagen</span>
                 <svg cIcon class="me-2" name="cilDataTransferUp"></svg>
             </label>
         </div>
@@ -43,7 +43,10 @@
             <div class="pdf-list">
                 <div class="pdfs-container">
                     <div *ngFor="let pdf of pdfs" class="pdf-item">
-                        <i [cTooltip]="pdf.name" class="fas fa-file-pdf fa-2x text-danger"></i>
+                        <a [href]="pdfUrl" download>
+                            <i [cTooltip]="pdf.name" class="fas fa-file-pdf fa-2x text-danger"></i>
+                        </a>
+                        
                         <button (click)="removePdf(pdf)" class="remove-btn">
                             <i class="fas fa-times"></i>
                         </button>

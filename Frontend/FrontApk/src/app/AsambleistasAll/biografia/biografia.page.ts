@@ -20,14 +20,14 @@ export class BiografiaPage implements OnInit {
   
  
   ngOnInit() {
-    
+    debugger
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getBiografia();
   }
 
   getBiografia(){
     this.rest.getBiografiaAssam(this.id_perfil).subscribe((data:any) =>{
-      data;
+      console.log(data);
       this.peril = this.sanitizer.bypassSecurityTrustHtml(data.perfil);
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {

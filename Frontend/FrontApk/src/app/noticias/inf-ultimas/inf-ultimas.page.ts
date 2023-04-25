@@ -11,7 +11,7 @@ export class InfUltimasPage implements OnInit {
   constructor(private scriptService: ScriptServiceService) { }
 
   ngOnInit() {
-    debugger
+    
     this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
           console.log('script loaded ', data);

@@ -48,7 +48,7 @@ export class FormBlogsComponent implements OnInit {
       this.listCateg = data;
       this.spinnerService.detenerSpinner();
     }).catch(error => {
-      
+
     })
   }
 
@@ -151,7 +151,7 @@ export class FormBlogsComponent implements OnInit {
 
 
   create() {
-    if (this.urlGet != '' && this.urlGet != '' && this.categorie_id != 'Seleccione una categoría' && this.titulo != '' && this.descripcion != '' && this.datos != '') {
+    if ( this.categorie_id != 'Seleccione una categoría' && this.titulo != '' && this.descripcion != '' && this.datos != '') {
 
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
@@ -170,11 +170,11 @@ export class FormBlogsComponent implements OnInit {
             'ultimanoticia': this.importante,
             'imagen': this.urlSet,
             'blog_id': this.blog_id,
-            'pdfs':this.pdfs
+            'pdfs': this.pdfs
           }
 
           this.service.crear_updateBlog(data).then((data) => {
-            console.log("Prueba file: "+data);
+            console.log("Prueba file: " + data);
             this.spinnerService.detenerSpinner();
             this.onReset2();
           }).catch((error) => {
@@ -243,13 +243,18 @@ export class FormBlogsComponent implements OnInit {
       }
     }
   }
-
+  pdfUrl: string;
   onFileSelected(event: any) {
     if (event.target.files && event.target.files[0]) {
       let tipoPDF = event.target.files[0].type;
       if (tipoPDF == "application/pdf") {
         const file = event.target.files[0];
         this.pdfs.push(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.pdfUrl = reader.result as string;
+        };
+        reader.readAsDataURL(file);
       } else {
         Swal.fire({
           icon: 'error',
@@ -261,12 +266,12 @@ export class FormBlogsComponent implements OnInit {
   }
 
   removePdf(pdf: any) {
-    
+
     const index = this.pdfs.indexOf(pdf);
     if (index >= 0) {
       this.pdfs.splice(index, 1);
     }
   }
-  
+
 
 }

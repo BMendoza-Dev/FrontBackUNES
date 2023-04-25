@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
   selector: 'app-list-editorial',
@@ -9,11 +11,12 @@ export class ListEditorialComponent {
   datosAsambleistas:any;
   keyword="name";
   notFound: any = "No se encuentra asambleista";
-  constructor(){
-
+  pdfUrl: string;
+  constructor(private service:LoginService, private http: HttpClient){
+    
   }
   ngOnInit(){
-
+    
   }
 
   selectEvent(item: any) {
@@ -55,6 +58,21 @@ export class ListEditorialComponent {
   onFileSelected(event:any) {
     const file = event.target.files[0];
     this.pdfs.push(file);
+  }
+
+
+  obtenerPdf() {
+    const httpheaders = new HttpHeaders({
+      'Content-Type': 'application/pdf'
+    });
+    
+    this.http.get('https://rc5appmobile.tech/api/pruevapdf?id=2&num=0', {headers:httpheaders,responseType: 'blob' })
+      .subscribe((blob: Blob) => {
+        // crea un objeto de tipo Blob con la respuesta
+        // y lo convierte a una URL segura para el PDF
+        this.pdfUrl = URL.createObjectURL(blob);
+        debugger
+      });
   }
   
 }

@@ -37,16 +37,4 @@
   </c-card>
   
   
-  
-  <div class="pdf-list">
-    <div class="pdfs-container">
-      <div *ngFor="let pdf of pdfs" class="pdf-item">
-        <i [cTooltip]="pdf.name" [cTooltipVisible]="true" class="fas fa-file-pdf fa-2x text-danger"></i>
-      </div>
-    </div>
-    <label for="file-upload" class="file-upload-label">
-      <i  class="fas fa-plus fa-2x"></i>
-      <input id="file-upload" type="file" (change)="onFileSelected($event)">
-    </label>
-  </div>
-  
+ <button (click)="obtenerPdf()"> Llamar Pdf </button>

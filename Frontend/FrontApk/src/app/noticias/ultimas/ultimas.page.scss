@@ -31,6 +31,16 @@
   height: 5px;
   }
 
+  .lineaSepardor{
+    border-top: 1px solid #00b9ec;
+  height: 2px;
+  max-width: 100px;
+  padding: 0;
+  margin: 10px auto 20px auto;
+  background-color: #00b9ec;
+  height: 5px;
+  }
+
   h4{
     font-family: "Gotham-Bold";
   }
@@ -67,9 +77,9 @@
 }
 
 .container-username{
-
   display:flex;
   flex-direction:column;
+  text-align: left;
 }
 
 .header-username{
@@ -86,10 +96,12 @@
 
 .titleCard{
   font-family: "Gotham-Medium";
+  text-align: left;
 }
 
 .contentCard{
   font-family: "Gotham-Book";
+  text-align: left;
 }
 
 .fechaCard{
@@ -123,4 +135,19 @@ img {
 
 ion-card {
   --background : #f9f9f9;
+  box-shadow:none;
 }
+
+
+.sticky-segment {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+ion-segment-button{
+  color: white;
+  --color-checked: white;
+  font-family: "Gotham-Book";
+}
+

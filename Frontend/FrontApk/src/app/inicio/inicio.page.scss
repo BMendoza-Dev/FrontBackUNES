@@ -6,7 +6,7 @@ ion-toolbar {
 
 ion-content {
     --background-image: url('../../assets/imgs/back_04_home_rc.png');
-    --background: linear-gradient(90deg, rgb(0, 93, 206) 0%, rgb(145, 185, 255) 35%, rgb(0, 93, 206) 100%);
+    --background: linear-gradient(90deg, rgb(0, 93, 206) 0%, rgb(73, 128, 221) 35%, rgb(0, 93, 206) 100%);
 }
 
 /*.slideContent{
@@ -157,14 +157,19 @@ ion-content {
 }
 
 .gallery2 {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-.gallery2 ion-img:nth-child(1) {
-    grid-column: 4 / span 6;
-    grid-row: 3 / span 3;
-    width: 110%;
+.gallery2 ion-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 240px;
+    /* Agrega un ancho máximo */
 }
 
 ion-card {
@@ -180,4 +185,41 @@ ion-card {
     .files {
         padding-top: 2px;
     }
+}
+
+.containerRc5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 27%;
+    /* Establece la altura del contenedor al 100% de la altura de la ventana */
+}
+
+
+h1 {
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 0 10%;
+    font-family: "Gotham-Book";
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+h2 {
+    
+    font-size: 15px;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 10%;
+    font-family: "Gotham-Book";
+}
+
+.social-media-container {
+    margin: 10px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
 }
