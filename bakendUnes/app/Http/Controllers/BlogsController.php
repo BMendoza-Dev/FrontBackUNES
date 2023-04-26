@@ -48,13 +48,14 @@ class BlogsController extends Controller
                 $urlimagenes2['imagen']=['imagen' => base64_decode($request->imagen) ];
             }
 
+ 
+            if(!$request->pdfs==null){
+              
+                $datos = $request->all();
+                $pdfs = json_decode($datos['pdfs']);
 
-            if(!$request->file('pdfs')==null && !$request->file('pdfs')==''){
-                $Pdfs= $request->file('pdfs');
-
-                foreach ($Pdfs as $pdf) {
-                 //   $contenido['pdf'] = ['pdf'=>file_get_contents($pdf)];
-                    $blog->pdf()->create(['pdf'=>file_get_contents($pdf)]);
+                foreach ( $pdfs as $pdf) {
+                    $blog->pdf()->create(['pdf'=>$pdf->pdf,'name'=>$pdf->name]);
                 }
 
                }
@@ -126,6 +127,34 @@ class BlogsController extends Controller
                         $query->update( $urlimagenes2['imagen']);
                 }]);
             }
+
+            $blog->load(['pdf']);
+            if($request->pdfs!=null){
+              
+                $datos = $request->all();
+                $pdfs = json_decode($datos['pdfs']);
+                
+                
+                if($blog->pdf->isEmpty()){
+                   
+                    foreach ( $pdfs as $pdf) {
+
+                        $blog->pdf()->create(['pdf'=>$pdf->pdf,'name'=>$pdf->name]);
+                    }
+                }else{
+                    
+                    $blog->pdf()->delete();
+                    foreach ( $pdfs as $pdf) {
+
+                        $blog->pdf()->create(['pdf'=>$pdf->pdf,'name'=>$pdf->name]);
+                    }
+                   
+                   
+                }
+               }else{
+
+                $blog->pdf()->delete();
+               }
         }
         if($request->ultimanoticia==true){
             self::make_blogs_notify($blog);
@@ -365,7 +394,7 @@ class BlogsController extends Controller
         if($request->id==null || $request->id=='' ){
             return ['error'=>'404'];
         }else{
-            $blog = Blog::with( 'image','categoria','nota')
+            $blog = Blog::with( 'image','categoria','nota','pdf')
             ->where( 'id',$request->id)->get()->map(function($blog) {
                 $lastNota = $blog->nota()->latest()->first();
                 if(!$lastNota){
@@ -387,7 +416,13 @@ class BlogsController extends Controller
                     'created_at' => $blog->created_at,
                     'updated_at' => $blog->updated_at,
                     'imagen' => $blog->image->imagen,
-                    'nota'=>$nota
+                    'nota'=>$nota,
+                    'pdfs'=>$blog->pdf->map(function($pdf){
+                        return [
+                            'pdf' => $pdf->pdf,
+                            'name' => $pdf->name,
+                        ];
+                    })
                 ];
             });
             if($blog->isEmpty()){

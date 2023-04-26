@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pdfs', function (Blueprint $table) {
             $table->id();
             $table->morphs('pdfeable');
+            $table->string('name');
             $table->binary('pdf');
             $table->timestamps();
         });

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pdf extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','pdf'];
+    protected $fillable = ['id','pdf','name'];
     
 
     public function pdfeable(){
