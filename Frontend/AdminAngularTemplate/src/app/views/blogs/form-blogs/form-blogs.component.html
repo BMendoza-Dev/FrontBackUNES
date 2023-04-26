@@ -43,10 +43,9 @@
             <div class="pdf-list">
                 <div class="pdfs-container">
                     <div *ngFor="let pdf of pdfs" class="pdf-item">
-                        <a [href]="pdfUrl" download>
+                        <a [href]="pdf.url" download="{{pdf.name}}">
                             <i [cTooltip]="pdf.name" class="fas fa-file-pdf fa-2x text-danger"></i>
                         </a>
-                        
                         <button (click)="removePdf(pdf)" class="remove-btn">
                             <i class="fas fa-times"></i>
                         </button>

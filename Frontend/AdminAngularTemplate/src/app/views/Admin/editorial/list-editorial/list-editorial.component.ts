@@ -71,7 +71,7 @@ export class ListEditorialComponent {
         // crea un objeto de tipo Blob con la respuesta
         // y lo convierte a una URL segura para el PDF
         this.pdfUrl = URL.createObjectURL(blob);
-        debugger
+        
       });
   }
   

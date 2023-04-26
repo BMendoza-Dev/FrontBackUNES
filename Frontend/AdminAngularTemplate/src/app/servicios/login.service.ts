@@ -12,9 +12,9 @@ export class LoginService {
   url:string;
 
   constructor(private http: HttpClient) { 
-    this.urlLocal = "http://localhost/api/"
+    this.urlLocal = "http://127.0.0.1:8000/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.url = this.urlAWS;
+    this.url = this.urlLocal;
   }
 
   ValidarLogin(data: any) {

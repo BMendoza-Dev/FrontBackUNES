@@ -20,7 +20,7 @@ export class FormBlogsComponent implements OnInit {
   listCateg: any; frameWidth: number = 900;
   frameHeight: number = 250;
   check: boolean = false;
-  pdfs: File[] = [];
+  pdfs: any[] = [];
   constructor(private spinnerService: SpinnerService, private service: BlogServicesService) {
 
   }
@@ -125,33 +125,11 @@ export class FormBlogsComponent implements OnInit {
     lenguage: 'es'
   }
 
-  public onSelectFile(event: any) {
-    debugger // called each time file input changes
-    if (event.target.files && event.target.files[0]) {
-      let tipoImagen = event.target.files[0].type;
-      if (tipoImagen == "image/jpeg" || tipoImagen == "image/png" || tipoImagen == "image/svg") {
-        var reader = new FileReader();
-        let base64String;
-        reader.readAsDataURL(event.target.files[0]); // read file as data url
-        reader.onload = (event: any) => { // called once readAsDataURL is completed
-          this.urlGet = event.target.result;
-          base64String = event.target.result.replace("data:", "")
-            .replace(/^.+,/, "");
-          this.urlSet = base64String;
-        }
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: '¡No es una Imagen..!',
-          text: 'Elija una imagen.'
-        })
-      }
-    }
-  }
+
 
 
   create() {
-    if ( this.categorie_id != 'Seleccione una categoría' && this.titulo != '' && this.descripcion != '' && this.datos != '') {
+    if (this.categorie_id != 'Seleccione una categoría' && this.titulo != '' && this.descripcion != '' && this.datos != '') {
 
       Swal.fire({
         title: 'Esta seguro que desea crear una cuenta?',
@@ -162,6 +140,7 @@ export class FormBlogsComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.spinnerService.llamarSpinner();
+          //this.trasformarBase64();
           let data = {
             'categorie_id': this.categorie_id,
             'blogtitulo': this.titulo,
@@ -172,6 +151,8 @@ export class FormBlogsComponent implements OnInit {
             'blog_id': this.blog_id,
             'pdfs': this.pdfs
           }
+
+          debugger
 
           this.service.crear_updateBlog(data).then((data) => {
             console.log("Prueba file: " + data);
@@ -193,10 +174,9 @@ export class FormBlogsComponent implements OnInit {
         'question'
       )
     }
-
-
-
   }
+
+
 
   alert() {
     const Toast = Swal.mixin({
@@ -243,17 +223,46 @@ export class FormBlogsComponent implements OnInit {
       }
     }
   }
+  public onSelectFile(event: any) {
+    // called each time file input changes
+    if (event.target.files && event.target.files[0]) {
+      let tipoImagen = event.target.files[0].type;
+      if (tipoImagen == "image/jpeg" || tipoImagen == "image/png" || tipoImagen == "image/svg") {
+        let reader = new FileReader();
+        let base64String;
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+        reader.onload = (event: any) => { // called once readAsDataURL is completed
+          this.urlGet = event.target.result;
+          base64String = event.target.result.replace("data:", "")
+            .replace(/^.+,/, "");
+          this.urlSet = base64String;
+        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: '¡No es una Imagen..!',
+          text: 'Elija una imagen.'
+        })
+      }
+    }
+  }
   pdfUrl: string;
   onFileSelected(event: any) {
     if (event.target.files && event.target.files[0]) {
       let tipoPDF = event.target.files[0].type;
       if (tipoPDF == "application/pdf") {
         const file = event.target.files[0];
-        this.pdfs.push(file);
-        const reader = new FileReader();
-        reader.onload = () => {
+       const reader = new FileReader();
+        //reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (event: any) => {
           this.pdfUrl = reader.result as string;
+         let base64String = this.pdfUrl.replace("data:", "")
+            .replace(/^.+,/, "");
+          console.log(this.pdfUrl);
+          this.pdfs.push({ 'name': file.name, 'url': base64String });
+          debugger
         };
+
         reader.readAsDataURL(file);
       } else {
         Swal.fire({
@@ -263,6 +272,24 @@ export class FormBlogsComponent implements OnInit {
         })
       }
     }
+  }
+
+  pdfsBase64: any = [];
+  trasformarBase64() {
+    let pdfUrl
+    this.pdfs.forEach(element => {
+
+      const reader = new FileReader();
+      reader.readAsDataURL(element);
+      reader.onload = (event: any) => {
+        pdfUrl = reader.result as string;
+        debugger
+      };
+      debugger
+      //this.pdfsBase64.push(this.pdfUrl)
+    });
+
+    console.log(pdfUrl)
   }
 
   removePdf(pdf: any) {
