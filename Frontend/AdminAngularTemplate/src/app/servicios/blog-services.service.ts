@@ -32,9 +32,7 @@ export class BlogServicesService {
     formData.append('ultimanoticia', _datos.ultimanoticia);
     formData.append('imagen', _datos.imagen);
     formData.append('blog_id', _datos.blog_id);
-    for (let i = 0; i < _datos.pdfs.length; i++) {
-      formData.append('pdfs[]', _datos.pdfs[i], _datos.pdfs[i].name);
-    }
+    formData.append('pdfs',_datos.pdfs)
 
 
     return new Promise((resolve, reject) => {
