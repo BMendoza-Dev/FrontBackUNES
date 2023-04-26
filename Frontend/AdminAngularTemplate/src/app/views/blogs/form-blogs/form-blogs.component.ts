@@ -214,7 +214,7 @@ export class FormBlogsComponent implements OnInit {
       this.cargarListBlog.emit();
     }
     this.categorie_id = "Seleccione una categoría"; this.titulo = ""; this.descripcion = ""; this.datos = ""
-    this.blog_id = ""; this.check = false; this.urlSet = ""; this.urlGet = ""; this.importante = 0;
+    this.blog_id = ""; this.check = false; this.urlSet = ""; this.urlGet = ""; this.importante = 0; this.pdfs= []
   }
 
   import(_edit: boolean) {
