@@ -32,9 +32,7 @@ export class BlogServicesService {
     formData.append('ultimanoticia', _datos.ultimanoticia);
     formData.append('imagen', _datos.imagen);
     formData.append('blog_id', _datos.blog_id);
-    formData.append('pdfs',_datos.pdfs)
-
-
+    formData.append('pdfs',JSON.stringify(_datos.pdfs));
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
         resolve(res); {

@@ -141,6 +141,16 @@ export class FormBlogsComponent implements OnInit {
         if (result.isConfirmed) {
           this.spinnerService.llamarSpinner();
           //this.trasformarBase64();
+          /*let pdfs:string[] = [];
+          let pdfsName:string[] = [];
+          this.pdfs.forEach(element => {
+            pdfs.push(element.pdf)
+          });
+
+          this.pdfs.forEach(element => {
+            pdfsName.push(element.name)
+          });*/
+
           let data = {
             'categorie_id': this.categorie_id,
             'blogtitulo': this.titulo,
@@ -149,7 +159,8 @@ export class FormBlogsComponent implements OnInit {
             'ultimanoticia': this.importante,
             'imagen': this.urlSet,
             'blog_id': this.blog_id,
-            'pdfs': this.pdfs
+            'pdfs': this.pdfs,
+            //'pdfsName':pdfsName
           }
 
           debugger
@@ -259,7 +270,7 @@ export class FormBlogsComponent implements OnInit {
          let base64String = this.pdfUrl.replace("data:", "")
             .replace(/^.+,/, "");
           console.log(this.pdfUrl);
-          this.pdfs.push({ 'name': file.name, 'url': base64String });
+          this.pdfs.push({'pdf': base64String, 'name': file.name });
           debugger
         };
 
@@ -295,6 +306,7 @@ export class FormBlogsComponent implements OnInit {
   removePdf(pdf: any) {
 
     const index = this.pdfs.indexOf(pdf);
+    debugger
     if (index >= 0) {
       this.pdfs.splice(index, 1);
     }
