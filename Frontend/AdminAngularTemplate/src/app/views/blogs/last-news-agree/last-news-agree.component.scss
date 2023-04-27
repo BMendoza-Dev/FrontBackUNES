@@ -1,28 +1,97 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: center;
-  }
-  
-  img {
-    max-width: 100%;
-    height: auto;
-    max-height: 300px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Aplica una sombra suave a la imagen */
-    border-radius: 5px; /* Agrega una esquina redondeada a la imagen */
-    transition: transform 0.3s ease-in-out; /* Agrega una transición suave al transformar la imagen */
-  }
-  
-  img:hover {
-    transform: scale(1.1); /* Escala la imagen ligeramente al pasar el cursor sobre ella */
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-  .innerHtml {
-    text-align: justify;
-  }
-  
-  .innerHtml * {
-    text-align: justify;
-  }
+img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  /* Aplica una sombra suave a la imagen */
+  border-radius: 5px;
+  /* Agrega una esquina redondeada a la imagen */
+  transition: transform 0.3s ease-in-out;
+  /* Agrega una transición suave al transformar la imagen */
+}
+
+img:hover {
+  transform: scale(1.1);
+  /* Escala la imagen ligeramente al pasar el cursor sobre ella */
+}
+
+.innerHtml {
+  text-align: justify;
+}
+
+.innerHtml * {
+  text-align: justify;
+}
+
+.fa-file-pdf {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+.pdf-list {
+  display: flex;
+  align-items: center;
+}
+
+.pdfs-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10px;
+}
+
+.pdf-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  position: relative;
+  /* Añadir posicionamiento relativo al elemento contenedor */
+}
+
+.blog {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: justify;
+  font-weight: lighter;
+}
+
+.blog h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.blog p {
+  margin-bottom: 10px;
+}
+
+.blog img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+c-card-body h5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+c-card-body p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

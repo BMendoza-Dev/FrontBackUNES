@@ -33,7 +33,6 @@ export class FiltroCuentasPipe implements PipeTransform {
     if (filteredItems.length === 0) {
       return [{ 'validar': 'Sin registros' }];
     }
-    console.log(filteredItems)
     return filteredItems;
   }
 }

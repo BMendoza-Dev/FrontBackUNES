@@ -29,6 +29,7 @@ export class LastNewsAgreeComponent implements OnInit {
   listCateg: any;
   categorie_id: any = "Todas las categorías"; echo: Echo;
   updated_at: any; 
+  pdfs: any[] = [];
   constructor(private localServi: LocalProyectService,
     private serviceLogin:LoginService,public rutas: Router, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
      private service: BlogServicesService, private sanitizer: DomSanitizer) {
@@ -83,7 +84,6 @@ export class LastNewsAgreeComponent implements OnInit {
       this.spinnerService.llamarSpinner();
     }
     this.service.listarBlog(this._categoria_id).then((data: any) => {
-      console.log(data);
       this.page = 1;
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
@@ -123,18 +123,27 @@ export class LastNewsAgreeComponent implements OnInit {
     this.page = event;
   }
 
+  transformaPdf(pdf:any){
+    this.pdfs = pdf.map((item:any) => ({
+      pdf: 'data:application/pdf;base64,' + item.pdf,
+      name: item.name
+    }
+    ));
+    
+  }
+
   blogGet(id: any) {
 
     this.idBlog = id;
     this.spinnerService.llamarSpinner()
     this.service.getBlog(id).then((data: any) => {
-      console.log(data)
       this.updated_at = data[0].updated_at;
       this.categoria = data[0].categoria;
       this.blogtitulo = data[0].blogtitulo;
       this.blogdescripcion = data[0].blogdescripcion;
       this.blogcontenido = this.sanitizer.bypassSecurityTrustHtml(data[0].blogcontenido);
       this.urlGet = this.trasformaImagen(data[0].imagen);
+      this.transformaPdf(data[0].pdfs);
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
           console.log('script loaded ', data);
@@ -271,7 +280,6 @@ export class LastNewsAgreeComponent implements OnInit {
 
   onSubmit2() {
     this.customStylesValidated2 = true;
-    console.log('Submit... 2');
   }
 
   ngOnDestroy():void{

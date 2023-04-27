@@ -12,7 +12,7 @@ export class BlogServicesService {
   constructor(private http: HttpClient) {
     this.urlLocal = "http://127.0.0.1:8000/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
-    this.url = this.urlAWS
+    this.url = this.urlLocal
   }
 
   crear_updateBlog(_datos: any) {
@@ -201,4 +201,32 @@ export class BlogServicesService {
       });
     });
   }
+
+
+  CrearEditorial(_blogsid:any,_editorialname:string){
+    debugger
+    let url = this.url + 'CrearEditorial';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+
+    let formData = new FormData();
+    formData.append('blogsid',JSON.stringify(_blogsid));
+    formData.append('editorialname',_editorialname);
+    formData.forEach(function(value, key) {
+      console.log(key + ': ' + value);
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+
 }

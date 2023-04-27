@@ -51,7 +51,6 @@ export class TableDelegadoComponent implements OnInit {
 
   onSubmit() {
     this.customStylesValidated = true;
-    console.log('Submit... 1');
   }
 
   cambiarIconAsam() { //Cambio de Icono en el Password Input Asambleista

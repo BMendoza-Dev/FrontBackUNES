@@ -28,6 +28,7 @@ export class ListBlogsComponent implements OnInit {
   categorie_id: any = "Todas las categorías";
   listblogEdit: boolean = false;
   datosEdit: any;
+  pdfs: any[] = [];
   categoriaId: any;
   visibleNote = false;
   listBlog: any; urlGet: SafeUrl; blogtitulo: string; blogdescripcion: string; blogcontenido: SafeHtml; fecha: any;
@@ -116,6 +117,15 @@ export class ListBlogsComponent implements OnInit {
     return img = this.sanitizer.bypassSecurityTrustUrl(objectURL);
   }
 
+  transformaPdf(pdf:any){
+    this.pdfs = pdf.map((item:any) => ({
+      pdf: 'data:application/pdf;base64,' + item.pdf,
+      name: item.name
+    }
+    ));
+    
+  }
+
   dataPaginate(_event: any) {
     this.page = 1;
   }
@@ -150,8 +160,9 @@ export class ListBlogsComponent implements OnInit {
       }else{
         this.tituloNotas = '';
         this.descriptionNotas = '';
-      }
-      
+      } 
+
+       this.transformaPdf(data[0].pdfs);
       this.datosEdit = {
         'id': this.idBlog,
         'categoria': this.categoriaId,
@@ -160,7 +171,8 @@ export class ListBlogsComponent implements OnInit {
         'blogcontenido': data[0].blogcontenido,
         'urlSet': data[0].imagen,
         'urlGet':this.urlGet,
-        'ultNoticia': data[0].ultimanoticia
+        'ultNoticia': data[0].ultimanoticia,
+        'pdfs': this.pdfs
       }
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
@@ -253,11 +265,11 @@ export class ListBlogsComponent implements OnInit {
 
   onSubmit2() {
     this.customStylesValidated2 = true;
-    console.log('Submit... 2');
   }
 
   toggleCollapse() {
     this.visibleNote = !this.visibleNote;
   }
+  
 
 }

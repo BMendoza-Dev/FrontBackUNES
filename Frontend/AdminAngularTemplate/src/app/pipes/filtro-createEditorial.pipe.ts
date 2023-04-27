@@ -34,7 +34,6 @@ export class FiltroCreateEditorial implements PipeTransform {
     if (filteredItems.length === 0) {
       return [{ '_blogtitulo': false }];
     }
-    console.log(filteredItems)
     return filteredItems;
   }
 }

@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit1() {
     this.loginForm = true;
-    console.log('Submit... 1');
   }
 
 
@@ -78,7 +77,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('idAsambPerf', idAsambPerf);
         localStorage.setItem('user', user);
         localStorage.setItem('idUser', id_user);
-        console.log(token);
         this.spinnerService.detenerSpinner();
         this.rutas.navigate(['/inicio']);
         }else{

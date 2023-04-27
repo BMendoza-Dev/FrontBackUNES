@@ -33,7 +33,6 @@ export class FiltroCategoriasPipe implements PipeTransform {
     if (filteredItems.length === 0) {
       return [{ 'validar': 'Sin registros' }];
     }
-    console.log(filteredItems)
     return filteredItems;
   }
 }

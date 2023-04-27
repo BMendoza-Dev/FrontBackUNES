@@ -67,14 +67,26 @@
     <button (click)="clear();toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-
     <div class="container">
       <img *ngIf="urlGet" [src]="urlGet" alt="Descripción de la imagen">
     </div>
+    <div style="line-height: 1.5; margin-top: 5px;">
+      <div style="font-size: 20px; color:black; font-weight: bold;">{{blogtitulo}}</div>
+      <div style="font-size: 18px; color:black;">{{blogdescripcion}}</div>
+    </div>
     <br>
-    {{blogtitulo}} <br>
-    {{blogdescripcion}} <br>
-    <div class="innerHtml" [innerHTML]="blogcontenido"></div>
+    <div [innerHTML]="blogcontenido" class="blog"></div>
+    <br>
+    <div *ngIf="pdfs.length != 0" style="font-size: 16px; color: black;">Documentos PDF:</div>
+      <div class="pdf-list">
+        <div class="pdfs-container">
+            <div *ngFor="let pdf of pdfs" class="pdf-item">
+                <a [href]="pdf.pdf" download="{{pdf.name}}">
+                    <i [cTooltip]="pdf.name" class="fas fa-file-pdf fa-2x text-danger"></i>
+                </a>
+            </div>
+        </div>
+    </div>
   </c-modal-body>
   <c-modal-footer>
     <c-col xs="12">

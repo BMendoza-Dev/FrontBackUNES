@@ -48,7 +48,6 @@ export class ListEditorialComponent {
         this.pdfs.push(files[i]);
       }
     }
-    console.log(this.pdfs)
   }
 
   get pdfCount() {

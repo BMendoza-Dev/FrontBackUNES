@@ -40,7 +40,8 @@ export class CreatEditorialComponent {
   allCompleteBlog: boolean = false;
   chekcList: any;
   isLinear = false;
-
+  pdfs: any[] = [];
+  tituloEditorial:string="";
   constructor(private _formBuilder: FormBuilder, public rutas: Router,
     private localServi: LocalProyectService, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
     private service: BlogServicesService, private sanitizer: DomSanitizer) { }
@@ -147,6 +148,7 @@ export class CreatEditorialComponent {
       this.blogdescripcion = data[0].blogdescripcion;
       this.blogcontenido = this.sanitizer.bypassSecurityTrustHtml(data[0].blogcontenido);
       this.urlGet = this.trasformaImagen(data[0].imagen);
+      this.transformaPdf(data[0].pdfs);
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
           console.log('script loaded ', data);
@@ -160,6 +162,15 @@ export class CreatEditorialComponent {
       if (error.status) { this.rutas.navigate(['/login']); }
       console.log(error);
     })
+  }
+
+  transformaPdf(pdf:any){
+    this.pdfs = pdf.map((item:any) => ({
+      pdf: 'data:application/pdf;base64,' + item.pdf,
+      name: item.name
+    }
+    ));
+    
   }
 
   toggleLiveDemo() {
@@ -197,6 +208,14 @@ export class CreatEditorialComponent {
       confirmButtonText: 'Sí, publicar!'
     }).then((result) => {
       if (result.isConfirmed) {
+        let blogsid = this.chekcListOrder.map( (item:any) =>{
+          return item._id
+        }); debugger
+      this.service.CrearEditorial(blogsid,this.tituloEditorial).then((data)=>{
+        console.log(`Retorno: ${data}`)
+      }).catch(error =>{
+        console.log(error);
+      })
         Swal.fire(
           'Publicado!',
           'La editorial fue publicada.',

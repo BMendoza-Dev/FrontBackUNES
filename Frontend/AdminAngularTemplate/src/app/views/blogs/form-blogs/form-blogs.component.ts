@@ -36,7 +36,7 @@ export class FormBlogsComponent implements OnInit {
       this.blog_id = this.datosEdit.id;
       this.urlSet = this.datosEdit.urlSet;
       this.importante = this.datosEdit.ultNoticia;
-
+      this.pdfs = this.datosEdit.pdfs
       this.import(true);
     }
     this.listarCategoriasBlog();
@@ -140,17 +140,10 @@ export class FormBlogsComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.spinnerService.llamarSpinner();
-          //this.trasformarBase64();
-          /*let pdfs:string[] = [];
-          let pdfsName:string[] = [];
-          this.pdfs.forEach(element => {
-            pdfs.push(element.pdf)
-          });
-
-          this.pdfs.forEach(element => {
-            pdfsName.push(element.name)
-          });*/
-
+          debugger
+          console.log(this.pdfs)
+          let pdfs = this.pdfs.map( item => ({'pdf': item.pdf.replace("data:", "")
+          .replace(/^.+,/, ""), 'name': item.name }));
           let data = {
             'categorie_id': this.categorie_id,
             'blogtitulo': this.titulo,
@@ -159,14 +152,11 @@ export class FormBlogsComponent implements OnInit {
             'ultimanoticia': this.importante,
             'imagen': this.urlSet,
             'blog_id': this.blog_id,
-            'pdfs': this.pdfs,
+            'pdfs': pdfs,
             //'pdfsName':pdfsName
           }
-
           debugger
-
           this.service.crear_updateBlog(data).then((data) => {
-            console.log("Prueba file: " + data);
             this.spinnerService.detenerSpinner();
             this.onReset2();
           }).catch((error) => {
@@ -235,6 +225,7 @@ export class FormBlogsComponent implements OnInit {
     }
   }
   public onSelectFile(event: any) {
+    console.log(`Entro Imagen`)
     // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       let tipoImagen = event.target.files[0].type;
@@ -256,6 +247,7 @@ export class FormBlogsComponent implements OnInit {
         })
       }
     }
+    event.target.value = '';
   }
   pdfUrl: string;
   onFileSelected(event: any) {
@@ -265,16 +257,15 @@ export class FormBlogsComponent implements OnInit {
         const file = event.target.files[0];
        const reader = new FileReader();
         //reader.readAsDataURL(event.target.files[0]);
+        reader.readAsDataURL(file);
         reader.onload = (event: any) => {
           this.pdfUrl = reader.result as string;
-         let base64String = this.pdfUrl.replace("data:", "")
-            .replace(/^.+,/, "");
-          console.log(this.pdfUrl);
-          this.pdfs.push({'pdf': base64String, 'name': file.name });
-          debugger
+         
+          this.pdfs.push({'pdf': this.pdfUrl, 'name': file.name });
+          
         };
 
-        reader.readAsDataURL(file);
+       
       } else {
         Swal.fire({
           icon: 'error',
@@ -285,28 +276,12 @@ export class FormBlogsComponent implements OnInit {
     }
   }
 
-  pdfsBase64: any = [];
-  trasformarBase64() {
-    let pdfUrl
-    this.pdfs.forEach(element => {
-
-      const reader = new FileReader();
-      reader.readAsDataURL(element);
-      reader.onload = (event: any) => {
-        pdfUrl = reader.result as string;
-        debugger
-      };
-      debugger
-      //this.pdfsBase64.push(this.pdfUrl)
-    });
-
-    console.log(pdfUrl)
-  }
+ 
 
   removePdf(pdf: any) {
 
     const index = this.pdfs.indexOf(pdf);
-    debugger
+    
     if (index >= 0) {
       this.pdfs.splice(index, 1);
     }

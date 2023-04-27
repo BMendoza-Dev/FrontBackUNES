@@ -62,10 +62,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
         this.total=this.contNotifyView(resp['blog'])
         this.notifiData = resp['blog'];
         this.notifiDataFilter = this.notifiData;
-        console.log(resp);
         setTimeout(() => {
           this.toggleAnimation();
-          console.log('La función se ha ejecutado después de 3 segundos');
         }, 3000);
       });
   }
@@ -86,7 +84,6 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
       this.blogService.viewNotify(_id_notify).then(() =>{})
     }
     if(date == "Revisar Blog"){
-      console.log('number ' + date)
     this.autoClose = true
     this.localServi.dataNotifyIdRevisarSource.next(_idBlog);
     this.spinnerService.llamarSpinner();
@@ -121,12 +118,14 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   cargarNotif() {
     this.autoClose = 'outside' 
+    console.log(`notifiData: ${this.notifiData}`);
     this.notifiDataFilter = this.notifiData.map((item:any) => {
       const newItem = { ...item }; // crea una copia del objeto item
         const fecha = moment(item.time);
         newItem.time = fecha.locale('es').fromNow(); // modifica la copia en lugar del objeto original
       return newItem; // retorna la copia modificada
     });
+    
   }
 
   ngOnDestroy() {

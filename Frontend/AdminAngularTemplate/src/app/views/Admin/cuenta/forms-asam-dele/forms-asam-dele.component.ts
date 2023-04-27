@@ -55,7 +55,6 @@ export class FormsAsamDeleComponent implements OnInit {
     this.delegadoCuentaCampos = false;
     this.locaServicio.emitirEventoTablaAsalbleista();
     this.habilitarCampos.emit(false);
-    console.log('Reset... 1');
   }
 
   guardarCuentaAsambleista() {

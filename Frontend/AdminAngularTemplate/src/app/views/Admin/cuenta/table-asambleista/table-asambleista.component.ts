@@ -41,7 +41,6 @@ export class TableAsambleistaComponent implements OnInit {
 
   onSubmit() {
     this.customStylesValidated = true;
-    console.log('Submit... 1');
   }
 
 
