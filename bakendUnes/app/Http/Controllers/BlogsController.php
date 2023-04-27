@@ -446,7 +446,7 @@ class BlogsController extends Controller
             });
         }, function($query) {
             return $query;
-        })->with('categoria')->orderByDesc('updated_at')->get();
+        })->with('categoria')->orderByDesc('created_at')->get();
 
         return response()->json($blog);
 

@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->longText('blogtitulo');
-            $table->string('blogdescripcion');
+            $table->mediumText('blogtitulo');
+            $table->mediumText('blogdescripcion');
             $table->longText('blogcontenido');
             $table->boolean('masleido');
             $table->boolean('ultimanoticia');
             $table->boolean('aprobado');
-            $table->foreignId('editorial_id')->nullable()->references('id')->on('editorials');
             $table->foreignId('categorie_id')->references('id')->on('categories');
             $table->foreignId('perfil_id')->references('id')->on('perfils');
             $table->foreignId('users_id')->references('id')->on('users');

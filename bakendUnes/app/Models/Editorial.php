@@ -9,7 +9,7 @@ class Editorial extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'editorialname'
+        'editorialname','editrialnum'
       ];
 
     public function blogs(){

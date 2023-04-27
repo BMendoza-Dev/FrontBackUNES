@@ -7,6 +7,7 @@ use App\Http\Controllers\PerfilesController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\VotacionesController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\EditorialController;
 use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
@@ -206,6 +207,11 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('listarVotacionesAsambleista',[VotacionesController::class, 'listarVotacionesAsambleista']);
 
+
+    Route::post('CrearEditorial',[EditorialController::class, 'CrearEditorial']);
+    Route::post('EditarEditorial',[EditorialController::class, 'EditarEditorial']);
+    Route::get('ListarEditorial',[EditorialController::class, 'ListarEditorial']);
+    Route::get('ListarBlogsPorEditorial',[EditorialController::class, 'ListarBlogsPorEditorial']);
 
     Route::get('ListarUsuariosAsambleistas',[CuentaController::class, 'ListarUsuariosAsambleistas']);
     Route::get('ListarUsuariosAsistentes', [CuentaController::class, 'ListarUsuariosAsistentes']);
