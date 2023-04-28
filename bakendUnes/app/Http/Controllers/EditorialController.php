@@ -74,7 +74,7 @@ class EditorialController extends Controller
         $editoriales = Editorial::with(['blogs' => function ($query) {
             $query->orderBy('blog_editorial.position', 'asc');
         }, 'blogs.categoria'])->where('id', $request->id)->get();
-        return response()->json($editoriales);
+
     $editorialesConBlogs = $editoriales->map(function($editorial){
         return [ 
             'id' => $editorial->id,
