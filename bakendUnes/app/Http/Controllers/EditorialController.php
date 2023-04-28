@@ -27,12 +27,18 @@ class EditorialController extends Controller
         $datos = $request->all();
         $blogsid = json_decode($datos['blogsid'],true);
        // return  response()->json($blogsid->toArray());
-        Editorial::create([
-            'editorialname' =>$titulo ,
-            'editrialnum' =>$numeditnew,
-        ])->blogs()->sync( $blogsid ); 
-
-        return  response()->json('200');
+       $editorial = Editorial::create([
+        'editorialname' =>$titulo ,
+        'editrialnum' =>$numeditnew,
+    ]);
+    
+    $blogsid = json_decode($datos['blogsid'],true);
+    
+    foreach ($blogsid as $position => $blogid) {
+        $editorial->blogs()->attach($blogid, ['position' => $position]);
+    }
+    
+    return response()->json('200');
      }
 
 
@@ -68,7 +74,7 @@ class EditorialController extends Controller
         $editoriales = Editorial::with(['blogs' => function ($query) {
             $query->orderBy('blog_editorial.created_at', 'desc');
         }, 'blogs.categoria'])->where('id', $request->id)->get();
-
+        return response()->json($editoriales);
     $editorialesConBlogs = $editoriales->map(function($editorial){
         return [ 
             'id' => $editorial->id,

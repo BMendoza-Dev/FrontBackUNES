@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('blog_editorial', function (Blueprint $table) {
             $table->id();
-            $table->timestamps(6);
+            $table->timestamps();
+            $table->integer('position');
             $table->foreignId('editorial_id')->references('id')->on('editorials');
             $table->foreignId('blog_id')->references('id')->on('blogs');
         });
