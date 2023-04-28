@@ -36,13 +36,14 @@ class EditorialController extends Controller
      }
 
 
+
      public function EditarEditorial(Request $request){
         $editorial = Editorial::findOrFail($request->id);
 
     // Actualiza los campos del modelo Editorial
     $editorial->update([
-        'editorialname' => $request->input('editorialname'),
-        'editrialnum' => $request->input('editrialnum'),
+        'editorialname' => $request->editorialname,
+        'editrialnum' => $request->editrialnum,
     ]);
 
     $datos = $request->all();
@@ -62,11 +63,29 @@ class EditorialController extends Controller
       }
 
 
-      public function ListarBlogsPorEditorial(Request $request){
-      $editorial = Editorial::find($request->id);
-    //  $editorial->load('blogs');
+      public function ListarBlogsPorEditorial(Request $request)
+    {
+    $editoriales = Editorial::with('blogs.categoria')->where('id', $request->id)->get();
 
+    $editorialesConBlogs = $editoriales->map(function($editorial){
+        return [ 
+            'id' => $editorial->id,
+            'editrialnum' => $editorial->editrialnum,
+            'editorialname' => $editorial->editorialname,
+            'created_at' => $editorial->created_at,
+            'blogs' => $editorial->blogs->map(function($blog){
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'created_at' => $blog->created_at,
+                    'categorianame' => $blog->categoria->categorianame
+                ];
+            })
+        ];
+    });
 
-return response()->json($editorial->load('blogs'));
- }
+    return response()->json($editorialesConBlogs);
+    }
 }
