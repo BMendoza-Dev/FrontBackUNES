@@ -57,7 +57,10 @@ class EditorialController extends Controller
 
     // Sincroniza las relaciones de blogs con los nuevos IDs proporcionados
 
-    $editorial->blogs()->sync($blogsid);
+    //$editorial->blogs()->sync($blogsid);
+    foreach ($blogsid as $position => $blogid) {
+        $editorial->blogs()->attach($blogid, ['position' => $position]);
+    }
 
     return response()->json('Editorial actualizado con éxito');
       }
