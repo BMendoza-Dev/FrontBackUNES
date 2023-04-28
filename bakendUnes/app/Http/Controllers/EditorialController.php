@@ -43,8 +43,9 @@ class EditorialController extends Controller
 
 
 
-     public function EditarEditorial(Request $request){
-        $editorial = Editorial::findOrFail($request->id);
+     public function EditarEditorial(Request $request)
+    {
+    $editorial = Editorial::findOrFail($request->id);
 
     // Actualiza los campos del modelo Editorial
     $editorial->update([
@@ -53,17 +54,19 @@ class EditorialController extends Controller
     ]);
 
     $datos = $request->all();
-    $blogsid = json_decode($datos['blogsid'],true);
+    $blogsid = json_decode($datos['blogsid'], true);
 
-    // Sincroniza las relaciones de blogs con los nuevos IDs proporcionados
-
-    
+    // Elimina las relaciones existentes y sincroniza las nuevas
+    $editorial->blogs()->detach();
     foreach ($blogsid as $position => $blogid) {
-        $editorial->blogs()->sync($blogid, ['position' => $position]);
+        $editorial->blogs()->attach($blogid, ['position' => $position]);
     }
 
     return response()->json('Editorial actualizado con éxito');
-      }
+    }
+
+
+
 
       public function ListarEditorial(Request $request){
 
