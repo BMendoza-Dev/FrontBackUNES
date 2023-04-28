@@ -65,7 +65,9 @@ class EditorialController extends Controller
 
       public function ListarBlogsPorEditorial(Request $request)
     {
-    $editoriales = Editorial::with('blogs.categoria')->where('id', $request->id)->get();
+        $editoriales = Editorial::with(['blogs' => function ($query) {
+            $query->orderBy('blog_editorial.created_at', 'desc');
+        }, 'blogs.categoria'])->where('id', $request->id)->get();
 
     $editorialesConBlogs = $editoriales->map(function($editorial){
         return [ 
