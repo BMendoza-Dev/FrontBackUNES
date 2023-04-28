@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import moment from 'moment';
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatStepper } from '@angular/material/stepper';
 
 
 
@@ -41,14 +42,23 @@ export class CreatEditorialComponent {
   chekcList: any;
   isLinear = false;
   pdfs: any[] = [];
-  tituloEditorial:string="";
+  tituloEditorial: string = "";
+  @ViewChild('stepper') stepper: MatStepper;
+  @Input() datosEdit: any = [];
+  @Output() cargarListEditorial = new EventEmitter<void>();
+  editrialnum: any;
+  idEditorial: any;
   constructor(private _formBuilder: FormBuilder, public rutas: Router,
-    private localServi: LocalProyectService, private spinnerService: SpinnerService, private scriptService: ScripServiceService,
+    private spinnerService: SpinnerService, private scriptService: ScripServiceService,
     private service: BlogServicesService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.listarCategoriasBlog();
-    this.ObtenerBlogPorPerfil();
+    if (this.datosEdit.length == 0) {
+      this.ObtenerBlogPorPerfil();
+    } else {
+      this.ObtenerBlogPorPerfilEditar();
+    }
   }
 
 
@@ -63,6 +73,7 @@ export class CreatEditorialComponent {
     return dato
   }
   setAllBlog(completed: boolean) {
+
     this.allCompleteBlog = completed;
     if (this.chekcList == null) {
       return;
@@ -72,6 +83,7 @@ export class CreatEditorialComponent {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.chekcListOrder, event.previousIndex, event.currentIndex);
+
   }
 
   firstFormGroup = this._formBuilder.group({
@@ -91,10 +103,29 @@ export class CreatEditorialComponent {
     })
   }
 
+  ObtenerBlogPorPerfilEditar() {
+    this.spinnerService.llamarSpinner();
+
+    this.tituloEditorial = this.datosEdit.editorialname;
+    this.editrialnum = this.datosEdit.editrialnum;
+    this.idEditorial = this.datosEdit.id;
+    this.listBlog = this.datosEdit.blogs.map((value: any) => ({
+      _blogtitulo: value.blogtitulo,
+      _blogdescripcion: value.blogdescripcion,
+      _blogcontenido: value.blogcontenido,
+      _created_at: moment(value.created_at).locale('es').fromNow(),
+      completed: true,
+      _id: value.id,
+      _categorianame: value.categorianame
+    }));
+    this.chekcList = this.listBlog;
+    this.spinnerService.detenerSpinner();
+  }
+
   ObtenerBlogPorPerfil() {
     this.spinnerService.llamarSpinner();
     this.service.ObtenerBlogPorPerfil(0).then((data: any) => {
-      console.log(data)
+
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
@@ -103,7 +134,6 @@ export class CreatEditorialComponent {
           _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
           _categorianame: value['categoria'].categorianame,
-          _aprobado: value.aprobado,
           _ultimanoticia: value.ultimanoticia,
           completed: false,
           _categorie_id: value.categorie_id,
@@ -164,13 +194,13 @@ export class CreatEditorialComponent {
     })
   }
 
-  transformaPdf(pdf:any){
-    this.pdfs = pdf.map((item:any) => ({
+  transformaPdf(pdf: any) {
+    this.pdfs = pdf.map((item: any) => ({
       pdf: 'data:application/pdf;base64,' + item.pdf,
       name: item.name
     }
     ));
-    
+
   }
 
   toggleLiveDemo() {
@@ -184,17 +214,17 @@ export class CreatEditorialComponent {
 
   clear(): void {
     this.scriptService.removeScript('twitter');
-    this.categoria = ''
-    this.blogtitulo = ''
-    this.blogdescripcion = ''
-    this.blogcontenido = ''
-    this.urlGet = ''
   }
 
   ordenar(event: any) {
+
     if (event.previouslySelectedIndex == 0 && event.selectedIndex == 1) {
-      this.chekcListOrder = this.chekcList.filter((item: any) => item.completed === true)
+      this.chekcListOrder = this.chekcList.filter((item: any) => item.completed === true);
     }
+    if (event.previouslySelectedIndex == 0 && event.selectedIndex == 2) {
+      this.chekcListOrder = '';
+    }
+
   }
 
   publicar() {
@@ -208,20 +238,52 @@ export class CreatEditorialComponent {
       confirmButtonText: 'Sí, publicar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        let blogsid = this.chekcListOrder.map( (item:any) =>{
+        this.chekcListOrder;
+        let blogsid = this.chekcListOrder.map((item: any) => {
           return item._id
-        }); debugger
-      this.service.CrearEditorial(blogsid,this.tituloEditorial).then((data)=>{
-        console.log(`Retorno: ${data}`)
-      }).catch(error =>{
-        console.log(error);
-      })
-        Swal.fire(
-          'Publicado!',
-          'La editorial fue publicada.',
-          'success'
-        )
+        });
+        debugger
+
+        if (this.datosEdit.length == 0) {
+          this.service.CrearEditorial(blogsid, this.tituloEditorial).then((data) => {
+            if (data == '200') {
+              this.stepper.reset();
+              this.tituloEditorial = '';
+              this.ObtenerBlogPorPerfil();
+              this.allCompleteBlog = false;
+              Swal.fire(
+                'Publicado!',
+                'La editorial fue publicado.',
+                'success'
+              )
+            }
+
+          }).catch(error => {
+            this.spinnerService.detenerSpinner();
+            if (error.status) { this.rutas.navigate(['/login']); }
+            console.log(error);
+          })
+        } else {
+          let datos = {
+            blogsid: blogsid,
+            editorialname: this.tituloEditorial,
+            editrialnum: this.editrialnum,
+            id: this.idEditorial
+          }
+
+          this.service.EditarEditorial(datos).then((data: any) => {
+            this.cargarListEditorial.emit();
+          }).catch(error => {
+            console.log(error)
+          })
+
+        }
+
       }
     })
+  }
+
+  cancelar(){
+    this.cargarListEditorial.emit();
   }
 }

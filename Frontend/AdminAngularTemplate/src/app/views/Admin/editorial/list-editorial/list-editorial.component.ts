@@ -1,6 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import moment from 'moment';
+import { BlogServicesService } from 'src/app/servicios/blog-services.service';
+import { LocalProyectService } from 'src/app/servicios/local-proyect.service';
 import { LoginService } from 'src/app/servicios/login.service';
+import { SpinnerService } from 'src/app/servicios/spinner.service';
 
 @Component({
   selector: 'app-list-editorial',
@@ -8,70 +13,65 @@ import { LoginService } from 'src/app/servicios/login.service';
   styleUrls: ['./list-editorial.component.scss']
 })
 export class ListEditorialComponent {
-  datosAsambleistas:any;
-  keyword="name";
+
   notFound: any = "No se encuentra asambleista";
-  pdfUrl: string;
-  constructor(private service:LoginService, private http: HttpClient){
-    
-  }
-  ngOnInit(){
-    
-  }
-
-  selectEvent(item: any) {
-
-  }
-
-  onFocused(item:any){
+  search: string;
+  dataTabla: any = [];
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
+  editEditorial: boolean = false;
+  datosEdit: any = [];
+  constructor(private spinnerService: SpinnerService, private blogService: BlogServicesService, 
+    public rutas: Router,private localServi: LocalProyectService) {
 
   }
 
-  onClear(){
-
+  ngOnInit() {
+    this.cargarTabla();
   }
 
-  pdfs: File[] = [];
-
-  selectPdf() {
-    const input = document.querySelector('input[type=file]') as HTMLInputElement;
-    input.click();
-  }
-  
-
-  uploadPdf(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const files = input.files;
-
-    if (files && files.length) {
-      for (let i = 0; i < files.length; i++) {
-        this.pdfs.push(files[i]);
-      }
-    }
-  }
-
-  get pdfCount() {
-    return this.pdfs.length;
-  }
-
-  onFileSelected(event:any) {
-    const file = event.target.files[0];
-    this.pdfs.push(file);
-  }
-
-
-  obtenerPdf() {
-    const httpheaders = new HttpHeaders({
-      'Content-Type': 'application/pdf'
-    });
-    
-    this.http.get('https://rc5appmobile.tech/api/pruevapdf?id=2&num=0', {headers:httpheaders,responseType: 'blob' })
-      .subscribe((blob: Blob) => {
-        // crea un objeto de tipo Blob con la respuesta
-        // y lo convierte a una URL segura para el PDF
-        this.pdfUrl = URL.createObjectURL(blob);
-        
+  cargarTabla() {
+    this.spinnerService.llamarSpinner();
+    this.blogService.ListarEditorial().then((data: any) => {
+      this.dataTabla = data.map((item:any) => {
+        const date = new Date(item.created_at);
+        const formattedDate = date.toLocaleDateString()
+         item.created_at = formattedDate;
+         return item
       });
+      this.spinnerService.detenerSpinner();
+    }).catch(error => {
+      console.log(error)
+    })
   }
-  
+
+  dataPaginate() {
+    this.page = 1;
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+  }
+
+  editarEditorial(_id: number) {
+    this.spinnerService.llamarSpinner();
+    this.blogService.ListarBlogsPorEditorial(_id).then((data:any) =>{
+      data; debugger
+      let datos = {
+        id:data[0].id,
+        editorialname:data[0].editorialname,
+        editrialnum:data[0].editrialnum,
+        blogs:data[0].blogs
+      }
+      this.datosEdit = datos;
+      this.editEditorial = true;
+    }).catch(error =>{
+      if (error.status) { this.rutas.navigate(['/login']); }
+      console.log(error)
+    })
+  }
+
+
 }

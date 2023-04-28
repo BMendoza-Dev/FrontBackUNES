@@ -1,37 +1,65 @@
-<c-card class="mb-4">
-    <c-card-header ngPreserveWhitespaces>
-      <strong style="font-size: 16px;">Lista de los editoriales</strong>
-    </c-card-header>
-    <c-card-body>
-      <form  class="row g-2">
-        <div class="col-sm-4">
-          <ng-autocomplete [data]="datosAsambleistas" [searchKeyword]="keyword" placeholder="Seleccione un editorial"
-            (selected)='selectEvent($event)' (inputFocused)='onFocused($event)'
-            (inputCleared)='onClear()' [itemTemplate]="itemTemplateAsam" [notFoundTemplate]="notFoundTemplateAsam"
-            [minQueryLength]="3">
-          </ng-autocomplete>
+<c-card class="mb-4" *ngIf="!editEditorial">
+  <c-card-header ngPreserveWhitespaces>
+    <strong style="font-size: 16px;">Lista de los editoriales</strong>
+  </c-card-header>
+  <c-card-body>
+    <form class="row g-2">
+      <div class="col-md-6">
+        <c-input-group class="mb-4">
+          <input [(ngModel)]="search" (ngModelChange)="dataPaginate()" id="search" name="search"
+            aria-describedby="basic-addon2" aria-label="Texto referente al editorial..." cFormControl
+            placeholder="Texto referente al editorial..." />
+          <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+        </c-input-group>
+      </div>
+      <table style="margin-top: 2%;" hover striped cTable>
+        <thead cTableColor="dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre editorial</th>
+            <th scope="col">Fecha creación</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataTabla | filtroEditorial:search | paginate:{itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems : count,
+            id: 'paginado'
+            }">
+            <ng-container *ngIf="item.validar != 'Sin registros';else func">
+              <th scope="row">{{item.editrialnum}}</th>
+              <td>
+                {{item.editorialname}}
+              </td>
+              <td>
+                {{item.created_at}}
+              </td>
+              <td>
+                <button (click)="editarEditorial(item.id)"
+                  type="button"
+                  class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                    width="20"></svg>&nbsp;Editar</button>
+              </td>
+            </ng-container>
+            <ng-template #func>
+              <td colspan="5"><c-alert color="danger">No existe editorial registrada!</c-alert></td>
+            </ng-template>
+          </tr>
+        </tbody>
+        <tbody>
+        </tbody>
+      </table>
+      <ng-container *ngIf="dataTabla.length <= 0">
+        <c-alert color="danger">No existen editoriales!</c-alert>
+      </ng-container>
+    </form>
+  </c-card-body>
+  <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true"
+    id="paginado">
+  </pagination-controls>
+</c-card>
 
-          <ng-template #itemTemplateAsam let-item>
-            <a [innerHTML]="item.name"></a>
-          </ng-template>
+<app-creat-editorial *ngIf="editEditorial" [datosEdit]="datosEdit" (cargarListEditorial)="cargarTabla(); editEditorial=false"></app-creat-editorial>
 
-          <ng-template #notFoundTemplateAsam let-item>
-            <div [innerHTML]="notFound"></div>
-          </ng-template>
-        </div>
-        <table style="margin-top: 2%;" hover striped cTable>
-            <thead cTableColor="dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Usuarios</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-      </form>
-    </c-card-body>
-  </c-card>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

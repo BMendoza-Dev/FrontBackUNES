@@ -40,6 +40,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FiltroCreateEditorial } from 'src/app/pipes/filtro-createEditorial.pipe';
 import { FiltroCreateEditorialCategoria } from 'src/app/pipes/filtro-createEditorialCategoria.pipe';
+import { FiltroEditorailPipe } from 'src/app/pipes/filtro-editorial.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -52,7 +53,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     ListEditorialComponent,
     CreatEditorialComponent,
     FiltroCreateEditorial,
-    FiltroCreateEditorialCategoria
+    FiltroCreateEditorialCategoria,
+    FiltroEditorailPipe
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
       <c-card-header class="header-flex">
         <div  style="display: flex; justify-content: center; align-items: center; white-space: nowrap;">
           <strong>Editorial RC5 </strong>
-          <input [(ngModel)]="tituloEditorial" style="margin-left: 3px" aria-describedby="basic-addon2" aria-label="Este es un título del editorial..." cFormControl placeholder="Titulo editorial" />
+          <input [(ngModel)]="tituloEditorial" style="margin-left: 3px" aria-describedby="basic-addon2" aria-label="Este es un título del editorial..." cFormControl placeholder="Título editorial" />
         </div>
         
         <div>
@@ -69,9 +69,10 @@
         <pagination-controls style="text-align: center; display: flex; justify-content: center;" previousLabel="Prev"
           nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true" id="paginado">
         </pagination-controls>
-        <div>
-          <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
-        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <button mat-flat-button color="primary" matStepperNext> Siguiente </button>
+          <button *ngIf="datosEdit.length != 0" mat-flat-button color="warn" (click)="cancelar()"> Cancelar </button>
+        </div>        
       </c-card-body>
     </c-card>
   </mat-step>
@@ -79,7 +80,7 @@
 
 
   <mat-step  label="Ordenar blogs" >
-    <form *ngIf="chekcListOrder != ''; else warning" style="margin-top: 2%;" [formGroup]="secondFormGroup">
+    <form *ngIf="chekcListOrder != '' && tituloEditorial != ''; else warning" style="margin-top: 2%;" [formGroup]="secondFormGroup">
       <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
         <c-accordion [alwaysOpen]="true">
           <c-accordion-item cdkDrag *ngFor="let item of chekcListOrder" #accordionItem="cAccordionItem"
@@ -105,8 +106,11 @@
       
     </form>
     <ng-template  #warning>
-      <div style="margin-top: 3%;">
+      <div *ngIf="tituloEditorial != ''"  style="margin-top: 3%;">
         <c-alert style="margin-top: 30%;" color="danger">No existen lista de blogs para ordenar!</c-alert>
+      </div>
+      <div *ngIf="tituloEditorial == ''" style="margin-top: 3%;">
+        <c-alert style="margin-top: 30%;" color="danger">Ingrese un título al editorial!</c-alert>
       </div>
     </ng-template>
   </mat-step>
@@ -116,7 +120,7 @@
     <p>Ya has terminado?</p>
     <div *ngIf="chekcListOrder != ''; else warning2">
       <button mat-flat-button color="warn" matStepperPrevious>Atras</button>
-      <button mat-flat-button color="primary" (click)="publicar()">Publicar</button>
+      <button mat-flat-button color="primary" (click)="publicar()">{{datosEdit.length == 0? 'Publicar':'Editar Editorial' }}</button>
     </div>
 
     <ng-template #warning2>

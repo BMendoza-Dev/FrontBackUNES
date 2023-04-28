@@ -204,7 +204,7 @@ export class BlogServicesService {
 
 
   CrearEditorial(_blogsid:any,_editorialname:string){
-    debugger
+    
     let url = this.url + 'CrearEditorial';
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + localStorage.getItem("token"),
@@ -214,9 +214,6 @@ export class BlogServicesService {
     let formData = new FormData();
     formData.append('blogsid',JSON.stringify(_blogsid));
     formData.append('editorialname',_editorialname);
-    formData.forEach(function(value, key) {
-      console.log(key + ': ' + value);
-    });
 
     return new Promise((resolve, reject) => {
       this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
@@ -227,6 +224,69 @@ export class BlogServicesService {
       });
     });
   }
+
+
+  ListarEditorial(){
+    
+    let url = this.url + 'ListarEditorial';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  ListarBlogsPorEditorial(_id:number){
+    
+    let url = this.url + 'ListarBlogsPorEditorial?id='+_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  EditarEditorial(_data:any){
+    debugger
+    let url = this.url + 'EditarEditorial';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+
+    let formData = new FormData();
+    formData.append('blogsid',JSON.stringify(_data.blogsid));
+    formData.append('editorialname',_data.editorialname);
+    formData.append('editrialnum',_data.editrialnum);
+    formData.append('id',_data.id);
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  
+  
 
 
 }

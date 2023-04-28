@@ -141,7 +141,7 @@ export class TableAdministradorComponent implements OnInit {
 
   eliminar(_id:any){
 
-    Swal.fire({
+    Swal.fire({ 
       title: 'Estás seguro?',
       text: "No podrás revertir esto.!",
       icon: 'warning',

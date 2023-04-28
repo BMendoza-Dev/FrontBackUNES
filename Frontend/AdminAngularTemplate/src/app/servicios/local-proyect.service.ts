@@ -19,6 +19,9 @@ export class LocalProyectService {
   dataNotifyIdRechazadoAprobadoSource = new BehaviorSubject(null);
   dataNotifyIdRechazadoAprobado$ = this.dataNotifyIdRechazadoAprobadoSource.asObservable();
 
+  editEditorialSource = new BehaviorSubject(null);
+  editEditorial$ = this.editEditorialSource.asObservable();
+
   emitirEventoTablaAsalbleista() {
     this.$emitter.emit();
   }

@@ -140,7 +140,7 @@ export class FormBlogsComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.spinnerService.llamarSpinner();
-          debugger
+          
           console.log(this.pdfs)
           let pdfs = this.pdfs.map( item => ({'pdf': item.pdf.replace("data:", "")
           .replace(/^.+,/, ""), 'name': item.name }));
@@ -155,7 +155,7 @@ export class FormBlogsComponent implements OnInit {
             'pdfs': pdfs,
             //'pdfsName':pdfsName
           }
-          debugger
+          
           this.service.crear_updateBlog(data).then((data) => {
             this.spinnerService.detenerSpinner();
             this.onReset2();
