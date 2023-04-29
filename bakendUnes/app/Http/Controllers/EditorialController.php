@@ -65,9 +65,7 @@ class EditorialController extends Controller
     return response()->json('Editorial actualizado con éxito');
     }
 
-
-
-
+    
       public function ListarEditorial(Request $request){
 
         $editoriales = Editorial::all();

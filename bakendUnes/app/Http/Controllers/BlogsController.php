@@ -312,6 +312,48 @@ class BlogsController extends Controller
         }
         
      }
+
+     public function ListarBlogsImportantesSemana(Request $request)
+{
+    $categoryId = $request->cate_id;
+    $blogs = Blog::with('perfil', 'image', 'categoria')
+        ->where('aprobado', true)
+        ->where('ultimanoticia', true)
+        ->when($categoryId, function ($query, $categoryId) {
+            return $query->whereHas('categoria', function ($query) use ($categoryId) {
+                $query->where('id', $categoryId);
+            });
+        })
+        ->whereBetween('updated_at', [now()->subWeek(), now()])
+        ->orderByDesc('updated_at')
+        ->get()
+        ->map(function ($blog) {
+            return [
+                'id' => $blog->id,
+                'blogtitulo' => $blog->blogtitulo,
+                'blogdescripcion' => $blog->blogdescripcion,
+                'blogcontenido' => $blog->blogcontenido,
+                'masleido' => $blog->masleido,
+                'ultimanoticia' => $blog->ultimanoticia,
+                'aprobado' => $blog->aprobado,
+                'editoriale_id' => $blog->editoriale_id,
+                'categorie_id' => $blog->categorie_id,
+                'categorianame' => $blog->categoria->categorianame,
+                'perfil_id' => $blog->perfil_id,
+                'users_id' => $blog->users_id,
+                'created_at' => $blog->created_at,
+                'updated_at' => $blog->updated_at,
+                'perfil' => $blog->perfil,
+                'imagen' => $blog->image->imagen
+            ];
+        });
+
+    if ($blogs->isEmpty()) {
+        return response()->json(['error' => '404']);
+    }
+
+    return response()->json($blogs);
+}
      public function make_notify_read(Request $request){
        
         $notification =  Auth::user()->notifications->find($request->notificationId);
