@@ -325,7 +325,7 @@ class BlogsController extends Controller
                     $query->where('id', $categoryId);
                 });
             })
-            ->whereBetween('created_at', [
+            ->whereBetween('updated_at', [
                 now()->startOfWeek()->format('Y-m-d H:i:s'), 
                 now()->endOfWeek()->format('Y-m-d H:i:s')
             ])
