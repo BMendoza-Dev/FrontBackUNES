@@ -263,7 +263,7 @@ export class BlogServicesService {
   }
 
   EditarEditorial(_data:any){
-    debugger
+    
     let url = this.url + 'EditarEditorial';
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + localStorage.getItem("token"),
@@ -286,6 +286,21 @@ export class BlogServicesService {
     });
   }
   
+  ListarBlogsImportantesSemana(){
+    let url = this.url + 'ListarBlogsImportantesSemana';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
   
 
 

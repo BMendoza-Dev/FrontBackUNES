@@ -11,9 +11,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper } from '@angular/material/stepper';
-
-
-
 @Component({
   selector: 'app-creat-editorial',
   templateUrl: './creat-editorial.component.html',
@@ -39,7 +36,7 @@ export class CreatEditorialComponent {
   idBlog: number;
   chekcListOrder: any;
   allCompleteBlog: boolean = false;
-  chekcList: any;
+  chekcList: any = [];
   isLinear = false;
   pdfs: any[] = [];
   tituloEditorial: string = "";
@@ -48,22 +45,40 @@ export class CreatEditorialComponent {
   @Output() cargarListEditorial = new EventEmitter<void>();
   editrialnum: any;
   idEditorial: any;
+  listBlogEditorial: any;
+  cheklisordenado: any = [];
   constructor(private _formBuilder: FormBuilder, public rutas: Router,
     private spinnerService: SpinnerService, private scriptService: ScripServiceService,
     private service: BlogServicesService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.listarCategoriasBlog();
-    if (this.datosEdit.length == 0) {
-      this.ObtenerBlogPorPerfil();
-    } else {
-      this.ObtenerBlogPorPerfilEditar();
-    }
+    this.ListarBlogsImportantesSemana();
   }
 
 
-  updateAllCompleteBlog() {
+  updateAllCompleteBlog(completed: any, id: number) {
+    
     this.allCompleteBlog = this.chekcList != null && this.chekcList.every((t: any) => t.completed);
+    if (completed == true) {
+      const resultado = this.chekcList.filter((objeto: any) => {
+        if (objeto._id == id) {
+          return objeto
+        }
+      });
+      this.cheklisordenado.push(resultado[0])
+    } else {
+      const indexAEliminar = this.cheklisordenado.findIndex((objeto: any) => {
+        
+        return objeto._id === id;
+      });
+
+      if (indexAEliminar > -1) {
+        this.cheklisordenado.splice(indexAEliminar, 1);
+      }
+      
+    }
+    
   }
   someCompleteBlog(): boolean {
     if (this.chekcList == null) {
@@ -73,16 +88,25 @@ export class CreatEditorialComponent {
     return dato
   }
   setAllBlog(completed: boolean) {
-
+    debugger
     this.allCompleteBlog = completed;
     if (this.chekcList == null) {
+      
       return;
     }
     this.chekcList.forEach((t: any) => (t.completed = completed));
+    
+    if (completed == true) {
+      this.cheklisordenado = [...this.chekcList]
+    } else {
+      this.cheklisordenado = [];
+    }
+    
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.chekcListOrder, event.previousIndex, event.currentIndex);
+    
+    moveItemInArray(this.cheklisordenado, event.previousIndex, event.currentIndex);
 
   }
 
@@ -103,44 +127,47 @@ export class CreatEditorialComponent {
     })
   }
 
-  ObtenerBlogPorPerfilEditar() {
+  ListarBlogsImportantesSemana() {
     this.spinnerService.llamarSpinner();
-
-    this.tituloEditorial = this.datosEdit.editorialname;
-    this.editrialnum = this.datosEdit.editrialnum;
-    this.idEditorial = this.datosEdit.id;
-    this.listBlog = this.datosEdit.blogs.map((value: any) => ({
-      _blogtitulo: value.blogtitulo,
-      _blogdescripcion: value.blogdescripcion,
-      _blogcontenido: value.blogcontenido,
-      _created_at: moment(value.created_at).locale('es').fromNow(),
-      completed: true,
-      _id: value.id,
-      _categorianame: value.categorianame
-    }));
-    this.chekcList = this.listBlog;
-    this.spinnerService.detenerSpinner();
-  }
-
-  ObtenerBlogPorPerfil() {
-    this.spinnerService.llamarSpinner();
-    this.service.ObtenerBlogPorPerfil(0).then((data: any) => {
-
+    this.service.ListarBlogsImportantesSemana().then((data: any) => {
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
           _blogtitulo: value.blogtitulo,
           _blogdescripcion: value.blogdescripcion,
           _blogcontenido: value.blogcontenido,
-          _perfil_id: value.perfil_id,
-          _categorianame: value['categoria'].categorianame,
-          _ultimanoticia: value.ultimanoticia,
+          _categorianame: value.categorianame,
           completed: false,
           _categorie_id: value.categorie_id,
           //_imagen: this.trasformaImagen(value.imagen)
           _created_at: moment(value.created_at).locale('es').fromNow()
         }));
+        if (this.datosEdit.length != 0) {
+          this.spinnerService.llamarSpinner();
+          this.tituloEditorial = this.datosEdit.editorialname;
+          this.editrialnum = this.datosEdit.editrialnum;
+          this.idEditorial = this.datosEdit.id;
+          this.listBlogEditorial = this.datosEdit.blogs.map((value: any) => ({
+            _id: value.id,
+          }));
+
+          this.listBlogEditorial.forEach((editorial: any) => {
+            const index = this.listBlog.findIndex((blog: any) => blog._id === editorial._id);
+            if (index !== -1) {
+              const blog = this.listBlog[index];
+              blog.completed = true;
+              this.cheklisordenado.push(blog);
+            }
+          });
+          
+        }
+
+        if(this.listBlog.length === this.listBlogEditorial.length){
+          this.allCompleteBlog = true;
+        }
+
         this.chekcList = this.listBlog;
+        
       } else {
         this.listBlog = '';
       }
@@ -152,6 +179,13 @@ export class CreatEditorialComponent {
       console.log(error)
     })
   }
+
+  ObtenerBlogPorPerfilEditar() {
+
+    this.chekcList = this.listBlog;
+    this.spinnerService.detenerSpinner();
+  }
+
 
   trasformaImagen(img: any) {
     let objectURL = 'data:image/jpeg;base64,' + img;
@@ -216,16 +250,6 @@ export class CreatEditorialComponent {
     this.scriptService.removeScript('twitter');
   }
 
-  ordenar(event: any) {
-
-    if (event.previouslySelectedIndex == 0 && event.selectedIndex == 1) {
-      this.chekcListOrder = this.chekcList.filter((item: any) => item.completed === true);
-    }
-    if (event.previouslySelectedIndex == 0 && event.selectedIndex == 2) {
-      this.chekcListOrder = '';
-    }
-
-  }
 
   publicar() {
     Swal.fire({
@@ -238,18 +262,18 @@ export class CreatEditorialComponent {
       confirmButtonText: 'Sí, publicar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.chekcListOrder;
-        let blogsid = this.chekcListOrder.map((item: any) => {
+
+        let blogsid = this.cheklisordenado.map((item: any) => {
           return item._id
         });
-        debugger
+
 
         if (this.datosEdit.length == 0) {
           this.service.CrearEditorial(blogsid, this.tituloEditorial).then((data) => {
             if (data == '200') {
               this.stepper.reset();
               this.tituloEditorial = '';
-              this.ObtenerBlogPorPerfil();
+              this.ListarBlogsImportantesSemana();
               this.allCompleteBlog = false;
               Swal.fire(
                 'Publicado!',
@@ -283,7 +307,7 @@ export class CreatEditorialComponent {
     })
   }
 
-  cancelar(){
+  cancelar() {
     this.cargarListEditorial.emit();
   }
 }
