@@ -58,7 +58,7 @@ export class ListEditorialComponent {
   editarEditorial(_id: number) {
     this.spinnerService.llamarSpinner();
     this.blogService.ListarBlogsPorEditorial(_id).then((data:any) =>{
-      data; debugger
+      data; 
       let datos = {
         id:data[0].id,
         editorialname:data[0].editorialname,

@@ -1,4 +1,4 @@
-<mat-stepper [linear]="isLinear" #stepper (selectionChange)="ordenar($event)">
+<mat-stepper [linear]="isLinear" #stepper >
   <mat-step  errorMessage="Name is required.">
     <ng-template matStepLabel>Seleccionar blogs importantes</ng-template>
     <c-card style="margin-top: 2%;" class="mb-4">
@@ -48,7 +48,7 @@
               <c-card-header class="text-medium-emphasis"
                 style="display: flex; justify-content: space-between; align-items: center">
                 <span>{{item._categorianame}} </span>
-                <mat-checkbox [(ngModel)]="item.completed" color="primary" (ngModelChange)="updateAllCompleteBlog()">
+                <mat-checkbox [(ngModel)]="item.completed" color="primary" (ngModelChange)="updateAllCompleteBlog(item.completed,item._id)">
                 </mat-checkbox>
               </c-card-header>
               <c-card-body>
@@ -80,10 +80,10 @@
 
 
   <mat-step  label="Ordenar blogs" >
-    <form *ngIf="chekcListOrder != '' && tituloEditorial != ''; else warning" style="margin-top: 2%;" [formGroup]="secondFormGroup">
+    <form *ngIf="cheklisordenado.length != 0 && tituloEditorial != ''; else warning" style="margin-top: 2%;" [formGroup]="secondFormGroup">
       <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
         <c-accordion [alwaysOpen]="true">
-          <c-accordion-item cdkDrag *ngFor="let item of chekcListOrder" #accordionItem="cAccordionItem"
+          <c-accordion-item cdkDrag *ngFor="let item of cheklisordenado" #accordionItem="cAccordionItem"
             [visible]="item.visible" style="margin-top: 1%;">
             <ng-template cTemplateId="accordionHeaderTemplate">
               <button (click)="accordionItem.toggleItem()" [collapsed]="!accordionItem.visible" cAccordionButton>
@@ -118,7 +118,7 @@
   <mat-step>
     <ng-template matStepLabel>Hecho</ng-template>
     <p>Ya has terminado?</p>
-    <div *ngIf="chekcListOrder != ''; else warning2">
+    <div *ngIf="cheklisordenado.length != 0; else warning2">
       <button mat-flat-button color="warn" matStepperPrevious>Atras</button>
       <button mat-flat-button color="primary" (click)="publicar()">{{datosEdit.length == 0? 'Publicar':'Editar Editorial' }}</button>
     </div>
