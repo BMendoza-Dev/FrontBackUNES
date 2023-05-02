@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\VotacionesController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EditorialController;
+use App\Http\Controllers\Api\AuthmobileController;
 use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
@@ -179,6 +180,9 @@ Route::get('/pruevapdf', function (Request $request) {
 
 
 Route::post('Login',[AuthController::class, 'Login']);
+
+Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
+
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
