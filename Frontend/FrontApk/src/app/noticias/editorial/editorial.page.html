@@ -1,0 +1,65 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Refrescar"
+      refreshingSpinner="circles"
+      refreshingText="Cargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div>
+    <p class="title2"> EDITORIAL RC5 </p>
+    <div class="linea"></div>
+    <ion-card [routerLink]="['../inf-ultimas']">
+      <img src="../../../assets/imgs/back_02_home_rc.jpg" />
+      <ion-card-header>
+        <div class="container">
+          <a class="users">
+            <div class="container-username">
+              <span class="header-username"> Luisa Gonzáles</span>
+              <span class="cargoAsambl">Docente</span>
+            </div>
+          </a>
+        </div>
+        <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
+          RC5</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="contentCard">
+        La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
+        algunos liderazgos que no han podido neutralizar mediante el lawfare.
+      </ion-card-content>
+    </ion-card>
+    <div style="background-color: #f9f9f9;">
+      <div style="margin-top: 30px; " class="lineaSepardor"></div>
+    </div>
+
+
+    <p style="margin-top: 30px;" class="title2"> EDITORIAL RC5 </p>
+    <div class="linea"></div>
+    <ion-card>
+      <img src="../../../assets/imgs/back_04_home_rc.png" />
+      <ion-card-header>
+        <div class="container">
+          <a class="users">
+            <div class="container-username">
+              <span class="header-username"> Luisa Gonzáles</span>
+              <span class="cargoAsambl">Docente</span>
+            </div>
+          </a>
+        </div>
+        <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
+          RC5</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="contentCard">
+        La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
+        algunos liderazgos que no han podido neutralizar mediante el lawfare.
+      </ion-card-content>
+      <ion-item style="--ion-background-color: rgb(224, 224, 224);">
+        <ion-icon class="iconLoad" name="download-outline" slot="start"></ion-icon>
+        <span class="fechaCard">Documento para descargar</span>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

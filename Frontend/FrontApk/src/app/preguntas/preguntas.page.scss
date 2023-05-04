@@ -1,0 +1,47 @@
+.iconBack {
+    color: white;
+    width: 40px;
+    font-size: 24px;
+}
+
+.title {
+    --color: white;
+    //size: large;
+    text-align: center;
+    font-family: "Gotham-Bold";
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+.title2 {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 4%;
+    font-family: "Gotham-Book";
+    font-size: 20px;
+    color: #00b9ec;
+    margin-bottom: 5px;
+}
+
+.linea {
+    border-top: 1px solid #00b9ec;
+    height: 2px;
+    max-width: 100px;
+    padding: 0;
+    margin: 10px auto 20px auto;
+    background-color: #00b9ec;
+    height: 5px;
+}
+
+.content {
+    background-color: #f3f3f3;
+    padding: 5%;
+    margin: 5%;
+    font-family: "Gotham-Book";
+}
+
+.is-required {
+    margin-left: 2px;
+    color: red;
+    font-weight: bold;
+}

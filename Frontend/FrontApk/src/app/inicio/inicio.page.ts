@@ -18,32 +18,10 @@ export class InicioPage implements OnInit {
 
   constructor(private scriptService: ScriptServiceService,public loadCont: LoadingController) {
 
-    /*const options:any = {
-      rejectUnauthorized: false,
-      transports: ['websocket']
-    };
-    this.ws = new WebSocket('wss://ec2-18-207-3-198.compute-1.amazonaws.com/app/apprc_key'
-    );
-    this.ws.onopen = () => {
-      console.log('Conexión WebSocket abierta');
-    };
-
-    this.ws.onmessage = event => {
-      console.log('Mensaje recibido:', event.data);
-    };
-
-    this.ws.onerror = error => {
-      console.error('Error de WebSocket:', error);
-    };*/
-
-    //this.showLoading();
-
     this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
       .then(data => {
         console.log('script loaded ', data);
       }).catch(error => console.log(error));
-
-
   }
 
   async showLoading() {

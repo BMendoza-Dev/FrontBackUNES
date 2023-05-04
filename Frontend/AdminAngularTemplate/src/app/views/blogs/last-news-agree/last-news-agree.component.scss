@@ -64,20 +64,11 @@ img:hover {
   font-weight: lighter;
 }
 
-.blog h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
 
-.blog p {
-  margin-bottom: 10px;
-}
-
-.blog img {
+.innerHtml img{
   max-width: 100%;
   height: auto;
-  margin-bottom: 10px;
+  max-height: 300px;
 }
 
 c-card-body h5 {

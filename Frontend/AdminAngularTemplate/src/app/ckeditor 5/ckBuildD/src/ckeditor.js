@@ -35,6 +35,9 @@ import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript';
 import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript';
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter'; 
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+
 class Editor extends ClassicEditor { }
 
 // Plugins to include in the build.
@@ -70,7 +73,9 @@ Editor.builtinPlugins = [
 	Underline,
 	Strikethrough, 
 	Subscript,
-	Superscript   
+	Superscript,
+	SimpleUploadAdapter,
+	ImageInsert,  
 ];
 
 
