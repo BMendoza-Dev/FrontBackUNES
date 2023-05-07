@@ -9,6 +9,7 @@ use App\Http\Controllers\VotacionesController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\Api\AuthmobileController;
+use App\Http\Controllers\AppMobile\PerfilesControllerAppMobile;
 use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
@@ -181,7 +182,7 @@ Route::get('/pruevapdf', function (Request $request) {
 
 Route::post('Login',[AuthController::class, 'Login']);
 
-Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
+
 
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
@@ -230,6 +231,18 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('Notifique',[AuthController::class, 'Notifique']);
     Route::post('Logout',[AuthController::class, 'Logout']);
     Route::post('Update',[AuthController::class, 'Update']);
+});
+Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
+
+Route::group(['middleware'=>['mobile']],function(){
+    
+});
+
+Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
+
+
+Route::middleware('mobile.auth')->get('/app', function (Request $request) {
+    return $request->user();
 });
 
 Route::post('message/send',[BlogsController::class, 'send'])

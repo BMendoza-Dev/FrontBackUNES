@@ -21,9 +21,12 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
+
         if($toke = $request->cookie('cookie_token')){
             $request->headers->set('Authorization', 'Bearer '.$toke);
         }
+
+        
         $this->authenticate($request, $guards);
         return $next($request);
     }

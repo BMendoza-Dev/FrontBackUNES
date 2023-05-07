@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Models\MobileUser;
 use App\Models\OauthAccessToken;
+use Cookie;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 class AuthmobileController extends Controller
 {
     public function Register(Request $request){
@@ -49,8 +52,7 @@ class AuthmobileController extends Controller
         ]);
     
         // Crea un token de acceso para el usuario
-        $accessToken = $mobileUser->createToken('mobileToken')->plainTextToken;
-        return response()->json(['user' => $mobileUser, 'access_token' => $accessToken]);
+       
     }
         $validatedData = $request->validate([
             'email' => 'required|string|email|max:255',
@@ -66,9 +68,14 @@ class AuthmobileController extends Controller
         $mobileUser = auth()->guard('mobile')->user();
     
         // Crea un token de acceso para el usuario
-        $accessToken = $mobileUser->createToken('mobileToken')->plainTextToken;
+        $token = $mobileUser->createToken('mobileToken')->plainTextToken;
+
+        $tokenexpire= OauthAccessToken::where('tokenable_id',$mobileUser->id)->get()->last();
+        $tokenexpire->expires_at=Carbon :: now ( )->addHour(24);
+        $tokenexpire->update();
+        $cookie = cookie('cookie_token',$token,60*1);
     
         // Retorna la respuesta
-        return response()->json(['user' => $mobileUser, 'access_token' => $accessToken]);
+        return response(['token'=>$token, 'usuario'=>$mobileUser,'menssage'=>'Login correcto','code'=>'200'])->withoutCookie($cookie);
     }
 }
