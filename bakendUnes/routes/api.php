@@ -239,7 +239,7 @@ Route::group(['middleware'=>['mobile']],function(){
 });
 
 Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
-
+Route::get('ObtenerTerritorioApp',[PerfilesController::class, 'ObtenerTerritorio']);
 
 Route::middleware('mobile.auth')->get('/app', function (Request $request) {
     return $request->user();
