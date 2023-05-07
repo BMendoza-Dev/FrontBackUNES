@@ -54,16 +54,17 @@ class AuthmobileController extends Controller
         // Crea un token de acceso para el usuario
        
     }
+
+    
         $validatedData = $request->validate([
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|max:255',
         ]);
-    
+        
         // Intenta autenticar al usuario utilizando la guardia 'mobile'
-        if (!auth()->guard('mobile')->attempt($validatedData)) {
+        if (!Auth::guard('mobile')->attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Credenciales inválidas'], 401);
         }
-    
         // Recupera el usuario autenticado
         $mobileUser = auth()->guard('mobile')->user();
     

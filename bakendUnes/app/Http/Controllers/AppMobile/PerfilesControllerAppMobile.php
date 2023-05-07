@@ -52,8 +52,55 @@ return response()->json($perfiles);
 
     public function ObtenerAsambleistaTerritorio (Request $request){
        
-        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('image')->get();
+        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('image')->get()
+        ->map(function($perfil) {
+          //  $imagen = $perfil->image->imagen ? $perfil->image->imagen : null;
+         //   $imagen =;
+            $curul = $perfil->curul ?? null;
+            return [
+                'id' => $perfil->id,
+                'lastName' => $perfil->lastName,
+                'firstName' => $perfil->firstName,
+                'territorialDivision' => $perfil->territorialDivision,
+                'imagen' =>  $perfil->image,
+                'curul' => $curul
+            ];
+        });
 
         return  response()->json($datos);
     }
+
+    public function ObtenerPerfil (Request $request){
+        $Perfilesfinal= Perfil::where('id',$request->id)->with('image')->with('localizacion')->with('comisiones')->get()
+        ->map(function($perfil) {
+          //  $imagen = $perfil->image->imagen ? $perfil->image->imagen : null;
+         //   $imagen =;
+            $curul = $perfil->curul ?? null;
+            return [
+                'id' => $perfil->id,
+                'lastName' => $perfil->lastName,
+                'firstName' => $perfil->firstName,
+                'territorialDivision' => $perfil->territorialDivision,
+                'curul' => $curul,
+                'jurisdiction' => $perfil->jurisdiction,
+                'politicalParty' => $perfil->politicalParty,
+                'territorialDivision' => $perfil->territorialDivision,
+                'biografia_id' => $perfil->biografia_id,
+                'email' => $perfil->email,
+                'localizacion' => $perfil->localizacion,
+                'comisiones' => $perfil->comisiones,
+                'imagen' =>  $perfil->image,
+            ];
+        });
+
+        
+        if($Perfilesfinal->isEmpty()){
+            return  response()->json(['error'=>'404']);
+        }
+
+
+        return  response()->json($Perfilesfinal[0]);
+           
+     }
+
 }
