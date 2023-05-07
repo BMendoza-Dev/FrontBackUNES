@@ -17,6 +17,7 @@ use App\Models\Tema;
 use App\Models\Blog;
 use App\Models\Temaavotacion;
 use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Http;
 /*
 |--------------------------------------------------------------------------
@@ -237,11 +238,11 @@ Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
 Route::group(['middleware'=>['mobile']],function(){
     
 });
-
 Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
-Route::get('ObtenerTerritorioApp',[PerfilesController::class, 'ObtenerTerritorio']);
+    Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerTerritorio']);   
+Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerAsambleistaTerritorio']);
 
-Route::middleware('mobile.auth')->get('/app', function (Request $request) {
+Route::middleware('mobile')->get('/app', function (Request $request) {
     return $request->user();
 });
 

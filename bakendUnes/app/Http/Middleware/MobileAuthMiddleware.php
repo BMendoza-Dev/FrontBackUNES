@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 use App\Models\OauthAccessToken;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 class MobileAuthMiddleware extends Middleware
 {
@@ -20,14 +21,31 @@ class MobileAuthMiddleware extends Middleware
  
      public function handle($request, Closure $next, ...$guards)
      {
-
-        $token = 'mi_token_secreto';
+        $response = auth('mobile')->check();
+        $responseCode = 200;
+        if(!$response) {
+            try {
+               if (!app(\Tymon\JWTAuth\JWTAuth::class)->parseToken()->authenticate()) {
+               $response = 0;
+               }
+            } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+               $response = -1;
+            } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+               $response = -2;
+            } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+               $response = -3;
+            }
+        } else {
+            $response = (int) $response;
+        }
+        return response()->json($response, $responseCode);
+        $token = str_replace('Bearer ', '', $request->header('Authorization'));
 $hashedToken = Hash::make($token);
 
 if (hash_equals($hashedToken, $storedTokenHash)) {
-    // Token válido
+    return $next($request);
 } else {
-    // Token no válido
+    return response()->json(['prueb' =>'TOKEN INVALIDO']);
 }
         $user=  Auth::guard('mobile')->attempt(['token' => $token]);
         auth()->guard('mobile')->attempt( '43b05256735319b5481bf0194c971829ce34b4002edc5ddba09b656a564acfca');

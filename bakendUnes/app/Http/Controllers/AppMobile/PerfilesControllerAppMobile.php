@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\Perfil;
 use App\Models\Imagen;
 use App\Models\localizacion;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Biografia;
+use App\Models\Comision;
+use App\Models\Divisionterritorial;
+use App\Models\Categorie;
+use App\Models\Permisos;
+use App\Models\Roles;
+use Illuminate\Support\Facades\Gate;
+
 class PerfilesControllerAppMobile extends Controller
 {
     public function ListarPerfiles (){
@@ -30,5 +40,20 @@ class PerfilesControllerAppMobile extends Controller
     });
 
 return response()->json($perfiles);
+    }
+
+    public function ObtenerTerritorio (){
+     
+        $datos=Divisionterritorial::get();
+
+       
+        return  response()->json($datos);
+    }
+
+    public function ObtenerAsambleistaTerritorio (Request $request){
+       
+        $datos=Perfil::where('territorialDivision', $request->territorialDivision)->with('image')->get();
+
+        return  response()->json($datos);
     }
 }

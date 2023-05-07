@@ -27,7 +27,7 @@ class AuthmobileController extends Controller
         ]);
     
         // Crea un token de acceso para el usuario
-        $accessToken = $mobileUser->createToken('authToken')->accessToken;
+        $accessToken = $mobileUser->createToken('mobile')->accessToken;
     
         // Retorna la respuesta
         return response()->json(['user' => $mobileUser, 'access_token' => $accessToken]);
@@ -68,7 +68,7 @@ class AuthmobileController extends Controller
         $mobileUser = auth()->guard('mobile')->user();
     
         // Crea un token de acceso para el usuario
-        $token = $mobileUser->createToken('mobileToken')->plainTextToken;
+        $token = $mobileUser->createToken('mobile')->plainTextToken;
 
         $tokenexpire= OauthAccessToken::where('tokenable_id',$mobileUser->id)->get()->last();
         $tokenexpire->expires_at=Carbon :: now ( )->addHour(24);
