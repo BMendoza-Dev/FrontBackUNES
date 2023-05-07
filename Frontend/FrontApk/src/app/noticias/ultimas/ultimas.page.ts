@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as scriptjs from 'scriptjs';
 import { IonSlides } from '@ionic/angular';
+import { InfUltimasPage } from '../inf-ultimas/inf-ultimas.page';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-ultimas',
   templateUrl: './ultimas.page.html',
@@ -8,39 +10,21 @@ import { IonSlides } from '@ionic/angular';
 })
 export class UltimasPage implements OnInit {
 
-  constructor() { }
-  @ViewChild('mySlider') slides: IonSlides;
+  datetime: string;
 
-  segment = "segment1";
-  
-  
-  async slideChanged() {
-    let currentIndex = await this.slides.getActiveIndex();
-    if (currentIndex == 0) {
-      this.segment = "segment1";
-    } else if (currentIndex == 1) {
-      this.segment = "segment2";
-    } else if (currentIndex == 2) {
-      this.segment = "segment3";
-    }
+  constructor() {
+    // Inicializar datetime con la fecha actual
+    this.datetime = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   }
-
-  segmentChanged() {
-    if (this.segment == "segment1") {
-      this.slides.slideTo(0);
-    } else if (this.segment == "segment2") {
-      this.slides.slideTo(1);
-    } else if (this.segment == "segment3") {
-      this.slides.slideTo(2);
-    }
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     
-    //scriptjs('https://platform.twitter.com/widgets.js', (dato:any) => {
-      // Aquí puedes ejecutar cualquier código que dependa del script cargado
-      //dato; 
-    //});
   }
+
+  handleRefresh(event) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  };
 
 }

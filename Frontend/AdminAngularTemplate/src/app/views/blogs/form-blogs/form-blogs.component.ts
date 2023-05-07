@@ -62,7 +62,7 @@ export class FormBlogsComponent implements OnInit {
       'link', '|',
       'bulletedList', 'numberedList', 'todoList', '|',
       'code', 'htmlEmbed', '|',
-      'imageUpload', 'blockQuote', '|',
+      'insertImage', 'blockQuote', '|',
       'undo', 'redo'],
     shouldNotGroupWhenFull: true,
     heading: {
@@ -82,22 +82,12 @@ export class FormBlogsComponent implements OnInit {
         };
       }
     }, image: {
-      // Configure the available styles.
-      styles: [
-        'alignLeft', 'alignCenter', 'alignRight'
-      ],
-
-      // Configure the available image resize options.
+      styles: [ 'inline'],
       resizeOptions: [
         {
           name: 'resizeImage:original',
           label: 'Original',
           value: null
-        },
-        {
-          name: 'resizeImage:25',
-          label: '25%',
-          value: '25'
         },
         {
           name: 'resizeImage:50',
@@ -110,16 +100,20 @@ export class FormBlogsComponent implements OnInit {
           value: '75'
         }
       ],
-
-      // You need to configure the image toolbar, too, so it shows the new style
-      // buttons as well as the resize buttons.
       toolbar: [
-        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+        'imageStyle:inline',
         '|',
         'ImageResize',
         '|',
-        'toggleImageCaption',
-      ]
+        'imageTextAlternative'
+      ],
+      // Establezca el estilo predeterminado en "inline" al insertar una imagen.
+      insert: (image: any) => {
+        image.styles = {
+          ...image.styles,
+          default: 'inline'
+        };
+      }
     },
 
     lenguage: 'es'

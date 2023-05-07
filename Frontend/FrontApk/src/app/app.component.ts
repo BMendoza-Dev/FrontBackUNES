@@ -1,22 +1,39 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../app/api/rest/login.service';
+import { Device } from '@capacitor/device';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  identificador: string;
 
-  constructor(private restLogin: LoginService) {}
+  constructor(private restLogin: LoginService) {
+    this.myFunction();
+  }
 
   ngOnInit(){
+    
+  }
+
+  async myFunction() {
+    const deviceInfo = await Device.getId();
+    this.identificador = deviceInfo.uuid;
     this.goApp();
+    
   }
   
   goApp(){
-    this.restLogin.ValidarLogin().then((data) =>{
-      let dat = data;
-      localStorage.setItem('token', dat['token']); 
+    let data ={
+      email:`${this.identificador}@rc5app.com`,
+      password:this.identificador,
+      identificador:this.identificador
+    }
+    
+    this.restLogin.LoginAppMobile(data).then((data) =>{
+      
+      localStorage.setItem('token', data['access_token']); 
     }).catch(error =>{
       console.log(error);
     })

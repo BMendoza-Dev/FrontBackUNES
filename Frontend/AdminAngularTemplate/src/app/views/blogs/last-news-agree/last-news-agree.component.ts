@@ -44,6 +44,7 @@ export class LastNewsAgreeComponent implements OnInit {
   listBlog: any; urlGet: SafeUrl; blogtitulo: string; blogdescripcion: string; blogcontenido: SafeHtml; fecha: any;
   categoria: string = '';
   idBlog: number;
+  
 
   ngOnInit(): void {
     this.localServi.dataNotifyIdRevisar$.subscribe((data)=>{
@@ -90,7 +91,6 @@ export class LastNewsAgreeComponent implements OnInit {
           _id: value.id,
           _blogtitulo: value.blogtitulo,
           _blogdescripcion: value.blogdescripcion,
-          _blogcontenido: value.blogcontenido,
           _perfil_id: value.perfil_id,
           _categorianame:value.categorianame,
           //_imagen: this.trasformaImagen(value.imagen),

@@ -1,14 +1,23 @@
-.title{
-    --color : white;
+.title {
+    --color: white;
     size: large;
     text-align: center;
     font-family: "Gotham-Bold";
 }
 
-.titleNotify{
+.titleNotify {
     word-break: break-word;
 }
 
-.subtitleNotify{
+.subtitleNotify {
     word-break: break-word;
+}
+
+.ion-icon-container {
+    position: relative;
+}
+
+.ion-icon-container ion-icon {
+    position: absolute;
+    right: 0;
 }

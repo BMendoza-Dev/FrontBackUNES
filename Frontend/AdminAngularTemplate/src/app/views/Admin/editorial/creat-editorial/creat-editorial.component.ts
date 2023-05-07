@@ -88,7 +88,7 @@ export class CreatEditorialComponent {
     return dato
   }
   setAllBlog(completed: boolean) {
-    debugger
+    
     this.allCompleteBlog = completed;
     if (this.chekcList == null) {
       

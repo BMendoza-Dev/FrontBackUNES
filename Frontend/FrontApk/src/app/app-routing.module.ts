@@ -54,7 +54,23 @@ const routes: Routes = [
   {
     path: 'votos-asambleista/:id',
     loadChildren: () => import('./AsambleistasAll/votos-asambleista/votos-asambleista.module').then( m => m.VotosAsambleistaPageModule)
+  },  {
+    path: 'preguntas',
+    loadChildren: () => import('./preguntas/preguntas.module').then( m => m.PreguntasPageModule)
   },
+  {
+    path: 'editorial',
+    loadChildren: () => import('./noticias/editorial/editorial.module').then( m => m.EditorialPageModule)
+  },
+  {
+    path: 'mas-leido',
+    loadChildren: () => import('./noticias/mas-leido/mas-leido.module').then( m => m.MasLeidoPageModule)
+  },
+  {
+    path: 'blogs',
+    loadChildren: () => import('./noticias/blogs/blogs.module').then( m => m.BlogsPageModule)
+  },
+
 
 
 

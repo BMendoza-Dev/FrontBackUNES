@@ -31,7 +31,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   danger = 'danger'; success = 'success'; warning='warning'
 
   rotateAnimation = false;
-  notifiData: any;
+  notifiData: any = [];
   timeTrans: any;
   notifiDataFilter: any[] = [];
   autoClose: any;
@@ -102,7 +102,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   }
   
   ngAfterViewInit(){
-    this.blogService.Notifique().then(()=>{});
+    this.blogService.Notifique();
   }
 
 
@@ -119,6 +119,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
   cargarNotif() {
     this.autoClose = 'outside' 
     console.log(`notifiData: ${this.notifiData}`);
+   
     this.notifiDataFilter = this.notifiData.map((item:any) => {
       const newItem = { ...item }; // crea una copia del objeto item
         const fecha = moment(item.time);

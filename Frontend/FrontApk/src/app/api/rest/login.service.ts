@@ -15,10 +15,26 @@ export class LoginService {
   }
 
   ValidarLogin() {
-    var formData = new FormData();
+    let formData = new FormData();
     let url = this.urlAWS + 'Login';
     formData.append('email', "superadmin@hotmail.com");
     formData.append('password', "12345678");
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  LoginAppMobile(_data:any){
+    let formData = new FormData();
+    let url = this.urlAWS + 'LoginAppMobile';
+    formData.append('email', _data.email);
+    formData.append('password', _data.password);
+    formData.append('identificador', _data.identificador);
     return new Promise((resolve, reject) => {
       this.http.post(url, formData).subscribe(res => {
         resolve(res); {

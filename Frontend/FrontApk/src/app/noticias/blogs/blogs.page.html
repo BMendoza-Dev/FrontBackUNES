@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">REVOLUCIÓN CIUDADANA</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-segment style="background-color: #3880ff;" value="segment1" [scrollable]="true" [(ngModel)]="segment"
+    (ionChange)="segmentChanged()">
+    <ion-segment-button value="segment1"><ion-label>ÚLTIMAS NOTICIAS</ion-label></ion-segment-button>
+    <ion-segment-button value="segment2"><ion-label>RC5 EDITORIAL</ion-label></ion-segment-button>
+    <ion-segment-button value="segment3"><ion-label>LO MÁS LEÍDO</ion-label></ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+
+<ion-content>
+  <ion-slides #mySlider (ionSlideDidChange)="slideChanged()"  [options]="slideOpts">
+    <ion-slide>
+      <ion-nav [root]="componentUltimaNoticias"></ion-nav>
+    </ion-slide>
+    <ion-slide>
+      <ion-nav [root]="componentEditorial"></ion-nav>
+    </ion-slide>
+    <ion-slide>
+      <ion-nav [root]="componentMasLeido"></ion-nav>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

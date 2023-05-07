@@ -51,84 +51,92 @@
 
       <div id="container" class="rounded" infiniteScroll [infiniteScrollDistance]=".5" [infiniteScrollThrottle]="150"
         (scrolled)="onScroll()" [scrollWindow]="false">
-        <div class="content " *ngIf="notifiDataFilter.length > 0 ">
-          <li *ngFor="let item of notifiDataFilter | paginate:{itemsPerPage: tableSize,
-            currentPage: page,
-            totalItems : count,
-            id: 'paginado'
-            } ">
-            <ng-container *ngIf="item.leido == null; else viewRevisar">
-              <a style="text-decoration: none;" (click)="showNotify(item.idblog,item.id_notify,item.leido,item.date)">
-                <ng-container *ngIf="item.date == 'Revisar Blog'">
-                  <i class="fa fa-list-alt" aria-hidden="true" style="color: blue;margin-right: 3px;"></i>
-                  <span class="userB">{{item.user}} </span><span class="dateB">a publicado un blog.
-                  </span><span class="titleB"> "{{item.blogtitulo | slice:0:60 }}
-                    {{item.blogtitulo.length > 60? '...':''}}"</span><br>
-                  <span class="perfilB"> Asambleista: <span
-                      style="color: black;font-size: 13px; font-weight: normal !important;">
-                      {{item.perfil}}</span></span>
-                </ng-container>
+        <div class="content ">
+          <div *ngIf="notifiDataFilter.length > 0 ">
+            <li *ngFor="let item of notifiDataFilter | paginate:{itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems : count,
+              id: 'paginado'
+              } ">
+              <ng-container *ngIf="item.leido == null; else viewRevisar">
+                <a style="text-decoration: none;" (click)="showNotify(item.idblog,item.id_notify,item.leido,item.date)">
+                  <ng-container *ngIf="item.date == 'Revisar Blog'">
+                    <i class="fa fa-list-alt" aria-hidden="true" style="color: blue;margin-right: 3px;"></i>
+                    <span class="userB">{{item.user}} </span><span class="dateB">a publicado un blog.
+                    </span><span class="titleB"> "{{item.blogtitulo | slice:0:60 }}
+                      {{item.blogtitulo.length > 60? '...':''}}"</span><br>
+                    <span class="perfilB"> Asambleista: <span
+                        style="color: black;font-size: 13px; font-weight: normal !important;">
+                        {{item.perfil}}</span></span>
+                  </ng-container>
 
-                <ng-container *ngIf="item.date == 'Blog Aprobado'|| item.date == 'Blog Rechazado' ">
-                  <i class="fa fa-list-alt" aria-hidden="true" style="color: blue;margin-right: 3px;"></i>
-                  <span class="dateB" style="font-weight: bold;">La publicación del blog.
-                  </span><span class="titleB"> "{{item.blogtitulo | slice:0:60 }}
-                    {{item.blogtitulo.length > 60? '...':''}}"</span><br>
-                </ng-container >
-                <div class="d-flex justify-content-between time">
-                  <span>{{item.time}}</span>
-                  <span>
-                    <ng-container *ngIf="item.date == 'Revisar Blog' || item.date == 'Blog Rechazado'; else Success">
-                      <c-badge [color]="item.date == 'Revisar Blog'? warning : danger ">{{item.date}}</c-badge>
-                    </ng-container>
-                    <ng-template #Success>
-                      <c-badge [color]="success">{{item.date}}</c-badge>
-                    </ng-template>
-                  </span>
-                </div>
-              </a>
-            </ng-container>
+                  <ng-container *ngIf="item.date == 'Blog Aprobado'|| item.date == 'Blog Rechazado' ">
+                    <i class="fa fa-list-alt" aria-hidden="true" style="color: blue;margin-right: 3px;"></i>
+                    <span class="dateB" style="font-weight: bold;">La publicación del blog.
+                    </span><span class="titleB"> "{{item.blogtitulo | slice:0:60 }}
+                      {{item.blogtitulo.length > 60? '...':''}}"</span><br>
+                  </ng-container>
+                  <div class="d-flex justify-content-between time">
+                    <span>{{item.time}}</span>
+                    <span>
+                      <ng-container *ngIf="item.date == 'Revisar Blog' || item.date == 'Blog Rechazado'; else Success">
+                        <c-badge [color]="item.date == 'Revisar Blog'? warning : danger ">{{item.date}}</c-badge>
+                      </ng-container>
+                      <ng-template #Success>
+                        <c-badge [color]="success">{{item.date}}</c-badge>
+                      </ng-template>
+                    </span>
+                  </div>
+                </a>
+              </ng-container>
 
-            <ng-template #viewRevisar>
-              <a style="text-decoration: none;" (click)="showNotify(item.idblog,item.id_notify,item.leido,item.date)">
-                <ng-container *ngIf="item.date == 'Revisar Blog'">
-                  <i class="fa fa-list-alt" aria-hidden="true" style="color: rgb(190, 190, 190);margin-right: 3px;"></i>
-                  <span style="color: rgb(190, 190, 190)">{{item.user}} </span><span style="color: rgb(190, 190, 190)">a
-                    publicado un blog.
-                  </span><span style="font-size: 15px; color: rgb(190, 190, 190);"> "{{item.blogtitulo | slice:0:45 }}
-                    {{item.blogtitulo.length > 60? '...':''}}"</span><br>
+              <ng-template #viewRevisar>
+                <a style="text-decoration: none;" (click)="showNotify(item.idblog,item.id_notify,item.leido,item.date)">
+                  <ng-container *ngIf="item.date == 'Revisar Blog'">
+                    <i class="fa fa-list-alt" aria-hidden="true"
+                      style="color: rgb(190, 190, 190);margin-right: 3px;"></i>
+                    <span style="color: rgb(190, 190, 190)">{{item.user}} </span><span
+                      style="color: rgb(190, 190, 190)">a
+                      publicado un blog.
+                    </span><span style="font-size: 15px; color: rgb(190, 190, 190);"> "{{item.blogtitulo | slice:0:45 }}
+                      {{item.blogtitulo.length > 60? '...':''}}"</span><br>
                     <span style="font-size: 14px; color: rgb(190, 190, 190);"> Asambleista: <span
-                      style="color: rgb(190, 190, 190);font-size: 13px; font-weight: normal !important;">
-                      {{item.perfil}}</span></span>
-                </ng-container>
+                        style="color: rgb(190, 190, 190);font-size: 13px; font-weight: normal !important;">
+                        {{item.perfil}}</span></span>
+                  </ng-container>
 
-                <ng-container *ngIf="item.date == 'Blog Aprobado' || item.date == 'Blog Rechazado'">
-                  <i class="fa fa-list-alt" aria-hidden="true" style="color: rgb(190, 190, 190);margin-right: 3px;"></i>
-                  <span style="color: rgb(190, 190, 190)">La publicación del blog.
-                  </span><span style="font-size: 15px; color: rgb(190, 190, 190);"> "{{item.blogtitulo | slice:0:45 }}
-                    {{item.blogtitulo.length > 60? '...':''}}"</span><br>
-                </ng-container>
-                
-                <div class="d-flex justify-content-between" style="font-size: 12px;
-                font-weight: bold;
-                display: flex;
-                justify-content: flex-start;color: rgb(190, 190, 190)">
-                  <span>{{item.time}}</span>
-                  <span>
-                    <ng-container *ngIf="item.date == 'Revisar Blog' || item.date == 'Blog Rechazado'; else Success">
-                      <c-badge [color]="item.date == 'Revisar Blog'? warning : danger ">{{item.date}}</c-badge>
-                    </ng-container>
-                    <ng-template #Success>
-                      <c-badge [color]="success">{{item.date}}</c-badge>
-                    </ng-template>
-                  </span>
-                </div>
-              </a>
-            </ng-template>
+                  <ng-container *ngIf="item.date == 'Blog Aprobado' || item.date == 'Blog Rechazado'">
+                    <i class="fa fa-list-alt" aria-hidden="true"
+                      style="color: rgb(190, 190, 190);margin-right: 3px;"></i>
+                    <span style="color: rgb(190, 190, 190)">La publicación del blog.
+                    </span><span style="font-size: 15px; color: rgb(190, 190, 190);"> "{{item.blogtitulo | slice:0:45 }}
+                      {{item.blogtitulo.length > 60? '...':''}}"</span><br>
+                  </ng-container>
 
+                  <div class="d-flex justify-content-between" style="font-size: 12px;
+                  font-weight: bold;
+                  display: flex;
+                  justify-content: flex-start;color: rgb(190, 190, 190)">
+                    <span>{{item.time}}</span>
+                    <span>
+                      <ng-container *ngIf="item.date == 'Revisar Blog' || item.date == 'Blog Rechazado'; else Success">
+                        <c-badge [color]="item.date == 'Revisar Blog'? warning : danger ">{{item.date}}</c-badge>
+                      </ng-container>
+                      <ng-template #Success>
+                        <c-badge [color]="success">{{item.date}}</c-badge>
+                      </ng-template>
+                    </span>
+                  </div>
+                </a>
+              </ng-template>
+            </li>
+          </div>
 
-
-
+          <li *ngIf="notifiDataFilter.length == 0">
+            <a cDropdownItem>
+              <svg cIcon class="me-2" name="cilBell"></svg>
+              <span>No hay notificaciones</span> <br>
+            </a>
           </li>
           <p *ngIf="notifiDataFilter.length >=  tableSize" cPlaceholderAnimation="glow">
             <span cBgColor="dark" style="width: 40%; margin-left: 3%;" cPlaceholder></span>
@@ -141,14 +149,6 @@
           </p>
         </div>
       </div>
-      <ng-container *ngIf="notifiDataFilter.length == 0">
-        <li>
-          <a cDropdownItem>
-            <svg cIcon class="me-2" name="cilBell"></svg>
-            <span>No hay notificaciones</span> <br>
-          </a>
-        </li>
-      </ng-container>
     </ul>
 
   </c-dropdown>

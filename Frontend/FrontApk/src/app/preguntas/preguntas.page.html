@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <!--ion-buttons slot="start" >
+      <ion-menu-button style="color: black;"></ion-menu-button>
+    </ion-buttons-->
+    <ion-buttons slot="start">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title">PREGUNTAS</ion-title>
+    <ion-buttons slot="end">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p class="title2"> ENVÍA TU PREGUNTA </p>
+  <div class="linea"></div>
+  <ion-card-content class="content">
+    <p style="text-align: center;">¿Quieres plantar una duda y que un responsable de la RC5 te responda? Envía tu
+      pregunta
+      al <b>Buzón de RC5</b> a través del formulario que encontrarás en esta página y sigue las instrucciones del correo
+      electrónico que recibirás.
+    </p>
+  </ion-card-content>
+
+  <ion-card-content class="content">
+    <p style="text-align: center; font-style: italic;">Rellena este formulario y un responsable de RC5 te responderá</p>
+    <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate style="margin-top: 10%;" >
+      
+        <ion-label  position="stacked">Nombre<span class="is-required">*</span></ion-label>
+        <ion-input formControlName="Nombre" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-input>
+        <ion-note *ngIf="ionicForm.get('Nombre').invalid && ionicForm.get('Nombre').touched">Please enter your name</ion-note>
+        <ion-label position="stacked">Apellidos<span class="is-required">*</span></ion-label>
+        <ion-input formControlName="Apellidos" style="background-color: white; margin-top: 4%; margin-bottom: 4%;" placeholder=" "></ion-input>
+        <ion-label position="stacked">Email<span class="is-required">*</span></ion-label>
+        <ion-input formControlName="Email" type="email" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-input>
+        <ion-label position="stacked">Teléfono</ion-label>
+        <ion-input formControlName="Telefono" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-input>
+        <ion-label position="stacked">Agrupación (si eres militante)</ion-label>
+        <ion-input formControlName="Agrupacion" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-input>
+        <ion-label position="stacked">Consulta</ion-label>
+        <ion-textarea formControlName="Consulta" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-textarea>
+        <ion-button>
+          ENVIAR
+          <ion-icon slot="end" name="send"></ion-icon>
+        </ion-button>
+    </form>
+  </ion-card-content>
+</ion-content>
