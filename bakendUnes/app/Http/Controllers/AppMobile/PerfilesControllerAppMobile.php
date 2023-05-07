@@ -103,4 +103,17 @@ return response()->json($perfiles);
            
      }
 
+     public function ObtenerBiografia (Request $request){
+        $Perfilesfinal= Perfil::where('id',$request->id)->with(['biografia'=> function ($query){
+            $query->with('image');
+        }])->get();
+
+        
+        if($Perfilesfinal[0]->biografia_id==null){
+            return  response()->json(['error'=>'404']);
+        }
+        return  response()->json($Perfilesfinal[0]->biografia);
+           
+     }
+
 }

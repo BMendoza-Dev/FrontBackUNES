@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'mobileapi' => [
+            'driver' => 'passport', 
+           'provider' => 'mobile',
+        ],
         'mobile' => [
             'driver' => 'session',
             'provider' => 'mobile_users',

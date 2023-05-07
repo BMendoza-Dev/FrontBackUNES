@@ -237,10 +237,14 @@ Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
 Route::group(['middleware'=>['auth:mobile']],function(){
     
 });
+
 Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
-    Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerTerritorio']);   
+Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerTerritorio']);   
 Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerAsambleistaTerritorio']);
 Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfil']);
+Route::get('ObtenerBiografiaApp',[PerfilesControllerAppMobile::class, 'ObtenerBiografia']);
+
+
 
 Route::middleware('auth:mobile')->get('/app', function (Request $request) {
     return $request->user();
