@@ -1,7 +1,7 @@
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Refrescar" refreshingSpinner="circles"
-      refreshingText="Cargando...">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Refrescar"
+      refreshingSpinner="circles">
     </ion-refresher-content>
   </ion-refresher>
   <div>
@@ -66,14 +66,15 @@
         <ion-input style="background-color: white; margin-top: 4%;  margin-bottom: 4%;"
           placeholder=" Buscar palabra clave"></ion-input>
       </form>
-      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-datetime-button  datetime="datetime"></ion-datetime-button>
       <ion-button expand="full" size="small">
         BUSCAR
         <ion-icon slot="end" name="search-outline"></ion-icon>
       </ion-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime id="datetime"></ion-datetime>
+          <ion-datetime presentation="month-year" [isDateEnabled]="isWeekday" id="datetime" min="2023-04"
+          ></ion-datetime>
         </ng-template>
       </ion-modal>
     </ion-card-content>

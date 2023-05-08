@@ -101,7 +101,7 @@
   </ion-card>
 
   <ion-card>
-    <ion-list class="unirButton">
+    <ion-list *ngIf="id_biografia != null" class="unirButton">
         <ion-button size="default" style="font-size: 12.5px;" (click)="goInfAssam(id_perfil)" expand="block">BIOGRAFÍA</ion-button>
     </ion-list>
     <ion-list class="unirButton">

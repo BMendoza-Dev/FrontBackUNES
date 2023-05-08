@@ -1,8 +1,8 @@
 .contentInner {
-    margin-left: 10px;
+    padding: 5%;
 }
 
-p{
+p {
     font-family: "Gotham-Book";
 }
 
@@ -11,4 +11,49 @@ p{
     width: 40px;
     font-size: 30px;
     font-family: "Gotham-Bold";
-  }
+}
+
+.profile-imgBio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 200px;
+    /* cambiar según el tamaño deseado */
+    margin: 0 auto;
+    margin-top: 5%;
+
+}
+
+.tamanioBio {
+    max-width: 100%;
+    /* para que la imagen no supere el ancho de su contenedor */
+    height: auto;
+}
+
+.cardStyle {
+    --color: none
+}
+
+
+.title {
+    --color: white;
+    //size: large;
+    text-align: center;
+    font-family: "Gotham-Bold";
+    font-size: 20px;
+    padding: 0px 20px;
+}
+
+.buttons {
+    justify-content: center;
+    text-align: center;
+}
+
+.buttons i {
+    cursor: pointer;
+}
+
+.buttons i ion-icon {
+    margin: 5%;
+    font-size: 30px;
+}

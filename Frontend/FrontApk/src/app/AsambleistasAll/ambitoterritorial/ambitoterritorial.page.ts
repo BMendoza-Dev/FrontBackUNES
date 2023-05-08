@@ -30,7 +30,7 @@ export class AmbitoterritorialPage implements OnInit {
 
   getTerritorialList() {
     
-    this.rest.getTerritorialList().subscribe(response => {
+    this.rest.ObtenerTerritorioApp().subscribe(response => {
       this.y=0;
       this.ambitoTerr=response;
       this.loadCont.dismiss();
@@ -42,18 +42,6 @@ export class AmbitoterritorialPage implements OnInit {
       console.error('Error login >>' + JSON.stringify(error)); });
   }
 
-  getAssambly() {
-    this.restAss.getAssamblyList().subscribe(response => {
-      
-      for(let i=0; i < response['length']; i++){
-        if(response[i].politicalParty == "UNIÓN POR LA ESPERANZA"){
-          this.assambly.push(response[i]);
-        }
-      }
-      
-      //event.target.complete();
-    }, error => { console.error('Error login >>' + JSON.stringify(error)); });
-  }
 
   async showLoading() {
     const loading = await this.loadCont.create({
@@ -67,15 +55,15 @@ export class AmbitoterritorialPage implements OnInit {
 
   asambleTerri:any = []; thumbnail: any;
   ambTerri(lisAsamble : string){
-    this.rest.getAsambleistaTerritorio(lisAsamble).subscribe(response =>{
+    this.rest.ObtenerAsambleistaTerritorioApp(lisAsamble).subscribe(response =>{
       this.asambleTerri=response;
       
       if(this.asambleTerri.length == 0){
         this.NullAsa = true;
       }else{
-        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['image'][0].imagen),curul:this.asambleTerri[0].curul}];
+        var datoPrueba:any = [{id: this.asambleTerri[0].id, LastFirstName: this.asambleTerri[0].lastName +' '+ this.asambleTerri[0].firstName, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.asambleTerri[0]['imagen'][0].imagen),curul:this.asambleTerri[0].curul}];
        for (var i = 1; i < this.asambleTerri.length; i++) {
-        let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['image'][0].imagen;
+        let objectURL = 'data:image/jpeg;base64,' + this.asambleTerri[i]['imagen'][0].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           datoPrueba.push({
             "id" : this.asambleTerri[i].id,

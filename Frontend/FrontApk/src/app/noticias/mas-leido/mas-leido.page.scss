@@ -1,27 +1,29 @@
-.iconBack{
-    color: white;
-    width: 40px; font-size: 24px;
-  }
+.iconBack {
+  color: white;
+  width: 40px;
+  font-size: 24px;
+}
 
-  .title{
-    --color : white;
-    //size: large;
-    text-align: center;
-    font-family: "Gotham-Bold";
-    font-size: 15px;
-    padding: 0px 20px;
-  }
+.title {
+  --color: white;
+  //size: large;
+  text-align: center;
+  font-family: "Gotham-Bold";
+  font-size: 15px;
+  padding: 0px 20px;
+}
 
-  .title2{
-    text-align: center;
-    margin-top: 5%; margin-bottom: 4%;
-    font-family: "Gotham-Book";
-    font-size: 20px;
-    color: #00b9ec;
-    margin-bottom: 5px;
-  }
+.title2 {
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 4%;
+  font-family: "Gotham-Book";
+  font-size: 20px;
+  color: #00b9ec;
+  margin-bottom: 5px;
+}
 
-  .linea {
+.linea {
   border-top: 1px solid #00b9ec;
   height: 2px;
   max-width: 100px;
@@ -29,32 +31,32 @@
   margin: 10px auto 20px auto;
   background-color: #00b9ec;
   height: 5px;
-  }
+}
 
-  .lineaSepardor{
-    border-top: 1px solid #00b9ec;
+.lineaSepardor {
+  border-top: 1px solid #00b9ec;
   height: 2px;
   max-width: 100px;
   padding: 0;
   margin: 10px auto 20px auto;
   background-color: #00b9ec;
   height: 5px;
-  }
+}
 
-  h4{
-    font-family: "Gotham-Bold";
-  }
+h4 {
+  font-family: "Gotham-Bold";
+}
 
 
-  ion-text{
-    font-family: "Gotham-Book";
-  }
+ion-text {
+  font-family: "Gotham-Book";
+}
 
- ion-item span{
+ion-item span {
   font-size: 13px;
- }
+}
 
- ion-buttons.ios ion-back-button.ios{
+ion-buttons.ios ion-back-button.ios {
   margin-right: 7px
 }
 
@@ -67,62 +69,63 @@
   object-position: center right;
 }
 
-.users{
+.users {
   text-decoration: none;
   color: #374457;
   font-size: 18px;
   font-weight: bold;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 }
 
-.container-username{
-  display:flex;
-  flex-direction:column;
+.container-username {
+  display: flex;
+  flex-direction: column;
   text-align: left;
 }
 
-.header-username{
+.header-username {
   font-size: 14px;
   font-family: "Gotham-Medium";
 }
 
-.cargoAsambl{
-  color: #929293; 
-  font-weight: 100; 
+.cargoAsambl {
+  color: #929293;
+  font-weight: 100;
   font-size: 12px;
   font-family: "Gotham-Book";
 }
 
-.titleCard{
+.titleCard {
   font-family: "Gotham-Medium";
   text-align: left;
 }
 
-.contentCard{
+.contentCard {
   font-family: "Gotham-Book";
   text-align: left;
 }
 
-.fechaCard{
+.fechaCard {
   font-family: "Gotham-Medium";
   margin-top: 5px;
 }
 
-.botonVer{
+.botonVer {
   --border-color: #00b9ec;
   color: #00b9ec;
 }
 
-ion-toolbar{
+ion-toolbar {
   --background: #00b9ec;
 }
 
-.iconLoad{
+.iconLoad {
   color: #00b9ec;
   margin: auto 10px auto auto;
 }
-.iconLoad2{
+
+.iconLoad2 {
   margin: auto 10px auto auto;
 }
 
@@ -134,8 +137,8 @@ img {
 }
 
 ion-card {
-  --background : #f9f9f9;
-  box-shadow:none;
+  --background: #f9f9f9;
+  box-shadow: none;
 }
 
 
@@ -145,7 +148,7 @@ ion-card {
   top: 0;
 }
 
-ion-segment-button{
+ion-segment-button {
   color: white;
   --color-checked: white;
   font-family: "Gotham-Book";
@@ -154,4 +157,12 @@ ion-segment-button{
 
 ion-slides {
   height: 100%;
+}
+
+.content {
+  background-color: #f3f3f3;
+  padding: 5%;
+  margin: 5%;
+  font-family: "Gotham-Book";
+  text-align: left;
 }

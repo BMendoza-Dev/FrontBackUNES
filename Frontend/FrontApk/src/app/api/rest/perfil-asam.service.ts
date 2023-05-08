@@ -15,8 +15,8 @@ export class PerfilAsamService {
     this.token = localStorage.getItem('token');
   }
 
-  getAssamblyList() {
-    let url = this.urlAWS + 'ListarPerfiles';
+  ListarPerfilesApp() {
+    let url = this.urlAWS + 'ListarPerfilesApp';
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });
@@ -30,8 +30,8 @@ export class PerfilAsamService {
     });
   }
 
-  getAssamblyPerfil(id_perfil) {
-    let url = this.urlAWS + 'ObtenerPerfil?id=' + id_perfil;
+  ObtenerPerfilApp(id_perfil) {
+    let url = this.urlAWS + 'ObtenerPerfilApp?id=' + id_perfil;
 
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
@@ -39,7 +39,7 @@ export class PerfilAsamService {
 
     return this.httpCliente.get(url, { headers: httpheaders }).pipe(
       map((res: any) => ({
-        img: res['image'][0].imagen,
+        img: res['imagen'][0].imagen,
         lastName: res['lastName'],
         firstName: res['firstName'],
         ambito: `${res['territorialDivision']} (${res['jurisdiction']})`,
@@ -50,13 +50,14 @@ export class PerfilAsamService {
         office: res['localizacion']['office'],
         phone: `(593)2399 - 10000 ${res['localizacion']['phone']}`,
         email: res['email'],
-        comisiones: res['comisiones']
+        comisiones: res['comisiones'],
+        id_biografia: res['biografia_id']
       }))
     )
   }
 
-  getBiografiaAssam(id: any) {
-    let url = this.urlAWS + 'ObtenerBiografia?id=' + id;
+  ObtenerBiografiaApp(id: any) {
+    let url = this.urlAWS + 'ObtenerBiografiaApp?id=' + id;
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token
     });

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title">Asambleístas</ion-title>
+    <ion-title class="title">ASAMBLEÍSTAS</ion-title>
     <ion-buttons slot="end"> 
       <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -24,7 +24,7 @@
             <img src="{{itemAsam.imagen.changingThisBreaksApplicationSecurity}}" />
           </div>
           <ion-label style="margin-left: 2%;" (click)="goInfAssam(itemAsam.id)">
-            <h2>{{itemAsam.LastFirstName}}</h2>
+            <h2 style="color: #3880ff;">{{itemAsam.LastFirstName}}</h2>
             <h3>Curul {{itemAsam.curul}}</h3>
           </ion-label>
         </ion-item>

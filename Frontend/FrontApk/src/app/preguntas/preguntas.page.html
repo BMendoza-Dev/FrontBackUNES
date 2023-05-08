@@ -40,10 +40,16 @@
         <ion-input formControlName="Agrupacion" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-input>
         <ion-label position="stacked">Consulta</ion-label>
         <ion-textarea formControlName="Consulta" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-textarea>
-        <ion-button>
+        <ion-button >
           ENVIAR
           <ion-icon slot="end" name="send"></ion-icon>
         </ion-button>
     </form>
+
+    <ion-button (click)="sendEmail()">
+      Abrir Email #2
+    </ion-button>
+
+    {{mensaje}}
   </ion-card-content>
 </ion-content>

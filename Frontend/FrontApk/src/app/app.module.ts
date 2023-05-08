@@ -10,10 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { UltimasPage } from './noticias/ultimas/ultimas.page';
 import { InfUltimasPage } from './noticias/inf-ultimas/inf-ultimas.page';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },VideoPlayer ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },VideoPlayer,EmailComposer ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

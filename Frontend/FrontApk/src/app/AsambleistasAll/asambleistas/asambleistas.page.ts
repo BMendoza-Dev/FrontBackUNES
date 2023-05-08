@@ -37,12 +37,13 @@ export class AsambleistasPage implements OnInit {
 
   thumbnail: any; pruebaImagen: any;
   getAssambly(event) {
-    this.rest.getAssamblyList().then(data => {
-      this.assambly = data;
+    this.rest.ListarPerfilesApp().then(data => {
+      this.assambly = data; 
       //this.eliminarOrder();
-      let datoPrueba: any = [{ id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName + ' ' + this.assambly[1].firstName, territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['image'][0].imagen), curul: this.assambly[1].curul }];
+      let datoPrueba: any = [{ id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName + ' ' + this.assambly[1].firstName, territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['imagen'][0].imagen), curul: this.assambly[1].curul }];
+      
       for (let i = 2; i < this.assambly.length; i++) {
-        let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['image'][0].imagen;
+        let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['imagen'][0].imagen;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
         datoPrueba.push({
           "id": this.assambly[i].id,

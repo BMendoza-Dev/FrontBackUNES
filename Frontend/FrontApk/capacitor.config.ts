@@ -10,11 +10,11 @@ const config: CapacitorConfig = {
       path: "android/app/src/main/AndroidManifest.xml"
     }
  }*/
- "plugins": {
-  "CapacitorHttp": {
-    "enabled": true
-  }
-}
+//  "plugins": {
+//   "CapacitorHttp": {
+//     "enabled": true
+//   }
+// }
 };
 
 

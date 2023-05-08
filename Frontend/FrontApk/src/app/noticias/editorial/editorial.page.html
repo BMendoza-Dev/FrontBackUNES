@@ -3,8 +3,7 @@
     <ion-refresher-content
       pullingIcon="chevron-down-circle-outline"
       pullingText="Refrescar"
-      refreshingSpinner="circles"
-      refreshingText="Cargando...">
+      refreshingSpinner="circles">
     </ion-refresher-content>
   </ion-refresher>
   <div>
@@ -61,5 +60,31 @@
         <span class="fechaCard">Documento para descargar</span>
       </ion-item>
     </ion-card>
+  </div>
+
+  <div>
+    <ion-card-content class="content">
+      <form action="">
+        <ion-list>
+          <ion-item>
+            <ion-select
+              [compareWith]="compareWith"
+              placeholder="Seleccione editorial"
+              (ionChange)="handleChange($event)"
+              [multiple]="true"
+            >
+              <ion-select-option *ngFor="let food of foods" [value]="food">{{ food.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <!-- <ion-item lines="none">
+            <ion-label>Current value: {{ currentFood | json }}</ion-label>
+          </ion-item> -->
+        </ion-list>
+      </form>
+      <ion-button expand="full" size="small">
+        BUSCAR
+        <ion-icon slot="end" name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
   </div>
 </ion-content>

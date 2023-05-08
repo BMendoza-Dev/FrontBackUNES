@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 @Component({
   selector: 'app-preguntas',
@@ -8,7 +9,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 })
 export class PreguntasPage implements OnInit {
   ionicForm: FormGroup;
-  constructor(public formBuilder: FormBuilder) { 
+  mensaje: any;
+  constructor(public formBuilder: FormBuilder, private emailComposer: EmailComposer) { 
     this.ionicForm = new FormGroup({
       Nombre: new FormControl('', Validators.required),
       Apellidos: new FormControl('',Validators.required),
@@ -23,13 +25,24 @@ export class PreguntasPage implements OnInit {
   }
 
   submitForm() {
-    this.ionicForm.valid; debugger
+    this.ionicForm.valid; 
     if (this.ionicForm.valid) {
       // Aquí puede agregar la lógica para enviar el formulario
       console.log(this.ionicForm.value);
     }else{
       console.log(`No entro`)
     }
+  }
+
+  sendEmail() {
+    let email = {
+      to: 'destinatario@ejemplo.com',
+      subject: 'Asunto del correo electrónico',
+      body: 'Contenido del correo electrónico',
+      isHtml: true
+    };
+  
+    this.emailComposer.open(email);
   }
   
 }

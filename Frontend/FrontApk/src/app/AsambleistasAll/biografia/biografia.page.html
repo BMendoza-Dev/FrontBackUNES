@@ -1,19 +1,30 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title class="title" id="animated-title">ASAMBLEÍSTA</ion-title>
     <ion-buttons slot="end">
       <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title class="title">ASAMBLEÍSTA</ion-title>
-
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  <ion-card >
-    <div [innerHTML]="peril" class="contentInner" ></div>
-  </ion-card>
-  
 
-<div [innerHTML]="peril"></div>
+<ion-content >
+  
+  <ion-card class="cardStyle">
+      <div class="profile-imgBio">
+        <img  class="tamanioBio" [src]="urlGet" alt="" />
+      </div>
+    <div [innerHTML]="peril" class="contentInner" ></div>
+    <section class="buttons">
+      <i *ngIf="urlfb != null"><ion-icon name="logo-facebook"></ion-icon></i>
+      <i *ngIf="urltw != null"><ion-icon name="logo-twitter"></ion-icon></i>
+      <i *ngIf="urlit!= null"><ion-icon name="logo-instagram"></ion-icon></i>
+      <i *ngIf="urlttk != null"><ion-icon name="logo-tiktok"></ion-icon></i>
+    </section>
+  </ion-card>
  </ion-content>
+
+ 
 

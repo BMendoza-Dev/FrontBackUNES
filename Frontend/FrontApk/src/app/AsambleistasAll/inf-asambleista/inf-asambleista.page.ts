@@ -14,6 +14,7 @@ export class InfAsambleistaPage implements OnInit {
   algo: boolean = true; contacto: boolean = false; comisiones: boolean = false;
   edifice: any; floor: any; office: any; phone: any; email: any;
   comisionAss: any; cont:any;
+  id_biografia: any;
 
   constructor(private Nav:NavController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService, public loadCont: LoadingController) { }
 
@@ -32,7 +33,7 @@ export class InfAsambleistaPage implements OnInit {
 
   getAssambly() {
     this.showLoading();
-    this.rest.getAssamblyPerfil(this.id_perfil).subscribe((data: any) => {
+    this.rest.ObtenerPerfilApp(this.id_perfil).subscribe((data: any) => {
       
       this.trasformaImagen(data.img);
       this.lastName = data.lastName;
@@ -47,6 +48,7 @@ export class InfAsambleistaPage implements OnInit {
       this.phone = data.phone,
       this.email = data.email
       this.comisionAss = data.comisiones
+      this.id_biografia = data.id_biografia
       this.loadCont.dismiss();
       
     },error =>{console.log(error)})
@@ -64,7 +66,7 @@ export class InfAsambleistaPage implements OnInit {
 
   
   goInfAssam(id:any){
-    this.Nav.navigateForward(`biografia/${id}`);
+    this.Nav.navigateForward(`biografia/${this.id_perfil}`);
   }
   goVotosAssam(id:any){
     this.Nav.navigateForward(`votos-asambleista/${id}`);
