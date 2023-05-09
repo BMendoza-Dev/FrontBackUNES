@@ -10,6 +10,7 @@ use App\Models\Categorie;
 use App\Models\Blog;
 use App\Models\Nota;
 use App\Events\ChatEvent;
+use App\Events\Pdf;
 use App\Events\DirectMessageEvent;
 use App\Models\Editorial;
 use App\Events\NotifyEventBlog;
@@ -66,6 +67,12 @@ class BlogAppController extends Controller
         return response()->json($editoriales->load('blogs'));
       }
 
+
+      public function ListarPdfBlogApp(Request $request){
+        $blogid=$request->blog_id;
+        $Pdfs = Blog::find($blogid);
+        return response()->json( $Pdfs);
+      }
 
 
 }

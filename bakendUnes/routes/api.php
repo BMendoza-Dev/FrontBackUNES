@@ -246,7 +246,7 @@ Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfi
 Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'listarVotacionesAsambleista']);
 Route::get('ListarBlogUltimaNoticiaApp',[BlogAppController::class, 'ListarBlogUltimaNoticiaApp']);
 Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
-
+Route::get('ListarPdfBlogApp',[BlogAppController::class, 'ListarPdfBlogApp']);
 
 
 Route::middleware('auth:mobile_users')->get('/app', function (Request $request) {
