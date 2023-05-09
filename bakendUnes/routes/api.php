@@ -212,7 +212,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('CreateCategoria',[BlogsController::class, 'CreateCategoria']);
     Route::post('EditCategoria',[BlogsController::class, 'EditCategoria']);
 
-    Route::get('listarVotacionesAsambleista',[VotacionesController::class, 'listarVotacionesAsambleista']);
+    
 
     Route::post('CrearEditorial',[EditorialController::class, 'CrearEditorial']);
     Route::post('EditarEditorial',[EditorialController::class, 'EditarEditorial']);
@@ -234,19 +234,19 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 });
 Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
 
-Route::group(['middleware'=>['auth:mobile']],function(){
-    
+Route::group(['middleware'=>['auth:mobile_users']],function(){
+    Route::get('ObtenerBiografiaApp',[PerfilesControllerAppMobile::class, 'ObtenerBiografia']);
 });
 
 Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
 Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerTerritorio']);   
 Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerAsambleistaTerritorio']);
 Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfil']);
-Route::get('ObtenerBiografiaApp',[PerfilesControllerAppMobile::class, 'ObtenerBiografia']);
+Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'listarVotacionesAsambleista']);
 
 
 
-Route::middleware('auth:mobile')->get('/app', function (Request $request) {
+Route::middleware('auth:mobile_users')->get('/app', function (Request $request) {
     return $request->user();
 });
 

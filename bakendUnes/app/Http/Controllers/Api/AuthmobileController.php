@@ -62,18 +62,15 @@ class AuthmobileController extends Controller
         ]);
         
         // Intenta autenticar al usuario utilizando la guardia 'mobile'
-        if (!Auth::guard('mobile')->attempt($request->only('email', 'password'))) {
+        if (!Auth::guard('mobile_users')->attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Credenciales inválidas'], 401);
         }
         // Recupera el usuario autenticado
-        $mobileUser = auth()->guard('mobile')->user();
+        $mobileUser = auth()->guard('mobile_users')->user();
     
         // Crea un token de acceso para el usuario
-        $token = $mobileUser->createToken('mobile')->plainTextToken;
+        $token = $mobileUser->createToken('mobile_users')->plainTextToken;
 
-        $tokenexpire= OauthAccessToken::where('tokenable_id',$mobileUser->id)->get()->last();
-        $tokenexpire->expires_at=Carbon :: now ( )->addHour(24);
-        $tokenexpire->update();
         $cookie = cookie('cookie_token',$token,60*1);
     
         // Retorna la respuesta

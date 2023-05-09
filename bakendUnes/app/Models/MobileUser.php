@@ -2,20 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-class MobileUser extends Model implements AuthenticatableContract
+class MobileUser extends Authenticatable
 {
     use HasApiTokens;
-    use Authenticatable;
-    use HasFactory;
 
     protected $table = 'mobile_users';
     protected $guarded = ['id'];

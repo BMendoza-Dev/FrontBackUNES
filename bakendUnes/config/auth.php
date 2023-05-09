@@ -40,13 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'mobileapi' => [
-            'driver' => 'passport', 
-           'provider' => 'mobile',
-        ],
-        'mobile' => [
+        'mobile_users' => [
             'driver' => 'session',
             'provider' => 'mobile_users',
+        ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
         ],
     ],
 

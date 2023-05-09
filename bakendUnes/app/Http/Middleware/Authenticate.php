@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
 class Authenticate extends Middleware
@@ -22,11 +22,14 @@ class Authenticate extends Middleware
     public function handle($request, Closure $next, ...$guards)
     {
 
+   //     dd(auth('mobile')->check());
+       
+
         if($toke = $request->cookie('cookie_token')){
             $request->headers->set('Authorization', 'Bearer '.$toke);
         }
 
-        
+       // return response()->json($guards);
         $this->authenticate($request, $guards);
         return $next($request);
     }
