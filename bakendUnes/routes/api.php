@@ -10,6 +10,7 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\Api\AuthmobileController;
 use App\Http\Controllers\AppMobile\PerfilesControllerAppMobile;
+use App\Http\Controllers\AppMobile\BlogAppController;
 use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
@@ -243,6 +244,7 @@ Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerT
 Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerAsambleistaTerritorio']);
 Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfil']);
 Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'listarVotacionesAsambleista']);
+Route::get('ListarBlogUltimaNoticiaApp',[BlogAppController::class, 'ListarBlogUltimaNoticiaApp']);
 
 
 
