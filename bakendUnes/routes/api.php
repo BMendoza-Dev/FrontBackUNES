@@ -245,6 +245,7 @@ Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class
 Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfil']);
 Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'listarVotacionesAsambleista']);
 Route::get('ListarBlogUltimaNoticiaApp',[BlogAppController::class, 'ListarBlogUltimaNoticiaApp']);
+Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
 
 
 

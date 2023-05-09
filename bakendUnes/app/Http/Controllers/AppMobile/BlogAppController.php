@@ -11,6 +11,7 @@ use App\Models\Blog;
 use App\Models\Nota;
 use App\Events\ChatEvent;
 use App\Events\DirectMessageEvent;
+use App\Models\Editorial;
 use App\Events\NotifyEventBlog;
 use App\Notifications\NotifyBlogsPorAprobar;
 use Illuminate\Support\Facades\Auth;
@@ -57,4 +58,14 @@ class BlogAppController extends Controller
 
         return  response()->json($blogs);
     }
+
+
+    public function ListarEditorialApp(Request $request){
+
+        $editoriales = Editorial::all();
+        return response()->json($editoriales->load('blogs'));
+      }
+
+
+
 }
