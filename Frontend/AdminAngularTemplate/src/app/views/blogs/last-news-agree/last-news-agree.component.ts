@@ -236,7 +236,7 @@ export class LastNewsAgreeComponent implements OnInit {
       this.toggleLiveDemoDeny();
     } else {
       Swal.fire({
-        title: 'Estas seguro?',
+        title: 'Estás seguro?',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Aprobar',

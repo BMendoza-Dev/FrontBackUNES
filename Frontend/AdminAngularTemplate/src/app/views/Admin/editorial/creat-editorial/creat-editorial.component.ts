@@ -45,7 +45,7 @@ export class CreatEditorialComponent {
   @Output() cargarListEditorial = new EventEmitter<void>();
   editrialnum: any;
   idEditorial: any;
-  listBlogEditorial: any;
+  listBlogEditorial: any = [];
   cheklisordenado: any = [];
   constructor(private _formBuilder: FormBuilder, public rutas: Router,
     private spinnerService: SpinnerService, private scriptService: ScripServiceService,
@@ -58,7 +58,7 @@ export class CreatEditorialComponent {
 
 
   updateAllCompleteBlog(completed: any, id: number) {
-    
+
     this.allCompleteBlog = this.chekcList != null && this.chekcList.every((t: any) => t.completed);
     if (completed == true) {
       const resultado = this.chekcList.filter((objeto: any) => {
@@ -69,16 +69,16 @@ export class CreatEditorialComponent {
       this.cheklisordenado.push(resultado[0])
     } else {
       const indexAEliminar = this.cheklisordenado.findIndex((objeto: any) => {
-        
+
         return objeto._id === id;
       });
 
       if (indexAEliminar > -1) {
         this.cheklisordenado.splice(indexAEliminar, 1);
       }
-      
+
     }
-    
+
   }
   someCompleteBlog(): boolean {
     if (this.chekcList == null) {
@@ -88,24 +88,24 @@ export class CreatEditorialComponent {
     return dato
   }
   setAllBlog(completed: boolean) {
-    
+
     this.allCompleteBlog = completed;
     if (this.chekcList == null) {
-      
+
       return;
     }
     this.chekcList.forEach((t: any) => (t.completed = completed));
-    
+
     if (completed == true) {
       this.cheklisordenado = [...this.chekcList]
     } else {
       this.cheklisordenado = [];
     }
-    
+
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    
+
     moveItemInArray(this.cheklisordenado, event.previousIndex, event.currentIndex);
 
   }
@@ -130,6 +130,7 @@ export class CreatEditorialComponent {
   ListarBlogsImportantesSemana() {
     this.spinnerService.llamarSpinner();
     this.service.ListarBlogsImportantesSemana().then((data: any) => {
+      debugger
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
@@ -159,15 +160,15 @@ export class CreatEditorialComponent {
               this.cheklisordenado.push(blog);
             }
           });
-          
+
         }
 
-        if(this.listBlog.length === this.listBlogEditorial.length){
+        if (this.listBlog.length === this.listBlogEditorial.length) {
           this.allCompleteBlog = true;
         }
 
         this.chekcList = this.listBlog;
-        
+
       } else {
         this.listBlog = '';
       }

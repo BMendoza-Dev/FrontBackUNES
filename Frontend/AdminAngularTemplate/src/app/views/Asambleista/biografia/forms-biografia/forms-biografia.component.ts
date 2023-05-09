@@ -85,7 +85,7 @@ export class FormsBiografiaComponent implements OnInit {
 
   updateBiografia() {
     Swal.fire({
-      title: 'Estas seguro?',
+      title: 'Estás seguro?',
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Actualizar',

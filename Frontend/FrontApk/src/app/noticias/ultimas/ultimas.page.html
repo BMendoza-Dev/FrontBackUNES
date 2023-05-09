@@ -8,54 +8,27 @@
     <p class="title2"> ÚLTIMAS NOTICIAS </p>
     <div class="linea"></div>
 
-    <ion-card [routerLink]="['../inf-ultimas']">
-      <img src="../../../assets/imgs/back_02_home_rc.jpg" />
+    <ion-card *ngFor="let item of blogUlti" [routerLink]="['../inf-ultimas']">
+      <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
       <ion-card-header>
         <div class="container">
           <a class="users">
             <div class="container-username">
-              <span class="header-username"> Luisa Gonzáles</span>
-              <span class="cargoAsambl">Docente</span>
+              <span class="header-username">{{item.name}}</span>
+              <span class="cargoAsambl">{{item.jurisdiction}}</span>
             </div>
           </a>
         </div>
-        <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
-          RC5</ion-card-title>
+        <ion-card-title class="titleCard"> {{item.blogtitulo}} </ion-card-title>
       </ion-card-header>
 
       <ion-card-content class="contentCard">
-        La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
-        algunos liderazgos que no han podido neutralizar mediante el lawfare.
+        {{item.blogdescripcion}}
       </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <img src="../../../assets/imgs/back_04_home_rc.png" />
-      <ion-card-header>
-        <div class="container">
-          <a href="#" class="users">
-            <div class="container-username">
-              <span class="header-username"> Luisa Gonzáles</span>
-              <span class="cargoAsambl">Docente</span>
-            </div>
-          </a>
-        </div>
-        <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
-          RC5</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content class="contentCard">
-        La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
-        algunos liderazgos que no han podido neutralizar mediante el lawfare.
-      </ion-card-content>
-      <ion-item style="--ion-background-color: rgb(224, 224, 224);">
-        <ion-icon class="iconLoad" name="download-outline" slot="start"></ion-icon>
-        <span class="fechaCard">Documento para descargar</span>
-      </ion-item>
     </ion-card>
   </div>
   <div style="text-align: right; margin-right: 2%;">
-    <ion-button style="font-size: 17px;" size="default">
+    <ion-button style="font-size: 15px;" size="default">
       SIGUIENTE
       <ion-icon slot="end" name="arrow-redo-outline"></ion-icon>
     </ion-button>

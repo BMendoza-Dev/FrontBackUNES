@@ -85,26 +85,41 @@
   }
 
   .header-username {
-    font-size: 14px;
+    font-size: 12px;
     font-family: "Gotham-Medium";
   }
 
   .cargoAsambl {
     color: #929293;
     font-weight: 100;
-    font-size: 12px;
+    font-size: 10px;
     font-family: "Gotham-Book";
   }
 
   .titleCard {
     font-family: "Gotham-Medium";
     text-align: left;
-    font-size: 20px;
+    font-size: 18px;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-top: 8px;
   }
 
   .contentCard {
     font-family: "Gotham-Book";
     text-align: left;
+    font-size: 14px;
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    padding-bottom: 0px;
   }
 
   .fechaCard {
