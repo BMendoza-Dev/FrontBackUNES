@@ -1,23 +1,17 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>agenda</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" defaultHref="/"></ion-back-button>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
+    <ion-title class="title">Agendas</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content>
-  <ion-slides>
-    <ion-slide>
-      <h1>Slide 1</h1>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 2</h1>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide 3</h1>
-    </ion-slide>
-  </ion-slides>
+  <p class="title2"> {{fechaNow}} </p>
+  <div class="linea"></div>
 </ion-content>

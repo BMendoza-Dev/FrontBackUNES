@@ -27,8 +27,7 @@ export class PreguntasPage implements OnInit {
   submitForm() {
     this.ionicForm.valid; 
     if (this.ionicForm.valid) {
-      // Aquí puede agregar la lógica para enviar el formulario
-      console.log(this.ionicForm.value);
+      this.sendEmail();
     }else{
       console.log(`No entro`)
     }
@@ -44,5 +43,5 @@ export class PreguntasPage implements OnInit {
   
     this.emailComposer.open(email);
   }
-  
 }
+

@@ -18,6 +18,7 @@ p {
     justify-content: center;
     align-items: center;
     max-width: 200px;
+    max-height: 200px;
     /* cambiar según el tamaño deseado */
     margin: 0 auto;
     margin-top: 5%;
@@ -28,6 +29,7 @@ p {
     max-width: 100%;
     /* para que la imagen no supere el ancho de su contenedor */
     height: auto;
+    max-height: 200px;
 }
 
 .cardStyle {
@@ -56,4 +58,8 @@ p {
 .buttons i ion-icon {
     margin: 5%;
     font-size: 30px;
+}
+
+ion-buttons.ios ion-back-button.ios {
+    margin-right: 7px
 }

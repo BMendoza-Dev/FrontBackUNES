@@ -10,7 +10,7 @@
 <ion-content>
   <div class="content-img">
     <div class="profile-img">
-      <img  class="tamanio" [src]="urlGet" alt="" />
+      <img class="tamanio" [src]="urlGet" alt="" />
     </div>
   </div>
 
@@ -93,7 +93,7 @@
     <ng-container *ngIf="comisiones">
       <ion-list>
         <ion-item detail="false" *ngFor="let commi of comisionAss">
-          <h3 *ngIf="commi.pivot.roleName != ''">{{commi.name}} {{commi.pivot.roleName}}</h3> 
+          <h3 *ngIf="commi.pivot.roleName != ''">{{commi.name}} {{commi.pivot.roleName}}</h3>
           <h3 *ngIf="commi.pivot.roleName == ''">{{commi.name}} - INTEGRANTE DE LA COMISIÓN</h3>
         </ion-item>
       </ion-list>
@@ -102,11 +102,27 @@
 
   <ion-card>
     <ion-list *ngIf="id_biografia != null" class="unirButton">
-        <ion-button size="default" style="font-size: 12.5px;" (click)="goInfAssam(id_perfil)" expand="block">BIOGRAFÍA</ion-button>
+      <ion-button size="default" style="font-size: 12.5px;" (click)="goInfAssam(id_perfil)"
+        expand="block">BIOGRAFÍA</ion-button>
     </ion-list>
     <ion-list class="unirButton">
-        <ion-button size="default" style="font-size: 12.5px;" (click)="goVotosAssam(id_perfil)" expand="block">VOTACIONES</ion-button>
-  </ion-list>
+      <ion-button size="default" style="font-size: 12.5px;" (click)="goVotosAssam(id_perfil)"
+        expand="block">VOTACIONES</ion-button>
+    </ion-list>
   </ion-card>
-  
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-select placeholder="Seleccione una categoría de blog" [(ngModel)]="selectCategoria">
+          <ion-select-option value="apples">Agenda</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-list class="unirButton">
+      <ion-button size="default" style="font-size: 12.5px;" expand="block">REVISAR <ion-icon
+          name="arrow-redo-outline"></ion-icon></ion-button>
+    </ion-list>
+  </ion-card>
+
 </ion-content>

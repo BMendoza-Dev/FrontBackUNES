@@ -13,40 +13,35 @@
               <ion-label>Inicio</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          
+        </ion-list>
+
+        <ion-list id="inbox-list" >
+          <ion-label class="title">Comunicación</ion-label>
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['agenda']" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item  [routerLink]="['notificaciones']" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="notifications-outline"></ion-icon>
+              <ion-label>Notificaciones</ion-label>
+              </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item  [routerLink]="['agenda']" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="calendar-outline"></ion-icon>
               <ion-label>Agenda</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list id="inbox-list" >
-          <ion-label class="title">Comunicación</ion-label>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['notificaciones']" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" name="notifications-outline"></ion-icon>
-              <ion-label>Notificaciones</ion-label>
-              </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item  routerDirection="root" [routerLink]="['preguntas']" lines="none" detail="false">
-              <ion-icon slot="start" name="mail-outline"></ion-icon>
-              <ion-label>Pregunta</ion-label>
-              </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-
         <ion-list id="inbox-list">
           <ion-label class="title">Redes Sociales</ion-label>
           <ion-menu-toggle auto-hide="false">
-            <ion-item   routerDirection="root" [routerLink]="" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item   routerDirection="root" href="https://www.facebook.com/groups/620252548651632" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="logo-facebook"></ion-icon>
               <ion-label>Facebook</ion-label>
               </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false">
-            <ion-item  routerDirection="root" [routerLink]="" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item  routerDirection="root" href="https://twitter.com/RC5Oficial" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="logo-twitter"></ion-icon>
               <ion-label>Twitter</ion-label>
               </ion-item>

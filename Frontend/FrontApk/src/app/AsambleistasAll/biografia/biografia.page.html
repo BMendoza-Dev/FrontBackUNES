@@ -16,12 +16,12 @@
       <div class="profile-imgBio">
         <img  class="tamanioBio" [src]="urlGet" alt="" />
       </div>
-    <div [innerHTML]="peril" class="contentInner" ></div>
+    <div  [innerHTML]="peril" class="contentInner" ></div>
     <section class="buttons">
-      <i *ngIf="urlfb != null"><ion-icon name="logo-facebook"></ion-icon></i>
-      <i *ngIf="urltw != null"><ion-icon name="logo-twitter"></ion-icon></i>
-      <i *ngIf="urlit!= null"><ion-icon name="logo-instagram"></ion-icon></i>
-      <i *ngIf="urlttk != null"><ion-icon name="logo-tiktok"></ion-icon></i>
+      <a [href]="urlfb" style="color: #3B5998;"><i *ngIf="urlfb != null" ><ion-icon name="logo-facebook"></ion-icon></i></a>
+      <a [href]="urltw" style="color: #1DA1F2;"> <i *ngIf="urltw != null"><ion-icon name="logo-twitter"></ion-icon></i></a>
+        <a [href]="urlit" style="color: #E1306C;"><i *ngIf="urlit!= null"><ion-icon name="logo-instagram"></ion-icon></i></a>
+          <a [href]="urlttk" style="color: #69C9D0;"><i *ngIf="urlttk != null"><ion-icon name="logo-tiktok"></ion-icon></i></a>
     </section>
   </ion-card>
  </ion-content>

@@ -42,13 +42,14 @@ export class InicioPage implements OnInit {
   // llamado de la función
 
   ngOnInit(): void {
+    this.showLoading();
     this.myFunction();
     const iframe = document.getElementById('youtube') as HTMLIFrameElement;
     iframe.addEventListener('load', () => {
       console.log('El iframe se ha cargado');
       setTimeout(() => {
-        //this.loadCont.dismiss();
-      }, 2000);
+        this.loadCont.dismiss();
+      }, 3000);
       
     });
     

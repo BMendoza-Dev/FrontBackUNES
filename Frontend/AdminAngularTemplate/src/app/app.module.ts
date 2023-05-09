@@ -66,6 +66,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
@@ -103,6 +104,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     InfiniteScrollModule,
     NgxPaginationModule,
     PlaceholderModule, 
+    NgxSpinnerModule
   ],
   providers: [
     {

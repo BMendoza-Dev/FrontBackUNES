@@ -155,3 +155,13 @@ ion-segment-button{
 ion-slides {
   height: 100%;
 }
+
+ion-segment.ios{
+  min-width: auto;
+  border-radius: 0px
+}
+
+ion-segment.ios ion-segment-button.ios{
+  min-width: auto;
+  --indicator-height: 10%;
+}

@@ -14,7 +14,7 @@ export class InfAsambleistaPage implements OnInit {
   algo: boolean = true; contacto: boolean = false; comisiones: boolean = false;
   edifice: any; floor: any; office: any; phone: any; email: any;
   comisionAss: any; cont:any;
-  id_biografia: any;
+  id_biografia: any; selectCategoria=''
 
   constructor(private Nav:NavController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService, public loadCont: LoadingController) { }
 

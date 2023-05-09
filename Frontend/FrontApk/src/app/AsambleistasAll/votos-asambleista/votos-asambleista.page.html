@@ -10,12 +10,32 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar class="search" placeholder="Buscar tema" animated
+    <ion-searchbar class="search" placeholder="Buscar tema" animated (ionChange)="buscar($event)"
       ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let item of votosFilter.slice(0,lim);let index = index">
+      <ion-card-header *ngIf="item.description != false" class="cardHeader">
+        <ion-card-subtitle class="cardSubTitle">Sesión {{item.sesion}} | {{item.initialDate}}</ion-card-subtitle>
+        <ion-card-title class="cardTitle">{{item.description}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content *ngIf="item.description != false" class="cardContentVoto">
+        VOTO: {{item.voto}}
+      </ion-card-content>
+      <ion-card-content *ngIf="item.description == false" class="cardContentVoto">
+        <p class="sinRegis">Sin registro</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="votosFilter.length > lim" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
 <!--ion-content>
   <ion-card *ngFor="let item of assambly | filtro: textoBuscar">
     <ion-item (click)="goInfAssam(item.id)">
@@ -30,4 +50,6 @@
 
     </ion-item>
   </ion-card>
+
+  
 </ion-content-->
