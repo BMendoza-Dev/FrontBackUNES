@@ -71,7 +71,7 @@ class BlogAppController extends Controller
       public function ListarPdfBlogApp(Request $request){
         $blogid=$request->blog_id;
         $Pdfs = Blog::find($blogid);
-        return response()->json( $Pdfs);
+        return response()->json( $Pdfs->load('pdf'));
       }
 
 
