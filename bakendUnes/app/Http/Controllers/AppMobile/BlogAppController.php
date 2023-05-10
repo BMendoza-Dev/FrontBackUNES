@@ -63,7 +63,7 @@ class BlogAppController extends Controller
 
     public function ListarEditorialApp(Request $request){
 
-        $editoriales = Editorial::all();
+        $editoriales = Editorial::all()->orderByDesc('created_at');
         return response()->json($editoriales->load('blogs'));
       }
 
