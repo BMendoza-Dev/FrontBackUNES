@@ -80,10 +80,10 @@ class BlogAppController extends Controller
         return response()->json($Pdfs);
         }
 
-        public function ObtenerBlogApp(Request $request){
+        public function ObtenerBlogApp(Request $request) {
             $blogid = $request->blog_id;
-            $blogs = Blog::with('perfil', 'image','categoria')->find($blogid)
-            ->map(function($blog) {
+            $blog = Blog::with('perfil', 'image','categoria')->find($blogid);
+            $blogs = collect([$blog])->map(function($blog) {
                 return [
                     'id' => $blog->id,
                     'blogtitulo' => $blog->blogtitulo,
@@ -103,6 +103,7 @@ class BlogAppController extends Controller
                     'imagen' => $blog->image->imagen
                 ];
             });
-         }
+            return response()->json( $blogs);
+        }
 
 }
