@@ -63,8 +63,30 @@ class BlogAppController extends Controller
 
     public function ListarEditorialApp(Request $request){
 
-        $editoriales = Editorial::all();
-        return response()->json($editoriales->load('blogs'));
+        $editoriales = Editorial::with(['blogs' => function ($query) {
+            $query->orderBy('blog_editorial.position', 'asc')->take(2);
+        }, 'blogs.categoria'])->get();
+
+    $editorialesConBlogs = $editoriales->map(function($editorial){
+        return [ 
+            'id' => $editorial->id,
+            'editrialnum' => $editorial->editrialnum,
+            'editorialname' => $editorial->editorialname,
+            'created_at' => $editorial->created_at,
+            'blogs' => $editorial->blogs->map(function($blog){
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'created_at' => $blog->created_at,
+                    'categorianame' => $blog->categoria->categorianame
+                ];
+            })
+        ];
+    });
+
+        return response()->json($editorialesConBlogs);
       }
 
 
@@ -105,5 +127,34 @@ class BlogAppController extends Controller
             });
             return response()->json( $blogs);
         }
+
+
+        public function ListarBlogsPorEditorialApp(Request $request)
+    {
+        $editoriales = Editorial::with(['blogs' => function ($query) {
+            $query->orderBy('blog_editorial.position', 'asc');
+        }, 'blogs.categoria'])->where('id', $request->id)->get();
+
+    $editorialesConBlogs = $editoriales->map(function($editorial){
+        return [ 
+            'id' => $editorial->id,
+            'editrialnum' => $editorial->editrialnum,
+            'editorialname' => $editorial->editorialname,
+            'created_at' => $editorial->created_at,
+            'blogs' => $editorial->blogs->map(function($blog){
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'created_at' => $blog->created_at,
+                    'categorianame' => $blog->categoria->categorianame
+                ];
+            })
+        ];
+    });
+
+    return response()->json($editorialesConBlogs);
+    }
 
 }
