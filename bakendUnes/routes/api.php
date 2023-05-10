@@ -231,21 +231,22 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 });
 Route::post('LoginAppMobile',[AuthmobileController::class, 'Login']);
 
-Route::group(['middleware'=>['auth:mobile_users']],function(){
+Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ObtenerBiografiaApp',[PerfilesControllerAppMobile::class, 'ObtenerBiografia']);
+    Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
+    Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerTerritorio']);   
+    Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerAsambleistaTerritorio']);
+    Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfil']);
+    Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'listarVotacionesAsambleista']);
+    Route::get('ListarBlogUltimaNoticiaApp',[BlogAppController::class, 'ListarBlogUltimaNoticiaApp']);
+
+    Route::get('ListarPdfBlogApp',[BlogAppController::class, 'ListarPdfBlogApp']);
+    Route::get('ObtenerBlogApp',[BlogAppController::class, 'ObtenerBlogApp']);
+    Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
+    Route::get('ListarBlogsPorEditorialApp',[BlogAppController::class, 'ListarBlogsPorEditorialApp']);
 });
 
-Route::get('ListarPerfilesApp',[PerfilesControllerAppMobile::class, 'ListarPerfiles']);
-Route::get('ObtenerTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerTerritorio']);   
-Route::get('ObtenerAsambleistaTerritorioApp',[PerfilesControllerAppMobile::class, 'ObtenerAsambleistaTerritorio']);
-Route::get('ObtenerPerfilApp',[PerfilesControllerAppMobile::class, 'ObtenerPerfil']);
-Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'listarVotacionesAsambleista']);
-Route::get('ListarBlogUltimaNoticiaApp',[BlogAppController::class, 'ListarBlogUltimaNoticiaApp']);
 
-Route::get('ListarPdfBlogApp',[BlogAppController::class, 'ListarPdfBlogApp']);
-Route::get('ObtenerBlogApp',[BlogAppController::class, 'ObtenerBlogApp']);
-Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
-Route::get('ListarBlogsPorEditorialApp',[BlogAppController::class, 'ListarBlogsPorEditorialApp']);
 
 
 Route::middleware('auth:mobile_users')->get('/app', function (Request $request) {
