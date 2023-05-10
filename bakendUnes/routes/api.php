@@ -184,8 +184,6 @@ Route::get('/pruevapdf', function (Request $request) {
 
 Route::post('Login',[AuthController::class, 'Login']);
 
-
-
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
@@ -212,8 +210,6 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('AprobarBlogEnUltimaNoticias',[BlogsController::class, 'AprobarBlogEnUltimaNoticias']);
     Route::post('CreateCategoria',[BlogsController::class, 'CreateCategoria']);
     Route::post('EditCategoria',[BlogsController::class, 'EditCategoria']);
-
-    
 
     Route::post('CrearEditorial',[EditorialController::class, 'CrearEditorial']);
     Route::post('EditarEditorial',[EditorialController::class, 'EditarEditorial']);
@@ -247,6 +243,7 @@ Route::get('listarVotacionesAsambleistaApp',[VotacionesController::class, 'lista
 Route::get('ListarBlogUltimaNoticiaApp',[BlogAppController::class, 'ListarBlogUltimaNoticiaApp']);
 Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
 Route::get('ListarPdfBlogApp',[BlogAppController::class, 'ListarPdfBlogApp']);
+Route::get('ObtenerBlogApp',[BlogAppController::class, 'ObtenerBlogApp']);
 
 
 Route::middleware('auth:mobile_users')->get('/app', function (Request $request) {

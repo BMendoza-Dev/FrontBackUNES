@@ -80,5 +80,29 @@ class BlogAppController extends Controller
         return response()->json($Pdfs);
         }
 
+        public function ObtenerBlogApp(Request $request){
+            $blogid = $request->blog_id;
+            $blogs = Blog::with('perfil', 'image','categoria')->find($blogid)
+            ->map(function($blog) {
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'masleido' => $blog->masleido,
+                    'ultimanoticia' => $blog->ultimanoticia,
+                    'aprobado' => $blog->aprobado,
+                    'editoriale_id' => $blog->editoriale_id,
+                    'categorie_id' => $blog->categorie_id,
+                    'categorianame' => $blog->categoria->categorianame,
+                    'perfil_id' => $blog->perfil_id,
+                    'users_id' => $blog->users_id,
+                    'created_at' => $blog->created_at,
+                    'updated_at' => $blog->updated_at,
+                    'perfil' => $blog->perfil,
+                    'imagen' => $blog->image->imagen
+                ];
+            });
+         }
 
 }
