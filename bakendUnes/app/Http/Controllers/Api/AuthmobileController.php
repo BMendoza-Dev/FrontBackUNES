@@ -62,7 +62,7 @@ class AuthmobileController extends Controller
         ]);
         
         // Intenta autenticar al usuario utilizando la guardia 'mobile'
-        if (!Auth::guard('mobile_users')->attempt($request->only('email', 'password'))) {
+        if (!Auth::guard('mobile_users')->attempt($validatedData)) {
             return response()->json(['message' => 'Credenciales inválidas'], 401);
         }
         // Recupera el usuario autenticado

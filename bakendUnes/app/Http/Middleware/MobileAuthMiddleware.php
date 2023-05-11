@@ -21,7 +21,7 @@ class MobileAuthMiddleware extends Middleware
  
      public function handle($request, Closure $next, ...$guards)
      {
-        $response = auth('mobile')->check();
+        $response = auth('mobile_users')->check();
         $responseCode = 200;
         if(!$response) {
             try {
