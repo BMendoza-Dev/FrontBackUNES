@@ -148,7 +148,10 @@ class BlogAppController extends Controller
                     'blogdescripcion' => $blog->blogdescripcion,
                     'blogcontenido' => $blog->blogcontenido,
                     'created_at' => $blog->created_at,
-                    'categorianame' => $blog->categoria->categorianame
+                    'categorianame' => $blog->categoria->categorianame,
+                    'updated_at' => $blog->updated_at,
+                    'perfil' => $blog->perfil,
+                    'imagen' => $blog->image->imagen
                 ];
             })
         ];
