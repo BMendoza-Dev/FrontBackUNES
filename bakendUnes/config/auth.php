@@ -64,6 +64,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'mobile_users' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\MobileUser::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
