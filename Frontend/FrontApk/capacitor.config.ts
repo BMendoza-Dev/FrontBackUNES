@@ -5,11 +5,11 @@ const config: CapacitorConfig = {
   appName: 'FrontApk',
   webDir: 'www',
   bundledWebRuntime: false,
-  /*plugins: {
-    android: {
-      path: "android/app/src/main/AndroidManifest.xml"
-    }
- }*/
+//   /*plugins: {
+//     android: {
+//       path: "android/app/src/main/AndroidManifest.xml"
+//     }
+//  }*/
 //  "plugins": {
 //   "CapacitorHttp": {
 //     "enabled": true

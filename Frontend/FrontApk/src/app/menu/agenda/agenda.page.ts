@@ -38,6 +38,10 @@ export class AgendaPage implements OnInit {
 
   }
 
+  handleRefresh(event){
+
+  }
+
 
 
 }

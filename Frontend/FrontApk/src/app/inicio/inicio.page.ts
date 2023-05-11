@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Device } from '@capacitor/device';
 import { ScriptServiceService } from '../api/rest/script-service.service';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
@@ -10,14 +10,13 @@ import { LoadingController } from '@ionic/angular';
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class InicioPage implements OnInit,OnDestroy {
   identificador: any;
   uuid: any;
   videoId: any;
 
 
   constructor(private scriptService: ScriptServiceService,public loadCont: LoadingController) {
-
     this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
       .then(data => {
         console.log('script loaded ', data);
@@ -42,24 +41,22 @@ export class InicioPage implements OnInit {
   // llamado de la función
 
   ngOnInit(): void {
-    this.showLoading();
+    //this.showLoading();
     this.myFunction();
     const iframe = document.getElementById('youtube') as HTMLIFrameElement;
     iframe.addEventListener('load', () => {
       console.log('El iframe se ha cargado');
-      setTimeout(() => {
-        this.loadCont.dismiss();
-      }, 3000);
-      
+      // setTimeout(() => {
+      //   this.loadCont.dismiss();
+      // }, 3000);
     });
     
   }
   ionViewDidLeave() {
-    //this.scriptService.removeScript('twitter');
-    
+    // this.scriptService.removeScript('twitter');
   }
 
-  ngOndestroy() {
+  ngOnDestroy() {
     this.scriptService.removeScript('twitter');
   }
 

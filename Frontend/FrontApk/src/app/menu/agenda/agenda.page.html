@@ -14,4 +14,41 @@
 <ion-content>
   <p class="title2"> {{fechaNow}} </p>
   <div class="linea"></div>
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Refrescar"
+        refreshingSpinner="circles">
+      </ion-refresher-content>
+    </ion-refresher>
+    <div>
+      <ion-card [routerLink]="['../inf-ultimas']">
+        <ion-card-header>
+          <div class="container">
+            <!-- <a class="users">
+              <div class="container-username">
+                <span class="header-username"> Luisa Gonzáles</span>
+                <span class="cargoAsambl">Docente</span>
+              </div>
+            </a> -->
+          </div>
+          <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
+            RC5</ion-card-title>
+        </ion-card-header>
+  
+        <ion-card-content class="contentCard">
+          La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
+          algunos liderazgos que no han podido neutralizar mediante el lawfare.
+        </ion-card-content>
+      </ion-card>
+    </div>
+  
+    <!-- <div style="text-align: right; margin-right: 2%;">
+      <ion-button style="font-size: 17px;" size="default">
+        SIGUIENTE
+        <ion-icon slot="end" name="arrow-redo-outline"></ion-icon>
+      </ion-button>
+    </div> -->
+  </ion-content>
 </ion-content>

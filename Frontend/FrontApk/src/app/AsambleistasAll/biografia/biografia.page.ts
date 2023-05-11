@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PerfilAsamService } from 'src/app/api/rest/perfil-asam.service';
 import { ViewEncapsulation } from '@angular/core'
-import { DomSanitizer,SafeHtml  } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import * as scriptjs from 'scriptjs';
 import { ScriptServiceService } from 'src/app/api/rest/script-service.service';
 import { LoadingController } from '@ionic/angular';
@@ -15,16 +15,16 @@ import { LoadingController } from '@ionic/angular';
 export class BiografiaPage implements OnInit {
   id_perfil: any;
   peril: SafeHtml;
-  cont:any;
+  cont: any;
   urlGet: any;
   urlfb: string = '';
   urlit: string = '';
   urlttk: string = '';
   urltw: string = '';
-  constructor(public loadCont: LoadingController,private sanitizer: DomSanitizer ,private activatedRoute: ActivatedRoute, private rest:PerfilAsamService) { }
- 
-  
- 
+  constructor(public loadCont: LoadingController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService) { }
+
+
+
   ngOnInit() {
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getBiografia();
@@ -35,22 +35,22 @@ export class BiografiaPage implements OnInit {
     this.urlGet = this.sanitizer.bypassSecurityTrustUrl(objectURL);
   }
 
-  getBiografia(){
+  getBiografia() {
     this.showLoading();
-    this.rest.ObtenerBiografiaApp(this.id_perfil).subscribe((data:any) =>{
-      console.log(data);
+    this.rest.ObtenerBiografiaApp(this.id_perfil).subscribe((data: any) => {
+
       this.trasformaImagen(data.img);
       this.peril = this.sanitizer.bypassSecurityTrustHtml(data.perfil);
       this.urlfb = data.urlfb
-    this.urlit = data.urlit
-    this.urlttk  = data.urlttk
-    this.urltw = data.urltw
+      this.urlit = data.urlit
+      this.urlttk = data.urlttk
+      this.urltw = data.urltw
       this.loadCont.dismiss();
       // this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
       //   .then(data => {
       //     console.log('script loaded ', data);
       //   }).catch(error => console.log(error));
-    },error => (console.log(error)))
+    }, error => (console.log(error)))
   }
 
 
@@ -67,5 +67,5 @@ export class BiografiaPage implements OnInit {
 
     loading.present();
   }
-  
+
 }

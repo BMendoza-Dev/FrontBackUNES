@@ -1,16 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <!--ion-buttons slot="start" >
-      <ion-menu-button style="color: black;"></ion-menu-button>
-    </ion-buttons-->
     <ion-buttons slot="start">
       <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title class="title">REVOLUCIÓN CIUDADANA</ion-title>
-    <!-- <ion-buttons (click)="share()" slot="end">
-      <ion-icon class="iconBack" name="share-social"></ion-icon>
-    </ion-buttons> -->
-    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
   </ion-toolbar>
 </ion-header>
 
@@ -22,26 +15,26 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
-        RC5</ion-card-title>
-      <ion-card-subtitle class="subtitleCard">Card Subtitle</ion-card-subtitle>
+      <ion-card-title class="titleCard">{{blogtitulo}}</ion-card-title>
+      <ion-card-subtitle class="subtitleCard">{{blogdescripcion}}</ion-card-subtitle>
     </ion-card-header>
 
 
-    <img style="margin-bottom: 10px;" src="../../../assets/imgs/noticia2.jpg" />
-    <em class="tituloImagen">El man traicionero</em>
+    <img class="imgPrincipal" style="margin-bottom: 10px;" [src]="imagen" />
+    <em class="tituloImagen">Categoría: {{categorianame}}</em>
 
-    <ion-card-content class="contentCard">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur alias, quod provident in corrupti
-      consequatur? Aliquid ab veritatis in consectetur eligendi quia, nisi laborum autem consequuntur officia quo
-      explicabo quis!
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat, qui voluptates ipsam voluptatum quaerat quam
-      quis autem, temporibus quasi blanditiis minus quae, cupiditate vel. Adipisci est fugit ex eveniet magni.
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, voluptas voluptatem explicabo quia obcaecati
-      dicta corrupti velit, sit iste quaerat tenetur, quae illum possimus in deleniti dolorum eum praesentium
-      consectetur!
+    <ion-card-content class="contentCard"> 
+      <div  [innerHTML]="blogcontenido" class="contentInner"></div>
     </ion-card-content>
   </ion-card>
+  <ion-card>
+    <ion-item  *ngFor="let item of listPdf" style="--ion-background-color: rgb(224, 224, 224); margin: 2%;">
+      <ion-icon class="iconLoad" name="download-outline" slot="start"></ion-icon>
+      <span class="fechaCard">{{item.name}}</span>
+    </ion-item>
+  </ion-card>
+
+
 
   <!-- <div>
     <p class="title2"> REDES SOCIALES</p>

@@ -6,7 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { UltimasPage } from './noticias/ultimas/ultimas.page';
 import { InfUltimasPage } from './noticias/inf-ultimas/inf-ultimas.page';

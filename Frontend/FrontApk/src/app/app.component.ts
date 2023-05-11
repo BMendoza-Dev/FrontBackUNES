@@ -8,6 +8,7 @@ import { Device } from '@capacitor/device';
 })
 export class AppComponent {
   identificador: string;
+  error: any;
 
   constructor(private restLogin: LoginService) {
     this.myFunction();
@@ -32,9 +33,10 @@ export class AppComponent {
     }
     
     this.restLogin.LoginAppMobile(data).then((data) =>{
-      
-      localStorage.setItem('token', data['access_token']); 
+      localStorage.setItem('token', data['token']); 
+      // this.error='entro'
     }).catch(error =>{
+      this.error = error.error
       console.log(error);
     })
   }

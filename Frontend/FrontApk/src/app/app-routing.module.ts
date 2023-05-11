@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./noticias/ultimas/ultimas.module').then( m => m.UltimasPageModule)
   },
   {
-    path: 'inf-ultimas',
+    path: 'inf-ultimas/:id',
     loadChildren: () => import('./noticias/inf-ultimas/inf-ultimas.module').then( m => m.InfUltimasPageModule)
   },
   {
@@ -54,7 +54,8 @@ const routes: Routes = [
   {
     path: 'votos-asambleista/:id',
     loadChildren: () => import('./AsambleistasAll/votos-asambleista/votos-asambleista.module').then( m => m.VotosAsambleistaPageModule)
-  },  {
+  },
+  {
     path: 'preguntas',
     loadChildren: () => import('./preguntas/preguntas.module').then( m => m.PreguntasPageModule)
   },
@@ -70,6 +71,11 @@ const routes: Routes = [
     path: 'blogs',
     loadChildren: () => import('./noticias/blogs/blogs.module').then( m => m.BlogsPageModule)
   },
+  {
+    path: 'inf-editorial/:id',
+    loadChildren: () => import('./noticias/inf-editorial/inf-editorial.module').then( m => m.InfEditorialPageModule)
+  },
+
 
 
 

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title">
+      RC5 EDITORIAL
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="blogEditorial.length>0 ;else sinRegistro">
+    <p class="title2"> {{titleEdit}} </p>
+    <div class="linea"></div>
+
+    <ion-card *ngFor="let item of blogEditorial.slice(0,lim);let index = index" (click)="goInfBlog(item.id)">
+      <!-- <img  src="{{item.imagen.changingThisBreaksApplicationSecurity}}" /> -->
+      <ion-card-header >
+        <div class="container">
+          <a class="users">
+            <div class="container-username">
+              <span class="header-username">{{item.name}}</span>
+              <span class="cargoAsambl">{{item.jurisdiction}}</span>
+            </div>
+          </a>
+        </div>
+        <ion-card-title class="titleCard"> {{item.blogtitulo}} </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="contentCard">
+        {{item.blogdescripcion}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #sinRegistro>
+    <ion-card>
+      <p class="sinRegis">Sin registros</p>
+    </ion-card>
+  </ng-template>
+  
+
+  <ion-infinite-scroll *ngIf="blogEditorial.length > lim" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

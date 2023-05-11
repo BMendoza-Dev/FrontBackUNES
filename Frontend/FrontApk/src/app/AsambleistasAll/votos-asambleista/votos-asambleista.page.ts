@@ -83,20 +83,6 @@ export class VotosAsambleistaPage implements OnInit {
     }, 600);
   }
 
-   verMas() {
-    const textoLargo = document.getElementById("texto-largo");
-  const botonVerMas = document.getElementById("boton-ver-mas");
-  
-  textoLargo.classList.toggle("mostrar");
-  
-  if (textoLargo.classList.contains("mostrar")) {
-    botonVerMas.textContent = "Ver menos";
-  } else {
-    botonVerMas.textContent = "Ver más";
-  }
-  
-  botonVerMas.classList.add("oculto");
-  }
   
 
 }

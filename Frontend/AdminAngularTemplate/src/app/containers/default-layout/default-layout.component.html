@@ -5,12 +5,12 @@
   id="sidebar"
   visible
 >
-  <c-sidebar-brand
+  <c-sidebar-brand style="background-color: #00AEEF;"
     [brandFull]="{
-      src: 'assets/img/brand/coreui-angular.svg',
+      src: 'assets/img/brand/Recurso_54x.png',
       width: 200,
-      height: 46,
-      alt: 'CoreUI Logo'
+      height: 55,
+      alt: 'Rc5 Logo'
     }"
     [brandNarrow]="{
       src: 'assets/img/brand/coreui-signet-white.svg',
@@ -21,15 +21,15 @@
    
   >
   </c-sidebar-brand>
-    <perfect-scrollbar [config]="perfectScrollbarConfig">
+    <perfect-scrollbar style="background-color: #183963;"  [config]="perfectScrollbarConfig">
   <!--  [perfectScrollbar]="perfectScrollbarConfig"-->
-  <c-sidebar-nav
+  <c-sidebar-nav style="background-color: #183963;"
     [navItems]="navItems"
     dropdownMode="close"
   >
   </c-sidebar-nav>
     </perfect-scrollbar>
-  <c-sidebar-toggler
+  <c-sidebar-toggler style="background-color: #183963;"
     *ngIf="!sidebar.narrow"
     toggle="unfoldable"
     cSidebarToggle="sidebar"

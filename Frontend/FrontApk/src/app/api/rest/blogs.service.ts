@@ -24,4 +24,39 @@ export class BlogsService {
     return this.httpCliente.get(url, { headers: httpheaders });
   }
 
+  ListarEditorialApp(){
+    let url = this.urlAWS + 'ListarEditorialApp';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
+  ObtenerBlogApp(blog_id:any){
+    let url = this.urlAWS + 'ObtenerBlogApp?blog_id='+blog_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
+  ListarPdfBlogApp(blog_id:any){
+    let url = this.urlAWS + 'ListarPdfBlogApp?blog_id='+blog_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
+  ListarBlogsPorEditorialApp(editorial_id:any){
+    let url = this.urlAWS + 'ListarBlogsPorEditorialApp?id='+editorial_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
 }

@@ -1,68 +1,49 @@
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="chevron-down-circle-outline"
-      pullingText="Refrescar"
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Refrescar"
       refreshingSpinner="circles">
     </ion-refresher-content>
   </ion-refresher>
-  <div>
-    <p class="title2"> EDITORIAL RC5 </p>
-    <div class="linea"></div>
-    <ion-card [routerLink]="['../inf-ultimas']">
-      <img src="../../../assets/imgs/back_02_home_rc.jpg" />
-      <ion-card-header>
-        <div class="container">
-          <a class="users">
-            <div class="container-username">
-              <span class="header-username"> Luisa Gonzáles</span>
-              <span class="cargoAsambl">Docente</span>
-            </div>
-          </a>
-        </div>
-        <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
-          RC5</ion-card-title>
-      </ion-card-header>
 
-      <ion-card-content class="contentCard">
-        La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
-        algunos liderazgos que no han podido neutralizar mediante el lawfare.
-      </ion-card-content>
-    </ion-card>
-    <div style="background-color: #f9f9f9;">
-      <div style="margin-top: 30px; " class="lineaSepardor"></div>
+  <div *ngIf="editorialList.length>0 ;else sinRegistro">
+    <div *ngFor="let item of editorialList.slice(0,lim);let index = index" (click)="goInfEdit(item.id)">
+      <p class="title2"> {{item.editorialname}} </p>
+      <div class="linea"></div>
+      <ion-card *ngFor="let itemBlogs of item.blogs">
+        <!-- <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" /> -->
+        <ion-card-header>
+          <div class="container">
+            <a class="users">
+              <div class="container-username">
+                <span class="header-username"> Luisa Gonzáles</span>
+                <span class="cargoAsambl">Docente</span>
+              </div>
+            </a>
+          </div>
+          <ion-card-title class="titleCard">
+            {{itemBlogs.blogtitulo}}
+          </ion-card-title>
+        </ion-card-header>
+  
+        <ion-card-content class="contentCard">
+          {{itemBlogs.blogdescripcion}}
+        </ion-card-content>
+      </ion-card>
+      <div style="background-color: #f9f9f9;">
+        <div style="margin-top: 30px; " class="lineaSepardor"></div>
+      </div>
     </div>
-
-
-    <p style="margin-top: 30px;" class="title2"> EDITORIAL RC5 </p>
-    <div class="linea"></div>
-    <ion-card>
-      <img src="../../../assets/imgs/back_04_home_rc.png" />
-      <ion-card-header>
-        <div class="container">
-          <a class="users">
-            <div class="container-username">
-              <span class="header-username"> Luisa Gonzáles</span>
-              <span class="cargoAsambl">Docente</span>
-            </div>
-          </a>
-        </div>
-        <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
-          RC5</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content class="contentCard">
-        La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
-        algunos liderazgos que no han podido neutralizar mediante el lawfare.
-      </ion-card-content>
-      <ion-item style="--ion-background-color: rgb(224, 224, 224);">
-        <ion-icon class="iconLoad" name="download-outline" slot="start"></ion-icon>
-        <span class="fechaCard">Documento para descargar</span>
-      </ion-item>
-    </ion-card>
   </div>
 
-  <div>
+  <ng-template #sinRegistro>
+    <ion-card>
+      <p class="sinRegis">Sin registros</p>
+    </ion-card>
+  </ng-template>
+
+
+
+  <!-- <div>
     <ion-card-content class="content">
       <form action="">
         <ion-list>
@@ -76,9 +57,7 @@
               <ion-select-option *ngFor="let food of foods" [value]="food">{{ food.name }}</ion-select-option>
             </ion-select>
           </ion-item>
-          <!-- <ion-item lines="none">
-            <ion-label>Current value: {{ currentFood | json }}</ion-label>
-          </ion-item> -->
+          
         </ion-list>
       </form>
       <ion-button expand="full" size="small">
@@ -86,5 +65,9 @@
         <ion-icon slot="end" name="search-outline"></ion-icon>
       </ion-button>
     </ion-card-content>
-  </div>
+  </div> -->
+
+  <ion-infinite-scroll *ngIf="editorialList.length > lim" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -11,6 +11,7 @@ import { PerfilAsamService } from '../../api/rest/perfil-asam.service';
 export class AsambleistasPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   assamblyfilter = [];
+  entro: string;
   constructor(private Nav: NavController, private rest: PerfilAsamService, public loadCont: LoadingController, private sanitizer: DomSanitizer) { }
 
   lim = 10;
@@ -39,6 +40,7 @@ export class AsambleistasPage implements OnInit {
   getAssambly(event) {
     this.rest.ListarPerfilesApp().then(data => {
       this.assambly = data; 
+      this.entro = 'Entro'
       //this.eliminarOrder();
       let datoPrueba: any = [{ id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName + ' ' + this.assambly[1].firstName, territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['imagen'][0].imagen), curul: this.assambly[1].curul }];
       

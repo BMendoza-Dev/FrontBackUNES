@@ -8,14 +8,14 @@
         </div>
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
-            <ion-item routerDirection="root" [routerLink]="['inicio']" lines="none" detail="false">
+            <ion-item  [routerLink]="['inicio']" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="home-outline"></ion-icon>
               <ion-label>Inicio</ion-label>
             </ion-item>
           </ion-menu-toggle>
           
         </ion-list>
-
+        {{error}}
         <ion-list id="inbox-list" >
           <ion-label class="title">Comunicación</ion-label>
           <ion-menu-toggle auto-hide="false">
