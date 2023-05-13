@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->mediumText('blogtitulo');
             $table->mediumText('blogdescripcion');
-            $table->binary('blogcontenido');
+            $table->longText('blogcontenido');
             $table->boolean('masleido');
             $table->boolean('ultimanoticia');
             $table->boolean('aprobado');
