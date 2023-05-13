@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/prueva2', function (Request $request) {
 
-    set_time_limit(300000);
+    set_time_limit(900000);
 
     $tokenapi = Http::asForm()->post('http://apiapp.asambleanacional.gob.ec/auth/login', [
         'username' => '68566D597133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B6150645267556B58703273357638792F423F4528482B4D62',
