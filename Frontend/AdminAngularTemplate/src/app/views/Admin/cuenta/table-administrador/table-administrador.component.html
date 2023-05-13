@@ -1,7 +1,7 @@
 <!--Tablas de cuentas de Asambleistas-->
 <c-card class="mb-4">
   <c-card-header>
-    <strong>Cuentas Registradas</strong>
+    <strong>Cuentas registradas</strong>
   </c-card-header>
   <c-card-body>
     <div style="text-align: right;">
@@ -62,7 +62,7 @@
       </tbody>
     </table>
     <ng-container *ngIf="dataTabla.length <= 0">
-      <c-alert color="danger">No existen cuentas Registradas!</c-alert>
+      <c-alert color="danger">No existen cuentas registradas!</c-alert>
     </ng-container>
   </c-card-body>
   <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true"

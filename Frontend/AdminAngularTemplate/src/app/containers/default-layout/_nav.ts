@@ -288,17 +288,17 @@ export const navItem: INavData[] = [
     permission:['super_administrador','asambleista','asistente'],
     children: [
       {
-        name: 'Crear Blog',
+        name: 'Crear blog',
         url: '/blogs/form-blogs',
         permission:['super_administrador','asambleista','asistente'],
       },
       {
-        name: 'Últimas Noticias',
+        name: 'Últimas noticias',
         url: '/blogs/utlimas-noticias',
         permission:['super_administrador'],
       },
       {
-        name: 'Lista de Blogs',
+        name: 'Lista de blogs',
         url: '/blogs/lista-blogs',
         permission:['super_administrador','asambleista','asistente'],
       }
@@ -311,12 +311,12 @@ export const navItem: INavData[] = [
     permission:['super_administrador'],
     children: [
       {
-        name: 'Crear Editorial',
+        name: 'Crear editorial',
         url: '/editorial/creat-editorial',
         permission:['super_administrador'],
       },
       {
-        name: 'Lista Editorial',
+        name: 'Lista editorial',
         url: '/editorial/editorial-list',
         permission:['super_administrador'],
       },
