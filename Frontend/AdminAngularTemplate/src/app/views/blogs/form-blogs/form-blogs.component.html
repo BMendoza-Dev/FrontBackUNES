@@ -1,6 +1,6 @@
 <c-card>
     <c-card-header>
-        <strong>Formulario Blog</strong>
+        <strong>Formulario blog</strong>
     </c-card-header>
     <c-card-body>
 
@@ -37,6 +37,8 @@
             <label cLabel for="exampleFormControlCkeditor">Contenido:<span class="is-required">*</span></label>
             <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="datos"></ckeditor>
         </div>
+
+        {{datos}}
         <div class="mb-3">
             <label cLabel for="exampleFormControlTextarea1">Agregar Pdf:</label>
             <div class="pdf-list">
