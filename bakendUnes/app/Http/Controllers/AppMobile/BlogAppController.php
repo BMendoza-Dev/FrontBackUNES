@@ -160,4 +160,57 @@ class BlogAppController extends Controller
     return response()->json($editorialesConBlogs);
     }
 
+    public function ListarCategoriasPerfilBlogs (Request $request){
+        
+        $categorias = Categorie::select('id', 'categorianame')
+        ->distinct()
+        ->whereHas('blog', function ($query) use ($request) {
+            $query->where('perfil_id', $request->perfil_id);
+        })
+        ->orderBy('categorianame')
+        ->get();
+if ($categorias->isEmpty()) {
+return response()->json(['error' => '404']);
+}
+return response()->json($categorias);
+     }
+
+
+    public function ListarBlogsPorPerfilCategoria (Request $request){
+        $categoryId=$request->cate_id;
+        $blogs = Blog::where('perfil_id',$request->perfil_id)->with('perfil', 'image','categoria')->when($categoryId, function($query, $categoryId) {
+        return $query->whereHas('categoria', function($query) use ($categoryId) {
+            $query->where('id', $categoryId);
+        });
+    }, function($query) {
+        return $query;
+    })->orderByDesc('updated_at')
+    ->get()->map(function($blog) {
+                return [
+                    'id' => $blog->id,
+                    'blogtitulo' => $blog->blogtitulo,
+                    'blogdescripcion' => $blog->blogdescripcion,
+                    'blogcontenido' => $blog->blogcontenido,
+                    'masleido' => $blog->masleido,
+                    'ultimanoticia' => $blog->ultimanoticia,
+                    'aprobado' => $blog->aprobado,
+                    'editoriale_id' => $blog->editoriale_id,
+                    'categorie_id' => $blog->categorie_id,
+                    'categorianame' => $blog->categoria->categorianame,
+                    'perfil_id' => $blog->perfil_id,
+                    'users_id' => $blog->users_id,
+                    'created_at' => $blog->created_at,
+                    'updated_at' => $blog->updated_at,
+                    'perfil' => $blog->perfil,
+                    'imagen' => $blog->image->imagen
+                ];
+            });
+            if($blogs->isEmpty()){
+                return  response()->json(['error'=>'404']);
+            }
+
+        return  response()->json($blogs);
+           
+     }
+
 }

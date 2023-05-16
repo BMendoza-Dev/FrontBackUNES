@@ -244,6 +244,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ObtenerBlogApp',[BlogAppController::class, 'ObtenerBlogApp']);
     Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
     Route::get('ListarBlogsPorEditorialApp',[BlogAppController::class, 'ListarBlogsPorEditorialApp']);
+
+    Route::get('ListarCategoriasPerfilBlogs',[BlogAppController::class, 'ListarCategoriasPerfilBlogs']);
+    Route::get('ListarBlogsPorPerfilCategoria',[BlogAppController::class, 'ListarBlogsPorPerfilCategoria']);
 });
 
 
