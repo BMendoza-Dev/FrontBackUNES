@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'FrontApk',
+  appId: 'com.unes.rc5',
+  appName: 'RC5',
   webDir: 'www',
   bundledWebRuntime: false,
 //   /*plugins: {

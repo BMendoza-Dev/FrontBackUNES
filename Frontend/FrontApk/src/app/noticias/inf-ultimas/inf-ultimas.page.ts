@@ -4,6 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
 import { ScriptServiceService } from 'src/app/api/rest/script-service.service';
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { DatePipe } from '@angular/common';
+
 // import { Share, ShareOptions } from '@capacitor/share';
 @Component({
   selector: 'app-inf-ultimas',
@@ -18,8 +22,12 @@ export class InfUltimasPage implements OnInit, OnDestroy {
   blogcontenido: SafeHtml;
   imagen: any;
   listPdf: any = [];
+  datos: any;
+  fecha: any;
 
-  constructor(private scriptService: ScriptServiceService, private sanitizer: DomSanitizer,
+  constructor(private file: File,
+    private fileOpener: FileOpener, private datePipe: DatePipe,
+    private scriptService: ScriptServiceService, private sanitizer: DomSanitizer,
     private activatedRoute: ActivatedRoute, private serviceBlog: BlogsService, public loadCont: LoadingController) {
   }
 
@@ -44,7 +52,9 @@ export class InfUltimasPage implements OnInit, OnDestroy {
   cargarBlog() {
     this.showLoading();
     this.serviceBlog.ObtenerBlogApp(this.id_blog).subscribe((data: any) => {
-
+      console.log(data)
+      const date = new Date(data[0].created_at);
+      this.fecha = this.datePipe.transform(date, 'dd/MM/yyyy');
       this.blogtitulo = data[0].blogtitulo;
       this.blogdescripcion = data[0].blogdescripcion;
       this.categorianame = data[0].categorianame;
@@ -86,5 +96,52 @@ export class InfUltimasPage implements OnInit, OnDestroy {
   //     console.error('Error al compartir', error);
   //   }
   // }
+
+  downloadPDF(name:string, pdf:any){
+    const pdfBase64 = pdf;
+    const pdfBlob = this.base64toBlob(pdfBase64, 'application/pdf');
+    const fileName = name;
+    const directory = this.file.externalRootDirectory + '/Download/';
+    this.datos = `File: ${directory}`
+    this.file.writeFile(directory, fileName, pdfBlob, { replace: true }).then((rest) => {
+      console.log('PDF guardado en ' + directory + fileName);
+      this.fileOpener.open(directory + fileName, 'application/pdf')
+        .then((rest) => console.log('Archivo PDF abierto'))
+        .catch(() => console.log('Error al abrir archivo PDF'));
+    }).catch((error) => {
+      console.log('Error al guardar PDF: ' + JSON.stringify(error));
+    });
+  }
+
+  base64toBlob(base64: string, type: string){
+    const binaryString = window.atob(base64);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: type });
+  }
+
+
+  // dedescargarPDF(name:any,url:any){
+  //   const base64Data = url // Aquí debes asignar el valor Base64 recibido desde la API
+
+  //   const byteCharacters = atob(base64Data);
+  //   const byteNumbers = new Array(byteCharacters.length);
+  //   for (let i = 0; i < byteCharacters.length; i++) {
+  //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //   }
+  //   const byteArray = new Uint8Array(byteNumbers);
+
+  //   const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+  //   const link = document.createElement('a');
+  //   link.href = window.URL.createObjectURL(blob);
+  //   link.download = 'tu_archivo.pdf'; // Nombre del archivo de descarga
+  //   link.click();
+  //   link.remove();
+  // }
+
+
 
 }
