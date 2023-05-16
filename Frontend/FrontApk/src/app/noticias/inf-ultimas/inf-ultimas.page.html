@@ -17,9 +17,8 @@
     <ion-card-header>
       <ion-card-title class="titleCard">{{blogtitulo}}</ion-card-title>
       <ion-card-subtitle class="subtitleCard">{{blogdescripcion}}</ion-card-subtitle>
+      <div style="margin-top: 10px; font-size: 12px; font-family: Gotham-Book;">{{fecha}}</div>
     </ion-card-header>
-
-
     <img class="imgPrincipal" style="margin-bottom: 10px;" [src]="imagen" />
     <em class="tituloImagen">Categoría: {{categorianame}}</em>
 
@@ -28,14 +27,11 @@
     </ion-card-content>
   </ion-card>
   <ion-card>
-    <ion-item  *ngFor="let item of listPdf" style="--ion-background-color: rgb(224, 224, 224); margin: 2%;">
+    <ion-item (click)="downloadPDF(item.name, item.pdf)"  *ngFor="let item of listPdf" style="--ion-background-color: rgb(224, 224, 224); margin: 2%;">
       <ion-icon class="iconLoad" name="download-outline" slot="start"></ion-icon>
       <span class="fechaCard">{{item.name}}</span>
     </ion-item>
   </ion-card>
-
-
-
   <!-- <div>
     <p class="title2"> REDES SOCIALES</p>
     <div class="linea"></div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as scriptjs from 'scriptjs';
-import { IonSlides, LoadingController, NavController } from '@ionic/angular';
+import { IonContent, IonSlides, LoadingController, NavController } from '@ionic/angular';
 import { InfUltimasPage } from '../inf-ultimas/inf-ultimas.page';
 import { Time, formatDate } from '@angular/common';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
@@ -20,6 +20,7 @@ export class UltimasPage implements OnInit {
   search = "";
   fecha: any;
   blogUltiFilter: any = [];
+  @ViewChild('content', { static: true }) content: IonContent;
   constructor(private serviceBlog: BlogsService,  private Nav: NavController,
     private sanitizer: DomSanitizer, public loadCont: LoadingController) {
     // Inicializar datetime con la fecha actual
@@ -45,23 +46,26 @@ export class UltimasPage implements OnInit {
   cargarBlog() {
     this.showLoading();
     this.serviceBlog.ListarBlogUltimaNoticiaApp().subscribe((data: any) => {
-    
-      this.blogUlti = data.map((item: any) => {
-        let objectURL = 'data:image/jpeg;base64,' + item.imagen;
-        let thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        let time = this.formatTime(item.created_at)
-        return data = {
-          name: `${item.perfil.lastName} ${item.perfil.firstName}`,
-          jurisdiction: `${item.perfil.jurisdiction}: ${item.perfil.territorialDivision}`,
-          blogtitulo: item.blogtitulo,
-          blogdescripcion: item.blogdescripcion,
-          imagen: thumbnail,
-          id: item.id,
-          created_at: time
+      console.log(data)
+      if(!data.error){
+        this.blogUlti = data.map((item: any) => {
+          let objectURL = 'data:image/jpeg;base64,' + item.imagen;
+          let thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          let time = this.formatTime(item.created_at)
+          return data = {
+            name: `${item.perfil.lastName} ${item.perfil.firstName}`,
+            jurisdiction: `${item.perfil.jurisdiction}: ${item.perfil.territorialDivision}`,
+            blogtitulo: item.blogtitulo,
+            blogdescripcion: item.blogdescripcion,
+            imagen: thumbnail,
+            id: item.id,
+            created_at: time
+          }
         }
+        )
+        this.blogUltiFilter = this.blogUlti;
       }
-      )
-      this.blogUltiFilter = this.blogUlti;
+    
       this.loadCont.dismiss();
     }), error => {
       console.log(error)
@@ -71,20 +75,24 @@ export class UltimasPage implements OnInit {
 
   cambiarBlogNext() {
     this.showLoading();
+    
     setTimeout(() => {
       this.limPrev = this.limNext
       this.limNext = this.limNext + this.lim
       this.loadCont.dismiss();
+      this.scrollToTop();
     }, 2000)
 
   }
 
   cambiarBlogPrev() {
     this.showLoading();
+    
     setTimeout(() => {
       this.limPrev = this.limPrev - this.lim
       this.limNext = this.limPrev + this.lim
       this.loadCont.dismiss();
+      this.scrollToTop();
     }, 2000)
 
   }
@@ -154,6 +162,10 @@ export class UltimasPage implements OnInit {
 
   goInfBlog(id: any) {
     this.Nav.navigateForward(`inf-ultimas/${id}`);
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(400); // El número 400 representa la duración de la animación en milisegundos
   }
 
 }

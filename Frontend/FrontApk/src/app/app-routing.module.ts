@@ -75,6 +75,15 @@ const routes: Routes = [
     path: 'inf-editorial/:id',
     loadChildren: () => import('./noticias/inf-editorial/inf-editorial.module').then( m => m.InfEditorialPageModule)
   },
+  {
+    path: 'envivo',
+    loadChildren: () => import('./envivo/envivo.module').then( m => m.EnvivoPageModule)
+  },  {
+    path: 'inf-blogs',
+    loadChildren: () => import('./AsambleistasAll/inf-blogs/inf-blogs.module').then( m => m.InfBlogsPageModule)
+  },
+
+
 
 
 

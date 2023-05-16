@@ -4,7 +4,8 @@ import { ScriptServiceService } from '../api/rest/script-service.service';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { CapacitorHttp, HttpResponse } from '@capacitor/core'
 import { LoadingController } from '@ionic/angular';
-
+import { Plugins } from '@capacitor/core';
+const {SplashScreen} = Plugins;
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -49,6 +50,7 @@ export class InicioPage implements OnInit,OnDestroy {
       // setTimeout(() => {
       //   this.loadCont.dismiss();
       // }, 3000);
+      // SplashScreen.hide();
     });
     
   }

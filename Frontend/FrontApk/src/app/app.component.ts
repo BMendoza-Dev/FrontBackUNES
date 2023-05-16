@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../app/api/rest/login.service';
 import { Device } from '@capacitor/device';
+import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -10,9 +12,16 @@ export class AppComponent {
   identificador: string;
   error: any;
 
-  constructor(private restLogin: LoginService) {
+  constructor(private restLogin: LoginService, private platform:Platform) {
+    // this.initializeApp();
     this.myFunction();
   }
+
+  // initializeApp(){
+  //   this.platform.ready().then(() =>{
+  //     //SplashScreen.hide();
+  //   })
+  // }
 
   ngOnInit(){
     

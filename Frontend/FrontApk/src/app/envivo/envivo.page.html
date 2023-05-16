@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <!--ion-buttons slot="start" >
+      <ion-menu-button style="color: black;"></ion-menu-button>
+    </ion-buttons-->
+    <ion-buttons slot="start">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title">EN VIVO</ion-title>
+    <ion-buttons slot="end">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    {{meeting}}
+  </div>
+ 
+    <iframe width="100%" height="100%" [src]="getSafeUrl(url)" frameborder="0" allowfullscreen></iframe>
+ 
+  
+</ion-content>

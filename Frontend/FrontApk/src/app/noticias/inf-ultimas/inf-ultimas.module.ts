@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -8,6 +8,7 @@ import { InfUltimasPageRoutingModule } from './inf-ultimas-routing.module';
 
 import { InfUltimasPage } from './inf-ultimas.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +16,7 @@ import { InfUltimasPage } from './inf-ultimas.page';
     IonicModule,
     InfUltimasPageRoutingModule
   ],
-  declarations: [InfUltimasPage]
+  declarations: [InfUltimasPage],
+  providers:[DatePipe]
 })
 export class InfUltimasPageModule {}
