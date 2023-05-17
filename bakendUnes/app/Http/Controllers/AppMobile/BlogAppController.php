@@ -80,7 +80,17 @@ class BlogAppController extends Controller
                     'blogdescripcion' => $blog->blogdescripcion,
                     'blogcontenido' => $blog->blogcontenido,
                     'created_at' => $blog->created_at,
-                    'categorianame' => $blog->categoria->categorianame
+                    'categorianame' => $blog->categoria->categorianame,
+                    'perfil'=> $blog->perfil->map(function($perfil){
+                        return[
+                            'firstName'=>$perfil->firstName,
+                            'lastName'=>$perfil->lastName,
+                            'territorialDivision'=>$perfil->territorialDivision,
+                            'jurisdiction'=>$perfil->jurisdiction
+                        ];
+                    }),
+                    'imagen' => $blog->image->imagen
+
                 ];
             })
         ];
