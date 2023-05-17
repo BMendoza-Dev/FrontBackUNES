@@ -82,7 +82,7 @@ class BlogAppController extends Controller
                     'blogcontenido' => $blog->blogcontenido,
                     'created_at' => $blog->created_at,
                     'categorianame' => $blog->categoria->categorianame,
-                    
+                    'perfil'=> $blog->perfil,
                     'imagen' => $blog->image->imagen
 
                 ];
