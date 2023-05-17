@@ -73,27 +73,7 @@ class BlogAppController extends Controller
             'editrialnum' => $editorial->editrialnum,
             'editorialname' => $editorial->editorialname,
             'created_at' => $editorial->created_at,
-            'blogs' => $editorial->blogs->map(function($blog){
-                $blog->load('perfil');
-                return [
-                    'id' => $blog->id,
-                    'blogtitulo' => $blog->blogtitulo,
-                    'blogdescripcion' => $blog->blogdescripcion,
-                    'blogcontenido' => $blog->blogcontenido,
-                    'created_at' => $blog->created_at,
-                    'categorianame' => $blog->categoria->categorianame,
-                    'perfil'=> $blog->perfil->map(function($perfil){
-                        return[
-                            'firstName'=>$perfil->firstName,
-                            'lastName'=>$perfil->lastName,
-                            'territorialDivision'=>$perfil->territorialDivision,
-                            'jurisdiction'=>$perfil->jurisdiction
-                        ];
-                    }),
-                    'imagen' => $blog->image->imagen
-
-                ];
-            })
+            'blogs' => $editorial->blogs
         ];
     });
 
