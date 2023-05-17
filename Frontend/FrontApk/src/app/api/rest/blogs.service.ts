@@ -59,4 +59,14 @@ export class BlogsService {
 
     return this.httpCliente.get(url, { headers: httpheaders });
   }
+
+  ListarBlogsPorPerfilCategoria(perfil_id,cate_id){
+    let url = this.urlAWS + 'ListarBlogsPorPerfilCategoria?perfil_id='+perfil_id+'&cate_id='+cate_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
 }

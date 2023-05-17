@@ -111,16 +111,17 @@
     </ion-list>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngIf="categoryBlog.length > 0">
     <ion-list>
       <ion-item>
-        <ion-select placeholder="Seleccione una categoría de blog" [(ngModel)]="selectCategoria">
-          <ion-select-option value="apples">Agenda</ion-select-option>
+        <ion-select 
+        (ionChange)="handleChange($event)" placeholder="Seleccione una categoría de blog" >
+          <ion-select-option  *ngFor="let item of categoryBlog" [value]="item.id">{{item.categorianame}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
     <ion-list class="unirButton">
-      <ion-button size="default" style="font-size: 12.5px;" expand="block">REVISAR <ion-icon
+      <ion-button (click)="getBlogCategory()" size="default" style="font-size: 12.5px;" expand="block">REVISAR <ion-icon
           name="arrow-redo-outline"></ion-icon></ion-button>
     </ion-list>
   </ion-card>

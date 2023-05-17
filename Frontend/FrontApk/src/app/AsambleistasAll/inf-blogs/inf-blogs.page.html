@@ -1,9 +1,77 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>inf-blogs</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title class="titleCategory">{{categoriname}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Refrescar"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="blogUltiFilter.length>0 ;else sinRegistro">
+    <p class="title2"> {{usedFirstName}}  {{usedLastName}}</p>
+    <div class="linea"></div>
 
+    <ion-card *ngFor="let item of blogUltiFilter.slice(limPrev,limNext);let index = index" (click)="goInfBlog(item.id)">
+      <img *ngIf="item.blogtitulo != false" src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
+      <ion-card-header *ngIf="item.blogtitulo != false">
+        <div class="container">
+          <a class="users">
+            <div class="container-username">
+              <span class="header-username">{{item.name}}</span>
+              <span class="cargoAsambl">{{item.jurisdiction}}</span>
+            </div>
+          </a>
+        </div>
+        <ion-card-title class="titleCard"> {{item.blogtitulo}} </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="contentCard" *ngIf="item.blogtitulo != false">
+        {{item.blogdescripcion}}
+      </ion-card-content>
+
+      <ion-card-content *ngIf="item.blogtitulo == false" class="cardContentVoto">
+        <p class="sinRegis">Sin registro</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div *ngIf="blogUltiFilter.length != 0" style="display: flex; justify-content: space-between; margin-right: 2%; margin-left: 2%;">
+    <ion-button *ngIf="limPrev > 0" (click)="cambiarBlogPrev()" style="font-size: 14px" size="default">
+      ANTERIOR
+      <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="limNext < blogUltiFilter.length" (click)="cambiarBlogNext()" style="font-size: 14px; margin-left: auto;" size="default">
+      SIGUIENTE
+      <ion-icon slot="end" name="arrow-redo-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ng-template #sinRegistro>
+    <ion-card>
+      <p class="sinRegis">Sin registros</p>
+    </ion-card>
+  </ng-template>
+  
+  <div>
+    <ion-card-content class="content">
+        <ion-input [(ngModel)]="search" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;"
+          placeholder=" Buscar palabra clave"></ion-input>
+      <ion-datetime-button  datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime  presentation="month-year" [isDateEnabled]="isWeekday" id="datetime"
+            min="2023-04" (ionChange)="onDateChange($event)"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+      <ion-button (click)="buscarBlog()" expand="full" size="small">
+        BUSCAR
+        <ion-icon slot="end" name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </div>
 </ion-content>

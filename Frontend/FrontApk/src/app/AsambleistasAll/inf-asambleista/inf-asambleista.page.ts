@@ -14,7 +14,10 @@ export class InfAsambleistaPage implements OnInit {
   algo: boolean = true; contacto: boolean = false; comisiones: boolean = false;
   edifice: any; floor: any; office: any; phone: any; email: any;
   comisionAss: any; cont:any;
-  id_biografia: any; selectCategoria=''
+  id_biografia: any; selectCategoria='';
+  assambly: any = []; urlGet: any; firstName: string; lastName: string; ambito: string = ""; curul: string = ""; partido: string = ""; jurisdiction: string = "";
+  categoryBlog:any = [];
+  cate_id: any = "";
 
   constructor(private Nav:NavController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService, public loadCont: LoadingController) { }
 
@@ -22,9 +25,9 @@ export class InfAsambleistaPage implements OnInit {
     
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
     this.getAssambly();
+    this.getCategory();
   }
 
-  assambly: any = []; urlGet: any; firstName: string; lastName: string; ambito: string = ""; curul: string = ""; partido: string = ""; jurisdiction: string = "";
 
   trasformaImagen(img: any) {
     let objectURL = 'data:image/jpeg;base64,' + img;
@@ -54,6 +57,18 @@ export class InfAsambleistaPage implements OnInit {
     },error =>{console.log(error)})
   }
 
+  getCategory(){
+    this.rest.ListarCategoriasPerfilBlogs(this.id_perfil).subscribe((data:any) =>{
+      console.log(data)
+      if(!data.error ){
+        this.categoryBlog = data;
+      }else{
+        this.categoryBlog = [];
+      }
+      
+    })
+  }
+
   async showLoading() {
     const loading = await this.loadCont.create({
       message: 'Cargando...',
@@ -72,5 +87,17 @@ export class InfAsambleistaPage implements OnInit {
     this.Nav.navigateForward(`votos-asambleista/${id}`);
   }
 
+  handleChange(e) {
+    console.log(e.detail.value);
+    this.cate_id = e.detail.value;
+  }
+
+  getBlogCategory(){
+    if(this.cate_id != ''){
+      console.log(`A otra vista...`)
+      this.Nav.navigateForward(`inf-blogs/${this.id_perfil}/${this.cate_id}`);
+    }
+    
+  }
 
 }

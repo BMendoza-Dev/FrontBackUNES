@@ -78,8 +78,9 @@ const routes: Routes = [
   {
     path: 'envivo',
     loadChildren: () => import('./envivo/envivo.module').then( m => m.EnvivoPageModule)
-  },  {
-    path: 'inf-blogs',
+  },
+  {
+    path: 'inf-blogs/:perfil_id/:cate_id',
     loadChildren: () => import('./AsambleistasAll/inf-blogs/inf-blogs.module').then( m => m.InfBlogsPageModule)
   },
 

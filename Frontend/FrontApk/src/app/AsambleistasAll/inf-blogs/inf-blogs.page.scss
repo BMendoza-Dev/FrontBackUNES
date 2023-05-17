@@ -1,0 +1,189 @@
+.iconBack {
+    color: white;
+    width: 40px;
+    font-size: 24px;
+  }
+
+  .titleCategory {
+    --color: white;
+    //size: large;
+    text-align: center;
+    font-family: "Gotham-Bold";
+    font-size: 20px;
+    padding: 0px 20px;
+  }
+
+  .title2 {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 4%;
+    font-family: "Gotham-Book";
+    font-size: 20px;
+    color: #00b9ec;
+    margin-bottom: 5px;
+  }
+
+  .linea {
+    border-top: 1px solid #00b9ec;
+    height: 2px;
+    max-width: 100px;
+    padding: 0;
+    margin: 10px auto 20px auto;
+    background-color: #00b9ec;
+    height: 5px;
+  }
+
+  .lineaSepardor {
+    border-top: 1px solid #00b9ec;
+    height: 2px;
+    max-width: 100px;
+    padding: 0;
+    margin: 10px auto 20px auto;
+    background-color: #00b9ec;
+    height: 5px;
+  }
+
+  h4 {
+    font-family: "Gotham-Bold";
+  }
+
+
+  ion-text {
+    font-family: "Gotham-Book";
+  }
+
+  ion-item span {
+    font-size: 13px;
+  }
+
+  ion-buttons.ios ion-back-button.ios {
+    margin-right: 7px
+  }
+
+  .image--cover {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0px;
+    object-fit: cover;
+    object-position: center right;
+  }
+
+  .users {
+    text-decoration: none;
+    color: #374457;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .container-username {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .header-username {
+    font-size: 12px;
+    font-family: "Gotham-Medium";
+  }
+
+  .cargoAsambl {
+    color: #929293;
+    font-weight: 100;
+    font-size: 10px;
+    font-family: "Gotham-Book";
+  }
+
+  .titleCard {
+    font-family: "Gotham-Medium";
+    text-align: left;
+    font-size: 18px;
+    // text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-top: 8px;
+  }
+
+  .contentCard {
+    font-family: "Gotham-Book";
+    text-align: left;
+    font-size: 14px;
+    // text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    padding-bottom: 0px;
+  }
+
+  .fechaCard {
+    font-family: "Gotham-Medium";
+    margin-top: 5px;
+  }
+
+  .botonVer {
+    --border-color: #00b9ec;
+    color: #00b9ec;
+  }
+
+  ion-toolbar {
+    --background: #00b9ec;
+  }
+
+  .iconLoad {
+    color: #00b9ec;
+    margin: auto 10px auto auto;
+  }
+
+  .iconLoad2 {
+    margin: auto 10px auto auto;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  ion-card {
+    --background: #f9f9f9;
+    box-shadow: none;
+  }
+
+
+  .sticky-segment {
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+
+  ion-segment-button {
+    color: white;
+    --color-checked: white;
+    font-family: "Gotham-Book";
+  }
+
+  ion-slides {
+    height: 100%;
+  }
+
+  .content {
+    background-color: #f3f3f3;
+    padding: 5%;
+    margin: 5%;
+    font-family: "Gotham-Book";
+    text-align: left;
+  }
+
+  .sinRegis{
+    font-size: 18px;
+    text-align: center;
+    font-family: "Gotham-Bold";
+  }

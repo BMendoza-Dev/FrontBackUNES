@@ -83,5 +83,15 @@ export class PerfilAsamService {
     return this.httpCliente.get(url, { headers: httpheaders });
   }
   
+
+  ListarCategoriasPerfilBlogs(perfil_id){
+    let url = this.urlAWS + 'ListarCategoriasPerfilBlogs?perfil_id='+perfil_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+
+  }
 }
 
