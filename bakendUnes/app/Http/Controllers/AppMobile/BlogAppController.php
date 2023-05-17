@@ -64,7 +64,7 @@ class BlogAppController extends Controller
     public function ListarEditorialApp(Request $request){
 
         $editoriales = Editorial::with(['blogs' => function ($query) {
-            $query->orderBy('blog_editorial.position', 'asc')->take(2);
+            $query->orderBy('blog_editorial.position', 'asc');
         }, 'blogs.categoria'])->get();
 
     $editorialesConBlogs = $editoriales->map(function($editorial){
