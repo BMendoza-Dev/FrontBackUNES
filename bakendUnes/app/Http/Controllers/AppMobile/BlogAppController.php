@@ -74,6 +74,7 @@ class BlogAppController extends Controller
             'editorialname' => $editorial->editorialname,
             'created_at' => $editorial->created_at,
             'blogs' => $editorial->blogs->map(function($blog){
+                $blog->load('perfil');
                 return [
                     'id' => $blog->id,
                     'blogtitulo' => $blog->blogtitulo,
