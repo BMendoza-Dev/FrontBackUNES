@@ -247,6 +247,8 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('ListarCategoriasPerfilBlogs',[BlogAppController::class, 'ListarCategoriasPerfilBlogs']);
     Route::get('ListarBlogsPorPerfilCategoria',[BlogAppController::class, 'ListarBlogsPorPerfilCategoria']);
+    Route::get('ListarBlogsAgenda',[BlogAppController::class, 'ListarBlogsAgenda']);
+    
 });
 
 

@@ -217,4 +217,13 @@ return response()->json($categorias);
            
      }
 
+     
+     public function ListarBlogsAgenda (Request $request){
+        $blogs = Blog::with('perfil', 'image', 'categoria')->whereHas('categoria', function ($query) {
+            $query->where('categorianame', 'Agenda');
+        })->get();
+    
+        return response()->json($blogs);
+    }
+
 }
