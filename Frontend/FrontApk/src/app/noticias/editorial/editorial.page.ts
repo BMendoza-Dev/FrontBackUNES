@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
 
 @Component({
@@ -10,37 +10,41 @@ import { BlogsService } from 'src/app/api/rest/blogs.service';
 })
 export class EditorialPage implements OnInit {
   editorialList: any = [];
-  lim = 3;
+  lim = 1;
 
-  constructor(private serviceBlog: BlogsService, private sanitizer: DomSanitizer,private Nav: NavController) { }
+  constructor(private serviceBlog: BlogsService,public loadCont: LoadingController,
+     private sanitizer: DomSanitizer, private Nav: NavController) { }
 
   ngOnInit() {
     this.ListarEditorialApp();
   }
 
   ListarEditorialApp() {
+    this.showLoading();
     this.serviceBlog.ListarEditorialApp().subscribe((data: any) => {
       console.log(data)
       this.editorialList = data.map((item: any) => {
         let blogs: any = [];
-
-        blogs = item['blogs'].map((itemBlob: any) => {
-          // let objectURL = 'data:image/jpeg;base64,' + item.imagen;
-          // let thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        blogs = item['blogs'].slice(0,2).map((itemBlob: any) => {
+          let objectURL = 'data:image/jpeg;base64,' + itemBlob.imagen;
+          let thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           let lisBlog: any = [];
           return lisBlog = {
             blogtitulo: itemBlob.blogtitulo,
             blogdescripcion: itemBlob.blogdescripcion,
-            categorianame: itemBlob.categorianame
+            categorianame: itemBlob.categorianame,
+            imagen:thumbnail,
+            name: `${itemBlob.perfil.lastName} ${itemBlob.perfil.firstName}`,
+            jurisdiction: `${itemBlob.perfil.jurisdiction}: ${itemBlob.perfil.territorialDivision}`,
           }
         })
-
         return data = {
           editorialname: item.editorialname,
           id: item.id,
           blogs: blogs
         }
       });
+      this.loadCont.dismiss();
     })
   }
 
@@ -53,8 +57,9 @@ export class EditorialPage implements OnInit {
 
 
   onIonInfinite(event) {
+    
     setTimeout(() => {
-      this.lim += 3;
+      this.lim += 1;
       event.target.complete();
     }, 600);
   }
@@ -63,55 +68,14 @@ export class EditorialPage implements OnInit {
     this.Nav.navigateForward(`inf-editorial/${id}`);
   }
 
-  // currentFood = undefined;
+  async showLoading() {
+    const loading = await this.loadCont.create({
+      message: 'Cargando...',
+      cssClass: 'custom-loading',
+      //spinner:'lines-sharp'
+    });
 
-  // foods = [
-  //   {
-  //     id: 1,
-  //     name: 'Apples',
-  //     type: 'fruit',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Carrots',
-  //     type: 'vegetable',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Cupcakes',
-  //     type: 'dessert',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Cupcakes',
-  //     type: 'dessert',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Cupcakes',
-  //     type: 'dessert',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Cupcakes',
-  //     type: 'dessert',
-  //   },
-  // ];
-
-  // compareWith(o1, o2) {
-  //   if (!o1 || !o2) {
-  //     return o1 === o2;
-  //   }
-
-  //   if (Array.isArray(o2)) {
-  //     return o2.some((o) => o.id === o1.id);
-  //   }
-
-  //   return o1.id === o2.id;
-  // }
-
-  // handleChange(ev) {
-  //   this.currentFood = ev.target.value;
-  // }
+    loading.present();
+  }
 
 }

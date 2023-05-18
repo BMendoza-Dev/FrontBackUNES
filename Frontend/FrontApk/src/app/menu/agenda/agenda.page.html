@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title">Agendas</ion-title>
+    <ion-title class="title">AGENDAS</ion-title>
     <ion-buttons slot="end">
       <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -12,43 +12,39 @@
 </ion-header>
 
 <ion-content>
-  <p class="title2"> {{fechaNow}} </p>
-  <div class="linea"></div>
-  <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-      <ion-refresher-content
-        pullingIcon="chevron-down-circle-outline"
-        pullingText="Refrescar"
-        refreshingSpinner="circles">
-      </ion-refresher-content>
-    </ion-refresher>
-    <div>
-      <ion-card [routerLink]="['../inf-ultimas']">
-        <ion-card-header>
-          <div class="container">
-            <!-- <a class="users">
-              <div class="container-username">
-                <span class="header-username"> Luisa Gonzáles</span>
-                <span class="cargoAsambl">Docente</span>
-              </div>
-            </a> -->
-          </div>
-          <ion-card-title class="titleCard">Ecuador: la derecha necesita campañas sucias para atentar contra
-            RC5</ion-card-title>
-        </ion-card-header>
-  
-        <ion-card-content class="contentCard">
-          La campaña sucia que lleva la derecha contra Revolución Ciudadana 5 (RC5); busca pulverizar moralmente a
-          algunos liderazgos que no han podido neutralizar mediante el lawfare.
-        </ion-card-content>
-      </ion-card>
-    </div>
-  
-    <!-- <div style="text-align: right; margin-right: 2%;">
-      <ion-button style="font-size: 17px;" size="default">
-        SIGUIENTE
-        <ion-icon slot="end" name="arrow-redo-outline"></ion-icon>
-      </ion-button>
-    </div> -->
-  </ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Refrescar"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="blogAgenda.length>0 ;else sinRegistro">
+    <p class="title2"> {{fechaNow}} </p>
+    <div class="linea"></div>
+    <ion-card *ngFor="let item of blogAgenda.slice(0,limNext);let index = index" (click)="goBlog(item.id)">
+      <ion-card-header>
+        <div class="container">
+          <a class="users">
+            <div class="container-username">
+              <span class="header-username"> {{item.name}} </span>
+              <span class="cargoAsambl">{{item.jurisdiction}}</span>
+            </div>
+          </a>
+        </div>
+        <ion-card-title class="titleCard">
+          {{item.blogtitulo}}
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="contentCard">
+        {{item.blogdescripcion}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ng-template #sinRegistro>
+    <ion-card>
+      <p class="sinRegis">Sin registros</p>
+    </ion-card>
+  </ng-template>
 </ion-content>

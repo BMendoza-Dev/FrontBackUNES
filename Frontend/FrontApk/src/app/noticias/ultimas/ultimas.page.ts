@@ -14,7 +14,7 @@ export class UltimasPage implements OnInit {
 
   datetime: string;
   blogUlti: any = [];
-  lim = 2;
+  lim = 5;
   limNext = this.lim;
   limPrev = 0;
   search = "";
@@ -108,6 +108,7 @@ export class UltimasPage implements OnInit {
       this.blogUltiFilter = this.transform(this.blogUltiFilter, this.search);
     }
     this.loadCont.dismiss();
+    this.scrollToTop();
     },2000)
     
     console.log(this.blogUltiFilter);
@@ -165,7 +166,8 @@ export class UltimasPage implements OnInit {
   }
 
   scrollToTop() {
-    this.content.scrollToTop(400); // El número 400 representa la duración de la animación en milisegundos
+    const divElement = document.getElementById('miDiv');
+  this.content.scrollToPoint(0, divElement.offsetTop, 500); // El número 400 representa la duración de la animación en milisegundos
   }
 
 }

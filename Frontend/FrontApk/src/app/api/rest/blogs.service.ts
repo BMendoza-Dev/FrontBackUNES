@@ -69,4 +69,14 @@ export class BlogsService {
     return this.httpCliente.get(url, { headers: httpheaders });
   }
 
+  ListarBlogsAgenda(){
+    let url = this.urlAWS + 'ListarBlogsAgenda';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
+
 }

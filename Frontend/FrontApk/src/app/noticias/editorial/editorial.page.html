@@ -10,13 +10,13 @@
       <p class="title2"> {{item.editorialname}} </p>
       <div class="linea"></div>
       <ion-card *ngFor="let itemBlogs of item.blogs">
-        <!-- <img src="{{item.imagen.changingThisBreaksApplicationSecurity}}" /> -->
+        <img src="{{itemBlogs.imagen.changingThisBreaksApplicationSecurity}}" />
         <ion-card-header>
           <div class="container">
             <a class="users">
               <div class="container-username">
-                <span class="header-username"> Luisa Gonzáles</span>
-                <span class="cargoAsambl">Docente</span>
+                <span class="header-username"> {{itemBlogs.name}} </span>
+                <span class="cargoAsambl">{{itemBlogs.jurisdiction}}</span>
               </div>
             </a>
           </div>
@@ -40,32 +40,6 @@
       <p class="sinRegis">Sin registros</p>
     </ion-card>
   </ng-template>
-
-
-
-  <!-- <div>
-    <ion-card-content class="content">
-      <form action="">
-        <ion-list>
-          <ion-item>
-            <ion-select
-              [compareWith]="compareWith"
-              placeholder="Seleccione editorial"
-              (ionChange)="handleChange($event)"
-              [multiple]="true"
-            >
-              <ion-select-option *ngFor="let food of foods" [value]="food">{{ food.name }}</ion-select-option>
-            </ion-select>
-          </ion-item>
-          
-        </ion-list>
-      </form>
-      <ion-button expand="full" size="small">
-        BUSCAR
-        <ion-icon slot="end" name="search-outline"></ion-icon>
-      </ion-button>
-    </ion-card-content>
-  </div> -->
 
   <ion-infinite-scroll *ngIf="editorialList.length > lim" (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

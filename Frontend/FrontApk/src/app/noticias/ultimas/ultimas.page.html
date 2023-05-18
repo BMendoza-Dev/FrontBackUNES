@@ -5,7 +5,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <div *ngIf="blogUltiFilter.length>0 ;else sinRegistro">
-    <p class="title2"> ÚLTIMAS NOTICIAS </p>
+    <p id="miDiv" class="title2"> ÚLTIMAS NOTICIAS </p>
     <div class="linea"></div>
 
     <ion-card *ngFor="let item of blogUltiFilter.slice(limPrev,limNext);let index = index" (click)="goInfBlog(item.id)">
