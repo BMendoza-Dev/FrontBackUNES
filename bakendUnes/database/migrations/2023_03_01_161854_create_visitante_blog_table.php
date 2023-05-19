@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('visitante_blog', function (Blueprint $table) {
+        Schema::create('blog_visitante', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('visitante_id')->references('id')->on('visitantes');

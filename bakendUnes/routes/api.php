@@ -223,6 +223,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarUserPorRol', [CuentaController::class, 'ListarUserPorRol']);
     Route::get('ListarRoles', [CuentaController::class, 'ListarRoles']);
     
+    
 
     Route::post('Register',[AuthController::class, 'Register']);
     Route::get('Notifique',[AuthController::class, 'Notifique']);
@@ -245,6 +246,9 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarEditorialApp',[BlogAppController::class, 'ListarEditorialApp']);
     Route::get('ListarBlogsPorEditorialApp',[BlogAppController::class, 'ListarBlogsPorEditorialApp']);
 
+    Route::get('AddVisitaVisitanteBlog', [BlogAppController::class, 'AddVisitaVisitanteBlog']);
+    Route::get('obtenerBlogsByVisitorsCount', [BlogAppController::class, 'obtenerBlogsByVisitorsCount']);
+    
     Route::get('ListarCategoriasPerfilBlogs',[BlogAppController::class, 'ListarCategoriasPerfilBlogs']);
     Route::get('ListarBlogsPorPerfilCategoria',[BlogAppController::class, 'ListarBlogsPorPerfilCategoria']);
     Route::get('ListarBlogsAgenda',[BlogAppController::class, 'ListarBlogsAgenda']);

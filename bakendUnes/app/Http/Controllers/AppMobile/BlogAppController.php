@@ -10,7 +10,8 @@ use App\Models\Categorie;
 use App\Models\Blog;
 use App\Models\Nota;
 use App\Events\ChatEvent;
-use App\Events\Pdf;
+use App\Models\Pdf;
+use App\Models\Visitante;
 use App\Events\DirectMessageEvent;
 use App\Models\Editorial;
 use App\Events\NotifyEventBlog;
@@ -219,11 +220,81 @@ return response()->json($categorias);
 
      
      public function ListarBlogsAgenda (Request $request){
+
         $blogs = Blog::with('perfil', 'image', 'categoria')->whereHas('categoria', function ($query) {
             $query->where('categorianame', 'Agenda');
         })->get();
     
         return response()->json($blogs);
     }
+
+    public function AddVisitaVisitanteBlog (Request $request){
+
+        
+        $identificador = Auth::user()->identificador;
+    if (Visitante::where('identificador', $identificador)->exists() ) {
+
+        if(Visitante::where('identificador', $identificador)
+        ->whereHas('blogs', function ($query) use ($request) {
+            $query->where('blog_id', $request->blogs_id);
+        })
+        ->exists()){
+
+            $visitante = Visitante::with('blogs')->where('identificador', $identificador)->first();
+            $visitante->blogs()->syncWithoutDetaching([$request->blogs_id]);
+            $pivotData = $visitante->blogs->find($request->blogs_id)->pivot;
+            $pivotData->visitas = $pivotData->visitas + 1;
+            $pivotData->save();
+            return response()->json(['message' => 'Visita registrada', 'visitas' => $pivotData->visitas], 200);
+
+        }else{
+            $visitante = Visitante::with('blogs')->where('identificador', $identificador)->first();
+            
+            $visitante->blogs()->attach($request->blogs_id, ['visitas' => 1]);
+            return response()->json(['message' => 'Visita registrada', 'visitas' => 1], 200);
+        }
+       
+
+        
+    } else {
+        $visitante = Visitante::create([
+            'identificador' => $identificador
+        ]);
+
+        $visitante->blogs()->attach($request->blogs_id, ['visitas' => 1]);
+
+        return response()->json(['message' => 'Visita registrada', 'visitas' => 1], 200);
+    }
+
+    return response()->json(['message' => 'Error al procesar la solicitud'], 400);
+    }
+
+    public function obtenerBlogsByVisitorsCount()
+{
+    $blogs = Blog::with(['visitantes' => function ($query) {
+        $query->withPivot('visitas');
+    }])
+    ->withCount('visitantes')
+    ->orderBy('visitantes_count', 'desc')
+    ->get()
+    ->map(function ($blog) {
+        $numvisitantes = $blog->visitantes_count;
+        $visitas = 0;
+
+        $blog->visitantes->map(function ($visitante) use (&$visitas) {
+            $visitas += $visitante->pivot->visitas;
+        });
+
+        $blogData = $blog->toArray();
+        $blogData['visitas'] = $visitas;
+        $blogData['visitantes'] = $numvisitantes;
+
+        return $blogData;
+    });
+
+    return response()->json($blogs, 200);
+}
+
+
 
 }
