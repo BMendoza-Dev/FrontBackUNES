@@ -42,7 +42,7 @@ class EventNotifyUsersApp  implements  ShouldBroadcast
     public function broadcastOn()
     {
 
-     return new Channel("channel-NotifyAppUser.{$this->TipeNotify}.{$this->to_id}");
-
+    // return new Channel("channel-NotifyAppUser.{$this->TipeNotify}.{$this->to_id}");
+      return new Channel("channel-NotifyAppUser.Editorial.0");
     }
 }
