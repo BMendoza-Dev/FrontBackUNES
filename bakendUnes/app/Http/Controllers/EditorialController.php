@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Editorial;
 use App\Events\NotifyEventBlog;
-use App\Notifications\NotifyBlogsPorAprobar;
+use App\Notifications\NotifyUsersApp;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
@@ -38,8 +38,31 @@ class EditorialController extends Controller
         $editorial->blogs()->attach($blogid, ['position' => $position]);
     }
     
+    self::send_notify_AppUser( $editorial, 'Editorial');
+    MobileUser::all()->each(function(MobileUser $user) use ($editorial) {
+        $notify=$user->notifications->map(function($notify) {
+            $created_at = Carbon::parse($notify->created_at);
+            return [
+                'NotifyInfo'=> $notify->data['NotifyInfo'],
+                'TipeNotify'=> $notify->data['TipeNotify'],
+                'leido'=> $notify->read_at,
+                'id_notify'=> $notify->id,
+                'time'=> $notify->created_at
+            ];
+
+        });
+        event(new EventNotifyUsersApp($notify,'Editorial','0'));
+    });
     return response()->json('200');
      }
+
+
+     static function send_notify_AppUser($NotifyInfo,$TipeNotify){
+        
+        MobileUser::all()->each(function (MobileUser $user) use ($NotifyInfo, $TipeNotify) {
+            $user->notify(new NotifyUsersApp($NotifyInfo, $TipeNotify));
+        });
+    }
 
 
 

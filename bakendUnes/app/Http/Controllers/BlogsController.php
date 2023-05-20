@@ -60,13 +60,8 @@ class BlogsController extends Controller
 
                }
                 
-            
-       //     $blog->pdf()->createMany($contenido);
         $blog->image()->createMany($urlimagenes2);
 
-        
-    /*    return response($blog->load('pdf')->pdf->pdf, 200)
-        ->header('Content-Type', 'application/pdf');*/
         if($request->ultimanoticia==true){
             
             self::make_blogs_notify($blog);
@@ -96,7 +91,6 @@ class BlogsController extends Controller
                 });
                 event(new NotifyEventBlog($notify,$user->roles[0]->slug,$user->id));
             });
-       //     event(new NotifyEventBlog($notify,'super_administrador',));
 
         }
         

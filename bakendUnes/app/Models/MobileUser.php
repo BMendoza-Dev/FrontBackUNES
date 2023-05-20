@@ -8,7 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class MobileUser extends Authenticatable
 {
-    use HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
     protected $table = 'mobile_users';
     protected $guarded = ['id'];
@@ -16,4 +16,8 @@ class MobileUser extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
+    }
 }
