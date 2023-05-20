@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Editorial;
 use App\Models\MobileUser;
-use App\Events\NotifyEventBlog;
+use App\Events\EventNotifyUsersApp;
 use App\Notifications\NotifyUsersApp;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
