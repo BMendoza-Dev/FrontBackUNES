@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Editorial;
+use App\Models\MobileUser;
 use App\Events\NotifyEventBlog;
 use App\Notifications\NotifyUsersApp;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Carbon\Carbon;
 class EditorialController extends Controller
 {
     public function CrearEditorial(Request $request){
-
+        
         if (Editorial::count() > 0) {
             $ultimoeditorial= Editorial::latest()->first();
             $numeditnew=$ultimoeditorial->editrialnum+1;
