@@ -52,8 +52,9 @@ class EditorialController extends Controller
             ];
 
         });
-        event(new EventNotifyUsersApp($notify,'Editorial','0'));
+        
     });
+    event(new EventNotifyUsersApp($notify,'Editorial',$user->id));
     return response()->json('200');
      }
 
