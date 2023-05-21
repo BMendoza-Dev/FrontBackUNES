@@ -52,7 +52,7 @@ class EditorialController extends Controller
             ];
 
         });
-        return $user->id;
+      //  return $user->id;
         event(new EventNotifyUsersApp($notify,'Editorial',$user->id));
     });
     
