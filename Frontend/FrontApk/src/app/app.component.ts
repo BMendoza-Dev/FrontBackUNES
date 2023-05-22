@@ -41,8 +41,10 @@ export class AppComponent {
       identificador:this.identificador
     }
     
-    this.restLogin.LoginAppMobile(data).then((data) =>{
+    this.restLogin.LoginAppMobile(data).then((data:any) =>{
       localStorage.setItem('token', data['token']); 
+      
+      localStorage.setItem('idUser',data['usuario'].id)
       // this.error='entro'
     }).catch(error =>{
       this.error = error.error

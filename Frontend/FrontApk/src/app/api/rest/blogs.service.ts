@@ -78,5 +78,23 @@ export class BlogsService {
     return this.httpCliente.get(url, { headers: httpheaders });
   }
 
+  AddVisitaVisitanteBlog(blogs_id:string){
+    let url = this.urlAWS + 'AddVisitaVisitanteBlog?blogs_id='+blogs_id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
+  obtenerBlogsByVisitorsCount(){
+    let url = this.urlAWS + 'obtenerBlogsByVisitorsCount';
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpCliente.get(url, { headers: httpheaders });
+  }
+
 
 }

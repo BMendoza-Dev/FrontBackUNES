@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as scriptjs from 'scriptjs';
 import { IonContent, IonSlides, LoadingController, NavController } from '@ionic/angular';
 import { InfUltimasPage } from '../inf-ultimas/inf-ultimas.page';
@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './ultimas.page.html',
   styleUrls: ['./ultimas.page.scss'],
 })
-export class UltimasPage implements OnInit {
+export class UltimasPage implements OnInit, OnDestroy {
 
   datetime: string;
   blogUlti: any = [];
@@ -28,6 +28,10 @@ export class UltimasPage implements OnInit {
   }
   ngOnInit(): void {
     this.cargarBlog()
+  }
+
+  ngOnDestroy(): void {
+    this.loadCont.dismiss();
   }
 
   handleRefresh(event) {

@@ -99,11 +99,27 @@ ion-buttons.ios ion-back-button.ios {
 .titleCard {
   font-family: "Gotham-Medium";
   text-align: left;
+  font-size: 18px;
+  // text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-top: 8px;
 }
 
 .contentCard {
   font-family: "Gotham-Book";
   text-align: left;
+  font-size: 14px;
+  // text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  padding-bottom: 0px;
 }
 
 .fechaCard {

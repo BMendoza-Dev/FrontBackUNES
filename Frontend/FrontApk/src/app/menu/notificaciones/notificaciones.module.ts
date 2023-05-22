@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -15,6 +15,7 @@ import { NotificacionesPage } from './notificaciones.page';
     IonicModule,
     NotificacionesPageRoutingModule
   ],
-  declarations: [NotificacionesPage]
+  declarations: [NotificacionesPage],
+  providers:[DatePipe]
 })
 export class NotificacionesPageModule {}

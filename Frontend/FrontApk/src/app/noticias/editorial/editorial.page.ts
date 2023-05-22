@@ -20,7 +20,7 @@ export class EditorialPage implements OnInit {
   }
 
   ListarEditorialApp() {
-    this.showLoading();
+    // this.showLoading();
     this.serviceBlog.ListarEditorialApp().subscribe((data: any) => {
       console.log(data)
       this.editorialList = data.map((item: any) => {
@@ -44,7 +44,7 @@ export class EditorialPage implements OnInit {
           blogs: blogs
         }
       });
-      this.loadCont.dismiss();
+      // this.loadCont.dismiss();
     })
   }
 

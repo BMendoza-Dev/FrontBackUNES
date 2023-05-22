@@ -21,3 +21,27 @@
     position: absolute;
     right: 0;
 }
+
+.NotifyDescrip {
+    margin-top: 3%;
+    line-height: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.NotifyTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.sinRegis{
+    font-size: 18px;
+    text-align: center;
+    font-family: "Gotham-Bold";
+  }

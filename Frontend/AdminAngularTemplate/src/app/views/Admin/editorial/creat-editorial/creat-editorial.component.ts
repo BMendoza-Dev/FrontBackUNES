@@ -130,7 +130,6 @@ export class CreatEditorialComponent {
   ListarBlogsImportantesSemana() {
     this.spinnerService.llamarSpinner();
     this.service.ListarBlogsImportantesSemana().then((data: any) => {
-      debugger
       if (data.length > 0) {
         this.listBlog = data.map((value: any) => ({
           _id: value.id,
@@ -263,7 +262,7 @@ export class CreatEditorialComponent {
       confirmButtonText: 'Sí, publicar!'
     }).then((result) => {
       if (result.isConfirmed) {
-
+        this.spinnerService.llamarSpinner();
         let blogsid = this.cheklisordenado.map((item: any) => {
           return item._id
         });
@@ -282,6 +281,7 @@ export class CreatEditorialComponent {
                 'success'
               )
             }
+            this.cheklisordenado = [];
 
           }).catch(error => {
             this.spinnerService.detenerSpinner();

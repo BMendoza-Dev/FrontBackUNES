@@ -35,11 +35,16 @@ export class InfUltimasPage implements OnInit, OnDestroy {
     this.id_blog = this.activatedRoute.snapshot.paramMap.get("id");
     this.cargarBlog();
     this.cargarPdf();
+    this.SumView();
 
   }
 
   ngOnDestroy() {
     this.scriptService.removeScript('twitter');
+  }
+
+  SumView(){
+    this.serviceBlog.AddVisitaVisitanteBlog(this.id_blog).subscribe(data =>{console.log(data)})
   }
 
   cargarPdf() {
