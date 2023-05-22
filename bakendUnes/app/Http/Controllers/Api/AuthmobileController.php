@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Models\MobileUser;
 use App\Models\OauthAccessToken;
-use Cookie;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
+use Cookie;
+use App\Events\EventNotifyUsersApp;
+use App\Notifications\NotifyUsersApp;
 use Illuminate\Support\Facades\Validator;
 class AuthmobileController extends Controller
 {
@@ -75,5 +77,22 @@ class AuthmobileController extends Controller
     
         // Retorna la respuesta
         return response(['token'=>$token, 'usuario'=>$mobileUser,'menssage'=>'Login correcto','code'=>'200'])->withoutCookie($cookie);
+    }
+
+
+    static function NotifiqueUserApp(){
+        $now = Carbon::now();
+        $notify= Auth::user()->notifications->map(function($notify) use ($now){
+            $created_at = Carbon::parse($notify->created_at);
+            return [
+                'NotifyInfo'=> $notify->data['NotifyInfo'],
+                'TipeNotify'=> $notify->data['TipeNotify'],
+                'leido'=> $notify->read_at,
+                'id_notify'=> $notify->id,
+                'time'=> $notify->created_at
+            ];
+
+        });
+        event(new EventNotifyUsersApp($notify,$notify->TipeNotify,Auth::user()->id));
     }
 }

@@ -248,6 +248,8 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
     Route::get('AddVisitaVisitanteBlog', [BlogAppController::class, 'AddVisitaVisitanteBlog']);
     Route::get('obtenerBlogsByVisitorsCount', [BlogAppController::class, 'obtenerBlogsByVisitorsCount']);
+
+    Route::get('NotifiqueUserApp',[AuthmobileController::class, 'NotifiqueUserApp']);
     
     Route::get('ListarCategoriasPerfilBlogs',[BlogAppController::class, 'ListarCategoriasPerfilBlogs']);
     Route::get('ListarBlogsPorPerfilCategoria',[BlogAppController::class, 'ListarBlogsPorPerfilCategoria']);

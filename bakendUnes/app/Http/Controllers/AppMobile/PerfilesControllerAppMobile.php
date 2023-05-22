@@ -115,5 +115,8 @@ return response()->json($perfiles);
         return  response()->json($Perfilesfinal[0]->biografia);
            
      }
+     public function ObtenerNotifyUserApp (Request $request){
+
+      }
 
 }
