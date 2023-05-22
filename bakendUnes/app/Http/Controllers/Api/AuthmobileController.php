@@ -95,4 +95,43 @@ class AuthmobileController extends Controller
         });
         event(new EventNotifyUsersApp($notify,$notify[0]['TipeNotify'],Auth::user()->id));
     }
+
+    public function make_notify_read_AppMobile(Request $request){
+       
+        $notification =  Auth::user()->notifications->find($request->notificationId);
+        $notification->markAsRead();
+        $now = Carbon::now();
+        $notify= Auth::user()->notifications->map(function($notify) use ($now){
+            $created_at = Carbon::parse($notify->created_at);
+            return [
+                'NotifyInfo'=> $notify->data['NotifyInfo'],
+                'TipeNotify'=> $notify->data['TipeNotify'],
+                'leido'=> $notify->read_at,
+                'id_notify'=> $notify->id,
+                'time'=> $notify->created_at
+            ];
+
+        });
+        event(new EventNotifyUsersApp($notify,$notify[0]['TipeNotify'],Auth::user()->id));
+        
+     }
+
+     public function make_notify_read_all_AppMobile(){
+       
+        Auth::user()->unreadNotifications->markAsRead();
+      $now = Carbon::now();
+      $notify= Auth::user()->notifications->map(function($notify) use ($now){
+        $created_at = Carbon::parse($notify->created_at);
+        return [
+            'NotifyInfo'=> $notify->data['NotifyInfo'],
+            'TipeNotify'=> $notify->data['TipeNotify'],
+            'leido'=> $notify->read_at,
+            'id_notify'=> $notify->id,
+            'time'=> $notify->created_at
+        ];
+
+      });
+      event(new EventNotifyUsersApp($notify,$notify[0]['TipeNotify'],Auth::user()->id));
+      
+   }
 }
