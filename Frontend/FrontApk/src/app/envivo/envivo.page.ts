@@ -11,7 +11,22 @@ import { Observable } from 'rxjs';
 export class EnvivoPage implements OnInit {
 
   url:string = '';
-  meeting: string = "Sesión 872 del Pleno de la Asamblea Nacional.";
+  meeting =[
+    {
+      "nameVivo": 'Asamblea',
+      "url": "https://www.facebook.com/100064644160947/videos/1394563744662898"
+    },
+
+    
+    {
+      "nameVivo": "Rafael Correa.",
+      "url": "https://www.facebook.com/MashiRafaelOficial/videos/1271857323715592"
+    },
+    {
+      "nameVivo": "Revolucion ciudadana.",
+      "url": "https://www.facebook.com/RevolucionCiudadana5Oficial/videos/767175361523792"
+    }
+  ] ;
   token: string;
   constructor( private service:GetFacebookLiveService, private sanitizer: DomSanitizer) { 
     
@@ -33,8 +48,8 @@ export class EnvivoPage implements OnInit {
     
   }
 
-  getSafeUrl() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/100064644160947/videos/1394563744662898');
+  getSafeUrl( url:any) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.facebook.com/plugins/video.php?href='+url);
   }
 
   closeLoader(){
