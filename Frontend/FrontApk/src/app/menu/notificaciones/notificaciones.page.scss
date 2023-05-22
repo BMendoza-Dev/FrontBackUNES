@@ -23,6 +23,7 @@
 }
 
 .NotifyDescrip {
+    font-family: "Gotham-Book";
     margin-top: 3%;
     line-height: 15px;
     overflow: hidden;
@@ -32,7 +33,13 @@
     -webkit-box-orient: vertical;
 }
 
+.NotifyDescrip {
+    color: #666666;
+}
+
 .NotifyTitle {
+    font-family: "Gotham-Medium";
+    font-size: 2.4vh;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

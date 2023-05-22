@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
@@ -9,19 +10,20 @@ import { BlogsService } from 'src/app/api/rest/blogs.service';
 })
 export class AgendaPage implements OnInit {
   fechaNow: string;
-  blogAgenda:any = [];
-  limNext=2;
+  blogAgenda: any = [];
+  limNext = 2;
 
-  constructor(private service:BlogsService, private loadCont:LoadingController, private Nav:NavController) { }
+  constructor(private service: BlogsService, private datePipe: DatePipe, private loadCont: LoadingController, private Nav: NavController) { }
 
   ngOnInit() {
     this.fechaActual();
     this.cargarAgenda();
   }
 
-  cargarAgenda(){
+  fechaInic; agenda = []
+  cargarAgenda() {
     this.showLoading();
-    this.service.ListarBlogsAgenda().subscribe((data:any)=> {
+    this.service.ListarBlogsAgenda().subscribe((data: any) => {
       console.log(data)
       this.blogAgenda = data.map(item => ({
         blogtitulo:item.blogtitulo,
@@ -30,13 +32,30 @@ export class AgendaPage implements OnInit {
         jurisdiction: `${item.perfil.jurisdiction}: ${item.perfil.territorialDivision}`,
         id:item.id
       }))
+
+      // this.blogAgenda = data.map((item,index) => {
+        
+      //   if (index == 0) {
+      //      this.fechaInic = this.transFormar(item.created_at);
+      //   }
+      //   // this.datePipe.transform(item.NotifyInfo.updated_at, 'dd/MM/yyyy'),
+      //   console.log(this.fechaInic)
+      //   if (this.fechaInic == this.transFormar(item.created_at)) {
+      //     this.agenda.push(item);
+      //   }
+        
+      // })
       this.loadCont.dismiss();
     })
   }
 
-  fechaActual(){
+  transFormar(fecha:any) {
+    return this.datePipe.transform(fecha,'dd/MM/yyyy');
+  }
+
+  fechaActual() {
     const now = new Date(); // Obtiene la fecha y hora actuales
-// Crea una matriz de nombres de mes
+    // Crea una matriz de nombres de mes
 
     const formattedDate = now.toLocaleDateString("es-ES", {
       day: "numeric",
@@ -48,7 +67,7 @@ export class AgendaPage implements OnInit {
 
   }
 
-  handleRefresh(event){
+  handleRefresh(event) {
     this.cargarAgenda();
     setTimeout(() => {
       event.target.complete();
@@ -65,7 +84,7 @@ export class AgendaPage implements OnInit {
     loading.present();
   }
 
-  goBlog(id){
+  goBlog(id) {
     this.Nav.navigateForward(`inf-ultimas/${id}`);
   }
 
