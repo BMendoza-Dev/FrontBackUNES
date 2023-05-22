@@ -93,7 +93,7 @@ class AuthmobileController extends Controller
             ];
 
         });
-        return $notify[0]->TipeNotify;
+        return $notify;
         event(new EventNotifyUsersApp($notify,$notify->TipeNotify,Auth::user()->id));
     }
 }
