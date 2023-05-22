@@ -221,11 +221,14 @@ return response()->json($categorias);
      
      public function ListarBlogsAgenda (Request $request){
 
-        $blogs = Blog::with('perfil', 'image', 'categoria')->whereHas('categoria', function ($query) {
+        $blogs = Blog::with('perfil', 'image', 'categoria')
+        ->whereHas('categoria', function ($query) {
             $query->where('categorianame', 'Agenda');
-        })->get();
-    
-        return response()->json($blogs);
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return response()->json($blogs);
     }
 
     public function AddVisitaVisitanteBlog (Request $request){
