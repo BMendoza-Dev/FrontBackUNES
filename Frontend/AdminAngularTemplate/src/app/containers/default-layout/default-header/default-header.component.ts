@@ -99,10 +99,15 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.mostrarImg();
+    setTimeout ( () => {
+      this.blogService.Notifique().then(()=>{
+        console.log("Entro..Notify")
+      });
+    },500)
   }
   
   ngAfterViewInit(){
-    this.blogService.Notifique();
+    
   }
 
 

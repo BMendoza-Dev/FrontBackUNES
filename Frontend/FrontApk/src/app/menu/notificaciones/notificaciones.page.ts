@@ -50,6 +50,9 @@ export class NotificacionesPage implements OnInit {
       })
     },500)
     
+    setTimeout (() => {
+      this.loadCont.dismiss();
+    },700)
   }
 
   goInfEdit(id: any,id_notify:any) {
