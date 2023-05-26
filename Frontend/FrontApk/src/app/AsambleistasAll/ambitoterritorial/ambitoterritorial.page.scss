@@ -81,3 +81,12 @@ ion-buttons.ios ion-back-button.ios{
 div[slot="content"] {
   background: rgba(var(--ion-color-rose-rgb), 0.25)
 }
+
+.title{
+  --color: white;
+  //size: large;
+  text-align: center;
+  font-family: "Gotham-Bold";
+  font-size: 16px;
+  padding: 0px 10px;
+}

@@ -10,7 +10,7 @@ import { BlogsService } from 'src/app/api/rest/blogs.service';
 })
 export class EditorialPage implements OnInit {
   editorialList: any = [];
-  lim = 1;
+  lim = 2;
 
   constructor(private serviceBlog: BlogsService,public loadCont: LoadingController,
      private sanitizer: DomSanitizer, private Nav: NavController) { }
@@ -59,7 +59,7 @@ export class EditorialPage implements OnInit {
   onIonInfinite(event) {
     
     setTimeout(() => {
-      this.lim += 1;
+      this.lim += 2;
       event.target.complete();
     }, 600);
   }

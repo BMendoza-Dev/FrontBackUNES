@@ -258,7 +258,7 @@ export const navItem: INavData[] = [
         permission:['super_administrador'],
       },
       {
-        name: 'Asambleistas',
+        name: 'Asambleístas',
         url: '/administrador_nav_1/asambleistas',
         permission:['super_administrador'],
       },

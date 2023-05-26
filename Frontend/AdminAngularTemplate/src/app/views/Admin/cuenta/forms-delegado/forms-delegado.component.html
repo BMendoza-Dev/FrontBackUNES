@@ -88,7 +88,7 @@
         </c-form-feedback>
       </c-col>
       <c-col md="6" *ngIf="simpleForm.controls['userAssam'] as ctrl">
-        <label cLabel for="userAssam">Asambleistas<span class="is-required">*</span></label>
+        <label cLabel for="userAssam">Asambleístas<span class="is-required">*</span></label>
         <input id="userAssam" (ngModelChange)="cargarAutoComplete()" formControlName="userAssam"
           [matAutocomplete]="auto" cFormControl placeholder="Asambleista.." autocomplete="off" required [valid]="
             ctrl.touched && ctrl.valid
