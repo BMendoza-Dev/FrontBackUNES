@@ -43,7 +43,7 @@ export class ListEditorialComponent {
       });
       this.spinnerService.detenerSpinner();
     }).catch(error => {
-      console.log(error)
+      
     })
   }
 
@@ -69,7 +69,7 @@ export class ListEditorialComponent {
       this.editEditorial = true;
     }).catch(error =>{
       if (error.status) { this.rutas.navigate(['/login']); }
-      console.log(error)
+      
     })
   }
 

@@ -105,7 +105,7 @@ export class LastNewsAgreeComponent implements OnInit {
       
       if(error.status){this.rutas.navigate(['/login']);}
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 
@@ -146,14 +146,13 @@ export class LastNewsAgreeComponent implements OnInit {
       this.transformaPdf(data[0].pdfs);
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
-          console.log('script loaded ', data);
-        }).catch(error => { this.spinnerService.detenerSpinner(); console.log(error) });
+        }).catch(error => { this.spinnerService.detenerSpinner();  });
       this.spinnerService.detenerSpinner();
       this.toggleLiveDemo();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
       if(error.status){this.rutas.navigate(['/login']);}
-      console.log(error);
+      
     })
   }
 
@@ -225,7 +224,7 @@ export class LastNewsAgreeComponent implements OnInit {
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       if(error.status){this.rutas.navigate(['/login']);}
-      console.log(error);
+      
     })
   }
 

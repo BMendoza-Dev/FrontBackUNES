@@ -160,7 +160,7 @@ export class ConfigProfileComponent implements OnInit {
         this.adminService.updateAsamAsisCuentas(data).then(() => {
           this.onReset();
         }).catch(error => {
-          console.log(error);
+          
         })
       }
     })

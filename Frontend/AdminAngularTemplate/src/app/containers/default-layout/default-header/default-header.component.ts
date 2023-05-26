@@ -56,7 +56,6 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     let rol = localStorage.getItem('sesionLoginInicio'); let id = localStorage.getItem('idUser');
     this.echo.channel('channel-NotifyBlosAdmin.' + rol + '.' + id)
       .listen('NotifyEventBlog', (resp: any) => {
-        console.log(resp)
         this.page=1;
         this.toggleAnimation();
         this.total=this.contNotifyView(resp['blog'])
@@ -101,7 +100,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     this.mostrarImg();
     setTimeout ( () => {
       this.blogService.Notifique().then(()=>{
-        console.log("Entro..Notify")
+       
       });
     },500)
   }
@@ -149,7 +148,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
 
       let objectURL = 'data:image/jpeg;base64,' + baseImage[0].imagen;
       this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    }, error => { console.log(error) });
+    }, error => {  });
   }
 
   marcarLeidasNotify(){

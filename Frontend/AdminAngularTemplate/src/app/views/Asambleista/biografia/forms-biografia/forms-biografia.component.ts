@@ -110,7 +110,7 @@ export class FormsBiografiaComponent implements OnInit {
         }).catch(error => {
           if (error.status) { this.rutas.navigate(['/login']); }
           this.spinnerService.detenerSpinner();
-          console.log(error);
+          
         })
 
       } else if (result.isDenied) {
@@ -151,7 +151,7 @@ export class FormsBiografiaComponent implements OnInit {
     }).catch(error => {
       if (error.status) { this.rutas.navigate(['/login']); }
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 

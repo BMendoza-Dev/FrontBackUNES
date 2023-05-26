@@ -123,7 +123,7 @@ export class CreatEditorialComponent {
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       if (error.status) { this.rutas.navigate(['/login']); }
-      console.log(error)
+      
     })
   }
 
@@ -176,7 +176,7 @@ export class CreatEditorialComponent {
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       if (error.status) { this.rutas.navigate(['/login']); }
-      console.log(error)
+      
     })
   }
 
@@ -205,7 +205,6 @@ export class CreatEditorialComponent {
     this.spinnerService.llamarSpinner();
     this.idBlog = id;
     this.service.getBlog(id).then((data: any) => {
-      console.log(data)
       this.categoria = data[0].categoria;
       this.categoriaId = data[0].categorie_id
       this.blogtitulo = data[0].blogtitulo;
@@ -215,16 +214,15 @@ export class CreatEditorialComponent {
       this.transformaPdf(data[0].pdfs);
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
-          console.log('script loaded ', data);
-        }).catch(error =>
-          console.log(error));
+          
+        });
 
       this.toggleLiveDemo();
       this.spinnerService.detenerSpinner();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
       if (error.status) { this.rutas.navigate(['/login']); }
-      console.log(error);
+      
     })
   }
 
@@ -286,7 +284,7 @@ export class CreatEditorialComponent {
           }).catch(error => {
             this.spinnerService.detenerSpinner();
             if (error.status) { this.rutas.navigate(['/login']); }
-            console.log(error);
+            
           })
         } else {
           let datos = {
@@ -299,7 +297,7 @@ export class CreatEditorialComponent {
           this.service.EditarEditorial(datos).then((data: any) => {
             this.cargarListEditorial.emit();
           }).catch(error => {
-            console.log(error)
+            
           })
 
         }

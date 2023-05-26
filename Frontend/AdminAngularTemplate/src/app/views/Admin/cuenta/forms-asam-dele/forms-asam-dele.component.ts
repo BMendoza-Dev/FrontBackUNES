@@ -73,7 +73,7 @@ export class FormsAsamDeleComponent implements OnInit {
       this.onReset1();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 
@@ -92,7 +92,7 @@ export class FormsAsamDeleComponent implements OnInit {
 
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 

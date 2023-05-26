@@ -45,7 +45,7 @@ export class TableDelegadoComponent implements OnInit {
       this.spinnerService.detenerSpinner();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 
@@ -91,7 +91,7 @@ export class TableDelegadoComponent implements OnInit {
       this.cargarTabla();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 
@@ -134,7 +134,7 @@ export class TableDelegadoComponent implements OnInit {
       }
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 

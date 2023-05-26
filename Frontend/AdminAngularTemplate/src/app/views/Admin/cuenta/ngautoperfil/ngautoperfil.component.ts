@@ -34,7 +34,7 @@ export class NgautoperfilComponent implements OnInit {
       }
       this.datosAsambleistas = datoPrueba;
     }).catch(error => {
-      console.log(error);
+      
     })
   }
 

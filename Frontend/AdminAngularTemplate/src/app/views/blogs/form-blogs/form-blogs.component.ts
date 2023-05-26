@@ -134,8 +134,6 @@ export class FormBlogsComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.spinnerService.llamarSpinner();
-          
-          console.log(this.pdfs)
           let pdfs = this.pdfs.map( item => ({'pdf': item.pdf.replace("data:", "")
           .replace(/^.+,/, ""), 'name': item.name }));
           let data = {
@@ -155,7 +153,7 @@ export class FormBlogsComponent implements OnInit {
             this.onReset2();
           }).catch((error) => {
             this.spinnerService.detenerSpinner();
-            console.log(error);
+            
           })
 
         } else if (result.isDenied) {
@@ -219,7 +217,6 @@ export class FormBlogsComponent implements OnInit {
     }
   }
   public onSelectFile(event: any) {
-    console.log(`Entro Imagen`)
     // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       let tipoImagen = event.target.files[0].type;

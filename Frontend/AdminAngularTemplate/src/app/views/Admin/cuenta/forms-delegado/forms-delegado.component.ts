@@ -50,7 +50,7 @@ export class FormsDelegadoComponent implements OnInit {
       this.onReset2();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     })
   }
 
@@ -96,7 +96,7 @@ export class FormsDelegadoComponent implements OnInit {
       }
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+      
     });
   }
 

@@ -35,7 +35,7 @@ export class FormCategoriaComponent {
       this.spinnerService.detenerSpinner();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error)
+     
     })
   }
 
@@ -66,7 +66,7 @@ export class FormCategoriaComponent {
       this.onReset2();
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error)
+     
     })
   }
 

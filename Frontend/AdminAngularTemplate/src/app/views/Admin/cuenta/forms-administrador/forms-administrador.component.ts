@@ -51,7 +51,7 @@ export class FormsAdministradorComponent implements OnInit {
       Swal.fire('Guardado!', '', 'success');
     }).catch(error => {
       this.spinnerService.detenerSpinner();
-      console.log(error);
+     
     })
   }
 

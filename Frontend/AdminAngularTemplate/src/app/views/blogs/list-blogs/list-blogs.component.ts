@@ -61,7 +61,7 @@ export class ListBlogsComponent implements OnInit {
     }).catch(error => {
       this.spinnerService.detenerSpinner();
       if(error.status){this.rutas.navigate(['/login']);}
-      console.log(error)
+      
     })
   }
 
@@ -107,7 +107,7 @@ export class ListBlogsComponent implements OnInit {
     }).catch(error =>{
       this.spinnerService.detenerSpinner();
       if(error.status){this.rutas.navigate(['/login']);}
-      console.log(error)
+      
     })
   }
 
@@ -139,7 +139,6 @@ export class ListBlogsComponent implements OnInit {
     this.spinnerService.llamarSpinner();
     this.idBlog = id;
     this.service.getBlog(id).then((data: any) => {
-      console.log(data)
       this.categoria = data[0].categoria;
       this.categoriaId = data[0].categorie_id
       this.blogtitulo = data[0].blogtitulo;
@@ -176,15 +175,14 @@ export class ListBlogsComponent implements OnInit {
       }
       this.scriptService.loadScript({ id: 'twitter', url: 'https://platform.twitter.com/widgets.js' })
         .then(data => {
-          console.log('script loaded ', data);
-        }).catch(error => 
-          console.log(error));
+        }).catch(error => error
+          );
       this.spinnerService.detenerSpinner();
       this.toggleLiveDemo();
     }).catch((error) => {
       this.spinnerService.detenerSpinner();
       if(error.status){this.rutas.navigate(['/login']);}
-      console.log(error);
+      
     })
   }
 
