@@ -210,7 +210,7 @@ class PerfilesController extends Controller
 
 
         $asambleistas= collect($request->json());
-        $filtered = $asambleistas->whereIn('politicalParty', ["UNIÓN POR LA ESPERANZA"])->whereIn("active",[false]);
+        $filtered = $asambleistas->whereIn('politicalParty', ["UNIÓN POR LA ESPERANZA"])->whereIn("active",[true]);
 
         
 
