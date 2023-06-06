@@ -472,10 +472,10 @@ class PerfilesController extends Controller
         $Perfiles->save();
 
         
-        if($Perfiles->isEmpty()){
-            return  response()->json(['error'=>'404']);
-        }
-        return  response()->json($Perfiles);
+
+        return  response()->json(['error'=>'200',$Perfiles]);
+
+
            
      }
      
