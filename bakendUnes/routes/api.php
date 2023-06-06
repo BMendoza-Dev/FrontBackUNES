@@ -195,6 +195,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::post('RegistrarBiografia',[PerfilesController::class, 'RegistrarBiografia']);
     Route::get('ObtenerBiografia',[PerfilesController::class, 'ObtenerBiografia']);
     Route::get('ObtenerPerfil',[PerfilesController::class, 'ObtenerPerfil']);
+    Route::post('CrearPerfil',[PerfilesController::class, 'CrearPerfil']);
 
     Route::post('CrearBlog',[BlogsController::class, 'CrearBlog']);
     Route::get('ListarCateBlog',[BlogsController::class, 'ListarCateBlog']);

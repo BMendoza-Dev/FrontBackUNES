@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('perfils', function (Blueprint $table) {
-            $table->id();;
+            $table->id();
        
               $table->boolean('active');
               $table->integer('curul');
