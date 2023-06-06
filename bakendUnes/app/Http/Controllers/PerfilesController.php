@@ -452,13 +452,13 @@ class PerfilesController extends Controller
         $Perfiles = new Perfil();
 
         
-        $Perfiles->active=$asambleista["active"];
+        $Perfiles->active=true;
         $Perfiles->curul='0';
         $Perfiles->firstName=$asambleista["firstName"];
         $Perfiles->email=$asambleista["email"];
         $Perfiles->jurisdiction=$asambleista["jurisdiction"];
         $Perfiles->lastName=$asambleista["lastName"];
-        $Perfiles->politicalParty=$asambleista["politicalParty"];
+        $Perfiles->politicalParty='Revolucion Ciudadana';
         $Perfiles->territorialDivision=$asambleista["territorialDivision"];
         $Perfiles->usedFirstName=$asambleista["usedFirstName"];
         $Perfiles->usedLastName=$asambleista["usedLastName"];
@@ -473,7 +473,7 @@ class PerfilesController extends Controller
         $Perfiles->save();
 
         
-        if($Perfilesfinal->isEmpty()){
+        if($Perfiles->isEmpty()){
             return  response()->json(['error'=>'404']);
         }
         return  response()->json($Perfiles);
