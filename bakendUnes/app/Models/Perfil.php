@@ -9,6 +9,7 @@ use App\Models\Comision;
 use App\Models\Biografia;
 use App\Models\localizacion;
 use App\Models\Blog;
+use App\Models\Video;
 use App\Models\User;
 use App\Models\Temaavotacion;
 class Perfil extends Model
@@ -49,5 +50,9 @@ class Perfil extends Model
 
      public function image(){
     	return $this->morphMany('App\Models\Imagen','imageable');
+    }
+
+    public function videos(){
+      return $this->HasMany(Video::class);
     }
 }

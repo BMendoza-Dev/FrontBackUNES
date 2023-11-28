@@ -11,6 +11,7 @@ use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\Api\AuthmobileController;
 use App\Http\Controllers\AppMobile\PerfilesControllerAppMobile;
 use App\Http\Controllers\AppMobile\BlogAppController;
+use App\Http\Controllers\VideosController;
 use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
@@ -18,6 +19,8 @@ use App\Models\Tema;
 use App\Models\Blog;
 use App\Models\Temaavotacion;
 use Carbon\Carbon;
+
+
 
 use Illuminate\Support\Facades\Http;
 /*
@@ -80,7 +83,7 @@ Route::get('/prueva', function (Request $request) {
     $ListaSesiones = Http::withHeaders([
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
-        ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom&dateTo&search=%20&meetingGroupId=0&offset=0&limit=18');
+        ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom=2023-11-17&dateTo&search=%20&meetingGroupId=0&offset=0&limit=0');
 
 
         foreach (collect($ListaSesiones->json()) as $Sesiones){
@@ -186,6 +189,8 @@ Route::post('Login',[AuthController::class, 'Login']);
 
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
+
+
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
     Route::get('ListarPerfileSiAsambleista',[PerfilesController::class, 'ListarPerfileSiAsambleista']);
@@ -223,6 +228,11 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarUsuariosAdministrador', [CuentaController::class, 'ListarUsuariosAdministrador']);
     Route::get('ListarUserPorRol', [CuentaController::class, 'ListarUserPorRol']);
     Route::get('ListarRoles', [CuentaController::class, 'ListarRoles']);
+
+    Route::get('ListarVideos',[VideosController::class, 'index']);
+    Route::post('AgregarVideo',[VideosController::class, 'AgregarVideo']);
+    Route::post('EditarVideo',[VideosController::class, 'EditarVideo']);
+    Route::get('EliminarVideo',[VideosController::class, 'EliminarVideo']);
     
     
 
