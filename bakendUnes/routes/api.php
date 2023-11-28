@@ -50,7 +50,7 @@ Route::get('/prueva2', function (Request $request) {
         $ListadeVotacionesAsambleista = Http::withHeaders([
             'Content-Type' => 'application/jason',
             'Authorization' => $token['token'],
-            ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findVotings?periodId=6&assemblyMemberId='.$Perfil->id.'&description&offset=0&limit=0');
+            ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findVotings?periodId=7&assemblyMemberId='.$Perfil->id.'&description&offset=0&limit=0');
         
         foreach (collect($ListadeVotacionesAsambleista->json()) as $VotacionAsambleista){
             if(Temaavotacion::where('id',$VotacionAsambleista['id'])->exists()){

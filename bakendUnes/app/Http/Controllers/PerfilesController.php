@@ -179,7 +179,7 @@ class PerfilesController extends Controller
         $Comisiones = Http::withHeaders([
             'Content-Type' => 'application/jason',
             'Authorization' => $token['token'],
-            ])->get('http://apiapp.asambleanacional.gob.ec/periodsResource/6/meetingGroups/2');
+            ])->get('http://apiapp.asambleanacional.gob.ec/periodsResource/7/meetingGroups/2');
 
         foreach (collect($Comisiones->json()) as $Comisionesaux){
             $Comision = new Comision();
@@ -196,14 +196,14 @@ class PerfilesController extends Controller
         $Perfiles2->id=1;
         $Perfiles2->active=1;
         $Perfiles2->curul=0;
-        $Perfiles2->firstName='UNES';
+        $Perfiles2->firstName='RC5';
         $Perfiles2->email='superadmin@hotmail.com';
         $Perfiles2->jurisdiction='ECUADOR';
-        $Perfiles2->lastName='UNION POR LA ESPERANZA';
-        $Perfiles2->politicalParty='UNES';
+        $Perfiles2->lastName='BANCADA CIUDADANA RC5';
+        $Perfiles2->politicalParty='RC5';
         $Perfiles2->territorialDivision='ECUADOR';
-        $Perfiles2->usedFirstName='UNION POR LA ESPERANZA';
-        $Perfiles2->usedLastName='UNION POR LA ESPERANZA';
+        $Perfiles2->usedFirstName='BANCADA CIUDADANA RC5';
+        $Perfiles2->usedLastName='BANCADA CIUDADANA RC5';
 
         $rolid = Roles::where('slug','super_administrador')->firstOrFail();
         $urlimagenes=[];
@@ -225,11 +225,11 @@ class PerfilesController extends Controller
         $request = Http::withHeaders([
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
-        ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findnew/6/0/0/false/false/false/0/0/0/0');
+        ])->get('http://apiapp.asambleanacional.gob.ec/assemblyMembersResource/findnew/7/0/0/false/false/false/0/0/0/0');
 
 
         $asambleistas= collect($request->json());
-        $filtered = $asambleistas->whereIn('politicalParty', ["UNIÓN POR LA ESPERANZA"])->whereIn("active",[true]);
+        $filtered = $asambleistas->whereIn('politicalParty', ["MOVIMIENTO POLÍTICO REVOLUCIÓN CIUDADANA","SEGUIMOS HACIENDO HISTORIA RC5-MAR70-PLAN77"])->whereIn("active",[true]);
 
         
 
@@ -326,7 +326,7 @@ class PerfilesController extends Controller
         
         //dd($aux2);
         
-        return response()->json("Perfiles Cargados en la base de datos.");;
+        return response()->json("Perfiles Cargados en la base de datos.");
     }
 
     public function ListarPerfiles (){
