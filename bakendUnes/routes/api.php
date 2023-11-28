@@ -80,7 +80,7 @@ Route::get('/prueva', function (Request $request) {
     $ListaSesiones = Http::withHeaders([
         'Content-Type' => 'application/jason',
         'Authorization' => $token['token'],
-        ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom&dateTo&search=%20&meetingGroupId=0&offset=0&limit=585');
+        ])->get('http://apiapp.asambleanacional.gob.ec/votingsResource/getList?id&sessionNumber&dateFrom&dateTo&search=%20&meetingGroupId=0&offset=0&limit=18');
 
 
         foreach (collect($ListaSesiones->json()) as $Sesiones){
