@@ -5,7 +5,7 @@ import { ViewEncapsulation } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import * as scriptjs from 'scriptjs';
 import { ScriptServiceService } from 'src/app/api/rest/script-service.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 @Component({
   selector: 'app-biografia',
   templateUrl: './biografia.page.html',
@@ -14,6 +14,8 @@ import { LoadingController } from '@ionic/angular';
 })
 export class BiografiaPage implements OnInit {
   id_perfil: any;
+  lastName:any;
+  firstName:any;
   peril: SafeHtml;
   cont: any;
   urlGet: any;
@@ -21,12 +23,16 @@ export class BiografiaPage implements OnInit {
   urlit: string = '';
   urlttk: string = '';
   urltw: string = '';
-  constructor(public loadCont: LoadingController, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute, private rest: PerfilAsamService) { }
+  constructor(public loadCont: LoadingController, private sanitizer: DomSanitizer, 
+    private activatedRoute: ActivatedRoute, private rest: PerfilAsamService,
+    private menuController:MenuController, private navCtrl:NavController) { }
 
 
 
   ngOnInit() {
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
+    this.lastName = this.activatedRoute.snapshot.paramMap.get("lastname");
+    this.firstName = this.activatedRoute.snapshot.paramMap.get("firstname");
     this.getBiografia();
   }
 
@@ -66,6 +72,13 @@ export class BiografiaPage implements OnInit {
     });
 
     loading.present();
+  }
+
+  abrirMenu(){
+    this.menuController.open();
+  }
+  goBack() {
+    this.navCtrl.back();
   }
 
 }

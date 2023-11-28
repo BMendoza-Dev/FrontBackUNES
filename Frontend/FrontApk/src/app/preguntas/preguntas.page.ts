@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-preguntas',
@@ -10,7 +11,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class PreguntasPage implements OnInit {
   ionicForm: FormGroup;
   mensaje: any;
-  constructor(public formBuilder: FormBuilder, private emailComposer: EmailComposer) { 
+  constructor(public formBuilder: FormBuilder, private emailComposer: EmailComposer, private menuController:MenuController) { 
     this.ionicForm = new FormGroup({
       Nombre: new FormControl('', Validators.required),
       Apellidos: new FormControl('',Validators.required),
@@ -42,6 +43,10 @@ export class PreguntasPage implements OnInit {
     };
   
     this.emailComposer.open(email);
+  }
+
+  abrirMenu(){
+    this.menuController.open();
   }
 }
 

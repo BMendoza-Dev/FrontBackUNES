@@ -33,4 +33,32 @@ public removeScript(id: string) {
         script.remove();
     } 
 }
+
+ loadTwitterScript(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      // Verificar si el script ya ha sido cargado
+      if (document.querySelector('script[src="https://platform.twitter.com/widgets.js"]')) {
+        resolve();
+        return;
+      }
+  
+      // Crear el elemento script
+      const script = document.createElement('script');
+      script.src = 'https://platform.twitter.com/widgets.js';
+      script.charset = 'utf-8';
+      script.async = true;
+  
+      // Manejar los eventos de carga y error del script
+      script.onload = () => {
+        resolve();
+      };
+  
+      script.onerror = () => {
+        reject(new Error('No se pudo cargar el script de Twitter.'));
+      };
+  
+      // Agregar el script al final del cuerpo del documento
+      document.body.appendChild(script);
+    });
+  }
 }

@@ -252,6 +252,11 @@ export const navItem: INavData[] = [
     permission:['super_administrador'],
     iconComponent: { name: 'cil-user-follow' },
     children: [
+      // {
+      //   name: 'Perfiles político',
+      //   url: '/administrador_nav_1/perfil_politico',
+      //   permission:['super_administrador'],
+      // },
       {
         name: 'Administradores',
         url: '/administrador_nav_1/admin',
@@ -275,6 +280,18 @@ export const navItem: INavData[] = [
     iconComponent: { name: 'cil-list' },
     permission:['super_administrador'],
   },
+  // {
+  //   name:'Dignidades políticas',
+  //   url: '/admin-dignidad/forms-dignidad',
+  //   iconComponent: { name: 'cil-list' },
+  //   permission:['super_administrador'],
+  // },
+  // {
+  //   name:'En vivo',
+  //   url: '/envivo/forms-envivo',
+  //   iconComponent: { name: 'cil-list' },
+  //   permission:['super_administrador'],
+  // },
   {
     name: 'Biografia',
     url: '/administrador_nav_2/biografia',
@@ -322,4 +339,12 @@ export const navItem: INavData[] = [
       },
     ]
   },
+  {
+    name:'Directo',
+    url: '/admin-categoria/form-directo',
+    iconComponent:{name:'cil-video'},
+    permission:['super_administrador'],
+  }
+  
+  
 ];

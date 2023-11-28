@@ -9,7 +9,7 @@ export class ValidationFormsService {
 
   formRules = {
     nonEmpty: '[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*',
-    usernameMin: 10,
+    usernameMin: 5,
     passwordMin: 8,
     passwordPattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'
   };

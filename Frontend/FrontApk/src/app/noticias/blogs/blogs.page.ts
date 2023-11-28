@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, MenuController } from '@ionic/angular';
 import { UltimasPage } from '../ultimas/ultimas.page';
 import { EditorialPage } from '../editorial/editorial.page';
 import { MasLeidoPage } from '../mas-leido/mas-leido.page';
@@ -10,7 +10,7 @@ import { MasLeidoPage } from '../mas-leido/mas-leido.page';
   styleUrls: ['./blogs.page.scss'],
 })
 export class BlogsPage implements OnInit {
-  constructor() { }
+  constructor(private menuController:MenuController) { }
   @ViewChild('mySlider') slides: IonSlides;
 
   segment = "segment1";
@@ -45,11 +45,11 @@ export class BlogsPage implements OnInit {
   }
 
   ngOnInit() {
-    
-    //scriptjs('https://platform.twitter.com/widgets.js', (dato:any) => {
-      // Aquí puedes ejecutar cualquier código que dependa del script cargado
-      //dato; 
-    //});
+  
+  }
+
+  abrirMenu() {
+    this.menuController.open();
   }
 
 }

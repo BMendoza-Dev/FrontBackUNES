@@ -8,6 +8,7 @@
 .provi{
   font-family: "Gotham-Medium";
   font-size: 14px;
+  color: white;
 }
 
 .ion-padding{
@@ -27,7 +28,7 @@ h2{
 ion-label h2{
   font-size: 10.5px;
   margin-top: 5px; margin-bottom: 0px;
-  color:blue;
+  color:#009fe4;
 }
 ion-label h3{
   font-size: 10px;
@@ -89,4 +90,13 @@ div[slot="content"] {
   font-family: "Gotham-Bold";
   font-size: 16px;
   padding: 0px 10px;
+}
+
+ion-accordion-group{
+  ion-accordion {
+      .ion-accordion-toggle-icon {
+          font-size: 50px;
+          color: red;
+      }
+  }
 }

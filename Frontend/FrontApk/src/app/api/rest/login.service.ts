@@ -38,9 +38,9 @@ export class LoginService {
     formData.append('email', _data.email);
     formData.append('password', _data.password);
     formData.append('identificador', _data.identificador);
-    let httpHeaders = new HttpHeaders (
-      { 'Content-Type':'application/x-www-form-urlencoded'}
-     )
+    // let httpHeaders = new HttpHeaders (
+    //   { 'Content-Type':'application/x-www-form-urlencoded'}
+    //  )
     return new Promise((resolve, reject) => {
       this.http.post(url, formData).subscribe(res => {
         resolve(res); {

@@ -39,13 +39,15 @@ export class AsambleistasPage implements OnInit {
   thumbnail: any; pruebaImagen: any;
   getAssambly(event) {
     this.rest.ListarPerfilesApp().then(data => {
-      this.assambly = data; 
+      this.assambly = data;
       this.entro = 'Entro'
+
       //this.eliminarOrder();
       let datoPrueba: any = [{ id: this.assambly[1].id, LastFirstName: this.assambly[1].lastName + ' ' + this.assambly[1].firstName, territorialDivision: this.assambly[1].territorialDivision, imagen: this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assambly[1]['imagen'][0].imagen), curul: this.assambly[1].curul }];
-      
+
       for (let i = 2; i < this.assambly.length; i++) {
         let objectURL = 'data:image/jpeg;base64,' + this.assambly[i]['imagen'][0].imagen;
+
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
         datoPrueba.push({
           "id": this.assambly[i].id,
@@ -55,6 +57,7 @@ export class AsambleistasPage implements OnInit {
           "curul": this.assambly[i].curul
         });
       }
+
       this.assambly = datoPrueba;
       this.assamblyfilter = datoPrueba;
       this.loadCont.dismiss();
@@ -65,7 +68,6 @@ export class AsambleistasPage implements OnInit {
       console.log(error);
     })
   }
-
   onIonInfinite(event) {
     setTimeout(() => {
       this.lim += 10;
@@ -76,7 +78,7 @@ export class AsambleistasPage implements OnInit {
   buscar(event) {
     this.textoBuscar = event.detail.value;
     this.assamblyfilter = this.transform(this.assambly, this.textoBuscar);
-    
+
   }
 
   async showLoading() {

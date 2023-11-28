@@ -1,14 +1,17 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button style="color: white;"></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="title">Notificaciones</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
   </ion-toolbar>
+
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto ">
+        <p>NOTIFICACIONES</p>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
 <!-- <ion-content>
@@ -64,5 +67,18 @@
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../opcinicv2']"  class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>
 
 

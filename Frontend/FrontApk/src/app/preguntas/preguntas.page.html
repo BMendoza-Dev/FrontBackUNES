@@ -1,20 +1,20 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <!--ion-buttons slot="start" >
-      <ion-menu-button style="color: black;"></ion-menu-button>
-    </ion-buttons-->
-    <ion-buttons slot="start">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title class="title">PREGUNTAS</ion-title>
-    <ion-buttons slot="end">
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
+  </ion-toolbar> 
+
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto ">
+        <p>ENVÍA TU PREGUNTA</p>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
 <ion-content>
-  <p class="title2"> ENVÍA TU PREGUNTA </p>
-  <div class="linea"></div>
   <ion-card-content class="content">
     <p style="text-align: center;">¿Quieres plantar una duda y que un responsable de la RC5 te responda? Envía tu
       pregunta
@@ -25,7 +25,7 @@
 
   <ion-card-content class="content">
     <p style="text-align: center; font-style: italic;">Rellena este formulario y un responsable de RC5 te responderá</p>
-    <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate style="margin-top: 10%;" >
+    <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate style="margin-top: 10%; height: 650px !important;" >
       
         <ion-label  position="stacked">Nombre<span class="is-required">*</span></ion-label>
         <ion-input formControlName="Nombre" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;" placeholder=" "></ion-input>
@@ -49,3 +49,16 @@
     </form>
   </ion-card-content>
 </ion-content>
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../opc-inicv2']" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>

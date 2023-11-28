@@ -1,24 +1,11 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button style="color: white;"></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="title">ASAMBLEÍSTAS 2021-2023</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
-  </ion-toolbar>
-</ion-header>
-
-<ion-header>
   <ion-toolbar>
     <ion-searchbar class="search" placeholder="Buscar asambleísta" animated
       (ionChange)="buscar($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <div *ngIf="assamblyfilter.length>0 ;else sinRegistro">
     <ion-card *ngFor="let item of assamblyfilter.slice(0,lim);let index = index">
       <ion-item (click)="goInfAssam(item.id)">
@@ -39,9 +26,7 @@
       <p class="sinRegis">Sin registro</p>
     </ion-card>
   </ng-template>
-  
-    
-    <ion-infinite-scroll *ngIf="assamblyfilter.length > lim" (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+  <ion-infinite-scroll *ngIf="assamblyfilter.length > lim" (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

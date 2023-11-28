@@ -1,25 +1,34 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="title">ASAMBLEÍSTA</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
   </ion-toolbar>
+
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto nameAssam">
+        <p>{{lastName}} <br>
+          {{firstName}}</p>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
+
 <ion-content>
-  <div class="content-img">
+  <!-- <div class="content-img">
     <div class="profile-img">
       <img class="tamanio" [src]="urlGet" alt="" />
     </div>
-  </div>
-
-  <div class="nameAssam">
+  </div> -->
+  <!-- <img class="tamanio" [src]="urlGet" alt="" /> -->
+  <!-- <div class="nameAssam">
     <p>{{lastName}} <br>
       {{firstName}}</p>
-  </div>
+  </div> -->
 
-  <ion-segment value="algo">
+  <ion-segment  value="algo">
     <ion-segment-button value="algo" (click)="this.algo = true; this.contacto = false; this.comisiones = false">
       <ion-label>Información</ion-label>
     </ion-segment-button>
@@ -127,3 +136,16 @@
   </ion-card>
 
 </ion-content>
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../../iniciov2']" class="circle">
+      <i class="fas fa-home" style="font-size: 50px;color:#003365" ></i>
+  </div>
+  <div [routerLink]="['../../tabs/asambleistas']" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>

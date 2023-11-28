@@ -29,3 +29,12 @@ ion-loading.custom-loading {
     --spinner-color: #1c6dff;
     color: #1c6dff;
   }
+
+  ion-accordion-group{
+    ion-accordion {
+        .ion-accordion-toggle-icon {
+           
+            color: white;
+        }
+    }
+}

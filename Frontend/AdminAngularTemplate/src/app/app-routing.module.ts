@@ -58,6 +58,11 @@ export const routes: Routes = [
         import('./views/Admin/categoria/categoria.module').then((m) => m.CategoriaModule)
       },
       {
+        path: 'admin-dignidad',
+        loadChildren: () =>
+        import('./views/Admin/dignidad-politica/dignidad-politica.module').then((m) => m.DignidadPoliticaModule)
+      },
+      {
         path: 'editorial',
         loadChildren: () =>
         import('./views/Admin/editorial/editorial.module').then((m) => m.EditorialModule)
@@ -91,13 +96,13 @@ export const routes: Routes = [
       title: 'Login Page'
     }
   },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
-  },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent,
+  //   data: {
+  //     title: 'Register Page'
+  //   }
+  // },
   { path: '**', redirectTo: 'inicio' }
 ];
 

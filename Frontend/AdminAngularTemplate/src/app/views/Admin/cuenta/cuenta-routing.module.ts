@@ -4,6 +4,7 @@ import { FormsAdministradorComponent } from './forms-administrador/forms-adminis
 import { FormsDelegadoComponent } from './forms-delegado/forms-delegado.component';
 import { NgautoperfilComponent } from './ngautoperfil/ngautoperfil.component'
 import { AdminLoginGuard } from 'src/app/guards/admin-login.guard';
+import { FormsPerfilComponent } from './forms-perfil/forms-perfil.component';
 
 const routes: Routes = [{
   path: '',
@@ -11,6 +12,14 @@ const routes: Routes = [{
     title: 'administrador_nav_1'
   },
   children: [
+    {
+      path: 'perfil_politico',
+      component: FormsPerfilComponent,
+      canActivate:[AdminLoginGuard],
+      data: {
+        title: 'Perfil Político'
+      }
+    },
     {
       path: 'asambleistas',
       component: NgautoperfilComponent,

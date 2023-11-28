@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page500',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class Page500Component {
 
-  constructor() { }
+  constructor(public rutas: Router) { }
 
+  iniciarSesion(){
+    this.rutas.navigate(['/login']);
+  }
 }

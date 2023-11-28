@@ -7,8 +7,8 @@
     </ion-refresher-content>
   </ion-refresher>
   <div *ngIf="blogTop.length>0 ;else sinRegistro">
-    <p class="title2"> MÁS LEÍDO </p>
-    <div class="linea"></div>
+    <!-- <p class="title2"> MÁS LEÍDO </p>
+    <div class="linea"></div> -->
     <ion-card *ngFor="let item of blogTop.slice(0,lim);let index = index" (click)="goInfBlog(item.id)">
       <ion-card-header>
         <div class="container">

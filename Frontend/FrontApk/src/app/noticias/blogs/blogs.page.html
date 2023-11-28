@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
@@ -14,11 +14,30 @@
     <ion-segment-button value="segment2"><ion-label>RC5 EDITORIAL</ion-label></ion-segment-button>
     <ion-segment-button value="segment3"><ion-label>LO MÁS LEÍDO</ion-label></ion-segment-button>
   </ion-segment>
+</ion-header> -->
+
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
+  </ion-toolbar>
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto">
+        <ion-segment style="--color-checked: #003365;border-radius: 10px !important;" value="segment1" [scrollable]="true" [(ngModel)]="segment" (ionChange)="segmentChanged()">
+          <ion-segment-button value="segment1"><ion-label>ÚLTIMAS NOTICIAS</ion-label></ion-segment-button>
+          <ion-segment-button value="segment2"><ion-label>RC5 EDITORIAL</ion-label></ion-segment-button>
+          <ion-segment-button value="segment3"><ion-label>LO MÁS LEÍDO</ion-label></ion-segment-button>
+        </ion-segment>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
 
 <ion-content>
-  <ion-slides #mySlider (ionSlideDidChange)="slideChanged()"  [options]="slideOpts">
+  <ion-slides #mySlider (ionSlideDidChange)="slideChanged()" [options]="slideOpts">
     <ion-slide>
       <ion-nav [root]="componentUltimaNoticias"></ion-nav>
     </ion-slide>
@@ -30,3 +49,16 @@
     </ion-slide>
   </ion-slides>
 </ion-content>
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../opc-inicv2']" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>

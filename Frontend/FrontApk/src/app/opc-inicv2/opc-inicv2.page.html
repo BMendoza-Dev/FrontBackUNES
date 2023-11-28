@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
+  </ion-toolbar>
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto">
+        <p>BANCADA CIUDADANA RC5</p>
+      </div>
+    </ion-toolbar>
+  </div>
+</ion-header>
+<ion-content class="background-image">
+  <ion-grid [fixed]="true">
+    <ion-row style="margin-top: 10px;" class="ion-justify-content-center">
+      <ion-col size="6" size-md="3">
+        <ion-card [routerLink]="['../blogs']">
+          <img alt="Silhouette of mountains" src="../../assets/imgs/periodico_1.png" />
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size="6" size-md="3">
+        <ion-card [routerLink]="['../tabs/asambleistas']">
+          <img alt="Silhouette of mountains" src="../../assets/imgs/conferencia.png" />
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size="6" size-md="3">
+        <ion-card [routerLink]="['../envivo']">
+          <img alt="Silhouette of mountains" src="../../assets/imgs/transmision-en-vivo.png" />
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size="6" size-md="3">
+        <ion-card [routerLink]="['../preguntas']">
+          <img alt="Silhouette of mountains" src="../../assets/imgs/ayudar.png" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <div class="social-media-container">
+    <a data-width="340" data-height="500" class="twitter-timeline"
+      href="https://twitter.com/BancadaRC5?ref_src=twsrc%5Etfw">Tweets by BancadaRC5</a>
+  </div>
+</ion-content>
+
+
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>

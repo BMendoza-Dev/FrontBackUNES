@@ -54,6 +54,7 @@ export class LocalProyectService {
     '/blogs/lista-blogs': ['asambleista','super_administrador'],
     '/admin-categoria' : ['super_administrador'],
     '/admin-categoria/form-categoria' : ['super_administrador'],
+    '/form-directo': ['asambleista','super_administrador'],
   };
 
   hasPermission(route: any, userRole: string): boolean {
