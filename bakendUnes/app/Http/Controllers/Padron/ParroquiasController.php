@@ -14,7 +14,7 @@ class ParroquiasController extends Controller
         ])->get('https://yosoyrc5.com/api/parroquias');
 
         foreach (collect($ListaParroquias->json()) as $parroquias){
-            $newparroquias = new Paises();
+            $newparroquias = new Parroquias();
             $newparroquias->id=$parroquias['id'];
             $newparroquias->cantone_id=$parroquias['idcanton'];
             $newparroquias->circunscripcione_id=$parroquias['idcircunscripcion'];

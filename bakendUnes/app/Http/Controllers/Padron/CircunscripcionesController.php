@@ -14,7 +14,7 @@ class CircunscripcionesController extends Controller
         ])->get('https://yosoyrc5.com/api/circunscripciones');
 
         foreach (collect($ListaCircunscripciones->json()) as $circunscripcion){
-            $newcircunscripcion = new Paises();
+            $newcircunscripcion = new Circunscripciones();
             $newcircunscripcion->id=$circunscripcion['id'];
             $newcircunscripcion->cantone_id=$circunscripcion['idcanton'];
             $newcircunscripcion->circunscripcion=$circunscripcion['circunscripcion'];

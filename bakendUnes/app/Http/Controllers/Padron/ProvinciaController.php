@@ -14,7 +14,7 @@ class ProvinciaController extends Controller
         ])->get('https://yosoyrc5.com/api/provincias');
 
         foreach (collect($ListaProvincias->json()) as $provincia){
-            $newprovincia = new Paises();
+            $newprovincia = new Provincias();
             $newprovincia->id=$provincia['id'];
             $newprovincia->paise_id=$provincia['idpais'];
             $newprovincia->provincia=$provincia['provincia'];

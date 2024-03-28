@@ -14,7 +14,7 @@ class ZonasController extends Controller
         ])->get('https://yosoyrc5.com/api/zonas');
 
         foreach (collect($ListaZonas->json()) as $zona){
-            $newzona = new Paises();
+            $newzona = new Zonas();
             $newzona->id=$zona['id'];
             $newzona->pais=$zona['idcircunscripcion'];
             $newzona->codtel=$zona['idparroquia'];

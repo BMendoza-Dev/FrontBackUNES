@@ -14,7 +14,7 @@ class DistritosController extends Controller
         ])->get('https://yosoyrc5.com/api/distritos');
 
         foreach (collect($ListaDistritos->json()) as $distrito){
-            $newdistrito = new Paises();
+            $newdistrito = new Distritos();
             $newdistrito->id=$distrito['id'];
             $newdistrito->provincia_id=$distrito['idprovincia'];
             $newdistrito->distritos=$distrito['distrito'];
