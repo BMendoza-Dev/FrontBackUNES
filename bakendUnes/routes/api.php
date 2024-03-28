@@ -204,7 +204,7 @@ Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
 Route::get('CargarCircunscripciones',[CircunscripcionesController::class, 'CargarCircunscripciones']);
 Route::get('CargarDistritos',[DistritosController::class, 'CargarDistritos']);
 Route::get('CargarParroquias',[ParroquiasController::class, 'CargarParroquias']);
-Route::get('CargarProvincias',[PaisContrProvinciaControlleroller::class, 'CargarProvincias']);
+Route::get('CargarProvincias',[ProvinciaController::class, 'CargarProvincias']);
 Route::get('CargarZonas',[ZonasController::class, 'CargarZonas']);
 
 
