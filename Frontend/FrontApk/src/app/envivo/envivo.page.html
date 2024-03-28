@@ -1,29 +1,44 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <!--ion-buttons slot="start" >
-      <ion-menu-button style="color: black;"></ion-menu-button>
-    </ion-buttons-->
-    <ion-buttons slot="start">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title class="title">EN VIVO</ion-title>
-    <ion-buttons slot="end">
-    </ion-buttons>
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
   </ion-toolbar>
+
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto ">
+        <p>EN VIVO</p>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
-<ion-content>
-  <div class="content" *ngFor="let item of meeting">
-    
-    {{item.nameVivo}}
 
-    <br>
-    <br>
-    
-     <iframe width="100%" height="100%" [src]="getSafeUrl(item.url)" frameborder="0" allowfullscreen></iframe>
-  </div>
- 
-   
- 
+  <ion-content class="background-image">
+    <div class="content" *ngFor="let item of meeting">
+      {{item.nameVivo}}
+      <br>
+      {{item.descripcionVivo}}
+      <br>
+       <iframe width="100%" height="100%" [src]="getSafeUrl(item.url)" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <!-- <iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/rafavalientes/live" width="100%" height="400" style="border:none;overflow:hidden" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe> -->
+
+  </ion-content>
+
   
-</ion-content>
+
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../opc-inicv2']" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>

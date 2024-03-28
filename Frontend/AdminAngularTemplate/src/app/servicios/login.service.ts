@@ -9,9 +9,9 @@ import Echo from 'laravel-echo';
 export class LoginService {
   urlLocal: string;
   urlAWS: string;
-  url:string;
+  url: string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.urlLocal = "http://127.0.0.1:8000/api/"
     this.urlAWS = "https://rc5appmobile.tech/api/"
     this.url = this.urlAWS;
@@ -19,39 +19,38 @@ export class LoginService {
 
   ValidarLogin(data: any) {
     let formData = new FormData();
-    let url = this.url+'Login';
+    let url = this.url + 'Login';
     formData.append('email', data.email);
     formData.append('password', data.password);
 
-    const httpheaders = new HttpHeaders({
-      'Accept': 'application/json'
-    });
+    // let httpHeaders = new HttpHeaders(
+    //   { 'Content-Type': 'application/x-www-form-urlencoded' }
+    // )
     
     return new Promise((resolve, reject) => {
-      this.http.post(url, formData, {headers:httpheaders}).subscribe(res => {
+      this.http.post(url, formData).subscribe(res => {
         resolve(res); {
-          
         }
       }, error => {
-        
+
         reject(error);
       });
     });
   }
 
-  getSockets(): Echo{
+  getSockets(): Echo {
     return new Echo({
       broadcaster: 'pusher',
       key: 'apprc_key',
       wsHost: 'rc5appmobile.tech',
       cluster: 'mt1',
-    //  wsPort: 6001,
-      forceTLS:true,
-  //    disableStats: true,
-      encrypted:true,
-      enabledTransports:['wss','ws']
+      //  wsPort: 6001,
+      forceTLS: true,
+      //    disableStats: true,
+      encrypted: true,
+      enabledTransports: ['wss', 'ws']
     });
   }
 
-  
+
 }

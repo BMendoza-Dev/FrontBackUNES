@@ -99,6 +99,46 @@ export class AdministradorService {
     });
   }
 
+  AgregarVideo(_data: any) {
+    let url = this.url + 'AgregarVideo';
+
+    let formData = new FormData();
+    formData.append('videotitulo', _data.videotitulo);
+    formData.append('videodescripcion', _data.videodescripcion);
+    formData.append('url', _data.url);
+    formData.append('perfil_id', _data.perfil_id);
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, formData, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  listarVideo(id:any){
+    let url = this.url + 'ListarVideos?id='+id;
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + localStorage.getItem("token"),
+      'Accept': 'application/json'
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { headers: httpheaders }).subscribe(res => {
+        resolve(res); {
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
   updateAsamAsisCuentas(_data: any) {
     let url = this.url + 'Update';
 

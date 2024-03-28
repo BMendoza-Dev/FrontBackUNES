@@ -126,7 +126,7 @@ export class FormBlogsComponent implements OnInit {
     if (this.categorie_id != 'Seleccione una categoría' && this.titulo != '' && this.descripcion != '' && this.datos != '') {
 
       Swal.fire({
-        title: 'Esta seguro que desea crear una cuenta?',
+        title: 'Esta seguro que desea publicar un blog?',
         showDenyButton: false,
         showCancelButton: true,
         confirmButtonText: 'Crear',

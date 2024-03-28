@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent, LoadingController, NavController } from '@ionic/angular';
+import { IonContent, LoadingController, MenuController, NavController } from '@ionic/angular';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
 
 @Component({
@@ -26,7 +26,8 @@ export class InfBlogsPage implements OnInit {
   usedFirstName: any;
   usedLastName: any;
   constructor(private serviceBlog: BlogsService, private Nav: NavController,
-    private sanitizer: DomSanitizer, public loadCont: LoadingController, private activatedRoute: ActivatedRoute) {
+    private sanitizer: DomSanitizer, public loadCont: LoadingController, 
+    private activatedRoute: ActivatedRoute, private menuController:MenuController, private navCtrl:NavController) {
     // Inicializar datetime con la fecha actual
     this.datetime = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   }
@@ -180,7 +181,13 @@ export class InfBlogsPage implements OnInit {
     this.content.scrollToTop(400); // El número 400 representa la duración de la animación en milisegundos
   }
 
+  abrirMenu(){
+    this.menuController.open();
+  }
 
+  goBack(){
+    this.navCtrl.back();
+  }
 
 
 

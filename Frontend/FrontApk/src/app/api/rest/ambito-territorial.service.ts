@@ -34,6 +34,14 @@ export class AmbitoTerritorialService {
     return this.httpClien.get(this.urlAWS + 'ObtenerTerritorioApp', { headers: httpheaders });
   }
 
+  obtenerVideos(id) {
+    const httpheaders = new HttpHeaders({
+      'Authorization': "Bearer " + this.token
+    });
+
+    return this.httpClien.get(this.urlAWS + 'ListarVideos?id='+id, { headers: httpheaders });
+  }
+
   ObtenerAsambleistaTerritorioApp(provic) {
     const httpheaders = new HttpHeaders({
       'Authorization': "Bearer " + this.token

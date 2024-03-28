@@ -1,0 +1,206 @@
+.tolbar1 {
+  --background: #009fe4;
+  border-bottom-left-radius: 60px;
+}
+
+.tolbar2{
+  --background: white;
+  border-top-right-radius: 70px;
+  height: 70px;
+}
+
+.header-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.header-content img{
+  width: 295px;
+  height: 80px;
+}
+
+.contenedor-superpuesto {
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: #009fe4;
+  height: 67px;
+  /* Segundo color superpuesto */
+}
+
+
+.cuadrado-con-texto {
+  margin-top: 2.5%;
+  margin-left: 12%;
+  margin-right: 12%;
+  background-color: #3498db;
+  /* Color del cuadrado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e10717;
+  padding: auto;
+  border-radius: 5px;
+}
+
+.cuadrado-con-texto p {
+  font-family: "Gotham-Bold";
+  color: white;
+  font-style: italic;
+  font-size: 18px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.cuadro-centrado-imagen {
+  width: 90%;
+  height: 170px;
+  background-color: #fff;
+  /* Color de fondo del cuadro */
+  border: 3px solid #003365;
+  /* Borde de color negro */
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30% 10% 30% 10%;
+  overflow: hidden;
+}
+
+.cuadro-centrado-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.social-media-container {
+  margin-top: 380px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.tolbar3 {
+  --background: #009fe4;
+}
+
+.tolbar4 {
+  --background: white;
+  border-bottom-right-radius: 70px;
+}
+
+.footer-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.circulo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: #ff5733;
+  /* Color del círculo */
+  border-radius: 50%;
+  z-index: 1;
+  /* Asegura que el círculo esté encima del contenido del toolbar */
+}
+
+ion-footer ion-toolbar {
+  position: relative;
+}
+
+.contenedor-superpuesto-footer {
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: #009fe4;
+  /* Segundo color superpuesto */
+}
+
+.circle {
+  width: 75px;
+  height: 75px;
+  background-color: #e10717;
+  border-radius: 50%;
+  position: absolute;
+  top: 94.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 1;
+  /* Color del icono */
+}
+
+
+.square {
+  width: 60px;
+  height: 35px;
+  background-color: #e10717;
+  /* Color del cuadrado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30% 10% 30% 10%;
+}
+
+.left-square {
+  position: absolute;
+  left: 15%;
+  top: 94.5%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.right-square {
+  position: absolute;
+  right: 15%;
+  top: 94.5%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.footer-img{
+  background-color: transparent !important;
+  position: absolute;
+  margin-top: 200px;
+  bottom: 0;
+  z-index: 0;
+  
+}
+
+@media (min-width: 500px) {
+    .footer-img {
+        width: 100%; /* Puedes ajustar este valor según sea necesario */
+        height: 15%;
+    }
+
+    .right-square{
+      top: 93%;
+    }
+
+    .left-square{
+      top: 93%;
+    }
+}
+
+
+
+
+
+

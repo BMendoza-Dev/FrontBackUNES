@@ -1,0 +1,171 @@
+<c-col>
+  <c-card class="mb-4">
+    <c-card-header ngPreserveWhitespaces>
+      <strong>Crear perfil</strong>
+    </c-card-header>
+    <c-card-body>
+      <div class="container">
+        <img *ngIf="urlGet" [src]="urlGet" alt="Descripción de la imagen">
+      </div>
+      <div class="file-input">
+        <input (change)="onSelectFile($event)" type="file" id="file" name="file" />
+        <label for="file">
+          <span>Seleccionar una imagen</span>
+          <svg cIcon class="me-2" name="cilDataTransferUp"></svg>
+        </label>
+      </div>
+      <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="row g-3 needs-validation">
+        <!--Form Cuenta Asistente-->
+        <c-col md="6" *ngIf="simpleForm.controls['firstName'] as ctrl">
+          <label cLabel for="firstName">Nombres<span class="is-required">*</span></label>
+          <input cFormControl id="firstName" formControlName="firstName" placeholder="Nombres" autocomplete="off"
+            required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              " />
+          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+            <ng-container *ngIf="ctrl.errors as errors">
+              <div *ngIf="errors['required']">Se requiere nombres</div>
+              <div *ngIf="errors['minlength']">
+                {{ formErrors.username.minLength }}
+              </div>
+              <div *ngIf="errors['pattern']">
+                {{ formErrors.username.pattern }}
+              </div>
+            </ng-container>
+          </c-form-feedback>
+        </c-col>
+        <c-col md="6" *ngIf="simpleForm.controls['lastName'] as ctrl">
+          <label cLabel for="lastName">Apellidos<span class="is-required">*</span></label>
+          <input cFormControl id="lastName" formControlName="lastName" placeholder="Apellidos" autocomplete="off"
+            required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              " />
+          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+            <ng-container *ngIf="ctrl.errors as errors">
+              <div *ngIf="errors['required']">Se requiere apellidos</div>
+              <div *ngIf="errors['minlength']">
+                {{ formErrors.username.minLength }}
+              </div>
+              <div *ngIf="errors['pattern']">
+                {{ formErrors.username.pattern }}
+              </div>
+            </ng-container>
+          </c-form-feedback>
+        </c-col>
+        <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
+          <label cLabel for="email">Correo electrónico<span class="is-required">*</span></label>
+          <input cFormControl id="email" type="email" formControlName="email" placeholder="Correo electrónico"
+            autocomplete="off" required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              " />
+          <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+            <ng-container *ngIf="ctrl.errors as errors">
+              <div *ngIf="errors['required']">Se requiere un correo electronico</div>
+              <div *ngIf="errors['email']">
+                {{ formErrors.email?.email }}
+              </div>
+            </ng-container>
+          </c-form-feedback>
+        </c-col>
+        <c-col md="6" *ngIf="simpleForm.controls['territorialDivision'] as ctrl">
+          <label cLabel for="territorialDivision">División territorial<span class="is-required">*</span></label>
+          <select formControlName="territorialDivision" cSelect id="territorialDivision" required>
+            <option value="">Choose...</option>
+            <option value="hola">...</option>
+          </select>
+          <c-form-feedback [valid]="false">Please provide a valid State.</c-form-feedback>
+        </c-col>
+        <c-col md="6" *ngIf="simpleForm.controls['dignidad'] as ctrl">
+          <label cLabel for="dignidad">Dignidad<span class="is-required">*</span></label>
+          <select formControlName="dignidad" cSelect id="dignidad" required>
+            <option value="">Choose...</option>
+            <option value="hola">...</option>
+          </select>
+          <c-form-feedback [valid]="false">Please provide a valid State.</c-form-feedback>
+        </c-col>
+
+
+
+        <!--Botones-->
+        <c-col xs="12">
+          <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
+            [tabindex]="'0'">
+            Crear perfil
+          </button>
+        </c-col>
+      </form>
+    </c-card-body>
+  </c-card>
+</c-col>
+
+<c-card class="mb-4">
+  <c-card-header>
+    <strong>Perfiles registrados</strong>
+  </c-card-header>
+  <c-card-body>
+    <c-col md="6">
+      <c-input-group class="mb-4">
+        <input [(ngModel)]="search" (ngModelChange)="dataPaginate($event)" id="search" name="search"
+          aria-describedby="basic-addon2" aria-label="Categoría" cFormControl placeholder="Categoría" />
+        <span cInputGroupText id="basic-addon2"><svg cIcon class="me-2" name="cilSearch"></svg>Buscar</span>
+      </c-input-group>
+    </c-col>
+    <table hover striped cTable>
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Perfil</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="dataPerfil.length > 0">
+          <tr *ngFor="let item of dataPerfil  | paginate:{itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems : count,
+                      id: 'paginado'
+                      }; let i = index ">
+            <ng-container *ngIf="item.validar != 'Sin registros';else func">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item.categorianame}}</td>
+              <td>
+                <!--button [cModalToggle]="staticBackdropModal.id" (click)="camposInputEditar(item.name,item.email,item.estado,item.id,item.perfil_id)" type="button" class="btn btn-ghost-info botont" ><svg cIcon name="cilPencil" size="x" width="20"></svg>&nbsp;Editar</button-->
+                <button (click)="toggleLiveDemo()" (click)="camposInputEditar(item.categorianame,item.id)" type="button"
+                  class="btn btn-ghost-info botont"><svg cIcon name="cilPencil" size="x"
+                    width="20"></svg>&nbsp;Editar</button>
+                <button (click)="eliminar(item.id)" type="button" class="btn btn-ghost-danger botont"><svg cIcon
+                    name="cilTrash" size="x" width="20"></svg>&nbsp;Eliminar</button>
+              </td>
+            </ng-container>
+            <ng-template #func>
+              <td colspan="5"><c-alert color="danger">No existen cuentas registradas!</c-alert></td>
+            </ng-template>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <ng-container *ngIf="dataPerfil.length <= 0">
+      <c-alert color="danger">No existen categorías Registradas!</c-alert>
+    </ng-container>
+  </c-card-body>
+  <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)" [autoHide]="true"
+    id="paginado">
+  </pagination-controls>
+</c-card>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"> Cargando... </p>
+</ngx-spinner>

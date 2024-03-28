@@ -11,11 +11,12 @@ import { AccordionModule, AlertModule, BadgeModule, BreadcrumbModule, ButtonGrou
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FiltroCategoriasPipe } from 'src/app/pipes/filtro-categorias.pipe';
+import { FormDirectoComponent } from './form-directo/form-directo.component';
 
 
 @NgModule({
   declarations: [
-    FormCategoriaComponent,FiltroCategoriasPipe
+    FormCategoriaComponent,FiltroCategoriasPipe, FormDirectoComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
 import { ScriptServiceService } from 'src/app/api/rest/script-service.service';
 import { File } from '@ionic-native/file/ngx';
@@ -28,7 +28,9 @@ export class InfUltimasPage implements OnInit, OnDestroy {
   constructor(private file: File,
     private fileOpener: FileOpener, private datePipe: DatePipe,
     private scriptService: ScriptServiceService, private sanitizer: DomSanitizer,
-    private activatedRoute: ActivatedRoute, private serviceBlog: BlogsService, public loadCont: LoadingController) {
+    private activatedRoute: ActivatedRoute, private serviceBlog: BlogsService, 
+    public loadCont: LoadingController, private menuController:MenuController,
+    private navCtrl:NavController) {
   }
 
   ngOnInit() {
@@ -146,6 +148,14 @@ export class InfUltimasPage implements OnInit, OnDestroy {
   //   link.click();
   //   link.remove();
   // }
+
+  abrirMenu() {
+    this.menuController.open();
+  }
+
+  goBack(){
+    this.navCtrl.back();
+  }
 
 
 

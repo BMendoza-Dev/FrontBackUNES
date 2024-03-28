@@ -83,12 +83,9 @@ export class LoginComponent implements OnInit {
           this.spinnerService.detenerSpinner();
           this.msgError = "Cuenta de usuario no válido."; this.visible=true 
         }
-
       }).catch((error:any) => {
-        
         error; 
-        this.rutas.navigate(['/404']);
-
+        this.rutas.navigate(['/500']);
       })
     }
   }

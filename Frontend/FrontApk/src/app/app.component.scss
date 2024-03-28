@@ -1,7 +1,8 @@
 .menu-header-bg{
   height: 180px;
   width: 350px;
-  background: linear-gradient(90deg, rgb(0, 93, 206) 0%, rgb(73, 128, 221) 35%, rgb(0, 93, 206) 100%);
+  background: #009fe4;
+  // background: linear-gradient(90deg, rgb(0, 93, 206) 0%, rgb(73, 128, 221) 35%, rgb(0, 93, 206) 100%);
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.377);
   transform: rotate(-15deg);
   border-radius: 10px 10px 10px 50px;
@@ -9,6 +10,8 @@
   margin-top: -62px;
   margin-bottom: 60px;
 } 
+
+
 
 
 

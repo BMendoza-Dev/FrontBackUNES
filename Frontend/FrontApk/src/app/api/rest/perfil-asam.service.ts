@@ -38,21 +38,34 @@ export class PerfilAsamService {
     });
 
     return this.httpCliente.get(url, { headers: httpheaders }).pipe(
-      map((res: any) => ({
-        img: res['imagen'][0].imagen,
-        lastName: res['lastName'],
-        firstName: res['firstName'],
-        ambito: `${res['territorialDivision']} (${res['jurisdiction']})`,
-        partido: res['politicalParty'],
-        curul: res['curul'],
-        edifice: res['localizacion']['edifice'],
-        floor: res['localizacion']['floor'],
-        office: res['localizacion']['office'],
-        phone: `(593)2399 - 10000 ${res['localizacion']['phone']}`,
-        email: res['email'],
-        comisiones: res['comisiones'],
-        id_biografia: res['biografia_id']
-      }))
+      map((res: any) => {
+        
+        const resultObject: any = {
+          img: res['imagen'][0].imagen,
+          lastName: res['lastName'],
+          firstName: res['firstName'],
+          ambito: `${res['territorialDivision']} (${res['jurisdiction']})`,
+          partido: res['politicalParty'],
+          curul: res['curul'],
+          // edifice: res['localizacion']['edifice'],
+          // floor: res['localizacion']['floor'],
+          // office: res['localizacion']['office'],
+          // phone: `(593)2399 - 10000 ${res['localizacion']['phone']}`,
+          email: res['email'],
+          comisiones: res['comisiones'],
+          id_biografia: res['biografia_id']
+        };
+
+        if(res['localizacion']) {
+          
+        resultObject.edifice = res['localizacion']['edifice']; resultObject.floor= res['localizacion']['floor'];
+        resultObject.office = res['localizacion']['office'];
+        resultObject.phone = `(593)2399 - 10000 ${res['localizacion']['phone']}`;
+        }
+
+        return resultObject
+
+      })
     )
   }
 

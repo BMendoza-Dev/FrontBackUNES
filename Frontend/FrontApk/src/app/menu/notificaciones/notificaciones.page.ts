@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import Echo from 'laravel-echo';
 import { SocketsService } from 'src/app/api/rest/sockets.service';
 @Component({
@@ -14,8 +14,9 @@ export class NotificacionesPage implements OnInit {
   notifyData: any = [];
   lim = 10;
 
-  constructor(private socket:SocketsService, private datePipe: DatePipe, private Nav:NavController
-    ,public loadCont: LoadingController) {
+  constructor(private socket:SocketsService, private datePipe: DatePipe, 
+    private Nav:NavController, private menuController:MenuController
+    ,public loadCont: LoadingController, private navCtrl:NavController) {
     this.echo = this.socket.getSockets();
     let id_cuenta = localStorage.getItem('idUser');
     this.echo.channel('channel-NotifyAppUser.Editorial.'+id_cuenta)
@@ -80,5 +81,12 @@ export class NotificacionesPage implements OnInit {
     loading.present();
   }
 
+  abrirMenu(){
+    this.menuController.open();
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
 
 }

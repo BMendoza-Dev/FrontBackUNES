@@ -4,12 +4,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'iniciov2',
     pathMatch: 'full'
   },
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+  },
+  {
+    path: 'opcinicv2',
+    loadChildren: () => import('../app/opc-inicv2/opc-inicv2.module').then( m => m.OpcInicv2PageModule)
+  },
+  {
+    path: 'iniciov2',
+    loadChildren: () => import('../app/iniciov2/iniciov2.module').then( m => m.Iniciov2PageModule)
   },
   {
     path: 'inicio',
@@ -48,7 +56,7 @@ const routes: Routes = [
     loadChildren: () => import('./AsambleistasAll/inf-asambleista/inf-asambleista.module').then( m => m.InfAsambleistaPageModule)
   },
   {
-    path: 'biografia/:id',
+    path: 'biografia/:id/:lastname/:firstname',
     loadChildren: () => import('./AsambleistasAll/biografia/biografia.module').then( m => m.BiografiaPageModule)
   },
   {
@@ -83,6 +91,16 @@ const routes: Routes = [
     path: 'inf-blogs/:perfil_id/:cate_id',
     loadChildren: () => import('./AsambleistasAll/inf-blogs/inf-blogs.module').then( m => m.InfBlogsPageModule)
   },
+  {
+    path: 'iniciov2',
+    loadChildren: () => import('./iniciov2/iniciov2.module').then( m => m.Iniciov2PageModule)
+  },
+  {
+    path: 'opc-inicv2',
+    loadChildren: () => import('./opc-inicv2/opc-inicv2.module').then( m => m.OpcInicv2PageModule)
+  },
+
+
 
 
 

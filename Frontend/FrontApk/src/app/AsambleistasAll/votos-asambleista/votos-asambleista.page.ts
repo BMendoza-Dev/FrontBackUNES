@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import { PerfilAsamService } from 'src/app/api/rest/perfil-asam.service';
 @Component({
   selector: 'app-votos-asambleista',
@@ -13,7 +13,9 @@ export class VotosAsambleistaPage implements OnInit {
   textoBuscar: any;
   votosFilter: any = [];
   lim = 10;
-  constructor(private activatedRoute: ActivatedRoute, private service: PerfilAsamService, public loadCont: LoadingController) { }
+  constructor(private activatedRoute: ActivatedRoute, private service: PerfilAsamService, 
+    public loadCont: LoadingController, private menuController:MenuController,
+    private navCtrl:NavController) { }
 
   ngOnInit() {
     this.id_perfil = this.activatedRoute.snapshot.paramMap.get("id");
@@ -83,6 +85,12 @@ export class VotosAsambleistaPage implements OnInit {
     }, 600);
   }
 
-  
+  abrirMenu(){
+    this.menuController.open();
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
 
 }

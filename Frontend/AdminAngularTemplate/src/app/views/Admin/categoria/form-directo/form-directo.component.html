@@ -1,0 +1,85 @@
+<c-col>
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Agregar directo</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="row g-3 needs-validation">
+          <!--Form Cuenta Asistente-->
+          <c-col md="6" *ngIf="simpleForm.controls['username'] as ctrl">
+            <label cLabel for="username">Titulo<span class="is-required">*</span></label>
+            <input cFormControl id="username" formControlName="username" placeholder="Titulo" autocomplete="off" required
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              " />
+            <!-- <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['required']">Se requiere un nombre de usuario</div>
+                <div *ngIf="errors['minlength']">
+                  {{ formErrors.username.minLength }}
+                </div>
+                <div *ngIf="errors['pattern']">
+                  {{ formErrors.username.pattern }}
+                </div>
+              </ng-container>
+            </c-form-feedback> -->
+          </c-col>
+          <c-col md="6" *ngIf="simpleForm.controls['email'] as ctrl">
+            <label cLabel for="email">Descripción<span class="is-required">*</span></label>
+            <input cFormControl id="email"  formControlName="email" placeholder="Descripción"
+              autocomplete="off" required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              " />
+            <!-- <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['required']">Se requiere un correo electronico</div>
+                <div *ngIf="errors['email']">
+                  {{ formErrors.email?.email }}
+                </div>
+              </ng-container>
+            </c-form-feedback> -->
+          </c-col>
+          <c-col md="12" *ngIf="simpleForm.controls['password'] as ctrl">
+            <label cLabel for="password">URL<span class="is-required">*</span></label>
+            <input cFormControl id="password"  formControlName="password" placeholder="URL"
+              autocomplete="Nueva contraseña" required [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              " />
+            <!-- <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors['required']">Se requiere contraseña</div>
+                <div *ngIf="errors['minlength']">
+                  {{ formErrors['password'].minLength }}
+                </div>
+                <div *ngIf="errors['pattern']">
+                  {{ formErrors['password'].pattern }}
+                </div>
+              </ng-container>
+            </c-form-feedback> -->
+          </c-col>
+          <!--Botones-->
+          <c-col xs="12">
+            <button cButton color="success" type="submit" [disabled]="simpleForm.pristine || simpleForm.invalid"
+              [tabindex]="'0'">
+              Publicar Directo
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+  
+    </c-card>
+  
+  </c-col>
+  

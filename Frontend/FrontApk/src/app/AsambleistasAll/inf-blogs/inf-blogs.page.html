@@ -1,10 +1,17 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="titleCategory">{{categoriname}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
+  </ion-toolbar> 
+
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto ">
+        <p style="text-transform: uppercase;">{{categoriname}}</p>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
 <ion-content #content>
@@ -14,10 +21,30 @@
     </ion-refresher-content>
   </ion-refresher>
   <div *ngIf="blogUltiFilter.length>0 ;else sinRegistro">
-    <p class="title2"> {{usedFirstName}}  {{usedLastName}}</p>
-    <div class="linea"></div>
-
-    <ion-card *ngFor="let item of blogUltiFilter.slice(limPrev,limNext);let index = index" (click)="goInfBlog(item.id)">
+    <ion-card-content class="content"> 
+      <ion-row>
+        <ion-col size="12">
+          <ion-item
+            style=" height: 50px; background-color: white;--inner-padding-end: 0px; padding-top: 0px;  border-radius: 20px; border: 3px solid #003365;background-color: white;">
+            <ion-input [(ngModel)]="search" class="search" color="dark" placeholder="Buscar palabra clave"
+              clearInput></ion-input>
+            <ion-button (click)="buscarBlog()"
+              style="width: 70px; height: 50px; margin: 0px; --background: #003365; border-top-left-radius: 0px !important;">
+              <ion-icon style="font-size: 25px; margin-right: 10px; margin-bottom: 2px;" name="search"
+                slot="end"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-datetime-button  datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime  presentation="month-year" [isDateEnabled]="isWeekday" id="datetime"
+            min="2023-04" (ionChange)="onDateChange($event)"></ion-datetime>
+        </ng-template>
+      </ion-modal> -->
+    </ion-card-content>
+    <ion-card style="margin-top: 15px;" *ngFor="let item of blogUltiFilter.slice(limPrev,limNext);let index = index" (click)="goInfBlog(item.id)">
       <img *ngIf="item.blogtitulo != false" src="{{item.imagen.changingThisBreaksApplicationSecurity}}" />
       <ion-card-header *ngIf="item.blogtitulo != false">
         <div class="container">
@@ -56,22 +83,18 @@
       <p class="sinRegis">Sin registros</p>
     </ion-card>
   </ng-template>
-  
-  <div>
-    <ion-card-content class="content">
-        <ion-input [(ngModel)]="search" style="background-color: white; margin-top: 4%;  margin-bottom: 4%;"
-          placeholder=" Buscar palabra clave"></ion-input>
-      <ion-datetime-button  datetime="datetime"></ion-datetime-button>
-      <ion-modal [keepContentsMounted]="true">
-        <ng-template>
-          <ion-datetime  presentation="month-year" [isDateEnabled]="isWeekday" id="datetime"
-            min="2023-04" (ionChange)="onDateChange($event)"></ion-datetime>
-        </ng-template>
-      </ion-modal>
-      <ion-button (click)="buscarBlog()" expand="full" size="small">
-        BUSCAR
-        <ion-icon slot="end" name="search-outline"></ion-icon>
-      </ion-button>
-    </ion-card-content>
-  </div>
+ 
 </ion-content>
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div (click)="goBack()" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>

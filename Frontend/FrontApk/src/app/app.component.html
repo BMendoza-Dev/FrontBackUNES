@@ -1,12 +1,12 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" menuId="main-menu">
+    <ion-menu swipeGesture="false" contentId="main-content" type="overlay" menuId="main-menu">
       <ion-content>
         <div class="menu-header-bg"></div>
         <div class="header-content">
           <img src="../assets/imgs/logo_rc_200px.png" alt="">
         </div>
-        <ion-list id="inbox-list">
+        <!-- <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
             <ion-item  [routerLink]="['inicio']" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="home-outline"></ion-icon>
@@ -14,8 +14,8 @@
             </ion-item>
           </ion-menu-toggle>
           
-        </ion-list>
-        {{error}}
+        </ion-list> -->
+        <!-- {{error}} -->
         <ion-list id="inbox-list" >
           <ion-label class="title">Comunicación</ion-label>
           <ion-menu-toggle auto-hide="false">
@@ -24,12 +24,12 @@
               <ion-label>Notificaciones</ion-label>
               </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false">
+          <!-- <ion-menu-toggle auto-hide="false">
             <ion-item  [routerLink]="['agenda']" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" name="calendar-outline"></ion-icon>
               <ion-label>Agenda</ion-label>
             </ion-item>
-          </ion-menu-toggle>
+          </ion-menu-toggle> -->
         </ion-list>
 
         <ion-list id="inbox-list">

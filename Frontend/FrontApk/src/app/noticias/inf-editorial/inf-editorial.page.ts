@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import { BlogsService } from 'src/app/api/rest/blogs.service';
 
 @Component({
@@ -15,7 +15,8 @@ export class InfEditorialPage implements OnInit {
   lim = 3;
 
   constructor(private serviceBlog:BlogsService,private activatedRoute: ActivatedRoute,
-    public loadCont: LoadingController,private Nav: NavController ) { }
+    public loadCont: LoadingController,private Nav: NavController, private menuController:MenuController,
+    private navCtrl:NavController ) { }
 
   ngOnInit() {
     this.id_editorial = this.activatedRoute.snapshot.paramMap.get("id");
@@ -54,5 +55,14 @@ export class InfEditorialPage implements OnInit {
 
     loading.present();
   }
+
+  abrirMenu(){
+    this.menuController.open();
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
+
 
 }

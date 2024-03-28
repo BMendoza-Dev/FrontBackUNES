@@ -1,17 +1,22 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="title">VOTOS</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button text="" style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <!--ion-img src="../../assets/imgs/logo_rc_200px.png" style="height: auto; max-width: 17vh; float: right;"></!--ion-img!-->
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar class="tolbar1">
+    <div class="header-content">
+      <img src="../../assets/imgs/logo_arriba.svg" alt="">
+    </div>
   </ion-toolbar>
+
+  <div class="contenedor-superpuesto">
+    <ion-toolbar class="tolbar2">
+      <div class="cuadrado-con-texto ">
+        <p>VOTOS</p>
+      </div>
+    </ion-toolbar>
+  </div>
 </ion-header>
 
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar class="search" placeholder="Buscar tema" animated (ionChange)="buscar($event)"
-      ></ion-searchbar>
+    <ion-searchbar class="search" placeholder="Buscar tema" animated (ionChange)="buscar($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +27,7 @@
         <ion-card-subtitle class="cardSubTitle">Sesión {{item.sesion}} | {{item.initialDate}}</ion-card-subtitle>
         <ion-card-title class="cardTitle">{{item.description}}</ion-card-title>
       </ion-card-header>
-    
+
       <ion-card-content *ngIf="item.description != false" class="cardContentVoto">
         VOTO: {{item.voto}}
       </ion-card-content>
@@ -53,3 +58,17 @@
 
   
 </ion-content-->
+
+
+<div class="container">
+  <div (click)="abrirMenu()" class="left-square square">
+    <i class="fas fa-list" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <div [routerLink]="['../../iniciov2']" class="circle">
+    <i class="fas fa-home" style="font-size: 50px;color:#003365"></i>
+  </div>
+  <div (click)="goBack()" class="right-square square">
+    <i class="fas fa-reply" style="font-size: 30px;color:#003365"></i>
+  </div>
+  <img class="footer-img" src="../../assets/imgs/footer_curve.png" alt="">
+</div>
