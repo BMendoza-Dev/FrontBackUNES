@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('provincias', function (Blueprint $table) {
             $table->id();
             $table->string('provincia');
-            $table->string('codtel');
+            $table->string('codtel')->nullable();
             $table->boolean('distritos');
             $table->foreignId('paise_id')->references('id')->on('paises')->nullable();
             $table->timestamps();
