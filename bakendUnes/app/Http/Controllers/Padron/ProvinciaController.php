@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Padron;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Padron\Provincia;
+use App\Models\Padron\Provincias;
 class ProvinciaController extends Controller
 {
     public function CargarProvincias()
