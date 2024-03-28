@@ -12,6 +12,16 @@ use App\Http\Controllers\Api\AuthmobileController;
 use App\Http\Controllers\AppMobile\PerfilesControllerAppMobile;
 use App\Http\Controllers\AppMobile\BlogAppController;
 use App\Http\Controllers\VideosController;
+
+use App\Http\Controllers\Padron\PaisController;
+use App\Http\Controllers\Padron\CantonesController;
+use App\Http\Controllers\Padron\CircunscripcionesController;
+use App\Http\Controllers\Padron\DistritosController;
+use App\Http\Controllers\Padron\ParroquiasController;
+use App\Http\Controllers\Padron\ProvinciaController;
+use App\Http\Controllers\Padron\ZonasController;
+
+
 use App\Models\Biografia;
 use App\Models\Perfil;
 use App\Models\Sesion;
@@ -189,6 +199,13 @@ Route::post('Login',[AuthController::class, 'Login']);
 
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
+Route::get('CargarPaises',[PaisController::class, 'CargarPaises']);
+Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
+Route::get('CargarCircunscripciones',[CircunscripcionesController::class, 'CargarCircunscripciones']);
+Route::get('CargarDistritos',[DistritosController::class, 'CargarDistritos']);
+Route::get('CargarParroquias',[ParroquiasController::class, 'CargarParroquias']);
+Route::get('CargarProvincias',[PaisContrProvinciaControlleroller::class, 'CargarProvincias']);
+Route::get('CargarZonas',[ZonasController::class, 'CargarZonas']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){

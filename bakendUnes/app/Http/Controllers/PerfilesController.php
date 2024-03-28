@@ -189,9 +189,6 @@ class PerfilesController extends Controller
             $Comision->save();
         }
 
-        
-        
-
         $Perfiles2 = new Perfil();
         $Perfiles2->id=1;
         $Perfiles2->active=1;
@@ -321,10 +318,6 @@ class PerfilesController extends Controller
          }
        
         }
-
-        
-        
-        //dd($aux2);
         
         return response()->json("Perfiles Cargados en la base de datos.");
     }
