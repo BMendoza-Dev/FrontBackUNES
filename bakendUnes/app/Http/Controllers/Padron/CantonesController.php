@@ -14,7 +14,7 @@ class CantonesController extends Controller
         ])->get('https://yosoyrc5.com/api/cantones');
 
         foreach (collect($ListaCantones->json()) as $canton){
-            $newcanton = new Paises();
+            $newcanton = new Cantones();
             $newcanton->id=$canton['id'];
             $newcanton->provincia_id=$canton['idprovincia'];
             $newcanton->canton=$canton['canton'];
