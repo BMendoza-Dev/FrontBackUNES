@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Padron;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Padron\Parroquias;
+use Illuminate\Support\Facades\Http;
 class ParroquiasController extends Controller
 {
     public function CargarParroquias()

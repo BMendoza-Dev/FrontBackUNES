@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Padron;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Padron\Distritos;
+use Illuminate\Support\Facades\Http;
 class DistritosController extends Controller
 {
     public function CargarDistritos()
