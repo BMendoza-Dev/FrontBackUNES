@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('provincia_id')->references('id')->on('provincias')->nullable();
             $table->foreignId('cantone_id')->references('id')->on('cantones')->nullable();
             $table->foreignId('parroquia_id')->references('id')->on('parroquias')->nullable();
-            $table->foreignId('zona_id')->references('id')->on('zonas')->nullable();
+            $table->foreignId('zona_id')->references('cod_zona')->on('zonas')->nullable();
             $table->timestamps();
         });
     }
