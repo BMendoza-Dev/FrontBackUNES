@@ -20,6 +20,7 @@ use App\Http\Controllers\Padron\DistritosController;
 use App\Http\Controllers\Padron\ParroquiasController;
 use App\Http\Controllers\Padron\ProvinciaController;
 use App\Http\Controllers\Padron\ZonasController;
+use App\Http\Controllers\Padron\PadronController;
 
 
 use App\Models\Biografia;
@@ -200,7 +201,8 @@ Route::post('Login',[AuthController::class, 'Login']);
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::get('CargarPaises',[PaisController::class, 'CargarPaises']);
-Route::get('import',[PaisController::class, 'import']);
+Route::get('consultarAdherentePermanente',[PadronController::class, 'consultarAdherentePermanente']);
+//Route::get('import',[PaisController::class, 'import']);
 
 Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
 Route::get('CargarCircunscripciones',[CircunscripcionesController::class, 'CargarCircunscripciones']);
