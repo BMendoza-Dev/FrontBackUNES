@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Padron\Provincias;
 use App\Models\Padron\Padronelectoral;
 use Illuminate\Support\Facades\Http;
+
 class PadronelectoralsController extends Controller
 {
     public function CargarPadronElectoral(Request $request)
