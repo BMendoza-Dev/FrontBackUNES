@@ -47,7 +47,7 @@ public function CargarPadronElectoral(Request $request)
                     'provincia_id' => $provinciaId,
                     'cantone_id' => $persona['cod_canton'],
                     'parroquia_id' => $persona['cod_parroquia'],
-                    'zona_id' => $zona->cod_zona, // Utiliza el ID de la zona
+                   // 'zona_id' => $zona->cod_zona, // Utiliza el ID de la zona
                     'adherente' => $persona['adherente'] ?? null
                 ]);
             }
