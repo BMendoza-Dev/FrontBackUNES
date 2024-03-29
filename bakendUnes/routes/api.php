@@ -200,6 +200,8 @@ Route::post('Login',[AuthController::class, 'Login']);
 Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::get('CargarPaises',[PaisController::class, 'CargarPaises']);
+Route::get('import',[PaisController::class, 'import']);
+
 Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
 Route::get('CargarCircunscripciones',[CircunscripcionesController::class, 'CargarCircunscripciones']);
 Route::get('CargarDistritos',[DistritosController::class, 'CargarDistritos']);
