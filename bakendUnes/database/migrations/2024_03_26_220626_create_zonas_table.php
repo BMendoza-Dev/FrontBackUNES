@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('zonas', function (Blueprint $table) {
             $table->id();
             $table->string('zona');
+            $table->string('cod_zona');
             $table->foreignId('circunscripcione_id')->references('id')->on('circunscripciones')->nullable();
             $table->foreignId('parroquia_id')->references('id')->on('parroquias')->nullable();
             $table->timestamps();

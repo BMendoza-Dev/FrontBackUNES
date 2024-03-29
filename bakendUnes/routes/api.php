@@ -203,7 +203,7 @@ Route::get('Perfiles',[PerfilesController::class, 'index']);
 
 Route::get('CargarPaises',[PaisController::class, 'CargarPaises']);
 Route::get('consultarAdherentePermanente',[PadronController::class, 'consultarAdherentePermanente']);
-//Route::get('import',[PaisController::class, 'import']);
+Route::get('import',[PaisController::class, 'import']);
 
 Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
 Route::get('CargarCircunscripciones',[CircunscripcionesController::class, 'CargarCircunscripciones']);
