@@ -33,9 +33,7 @@ public function CargarPadronElectoral(Request $request)
             // Iterar sobre cada persona y guardarla en la base de datos
             foreach ($personas as $persona) {
                 // Buscar o crear una nueva zona
-                $zona = Zonas::firstOrCreate(['zona' => $persona['nom_zona']], [
-                    'cod_zona' => $persona['cod_zona'], // Si también necesitas guardar el código de zona
-                ]);
+
 
                 // Crear el registro en la tabla PadronElectoral
                 PadronElectoral::create([
