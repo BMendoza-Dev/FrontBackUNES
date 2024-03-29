@@ -21,6 +21,7 @@ use App\Http\Controllers\Padron\ParroquiasController;
 use App\Http\Controllers\Padron\ProvinciaController;
 use App\Http\Controllers\Padron\ZonasController;
 use App\Http\Controllers\Padron\PadronController;
+use App\Http\Controllers\Padron\PadronelectoralsController;
 
 
 use App\Models\Biografia;
@@ -210,6 +211,7 @@ Route::get('CargarDistritos',[DistritosController::class, 'CargarDistritos']);
 Route::get('CargarParroquias',[ParroquiasController::class, 'CargarParroquias']);
 Route::get('CargarProvincias',[ProvinciaController::class, 'CargarProvincias']);
 Route::get('CargarZonas',[ZonasController::class, 'CargarZonas']);
+Route::get('CargarPadronElectoral',[PadronelectoralsController::class, 'CargarPadronElectoral']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
