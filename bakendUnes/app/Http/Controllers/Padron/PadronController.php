@@ -21,7 +21,7 @@ class PadronController extends Controller
             return response()->json(['nombre' => $adherente->nombres, 'cedula' => $adherente->cedula, 'tipo' => $adherente->tipo ]);
         } else {
             // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
-            return response()->json(['mensaje' => 'La cedula ingresada no pertenece a un ADHERENTE PERMANENTE']);
+            return response()->json(['mensaje' => 'La cedula ingresada no pertenece a un ADHERENTE']);
         }
     }
 }

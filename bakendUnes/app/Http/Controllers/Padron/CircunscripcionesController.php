@@ -20,7 +20,7 @@ class CircunscripcionesController extends Controller
             $newcircunscripcion->cantone_id=$circunscripcion['idcanton'];
             $newcircunscripcion->circunscripcion=$circunscripcion['circunscripcion'];
 
-            $newdistrito->save();
+            $newcircunscripcion->save();
         }
 
      }
