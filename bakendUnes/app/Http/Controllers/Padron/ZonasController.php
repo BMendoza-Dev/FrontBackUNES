@@ -20,6 +20,7 @@ class ZonasController extends Controller
                 // Crear y guardar la zona solo si no existe en la base de datos
                 $newzona = new Zonas();
                 $newzona->id = $zona['id'];
+                $newzona->zona = $zona['zona'];
                 $newzona->circunscripcione_id = $zona['idcircunscripcion'];
                 $newzona->parroquia_id = $zona['idparroquia'];
                 $newzona->save();
