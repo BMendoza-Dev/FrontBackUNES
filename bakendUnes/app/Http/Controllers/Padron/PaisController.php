@@ -53,7 +53,7 @@ class PaisController extends Controller
                     $tipo = $data[3];
 
                     // Insertar los datos en la base de datos utilizando el modelo correspondiente
-                    TuModelo::create([
+                    Adherentes::create([
                         'id' => $id,
                         'cedula' => $cedula,
                         'nombres' => $nombres,
