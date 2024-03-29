@@ -11,7 +11,7 @@ class PadronController extends Controller
     public function consultarAdherentePermanente(Request $request)
     {
 
-        $adherente = Adherentes::where('cedula', $cedula)
+        $adherente = Adherentes::where('cedula', $request->cedula)
         ->whereIn('tipo', ['ADHERENTE PERMANENTE', 'ADHERENTE'])
         ->first();
 
