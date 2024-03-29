@@ -11,14 +11,14 @@ class PadronController extends Controller
     public function consultarAdherentePermanente(Request $request)
     {
 
-            $adherente = Adherentes::where('cedula', $request->cedula)
-            ->where('tipo', 'ADHERENTE PERMANENTE')
-            ->first();
+        $adherente = Adherentes::where('cedula', $cedula)
+        ->whereIn('tipo', ['ADHERENTE PERMANENTE', 'ADHERENTE'])
+        ->first();
 
         // Retornar la respuesta de la consulta
         if ($adherente) {
             // Retornar el nombre del adherente
-            return response()->json(['nombre' => $adherente->nombres, 'cedula' => $adherente->cedula]);
+            return response()->json(['nombre' => $adherente->nombres, 'cedula' => $adherente->cedula, 'tipo' => $adherente->tipo ]);
         } else {
             // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
             return response()->json(['mensaje' => 'La cedula ingresada no pertenece a un ADHERENTE PERMANENTE']);
