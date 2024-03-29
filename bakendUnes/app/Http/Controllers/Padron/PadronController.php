@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Padron\Adherentes;
+use App\Models\Padron\Padronelectoral;
 class PadronController extends Controller
 {
     public function consultarAdherentePermanente(Request $request)
@@ -24,4 +25,24 @@ class PadronController extends Controller
             return response()->json(['mensaje' => 'La cedula ingresada no pertenece a un ADHERENTE']);
         }
     }
+
+    public function CrucePadronAdherentes()
+    {
+
+        $adherentes = Adherentes::all();
+
+// Iterar sobre cada registro de adherente
+        foreach ($adherentes as $adherente) {
+    // Buscar en la tabla padronelectorals por la cédula del adherente
+        $registroPadron = Padronelectoral::where('cedula', $adherente->cedula)->first();
+    
+    // Si se encuentra un registro en padronelectorals con la misma cédula
+        if ($registroPadron) {
+        // Marcar el campo adherente como 'Sí'
+        $registroPadron->adherente = $adherentes->tipo;
+        $registroPadron->save();
+        }
+        }
+    }
+
 }
