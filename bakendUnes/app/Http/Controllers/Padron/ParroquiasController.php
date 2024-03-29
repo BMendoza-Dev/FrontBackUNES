@@ -14,15 +14,19 @@ class ParroquiasController extends Controller
         'Content-Type' => 'application/json',
         ])->get('https://yosoyrc5.com/api/parroquias');
 
-        foreach (collect($ListaParroquias->json()) as $parroquias){
-            $newparroquias = new Parroquias();
-            $newparroquias->id=$parroquias['id'];
-            $newparroquias->cantone_id=$parroquias['idcanton'];
-            $newparroquias->circunscripcione_id=$parroquias['idcircunscripcion'];
-            $newparroquias->parroquia=$parroquias['parroquia'];
-            $newparroquias->est=$parroquias['est'];
-            $newparroquias->distrito_id=$parroquias['iddistrito'];
-            $newparroquias->save();
+        foreach (collect($ListaParroquias->json()) as $parroquia) {
+            // Verificar si la parroquia ya existe en la base de datos
+            if (!Parroquias::where('id', $parroquia['id'])->exists()) {
+                // Crear y guardar la parroquia solo si no existe en la base de datos
+                $newparroquia = new Parroquias();
+                $newparroquia->id = $parroquia['id'];
+                $newparroquia->cantone_id = $parroquia['idcanton'];
+                $newparroquia->circunscripcione_id = $parroquia['idcircunscripcion'];
+                $newparroquia->parroquia = $parroquia['parroquia'];
+                $newparroquia->est = $parroquia['est'];
+                $newparroquia->distrito_id = $parroquia['iddistrito'];
+                $newparroquia->save();
+            }
         }
 
      }

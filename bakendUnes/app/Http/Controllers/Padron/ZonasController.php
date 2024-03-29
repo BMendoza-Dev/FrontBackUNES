@@ -17,9 +17,8 @@ class ZonasController extends Controller
         foreach (collect($ListaZonas->json()) as $zona){
             $newzona = new Zonas();
             $newzona->id=$zona['id'];
-            $newzona->pais=$zona['idcircunscripcion'];
-            $newzona->codtel=$zona['idparroquia'];
-            $newzona->codtel=$zona['zona'];
+            $newzona->circunscripcione_id=$zona['idcircunscripcion'];
+            $newzona->parroquia_id=$zona['idparroquia'];
             $newzona->save();
 
         }
