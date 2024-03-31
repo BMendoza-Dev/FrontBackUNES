@@ -26,6 +26,22 @@ class PadronController extends Controller
         }
     }
 
+    public function validarcedula(Request $request){
+        $response = Http::get("https://srienlinea.sri.gob.ec/movil-servicios/api/v1.0/deudas/porIdentificacion/{$request->cedula}");
+
+        if ($response->successful()) {
+
+            if ($response['contribuyente']['tipoIdentificacion'] === 'C') {
+                $nombreComercial = $response['contribuyente']['nombreComercial'] ?? null;
+                return response()->json(['nombre' => $nombreComercial]);
+            }else{
+                return response()->json(['message' => 'Cédula incorrecta','code'=> '422']);
+            }
+        } else {
+            return response()->json(['message' => 'Cédula incorrecta','code'=> '200']);
+        }
+    }
+
     public function CrucePadronAdherentes()
     {
 
