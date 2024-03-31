@@ -61,10 +61,19 @@ class PadronController extends Controller
         }
     }
 
-    public function DataEmpadronado(Request $request){
-        $response = Http::get("https://yosoyrc5.com/api/padron2023?cedula=eq.{$request->cedula}");
+    public function DataEmpadronado(Request $request)
+{
+    $response = Http::get("https://yosoyrc5.com/api/padron2023?cedula=eq.{$request->cedula}");
 
-        return response()->json( $response);
-    
+    // Verificar si la solicitud fue exitosa
+    if ($response->successful()) {
+        // Extraer los datos del cuerpo de la respuesta
+        $data = $response->json();
+        // Devolver los datos en formato JSON
+        return response()->json($data);
+    } else {
+        // Si la solicitud no fue exitosa, devolver un error
+        return response()->json(['error' => 'Error al obtener los datos del servidor'], $response->status());
     }
+}
 }
