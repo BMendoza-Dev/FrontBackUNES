@@ -205,6 +205,8 @@ Route::get('CargarPaises',[PaisController::class, 'CargarPaises']);
 Route::get('consultarAdherentePermanente',[PadronController::class, 'consultarAdherentePermanente']);
 Route::get('CrucePadronAdherentes',[PadronController::class, 'CrucePadronAdherentes']);
 Route::get('validarcedula',[PadronController::class, 'validarcedula']);
+Route::get('DataEmpadronado',[PadronController::class, 'DataEmpadronado']);
+
 Route::get('import',[PaisController::class, 'import']);
 
 Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
