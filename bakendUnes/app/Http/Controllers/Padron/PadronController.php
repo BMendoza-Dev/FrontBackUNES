@@ -64,7 +64,7 @@ class PadronController extends Controller
     public function DataEmpadronado(Request $request){
         $response = Http::get("https://yosoyrc5.com/api/padron2023?cedula=eq.{$request->cedula}");
 
-        return response()->json( $nombreComercial);
+        return response()->json( $response);
     
     }
 }
