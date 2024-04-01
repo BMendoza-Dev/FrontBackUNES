@@ -207,6 +207,8 @@ Route::get('CrucePadronAdherentes',[PadronController::class, 'CrucePadronAdheren
 Route::get('validarcedula',[PadronController::class, 'validarcedula']);
 Route::get('DataEmpadronado',[PadronController::class, 'DataEmpadronado']);
 
+
+
 Route::get('import',[PaisController::class, 'import']);
 
 Route::get('CargarCantones',[CantonesController::class, 'CargarCantones']);
@@ -216,6 +218,7 @@ Route::get('CargarParroquias',[ParroquiasController::class, 'CargarParroquias'])
 Route::get('CargarProvincias',[ProvinciaController::class, 'CargarProvincias']);
 Route::get('CargarZonas',[ZonasController::class, 'CargarZonas']);
 Route::get('CargarPadronElectoral',[PadronelectoralsController::class, 'CargarPadronElectoral']);
+Route::get('ActualizarAdherentesPadronElectoral',[PadronelectoralsController::class, 'ActualizarAdherentesPadronElectoral']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('adherentes', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula');
+            $table->string('cedula')->unique();
             $table->string('nombres');
             $table->string('tipo');
             $table->timestamps();

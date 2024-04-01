@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('padronelectorals', function (Blueprint $table) {
             $table->id();
             $table->string('nom_padron');
-            $table->string('cedula');
+            $table->string('cedula')->unique();
             $table->string('nom_recinto');
             $table->integer('junta');
             $table->string('sexo');
