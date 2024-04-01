@@ -63,8 +63,21 @@ class PadronelectoralsController extends Controller
         $adherentes = Adherentes::all();
         foreach ($adherentes as $adherente) {
             $cedula = $adherente->cedula;
+        
+            // Verificar si la cédula ya existe en padronelectoral y el campo adherente no es nulo
+            $existente = Padronelectoral::where('cedula', $cedula)
+                ->whereNotNull('adherente')
+                ->exists();
+        
+            if ($existente) {
+                continue; // Saltar este registro si la cédula ya existe y el campo adherente no es nulo
+            }
+        
             // Realizar solicitud a la API
-            $response = Http::get('https://yosoyrc5.com/api/padron2023?cedula=eq.'.$cedula);
+            $response = Http::get('https://yosoyrc5.com/api/padron2023?cedula=eq.' . $cedula);
+        
+
+            
             // Verificar si la solicitud fue exitosa y si se encontró información
             if ($response->successful() && !empty($response->json())) {
                 $data = $response->json()[0];
