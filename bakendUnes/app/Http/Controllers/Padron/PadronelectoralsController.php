@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Padron\Provincias;
 use App\Models\Padron\Padronelectoral;
+use App\Models\Padron\Adherentes;
 use Illuminate\Support\Facades\Http;
 use App\Models\Padron\Zonas; // Importa el modelo Zona
 class PadronelectoralsController extends Controller
