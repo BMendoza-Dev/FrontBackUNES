@@ -220,6 +220,7 @@ Route::get('CargarZonas',[ZonasController::class, 'CargarZonas']);
 Route::get('CargarPadronElectoral',[PadronelectoralsController::class, 'CargarPadronElectoral']);
 Route::get('ActualizarAdherentesPadronElectoral',[PadronelectoralsController::class, 'ActualizarAdherentesPadronElectoral']);
 Route::get('Todaldedatos',[PadronelectoralsController::class, 'Todaldedatos']);
+Route::get('Leerjson',[PadronelectoralsController::class, 'Leerjson']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){

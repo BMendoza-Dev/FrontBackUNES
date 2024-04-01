@@ -57,7 +57,7 @@ class PadronelectoralsController extends Controller
         return response()->json(['message' => 'Datos del padrón electoral cargados exitosamente.']);
     }
 
-    public function ActualizarAdherentesPadronElectoral(Request $request)
+    public function ActualizarAdherentesPadronElectoral()
     {
 
         $adherentes = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->get();
@@ -107,13 +107,13 @@ class PadronelectoralsController extends Controller
         }
     }
 
-    public function Todaldedatos(Request $request)
+    public function Todaldedatos()
 {
     // Obtener cédulas de los adherentes permanentes
     $cedulas = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->pluck('cedula')->toArray();
 
     // Dividir las cédulas en lotes de 1000
-    $lotes = array_chunk($cedulas, 300);
+    $lotes = array_chunk($cedulas, 2500);
 
     // Inicializar un array para almacenar los datos de la API
     $datosTotales = [];
@@ -124,7 +124,9 @@ class PadronelectoralsController extends Controller
         $cedulasConcatenadas = implode(',', $lote);
 
         // Realizar solicitud a la API con el lote de cédulas
-        $response = Http::get('https://yosoyrc5.com/api/padron2023?cedula=in.'.$cedulasConcatenadas);
+        $response = Http::get('https://yosoyrc5.com/api/padron2023', [
+            'cedula' => 'in.('. $cedulasConcatenadas .')'
+        ]);
 
         // Verificar si la solicitud fue exitosa y agregar los datos al array total
         if ($response->successful()) {
@@ -139,6 +141,39 @@ class PadronelectoralsController extends Controller
     // Devolver los datos totales obtenidos de todas las solicitudes
     return response()->json($datosTotales);
 }
+    public function Leerjson()
+    {   
+    // Ruta al archivo JSON en la carpeta public
+    $jsonFilePath = public_path('ADHERENTEPERMANENTE.json');
 
+    // Verifica si el archivo existe
+    if (file_exists($jsonFilePath)) {
+        // Lee el archivo JSON
+        $json = file_get_contents($jsonFilePath);
+        $data = json_decode($json, true);
+
+        // Itera sobre cada objeto en el archivo JSON
+        foreach ($data as $item) {
+            // Crea un nuevo registro en la tabla padronelectorals
+            Padronelectoral::create([
+                'nom_padron' => $item['nom_padron'],
+                'cedula' => $item['cedula'],
+                'nom_recinto' => $item['nom_recinto'],
+                'junta' => $item['junta'],
+                'sexo' => $item['sexo'],
+                'adherente' => 'ADHERENTE PERMANENTE', // Define el valor de la columna adherente
+                // Si tienes las relaciones definidas en los modelos, puedes asignar los IDs correspondientes aquí
+                'provincia_id' => $item['cod_provincia'],
+                'cantone_id' => $item['cod_canton'],
+                'parroquia_id' => $item['cod_parroquia'],
+                'zona_id' => $item['cod_zona']
+            ]);
+        }
+    } else {
+        // Maneja el caso en que el archivo no exista
+        // Puedes registrar un error o manejarlo según sea necesario
+        echo "El archivo JSON no existe en la carpeta public.";
+    }
+    }
 
 }
