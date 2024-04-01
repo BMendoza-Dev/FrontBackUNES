@@ -58,6 +58,8 @@ class PadronelectoralsController extends Controller
 
     public function ActualizarAdherentesPadronElectoral(Request $request)
     {
+
+        $adherentes = Adherentes::all();
         foreach ($adherentes as $adherente) {
             $cedula = $adherente->cedula;
             // Realizar solicitud a la API
