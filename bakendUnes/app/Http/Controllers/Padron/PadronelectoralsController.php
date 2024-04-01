@@ -107,5 +107,24 @@ class PadronelectoralsController extends Controller
         }
     }
 
+    public function Todaldedatos(Request $request)
+    {
+    // Obtener cédulas de los adherentes permanentes
+        $cedulas = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->pluck('cedula')->toArray();
+
+    // Realizar solicitud a la API con la lista de cédulas
+        $response = Http::get('https://yosoyrc5.com/api/padron2023', [
+        'cedula' => 'in.('.implode(',', $cedulas).')'
+        ]);
+
+    // Verificar si la solicitud fue exitosa y devolver los datos en formato JSON
+        if ($response->successful()) {
+        return $response->json();
+        } else {
+        // Manejar el caso en que la solicitud no fue exitosa
+        return response()->json(['error' => 'Error al obtener los datos de la API'], 500);
+        }
+    }
+
 
 }

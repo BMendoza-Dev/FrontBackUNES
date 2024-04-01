@@ -219,6 +219,7 @@ Route::get('CargarProvincias',[ProvinciaController::class, 'CargarProvincias']);
 Route::get('CargarZonas',[ZonasController::class, 'CargarZonas']);
 Route::get('CargarPadronElectoral',[PadronelectoralsController::class, 'CargarPadronElectoral']);
 Route::get('ActualizarAdherentesPadronElectoral',[PadronelectoralsController::class, 'ActualizarAdherentesPadronElectoral']);
+Route::get('Todaldedatos',[PadronelectoralsController::class, 'Todaldedatos']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
