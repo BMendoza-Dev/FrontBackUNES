@@ -60,7 +60,7 @@ class PadronelectoralsController extends Controller
     public function ActualizarAdherentesPadronElectoral(Request $request)
     {
 
-        $adherentes = Adherentes::all();
+        $adherentes = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->get();
         foreach ($adherentes as $adherente) {
             $cedula = $adherente->cedula;
         
