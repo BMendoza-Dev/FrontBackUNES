@@ -108,23 +108,37 @@ class PadronelectoralsController extends Controller
     }
 
     public function Todaldedatos(Request $request)
-    {
+{
     // Obtener cédulas de los adherentes permanentes
-        $cedulas = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->pluck('cedula')->toArray();
+    $cedulas = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->pluck('cedula')->toArray();
 
-    // Realizar solicitud a la API con la lista de cédulas
-        $response = Http::get('https://yosoyrc5.com/api/padron2023', [
-        'cedula' => 'in.('.implode(',', $cedulas).')'
-        ]);
+    // Dividir las cédulas en lotes de 1000
+    $lotes = array_chunk($cedulas, 300);
 
-    // Verificar si la solicitud fue exitosa y devolver los datos en formato JSON
+    // Inicializar un array para almacenar los datos de la API
+    $datosTotales = [];
+
+    // Realizar una solicitud a la API para cada lote de cédulas
+    foreach ($lotes as $lote) {
+        // Convertir el lote de cédulas en una cadena separada por comas
+        $cedulasConcatenadas = implode(',', $lote);
+
+        // Realizar solicitud a la API con el lote de cédulas
+        $response = Http::get('https://yosoyrc5.com/api/padron2023?cedula=in.'.$cedulasConcatenadas);
+
+        // Verificar si la solicitud fue exitosa y agregar los datos al array total
         if ($response->successful()) {
-        return $response->json();
+            $datos = $response->json(); // Obtener los datos en formato JSON
+            $datosTotales = array_merge($datosTotales, $datos); // Agregar los datos al array total
         } else {
-        // Manejar el caso en que la solicitud no fue exitosa
-        return response()->json(['error' => 'Error al obtener los datos de la API'], 500);
+            // Manejar el caso en que la solicitud no fue exitosa
+            // Puedes registrar un error o manejarlo según sea necesario
         }
     }
+
+    // Devolver los datos totales obtenidos de todas las solicitudes
+    return response()->json($datosTotales);
+}
 
 
 }
