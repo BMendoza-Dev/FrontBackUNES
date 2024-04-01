@@ -166,7 +166,7 @@ class PadronelectoralsController extends Controller
                 'provincia_id' => $item['cod_provincia'],
                 'cantone_id' => $item['cod_canton'],
                 'parroquia_id' => $item['cod_parroquia'],
-                'zona_id' => $item['cod_zona']
+                
             ]);
         }
     } else {
