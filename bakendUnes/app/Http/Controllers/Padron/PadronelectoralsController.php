@@ -110,7 +110,7 @@ class PadronelectoralsController extends Controller
     public function Todaldedatos()
 {
     // Obtener cédulas de los adherentes permanentes
-    $cedulas = Adherentes::pluck('cedula')->toArray();
+    $cedulas = Adherentes::where('tipo', 'ADHERENTE PERMANENTE')->pluck('cedula')->toArray();
 
     // Dividir las cédulas en lotes de 1000
     $lotes = array_chunk($cedulas, 2500);
