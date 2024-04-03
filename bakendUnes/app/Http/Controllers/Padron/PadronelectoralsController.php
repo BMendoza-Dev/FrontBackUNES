@@ -161,7 +161,7 @@ class PadronelectoralsController extends Controller
                 'nom_recinto' => $item['nom_recinto'],
                 'junta' => $item['junta'],
                 'sexo' => $item['sexo'],
-                'adherente' => 'ADHERENTE PERMANENTE', // Define el valor de la columna adherente
+                'adherente' => 'ADHERENTE', // Define el valor de la columna adherente
                 // Si tienes las relaciones definidas en los modelos, puedes asignar los IDs correspondientes aquí
                 'provincia_id' => $item['cod_provincia'],
                 'cantone_id' => $item['cod_canton'],
