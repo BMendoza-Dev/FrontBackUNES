@@ -144,7 +144,7 @@ class PadronelectoralsController extends Controller
     public function Leerjson()
     {   
     // Ruta al archivo JSON en la carpeta public
-    $jsonFilePath = public_path('ADHERENTEPERMANENTE.json');
+    $jsonFilePath = public_path('ADHERENTE PERMANETE');
 
     // Verifica si el archivo existe
     if (file_exists($jsonFilePath)) {
