@@ -222,6 +222,8 @@ Route::get('ActualizarAdherentesPadronElectoral',[PadronelectoralsController::cl
 Route::get('Todaldedatos',[PadronelectoralsController::class, 'Todaldedatos']);
 Route::get('Leerjson',[PadronelectoralsController::class, 'Leerjson']);
 
+Route::get('generarJsonSegunProvincia',[PadronelectoralsController::class, 'generarJsonSegunProvincia']);
+
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);

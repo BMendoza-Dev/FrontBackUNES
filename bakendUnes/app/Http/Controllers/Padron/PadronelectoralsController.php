@@ -176,4 +176,29 @@ class PadronelectoralsController extends Controller
     }
     }
 
+
+    public function generarJsonSegunProvincia(Request $request)
+{
+    // Validar la solicitud
+    $request->validate([
+        'cod_provincia' => 'required|integer',
+        'nombre_archivo' => 'required|string',
+    ]);
+
+    // Obtener el ID de la provincia y el nombre del archivo desde la solicitud
+    $cod_provincia = $request->cod_provincia;
+    $nombre_archivo = $request->nombre_archivo;
+
+    // Obtener la respuesta JSON de la otra API
+    $response = Http::get('https://rc5ec.com/api/padron2023?cod_provincia=eq.'.$cod_provincia);
+
+    // Decodificar la respuesta JSON
+    $data = $response->json();
+
+    // Guardar los datos en un archivo JSON con el nombre proporcionado
+    file_put_contents(public_path($nombre_archivo . '.json'), json_encode($data));
+
+    return response()->json(['message' => 'Datos capturados y guardados en ' . $nombre_archivo . '.json']);
+}
+
 }
