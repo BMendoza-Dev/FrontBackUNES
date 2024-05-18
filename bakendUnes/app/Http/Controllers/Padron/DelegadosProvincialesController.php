@@ -10,10 +10,6 @@ class DelegadosProvincialesController extends Controller
     public function ConsultaDelegadosProvinciales(Request $request)
 {
     // Validar los datos de entrada
-    $request->validate([
-        'provincia' => 'required|string',
-        'cedula' => 'required',
-    ]);
 
     // Buscar el delegado en la base de datos
     $delegado = DelegadosProvinciales::where('provincia', $request->provincia)
