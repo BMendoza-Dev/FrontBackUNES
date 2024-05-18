@@ -29,7 +29,7 @@ class DelegadosProvincialesController extends Controller
     } else {
         // Si el delegado no existe, devolver una respuesta de error
         return response()->json([
-            'message' => 'La cedula ingresada no pertenece a una persona acreditada para participar en la eleccion provincial de'. $request->provincia
+            'message' => 'La cedula ingresada no pertenece a una persona acreditada para participar en la eleccion provincial de '. $request->provincia
         ]);
     }
 }
