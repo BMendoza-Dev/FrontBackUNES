@@ -22,6 +22,8 @@ use App\Http\Controllers\Padron\ProvinciaController;
 use App\Http\Controllers\Padron\ZonasController;
 use App\Http\Controllers\Padron\PadronController;
 use App\Http\Controllers\Padron\PadronelectoralsController;
+use App\Http\Controllers\Padron\DelegadosProvincialesController;
+
 
 
 use App\Models\Biografia;
