@@ -221,6 +221,8 @@ Route::get('CargarPadronElectoral',[PadronelectoralsController::class, 'CargarPa
 Route::get('ActualizarAdherentesPadronElectoral',[PadronelectoralsController::class, 'ActualizarAdherentesPadronElectoral']);
 Route::get('Todaldedatos',[PadronelectoralsController::class, 'Todaldedatos']);
 Route::get('Leerjson',[PadronelectoralsController::class, 'Leerjson']);
+Route::get('ConsultaDelegadosProvinciales',[DelegadosProvincialesController::class, 'ConsultaDelegadosProvinciales']);
+
 
 Route::get('generarJsonSegunProvincia',[PadronelectoralsController::class, 'generarJsonSegunProvincia']);
 
