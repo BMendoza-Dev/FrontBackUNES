@@ -11,7 +11,7 @@ class DelegadosProvincialesController extends Controller
 {
     // Validar los datos de entrada
     $request->validate([
-        'provincia' => 'required|integer',
+        'provincia' => 'required|string',
         'cedula' => 'required|string',
     ]);
 
