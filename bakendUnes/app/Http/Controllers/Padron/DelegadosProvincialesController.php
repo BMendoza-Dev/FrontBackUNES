@@ -12,7 +12,7 @@ class DelegadosProvincialesController extends Controller
     // Validar los datos de entrada
     $request->validate([
         'provincia' => 'required|string',
-        'cedula' => 'required|string',
+        'cedula' => 'required',
     ]);
 
     // Buscar el delegado en la base de datos
@@ -24,12 +24,12 @@ class DelegadosProvincialesController extends Controller
     if ($delegado) {
         // Si el delegado existe, devolver una respuesta exitosa
         return response()->json([
-            'message' => 'El delegado ' . $delegado->nombres . ' está acreditado para participar en la elección de directiva provincial de ' . $delegado->provincia
+            'message' => 'El delegado ' . $delegado->nombres . ' está acreditado para participar en la elección de directiva provincial de ' . $request->provincia
         ]);
     } else {
         // Si el delegado no existe, devolver una respuesta de error
         return response()->json([
-            'message' => 'La cedula ingresada no pertenece a una persona acreditada para participar en la eleccion provincial de'. $delegado->provincia
+            'message' => 'La cedula ingresada no pertenece a una persona acreditada para participar en la eleccion provincial de'. $request->provincia
         ]);
     }
 }
