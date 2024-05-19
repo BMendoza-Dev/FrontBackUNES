@@ -38,7 +38,7 @@ class PadronController extends Controller
                 return response()->json(['message' => 'Cédula incorrecta','code'=> '422']);
             }
         } else {
-            return response()->json(['message' => 'Cédula incorrecta','code'=> '200']);
+            return response()->json(['message' => 'Cédula incorrecta','code'=> '422']);
         }
     }
 
