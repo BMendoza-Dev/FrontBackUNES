@@ -20,7 +20,7 @@ class DelegadosProvincialesController extends Controller
     if ($delegado) {
         // Si el delegado existe, devolver una respuesta exitosa
         return response()->json([
-            'message' => 'El delegado ' . $delegado->nombres . ' está acreditado para participar en la elección de directiva provincial de ' . $request->provincia, 'code'=> '200'
+            'message' => 'La persona ' . $delegado->nombres . ' está acreditado para participar en la elección de directiva provincial de ' . $request->provincia, 'code'=> '200'
         ]);
     } else {
         // Si el delegado no existe, devolver una respuesta de error
