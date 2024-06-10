@@ -10,6 +10,7 @@ class DistritosController extends Controller
 {
     public function CargarDistritos()
      {
+        
         $ListaDistritos = Http::withHeaders([
         'Content-Type' => 'application/json',
         ])->get('https://yosoyrc5.com/api/distritos');

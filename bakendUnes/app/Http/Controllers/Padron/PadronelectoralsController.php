@@ -204,4 +204,70 @@ class PadronelectoralsController extends Controller
         
     }
 
+    public function CargarPadron2023(Request $request){
+
+
+        $CantonesPorProvincia = Http::get('https://yosoyrc5.com/api/cantones?idprovincia=in.' . $idProvincia);
+
+        if ($CantonesPorProvincia->successful()) {
+            $cantones = $CantonesPorProvincia->json();
+        
+            // Recorrer los cantones y mostrar su nombre
+            foreach ($cantones as $canton) {
+                
+                $ParroquiasPorCanton = Http::get('https://yosoyrc5.com/api/parroquias?canton=in.' . $canton->id);
+
+                $parroquias = $ParroquiasPorCanton->json();
+                foreach ($parroquias as $parroquia) {
+                    $response = Http::timeout(10000)->get('https://rc5ec.com/api/padron2023?cod_provincia=eq.'.$parroquia->id);
+
+                    if ($response->successful()) {
+                        // Guardar la respuesta JSON en un archivo con el nombre proporcionado
+                        file_put_contents(public_path('/parroquia/'.$parroquia->parroquia . '.json'), $response->body());
+                        $jsonFilePath = public_path($parroquia->parroquia . '.json');
+
+                        // Verifica si el archivo existe
+                        if (file_exists($jsonFilePath)) {
+                            // Lee el archivo JSON
+                            $json = file_get_contents($jsonFilePath);
+                            $data = json_decode($json, true);
+                    
+                            // Itera sobre cada objeto en el archivo JSON
+                            foreach ($data as $item) {
+                                // Crea un nuevo registro en la tabla padronelectorals
+                                Padronelectoral::create([
+                                    'nom_padron' => $item['nom_padron'],
+                                    'cedula' => $item['cedula'],
+                                    'nom_recinto' => $item['nom_recinto'],
+                                    'junta' => $item['junta'],
+                                    'sexo' => $item['sexo'],
+                                    'adherente' => null, // Define el valor de la columna adherente
+                                    // Si tienes las relaciones definidas en los modelos, puedes asignar los IDs correspondientes aquí
+                                    'provincia_id' => $item['cod_provincia'],
+                                    'cantone_id' => $item['cod_canton'],
+                                    'parroquia_id' => $item['cod_parroquia'],
+                                    
+                                ]);
+                            }
+                        } else {
+                            // Maneja el caso en que el archivo no exista
+                            // Puedes registrar un error o manejarlo según sea necesario
+                            echo "El archivo JSON no existe en la carpeta public.";
+                        }
+                       
+                    } else {
+                        return response()->json(['error' => 'La solicitud no fue exitosa'], 500);
+                    }
+
+                }
+            }
+        } else {
+            // Manejar el error si la solicitud no fue exitosa
+            $errorCode = $CantonesPorProvincia->status();
+            echo "Error en la solicitud HTTP: $errorCode";
+        }
+    }  
+
+
+
 }
