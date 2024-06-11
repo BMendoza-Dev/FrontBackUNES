@@ -285,6 +285,24 @@ class PadronelectoralsController extends Controller
     }
 
 
+    public function consultarAdherenteEnPadron(Request $request)
+    {
+
+        $adherente = Padronelectoral::where('cedula', $request->cedula)
+        ->whereIn('adherente', ['ADHERENTE PERMANENTE', 'ADHERENTE'])
+        ->first();
+
+        // Retornar la respuesta de la consulta
+        if ($adherente) {
+            // Retornar el nombre del adherente
+            return response()->json(['nombre' => $adherente->nombres, 'cedula' => $adherente->cedula, 'tipo' => $adherente->tipo ]);
+        } else {
+            // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
+            return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE DE LA REVOLUCION CIUDADANA LISTA 5', 'erro'=>'400']);
+        }
+    }
+
+
 
     
 
