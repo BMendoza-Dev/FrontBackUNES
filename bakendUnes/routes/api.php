@@ -227,6 +227,7 @@ Route::get('ConsultaDelegadosProvinciales',[DelegadosProvincialesController::cla
 
 
 Route::get('generarJsonSegunProvincia',[PadronelectoralsController::class, 'generarJsonSegunProvincia']);
+Route::get('CargarPadron2023',[PadronelectoralsController::class, 'CargarPadron2023']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){

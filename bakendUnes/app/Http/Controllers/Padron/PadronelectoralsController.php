@@ -206,8 +206,7 @@ class PadronelectoralsController extends Controller
 
     public function CargarPadron2023(Request $request){
 
-
-        $CantonesPorProvincia = Http::get('https://yosoyrc5.com/api/cantones?idprovincia=in.' . $idProvincia);
+        $CantonesPorProvincia = Http::get('https://yosoyrc5.com/api/cantones?idprovincia=in.' . $request->idProvincia);
 
         if ($CantonesPorProvincia->successful()) {
             $cantones = $CantonesPorProvincia->json();
@@ -267,7 +266,5 @@ class PadronelectoralsController extends Controller
             echo "Error en la solicitud HTTP: $errorCode";
         }
     }  
-
-
 
 }
