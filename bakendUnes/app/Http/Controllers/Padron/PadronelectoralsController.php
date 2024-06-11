@@ -204,40 +204,47 @@ class PadronelectoralsController extends Controller
         
     }
 
-    public function CargarPadron2023(Request $request){
-
-        $CantonesPorProvincia = Http::get('https://yosoyrc5.com/api/cantones?idprovincia=eq.'.$request->idProvincia);
-
+    public function CargarPadron2023(Request $request)
+    {
+        // Obtener los cantones por provincia
+        $CantonesPorProvincia = Http::get('https://yosoyrc5.com/api/cantones?idprovincia=eq.' . $request->idProvincia);
+    
         if ($CantonesPorProvincia->successful()) {
             $cantones = $CantonesPorProvincia->json();
-        
-            // Recorrer los cantones y mostrar su nombre
+    
+            // Recorrer los cantones
             foreach ($cantones as $canton) {
-
                 $idCanton = $canton['id'];
+    
+                // Obtener las parroquias por cantón
                 $ParroquiasPorCanton = Http::get('https://yosoyrc5.com/api/parroquias?idcanton=eq.' . $idCanton);
-
-
-
                 $parroquias = $ParroquiasPorCanton->json();
+    
                 foreach ($parroquias as $parroquia) {
-
                     $idparroquia = $parroquia['id'];
-
-                    $response = Http::timeout(10000)->get('https://rc5ec.com/api/padron2023?cod_parroquia=eq.'.$idparroquia);
-
-
+    
+                    // Obtener el padrón 2023 por parroquia
+                    $response = Http::timeout(10000)->get('https://rc5ec.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
+    
                     if ($response->successful()) {
+                        // Definir la ruta del archivo JSON
+                        $directoryPath = public_path('parroquia');
+                        $jsonFilePath = $directoryPath . '/' . $parroquia['parroquia'] . '.json';
+    
+                        // Verificar si el directorio existe, si no, crearlo
+                        if (!file_exists($directoryPath)) {
+                            mkdir($directoryPath, 0777, true);
+                        }
+    
                         // Guardar la respuesta JSON en un archivo con el nombre proporcionado
-                        file_put_contents(public_path('/parroquia/'.$parroquia['parroquia'] . '.json'), $response->body());
-                        $jsonFilePath = public_path('/parroquia/'.$parroquia['parroquia'] . '.json');
-
-                        // Verifica si el archivo existe
+                        file_put_contents($jsonFilePath, $response->body());
+    
+                        // Verificar si el archivo se ha creado correctamente
                         if (file_exists($jsonFilePath)) {
                             // Lee el archivo JSON
                             $json = file_get_contents($jsonFilePath);
                             $data = json_decode($json, true);
-                  
+    
                             // Itera sobre cada objeto en el archivo JSON
                             foreach ($data as $item) {
                                 // Crea un nuevo registro en la tabla padronelectorals
@@ -248,32 +255,27 @@ class PadronelectoralsController extends Controller
                                     'junta' => $item['junta'],
                                     'sexo' => $item['sexo'],
                                     'adherente' => null, // Define el valor de la columna adherente
-                                    // Si tienes las relaciones definidas en los modelos, puedes asignar los IDs correspondientes aquí
                                     'provincia_id' => $item['cod_provincia'],
                                     'cantone_id' => $item['cod_canton'],
                                     'parroquia_id' => $item['cod_parroquia'],
-                                    
                                 ]);
                             }
                         } else {
                             // Maneja el caso en que el archivo no exista
-                            // Puedes registrar un error o manejarlo según sea necesario
-                            echo "El archivo JSON no existe en la carpeta public.";
+                            return response()->json(['error' => 'El archivo JSON no existe en la carpeta public.'], 500);
                         }
-                       
                     } else {
                         return response()->json(['error' => 'La solicitud no fue exitosa'], 500);
                     }
-
                 }
             }
         } else {
             // Manejar el error si la solicitud no fue exitosa
             $errorCode = $CantonesPorProvincia->status();
-            echo "Error en la solicitud HTTP: $errorCode";
+            return response()->json(['error' => "Error en la solicitud HTTP: $errorCode"], 500);
         }
-
+    
         return response()->json(['respuesta' => 'provincia cargada correctamente']);
-    }  
+    }
 
 }
