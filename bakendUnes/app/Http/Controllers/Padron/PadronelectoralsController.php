@@ -227,14 +227,20 @@ class PadronelectoralsController extends Controller
                     $response = Http::timeout(10000)->get('https://rc5ec.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
     
                     if ($response->successful()) {
-                        // Definir la ruta del archivo JSON
                         $directoryPath = public_path('parroquia');
-                        $jsonFilePath = $directoryPath . '/' . $parroquia['parroquia'] . '.json';
-    
-                        // Verificar si el directorio existe, si no, crearlo
-                        if (!file_exists($directoryPath)) {
-                            mkdir($directoryPath, 0777, true);
-                        }
+
+                    // Obtener el nombre de la parroquia y reemplazar "/" por un espacio si es necesario
+                    $parroquiaNombre = $parroquia['parroquia'];
+                    if (strpos($parroquiaNombre, '/') !== false) {
+                        $parroquiaNombre = str_replace('/', ' ', $parroquiaNombre);
+                    }
+
+                    $jsonFilePath = $directoryPath . '/' . $parroquiaNombre . '.json';
+
+                    // Verificar si el directorio existe, si no, crearlo
+                    if (!file_exists($directoryPath)) {
+                        mkdir($directoryPath, 0777, true);
+                    }
     
                         // Guardar la respuesta JSON en un archivo con el nombre proporcionado
                         file_put_contents($jsonFilePath, $response->body());
@@ -277,5 +283,9 @@ class PadronelectoralsController extends Controller
     
         return response()->json(['respuesta' => 'provincia cargada correctamente']);
     }
+
+
+
+    
 
 }
