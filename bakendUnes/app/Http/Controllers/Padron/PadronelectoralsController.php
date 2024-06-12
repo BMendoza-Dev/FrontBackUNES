@@ -298,6 +298,33 @@ class PadronelectoralsController extends Controller
                 // Retornar el nombre del adherente
                 return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
             } else {
+
+
+
+        // Usar el método map para transformar los datos y obtener los datos relacionados
+        $provincia = Provincias::find($adherente->provincia_id);
+        $canton = Cantones::find($adherente->cantone_id);
+        $parroquia = Parroquias::find($adherente->parroquia_id);
+
+        // Usar el método map para transformar los datos y obtener los datos relacionados
+        $adherente = collect([$adherente])->map(function ($item) use ($provincia, $canton, $parroquia) {
+            return [
+                'id' => $item->id,
+                'cedula' => $item->cedula,
+                'nom_padron' => $item->nom_padron,
+                'nom_recinto' => $item->nom_recinto,
+                'junta' => $item->junta,
+                'sexo' => $item->sexo,
+                'provincia_id' => $item->provincia_id,
+                'nom_provincia' =>  $provincia->provincia ,
+                'canton_id' => $item->cantone_id,
+                'nom_canton' =>  $canton->canton,
+                'parroquia_id' => $item->parroquia_id,
+                'nom_parroquia' =>  $parroquia->parroquia ,
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+            ];
+        })->first();
                 // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
                 return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE, LLENE EL SIGUIENTE FORMULARIO PARA SER PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
             }
