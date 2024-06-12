@@ -530,10 +530,10 @@ class PadronelectoralsController extends Controller
             // Manejo de excepciones
 
             $mensaje='ERROR AL VALIDAR LOS DATOS';
-            if($e->getMessage()=='validation.exists'){
-                $mensaje= 'id no encontrado en el padron';
+            if($e->getMessage()=='validation.unique'){
+                $mensaje= 'La cedula se encuentra registrada';
             }
-            return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage(), 'code'=>'400']);
+            return response()->json(['error' => 'Error al procesar la solicitud: ' . $mensaje, 'code'=>'400']);
         }
     }
 
