@@ -296,12 +296,8 @@ class PadronelectoralsController extends Controller
 
         // Retornar la respuesta de la consulta
         if($adherente){
-            if ($adherente->adherente!=null) {
-                // Retornar el nombre del adherente
-                return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
-            } else {
-
-
+            
+            if ($adherente->adherente==null) {
 
         // Usar el método map para transformar los datos y obtener los datos relacionados
         $provincia = Provincias::find($adherente->provincia_id);
@@ -325,7 +321,36 @@ class PadronelectoralsController extends Controller
             ];
         })->first();
                 // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
-                return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE, LLENE EL SIGUIENTE FORMULARIO PARA SER PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
+                return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE, LLENE EL SIGUIENTE FORMULARIO PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
+            } else{
+
+               // dd($adherente->infopadronelectoral()->first());
+                if($adherente->infopadronelectoral()->first()==null){
+                    $provincia = Provincias::find($adherente->provincia_id);
+                    $pais = Paises::find($provincia->paise_id);
+                    $canton = Cantones::find($adherente->cantone_id);
+                    $parroquia = Parroquias::find($adherente->parroquia_id);
+            
+                    // Usar el método map para transformar los datos y obtener los datos relacionados
+                    $adherente = collect([$adherente])->map(function ($item) use ($provincia, $canton, $parroquia,$pais) {
+                        return [
+                            'padronelectoral_id' => $item->id,
+                            'cedula' => $item->cedula,
+                            'nom_padron' => $item->nom_padron,
+                            'nom_pais'=>$pais->pais,
+                            'provincia_id' => $item->provincia_id,
+                            'nom_provincia' =>  $provincia->provincia ,
+                            'canton_id' => $item->cantone_id,
+                            'nom_canton' =>  $canton->canton,
+                            'parroquia_id' => $item->parroquia_id,
+                            'nom_parroquia' =>  $parroquia->parroquia ,
+                        ];
+                    })->first();
+                            // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
+                            return response()->json(['mensaje' => 'LA CEDULA  PERTENECE A UN ADHERENTE, PERO TIENE DATOS IMCOMPLETOS, POR FAVOR LLENE EL SIGUIENTE FORMULARIO PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
+                }
+
+                return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
             }
 
         }
@@ -429,7 +454,6 @@ class PadronelectoralsController extends Controller
                 $padronelectoral->save();
             }
             
-    
             // Crear un nuevo registro en Infopadronelectoral
             $infopadronelectoral = new Infopadronelectoral($validatedData);
             $infopadronelectoral->padronelectoral_id = $padronelectoral->id; // Asignar el ID del padrón electoral
