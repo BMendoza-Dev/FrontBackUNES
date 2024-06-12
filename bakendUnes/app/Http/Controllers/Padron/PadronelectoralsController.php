@@ -309,15 +309,15 @@ class PadronelectoralsController extends Controller
     public function CargarCicunsOProvincia(Request $request){
 
         $validatedData = $request->validate([
-            'paises_id' => 'required|integer|exists:paises,id',
+            'paise_id' => 'required',
         ]);
     
         try {
             // Obtener los datos del padrón electoral según el país
-            $circunsOProvincia = Provincias::where('paises_id', $validatedData['paises_id'])->get();
+            $circunsOProvincia = Provincias::where('paise_id', $validatedData['paise_id'])->get();
     
             // Retornar los datos en formato JSON
-            return response()->json(['data' => $circunsOProvincia], 200);
+            return response()->json( $circunsOProvincia);
         } catch (\Exception $e) {
             // Manejo de excepciones
             return response()->json(['error' => 'Ocurrió un error al obtener los datos', 'details' => $e->getMessage()], 500);
