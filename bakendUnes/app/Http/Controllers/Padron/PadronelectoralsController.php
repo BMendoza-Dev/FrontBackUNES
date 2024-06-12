@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Padron\Provincias;
 use App\Models\Padron\Cantones;
+use App\Models\Padron\Parroquias;
 use App\Models\Padron\Padronelectoral;
 use App\Models\Padron\Adherentes;
 use Illuminate\Support\Facades\Http;
@@ -326,7 +327,7 @@ class PadronelectoralsController extends Controller
 
     }
 
-    public function Listar_Can_Pais_Cicunscripcion_Pais(Request $request){
+    public function Listar_Can_Pais_Cicunscripcion_Prov(Request $request){
 
         $validatedData = $request->validate([
             'prov_circ_id' => 'required',
@@ -344,6 +345,29 @@ class PadronelectoralsController extends Controller
         }
 
     }
+
+    public function Listar_Parroquia_estado_Canton_Pais(Request $request){
+
+        $validatedData = $request->validate([
+            'Esta_Cant_id' => 'required',
+        ]);
+    
+        try {
+            // Obtener los datos del padrón electoral según el país
+            $list_Parroq_Estado = Parroquias::where('cantone_id', $validatedData['Esta_Cant_id'])->get();
+    
+            // Retornar los datos en formato JSON
+            return response()->json( $list_Parroq_Estado);
+        } catch (\Exception $e) {
+            // Manejo de excepciones
+            return response()->json(['error' => 'Ocurrió un error al obtener los datos', 'details' => $e->getMessage()], 500);
+        }
+
+    }
+
+
+
+
 
 
 
