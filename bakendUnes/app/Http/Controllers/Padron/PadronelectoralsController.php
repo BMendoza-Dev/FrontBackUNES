@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Padron;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Padron\Paises;
 use App\Models\Padron\Provincias;
 use App\Models\Padron\Cantones;
 use App\Models\Padron\Parroquias;
+
 use App\Models\Padron\Padronelectoral;
 use App\Models\Padron\Adherentes;
 use Illuminate\Support\Facades\Http;
@@ -303,11 +305,12 @@ class PadronelectoralsController extends Controller
 
         // Usar el método map para transformar los datos y obtener los datos relacionados
         $provincia = Provincias::find($adherente->provincia_id);
+        $pais = Paises::find($provincia->paise_id);
         $canton = Cantones::find($adherente->cantone_id);
         $parroquia = Parroquias::find($adherente->parroquia_id);
 
         // Usar el método map para transformar los datos y obtener los datos relacionados
-        $adherente = collect([$adherente])->map(function ($item) use ($provincia, $canton, $parroquia) {
+        $adherente = collect([$adherente])->map(function ($item) use ($provincia, $canton, $parroquia,$pais) {
             return [
                 'id' => $item->id,
                 'cedula' => $item->cedula,
@@ -315,6 +318,7 @@ class PadronelectoralsController extends Controller
                 'nom_recinto' => $item->nom_recinto,
                 'junta' => $item->junta,
                 'sexo' => $item->sexo,
+                'nom_pais'=>$pais->pais,
                 'provincia_id' => $item->provincia_id,
                 'nom_provincia' =>  $provincia->provincia ,
                 'canton_id' => $item->cantone_id,
