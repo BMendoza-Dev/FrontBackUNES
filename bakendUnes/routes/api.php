@@ -230,7 +230,7 @@ Route::get('generarJsonSegunProvincia',[PadronelectoralsController::class, 'gene
 Route::get('CargarPadron2023',[PadronelectoralsController::class, 'CargarPadron2023']);
 Route::get('consultarAdherenteEnPadron',[PadronelectoralsController::class, 'consultarAdherenteEnPadron']);
 Route::get('CargarCicunsOProvincia',[PadronelectoralsController::class, 'CargarCicunsOProvincia']);
-
+Route::get('Listar_Can_Pais_Cicunscripcion_Pais',[PadronelectoralsController::class, 'Listar_Can_Pais_Cicunscripcion_Pais']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
