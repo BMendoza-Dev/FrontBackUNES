@@ -232,7 +232,7 @@ Route::get('consultarAdherenteEnPadron',[PadronelectoralsController::class, 'con
 Route::get('CargarCicunsOProvincia',[PadronelectoralsController::class, 'CargarCicunsOProvincia']);
 Route::get('Listar_Can_Pais_Cicunscripcion_Pais',[PadronelectoralsController::class, 'Listar_Can_Pais_Cicunscripcion_Prov']);
 Route::get('Listar_Parroquia_estado_Canton_Pais',[PadronelectoralsController::class, 'Listar_Parroquia_estado_Canton_Pais']);
-
+Route::get('RegistrarTipoAdherenteYRedes',[PadronelectoralsController::class, 'RegistrarTipoAdherenteYRedes']);
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){

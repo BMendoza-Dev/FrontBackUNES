@@ -9,7 +9,7 @@ use App\Models\Padron\Paises;
 use App\Models\Padron\Provincias;
 use App\Models\Padron\Cantones;
 use App\Models\Padron\Parroquias;
-
+use App\Models\Padron\Infopadronelectoral;
 use App\Models\Padron\Padronelectoral;
 use App\Models\Padron\Adherentes;
 use Illuminate\Support\Facades\Http;
@@ -312,12 +312,9 @@ class PadronelectoralsController extends Controller
         // Usar el método map para transformar los datos y obtener los datos relacionados
         $adherente = collect([$adherente])->map(function ($item) use ($provincia, $canton, $parroquia,$pais) {
             return [
-                'id' => $item->id,
+                'padronelectoral_id' => $item->id,
                 'cedula' => $item->cedula,
                 'nom_padron' => $item->nom_padron,
-                'nom_recinto' => $item->nom_recinto,
-                'junta' => $item->junta,
-                'sexo' => $item->sexo,
                 'nom_pais'=>$pais->pais,
                 'provincia_id' => $item->provincia_id,
                 'nom_provincia' =>  $provincia->provincia ,
@@ -325,8 +322,6 @@ class PadronelectoralsController extends Controller
                 'nom_canton' =>  $canton->canton,
                 'parroquia_id' => $item->parroquia_id,
                 'nom_parroquia' =>  $parroquia->parroquia ,
-                'created_at' => $item->created_at,
-                'updated_at' => $item->updated_at,
             ];
         })->first();
                 // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
@@ -397,14 +392,64 @@ class PadronelectoralsController extends Controller
     }
 
 
+    public function RegistrarTipoAdherenteYRedes(Request $request)
+    {
+        try {
+        // Validar la solicitud
+        $validatedData = $request->validate([
+            'correo' => 'required|email|max:255',
+            'tel' => 'required|string|max:255',
+            'redfb' => 'nullable|string|max:255',
+            'redtw' => 'nullable|string|max:255',
+            'redit' => 'nullable|string|max:255',
+            'redttk' => 'nullable|string|max:255',
+            'padronelectoral_id' => 'required|exists:padronelectorals,id',
+        ]);
+    
 
+            // Verificar si ya existe un registro relacionado en Infopadronelectoral
+            $infopadronelectoral = Infopadronelectoral::where('padronelectoral_id', $request->padronelectoral_id)->first();
+    
+            if ($infopadronelectoral) {
+                // Si ya existe, retornar un mensaje indicando que no se puede registrar nuevamente
+                return response()->json(['message' => 'Ya existe un registro para este padrón electoral. No se puede registrar nuevamente.', 'error' => '400']);
+            }
+    
+            // Buscar el padrón electoral correspondiente
+            $padronelectoral = Padronelectoral::find($request->padronelectoral_id);
+    
+            if (!$padronelectoral) {
+                // Manejar el caso donde no se encuentra el padrón electoral
+                return response()->json(['message' => 'No se encontró el padrón electoral especificado.', 'code' => '404']);
+            }
+    
+            // Actualizar el campo "adherente" en el modelo Padronelectoral
+            if($padronelectoral->adherente==null){
+                $padronelectoral->adherente = 'ADHERENTE POR SISTEMA';
+                $padronelectoral->save();
+            }
+            
+    
+            // Crear un nuevo registro en Infopadronelectoral
+            $infopadronelectoral = new Infopadronelectoral($validatedData);
+            $infopadronelectoral->padronelectoral_id = $padronelectoral->id; // Asignar el ID del padrón electoral
+            $infopadronelectoral->save();
+    
+            // Retornar una respuesta de éxito
+            return response()->json(['message' => '¡Excelente! Ahora eres parte de la RC5.', 'code'=>'200']);
 
+        } catch (\Exception $e) {
+            // Manejo de excepciones
 
-
-
-
-
-
+            $mensaje='ERROR AL VALIDAR LOS DATOS';
+            if($e->getMessage()=='validation.exists'){
+                $mensaje= 'id no encontrado en el padron';
+            }
+            return response()->json(['error' => 'Error al procesar la solicitud: ' . $mensaje, 'code'=>'400']);
+        }
+    
+        
+    }
     
 
 }
