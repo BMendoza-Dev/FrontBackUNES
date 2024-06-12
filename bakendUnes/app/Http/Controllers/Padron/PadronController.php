@@ -33,7 +33,7 @@ class PadronController extends Controller
 
             if ($response['contribuyente']['tipoIdentificacion'] === 'C') {
                 $nombreComercial = $response['contribuyente']['nombreComercial'] ?? null;
-                return response()->json(['nombre' => $nombreComercial]);
+                return response()->json(['nombre' => $nombreComercial,'code'=>'200']);
             }else{
                 return response()->json(['message' => 'Cédula incorrecta','code'=> '422']);
             }
