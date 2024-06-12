@@ -291,13 +291,17 @@ class PadronelectoralsController extends Controller
         $adherente = Padronelectoral::where('cedula', $request->cedula)->first();
 
         // Retornar la respuesta de la consulta
-        if ($adherente->adherente!=null) {
-            // Retornar el nombre del adherente
-            return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
-        } else if($adherente) {
-            // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
-            return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE, LLENE EL SIGUIENTE FORMULARIO PARA SER PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
-        }else{
+        if($adherente){
+            if ($adherente->adherente!=null) {
+                // Retornar el nombre del adherente
+                return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
+            } else {
+                // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
+                return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE, LLENE EL SIGUIENTE FORMULARIO PARA SER PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
+            }
+
+        }
+        else{
             return response()->json(['mensaje' => 'LA CEDULA INGRESADA NO PERTENECE A UN ADHERENTE, LLENE EL SIGUIENTE FORMULARIO PARA SER PARA SER PARTE DE LA RC5', 'error'=>'500']);
         }
     }
