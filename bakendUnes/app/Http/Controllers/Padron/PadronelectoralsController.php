@@ -224,7 +224,7 @@ class PadronelectoralsController extends Controller
                     $idparroquia = $parroquia['id'];
     
                     // Obtener el padrón 2023 por parroquia
-                    $response = Http::timeout(10000)->get('https://rc5ec.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
+                    $response = Http::timeout(10000)->get('https://yosoyrc5.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
     
                     if ($response->successful()) {
                         $directoryPath = public_path('parroquia');
