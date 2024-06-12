@@ -314,7 +314,7 @@ class PadronelectoralsController extends Controller
     
         try {
             // Obtener los datos del padrón electoral según el país
-            $circunsOProvincia = Padronelectoral::where('paises_id', $validatedData['paises_id'])->get();
+            $circunsOProvincia = Provincias::where('paises_id', $validatedData['paises_id'])->get();
     
             // Retornar los datos en formato JSON
             return response()->json(['data' => $circunsOProvincia], 200);
