@@ -471,9 +471,70 @@ class PadronelectoralsController extends Controller
             }
             return response()->json(['error' => 'Error al procesar la solicitud: ' . $mensaje, 'code'=>'400']);
         }
-    
-        
     }
-    
+
+
+    public function RegistrarDatosAdherenteYRedes(Request $request)
+    {
+        try {
+
+        // Validar la solicitud
+        $validatedPadronelectoral = $request->validate([
+            'nom_padron' => 'required|string|max:255',
+            'provincia_id' => 'exists:provincias,id',
+            'cantone_id' => 'exists:cantones,id',
+            'parroquia_id' => 'exists:parroquias,id',
+            'cedula' => 'required|string|max:10|unique:padronelectorals,cedula', // Añadir la regla unique aquí
+        ]);
+
+        // Validar la solicitud para Infopadronelectoral
+        $validatedInfopadronelectoral = $request->validate([
+            'correo' => 'required|email|max:255',
+            'tel' => 'required|string|max:255',
+            'redfb' => 'nullable|string|max:255',
+            'redtw' => 'nullable|string|max:255',
+            'redit' => 'nullable|string|max:255',
+            'redttk' => 'nullable|string|max:255',
+        ]);
+
+        $validatedPadronelectoral['nom_recinto'] = 'SIN REGISTRO';
+        $validatedPadronelectoral['junta'] = 1; // Junta por defecto
+        $validatedPadronelectoral['adherente'] = 'ADHERENTE POR SISTEMA'; // Valor por defecto
+        $validatedPadronelectoral['zona_id'] = 1; // ID de zona por defecto
+
+
+        $response = Http::get("https://srienlinea.sri.gob.ec/movil-servicios/api/v1.0/deudas/porIdentificacion/{$request->cedula}");
+
+        if ($response->successful()) {
+
+            if ($response['contribuyente']['tipoIdentificacion'] === 'C') {
+
+                $padronelectoral = Padronelectoral::create($validatedPadronelectoral);
+
+                // Crear el registro en Infopadronelectoral vinculado
+                $infopadronelectoral = new Infopadronelectoral($validatedInfopadronelectoral);
+                $infopadronelectoral->padronelectoral_id = $padronelectoral->id;
+                $infopadronelectoral->save();
+                return response()->json(['message' => '¡Excelente! Ahora eres parte de la RC5.', 'code'=>'200']);
+
+            }else{
+                return response()->json(['message' => 'Cédula incorrecta','code'=> '422']);
+            }
+        } else {
+            return response()->json(['message' => 'Cédula incorrecta','code'=> '422']);
+        }
+
+        
+        }
+        catch (\Exception $e) {
+            // Manejo de excepciones
+
+            $mensaje='ERROR AL VALIDAR LOS DATOS';
+            if($e->getMessage()=='validation.exists'){
+                $mensaje= 'id no encontrado en el padron';
+            }
+            return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage(), 'code'=>'400']);
+        }
+    }
 
 }
