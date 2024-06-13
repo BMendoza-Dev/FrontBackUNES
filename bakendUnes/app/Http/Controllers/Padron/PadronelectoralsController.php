@@ -583,11 +583,12 @@ class PadronelectoralsController extends Controller
     {
         // Paso 1: Identificar las cédulas duplicadas
         $duplicatedIds = Padronelectoral::select('id')
-    ->groupBy('cedula', 'adherente', 'nom_padron')
+    ->groupBy('id')
     ->havingRaw('COUNT(*) > 1')
+    ->get()
     ->pluck('id');
 
-        $deletedRows = Padronelectoral::whereIn('id', $registrosDuplicados)->delete();
+        $deletedRows = Padronelectoral::whereIn('id', $duplicatedIds)->delete();
         
 
         return response()->json($deletedRows);
