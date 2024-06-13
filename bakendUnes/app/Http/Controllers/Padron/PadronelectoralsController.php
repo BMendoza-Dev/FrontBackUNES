@@ -347,7 +347,7 @@ class PadronelectoralsController extends Controller
                         ];
                     })->first();
                             // Retornar un mensaje indicando que no se encontró un adherente permanente con la cédula especificada
-                            return response()->json(['mensaje' => 'LA CEDULA  PERTENECE A UN ADHERENTE, PERO TIENE DATOS IMCOMPLETOS, POR FAVOR LLENE EL SIGUIENTE FORMULARIO PARA SER PARTE DE LA RC5', 'error'=>'400', 'data'=>$adherente]);
+                            return response()->json(['mensaje' => 'LA CEDULA  PERTENECE A UN ADHERENTE, PERO TIENE DATOS IMCOMPLETOS, POR FAVOR LLENE EL SIGUIENTE FORMULARIO PARA COMPLETAR TU REGISTRO', 'error'=>'400', 'data'=>$adherente]);
                 }
 
                 return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
