@@ -543,10 +543,24 @@ class PadronelectoralsController extends Controller
 {
     try {
         // Eliminar todos los registros de Padronelectoral con el provincia_id especificado y adherente nulo
-        $deletedRows = Padronelectoral::where('provincia_id', $request->provinciaId)
-                                     ->whereNull('adherente')
-                                     ->delete();
-
+        try {
+            $provinciaId = $request->provinciaId;
+            $batchSize = 1000; // Tamaño del lote
+            $totalDeleted = 0;
+    
+            do {
+                $deletedRows = Padronelectoral::where('provincia_id', $provinciaId)
+                                              ->whereNull('adherente')
+                                              ->limit($batchSize)
+                                              ->delete();
+                $totalDeleted += $deletedRows;
+            } while ($deletedRows > 0);
+    
+            return response()->json(['message' => "Se eliminaron $totalDeleted registros de la provincia con ID {$provinciaId} y adherente nulo.", 'code' => 200]);
+        } catch (\Exception $e) {
+            // Manejo de excepciones
+            return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage(), 'code' => 500]);
+        }
         // Verificar si se eliminaron registros
         if ($deletedRows > 0) {
             return response()->json(['message' => "Se eliminaron $deletedRows registros de la provincia con ID $request->provinciaId y adherente nulo.", 'code' => 200]);
