@@ -587,7 +587,7 @@ class PadronelectoralsController extends Controller
         ->havingRaw('COUNT(*) > 1')
         ->get(['cedula', 'adherente', 'nom_padron']);
 
-        $deletedRows = Padronelectoral::whereIn('id', $duplicatedIds)->delete();
+        $deletedRows = Padronelectoral::whereIn('id', $registrosDuplicados)->delete();
         
 
         return response()->json($deletedRows);
