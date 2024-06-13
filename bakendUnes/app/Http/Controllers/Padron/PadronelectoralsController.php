@@ -588,6 +588,10 @@ public function obtenerCedulasDuplicadasConAdherenteNulo()
         ->havingRaw('COUNT(*) > 1')
         ->pluck('cedula');
 
+    // Paso 2: Obtener los registros con cedulas duplicadas y adherente nulo
+    $registrosDuplicados = Padronelectoral::whereIn('cedula', $duplicatedCedulas)
+        ->whereNull('adherente')
+        ->get();
 
     return $registrosDuplicados;
 }
