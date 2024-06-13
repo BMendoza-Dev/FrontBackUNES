@@ -583,7 +583,7 @@ class PadronelectoralsController extends Controller
     {
         // Paso 1: Identificar las cédulas duplicadas
         $registrosDuplicados = Padronelectoral::select('cedula', 'adherente', 'nom_padron')
-        ->groupBy('cedula')
+        ->groupBy('cedula', 'adherente', 'nom_padron')
         ->havingRaw('COUNT(*) > 1')
         ->get(['cedula', 'adherente', 'nom_padron']);
 
