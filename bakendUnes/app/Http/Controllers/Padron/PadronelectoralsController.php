@@ -545,7 +545,7 @@ class PadronelectoralsController extends Controller
         // Eliminar todos los registros de Padronelectoral con el provincia_id especificado y adherente nulo
         try {
             $provinciaId = $request->provinciaId;
-            $batchSize = 1000; // Tamaño del lote
+            $batchSize = 10000; // Tamaño del lote
             $totalDeleted = 0;
     
             do {
