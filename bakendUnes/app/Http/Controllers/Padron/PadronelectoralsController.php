@@ -587,16 +587,12 @@ class PadronelectoralsController extends Controller
             ->havingRaw('COUNT(*) > 1')
             ->get();
 
-        // Paso 2: Obtener los IDs de los registros que tienen esas combinaciones duplicadas
-        $idsRegistrosDuplicados = collect([]);
-        foreach ($duplicados as $duplicado) {
-            $ids = Padronelectoral::where('cedula', $duplicado->cedula)
-                ->where('adherente', $duplicado->adherente)
-                ->where('nom_padron', $duplicado->nom_padron)
-                ->pluck('id');
+        // Obtener un array de las combinaciones de cedula, adherente y nom_padron
+        $combinacionesDuplicadas = $duplicados->pluck('cedula', 'adherente', 'nom_padron')->toArray();
 
-            $idsRegistrosDuplicados = $idsRegistrosDuplicados->merge($ids);
-        }
+        // Paso 2: Obtener todos los IDs de los registros que tienen esas combinaciones duplicadas
+        $idsRegistrosDuplicados = Padronelectoral::whereIn(['cedula', 'adherente', 'nom_padron'], $combinacionesDuplicados)
+            ->pluck('id');
     return response()->json($idsRegistrosDuplicados);
     }
 
