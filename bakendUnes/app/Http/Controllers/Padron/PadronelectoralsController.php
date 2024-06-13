@@ -590,6 +590,7 @@ class PadronelectoralsController extends Controller
 
         
 
+        return response()->json($registrosDuplicados);
        // $duplicatedIds = $registrosDuplicados->pluck('id');
         dd($registrosDuplicados);
         $deletedRows = Padronelectoral::whereIn('id', $duplicatedIds)->delete();
