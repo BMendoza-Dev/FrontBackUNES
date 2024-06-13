@@ -234,6 +234,8 @@ Route::get('Listar_Can_Pais_Cicunscripcion_Pais',[PadronelectoralsController::cl
 Route::get('Listar_Parroquia_estado_Canton_Pais',[PadronelectoralsController::class, 'Listar_Parroquia_estado_Canton_Pais']);
 Route::get('RegistrarTipoAdherenteYRedes',[PadronelectoralsController::class, 'RegistrarTipoAdherenteYRedes']);
 Route::get('RegistrarDatosAdherenteYRedes',[PadronelectoralsController::class, 'RegistrarDatosAdherenteYRedes']);
+Route::get('eliminarRegistrosPorProvinciaYAdherenteNulo',[PadronelectoralsController::class, 'eliminarRegistrosPorProvinciaYAdherenteNulo']);
+
 
 
 Route::group(['middleware'=>['auth:sanctum']],function(){

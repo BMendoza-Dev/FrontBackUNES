@@ -537,4 +537,26 @@ class PadronelectoralsController extends Controller
         }
     }
 
+
+
+    public function eliminarRegistrosPorProvinciaYAdherenteNulo(Request $request)
+{
+    try {
+        // Eliminar todos los registros de Padronelectoral con el provincia_id especificado y adherente nulo
+        $deletedRows = Padronelectoral::where('provincia_id', $request->provinciaId)
+                                     ->whereNull('adherente')
+                                     ->delete();
+
+        // Verificar si se eliminaron registros
+        if ($deletedRows > 0) {
+            return response()->json(['message' => "Se eliminaron $deletedRows registros de la provincia con ID $request->provinciaId y adherente nulo.", 'code' => 200]);
+        } else {
+            return response()->json(['message' => "No se encontraron registros con provincia_id $request->provinciaId y adherente nulo.", 'code' => 404]);
+        }
+    } catch (\Exception $e) {
+        // Manejo de excepciones
+        return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage(), 'code' => 500]);
+    }
+}
+
 }
