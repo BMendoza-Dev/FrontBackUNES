@@ -586,10 +586,12 @@ class PadronelectoralsController extends Controller
         ->groupBy('id','cedula', 'adherente', 'nom_padron')
         ->havingRaw('COUNT(*) > 1')
         ->get(['cedula', 'adherente', 'nom_padron']);
+
+        $duplicatedIds = $registrosDuplicados->pluck('id');
         $deletedRows = Padronelectoral::whereIn('id', $duplicatedIds)->delete();
         
 
-        return response()->json($registrosDuplicados);
+        return response()->json($deletedRows);
     }
 
 
