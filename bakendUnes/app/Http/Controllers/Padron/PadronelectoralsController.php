@@ -594,9 +594,8 @@ class PadronelectoralsController extends Controller
 
 // Tomar los primeros 100 registros duplicado
 
-    $registrosDuplicados = $registrosDuplicados->take(100);
 
-        return response()->json($registros);
+        return response()->json($registrosDuplicados);
        // $duplicatedIds = $registrosDuplicados->pluck('id');
         dd($registrosDuplicados);
         $deletedRows = Padronelectoral::whereIn('id', $duplicatedIds)->delete();
