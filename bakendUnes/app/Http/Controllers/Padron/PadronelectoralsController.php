@@ -13,7 +13,11 @@ use App\Models\Padron\Infopadronelectoral;
 use App\Models\Padron\Padronelectoral;
 use App\Models\Padron\Adherentes;
 use Illuminate\Support\Facades\Http;
-use App\Models\Padron\Zonas; // Importa el modelo Zona
+use App\Models\Padron\Zonas; // Importa el modelo Zona}
+
+
+
+use Illuminate\Support\Facades\DB;
 class PadronelectoralsController extends Controller
 {
 
@@ -541,6 +545,7 @@ class PadronelectoralsController extends Controller
 
     public function eliminarRegistrosPorProvinciaYAdherenteNulo(Request $request)
 {
+
     try {
         // Eliminar todos los registros de Padronelectoral con el provincia_id especificado y adherente nulo
         try {
@@ -549,14 +554,14 @@ class PadronelectoralsController extends Controller
             $totalDeleted = 0;
     
             do {
-                $deletedRows = Padronelectoral::where('provincia_id', $provinciaId)
+                $deletedRows = Padronelectoral::where('cantone_id', $provinciaId)
                                               ->whereNull('adherente')
                                               ->limit($batchSize)
                                               ->delete();
                 $totalDeleted += $deletedRows;
             } while ($deletedRows > 0);
     
-            return response()->json(['message' => "Se eliminaron $totalDeleted registros de la provincia con ID {$provinciaId} y adherente nulo.", 'code' => 200]);
+            return response()->json(['message' => "Se eliminaron $totalDeleted registros del canron con ID {$provinciaId} y adherente nulo.", 'code' => 200]);
         } catch (\Exception $e) {
             // Manejo de excepciones
             return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage(), 'code' => 500]);
@@ -572,5 +577,20 @@ class PadronelectoralsController extends Controller
         return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage(), 'code' => 500]);
     }
 }
+
+
+public function obtenerCedulasDuplicadasConAdherenteNulo()
+{
+    // Paso 1: Identificar las cedulas duplicadas
+    $duplicatedCedulas = Padronelectoral::select('cedula')
+        ->whereNull('adherente')
+        ->groupBy('cedula')
+        ->havingRaw('COUNT(*) > 1')
+        ->pluck('cedula');
+
+
+    return $registrosDuplicados;
+}
+
 
 }
