@@ -583,7 +583,6 @@ public function obtenerCedulasDuplicadasConAdherenteNulo()
 {
     // Paso 1: Identificar las cedulas duplicadas
     $duplicatedCedulas = Padronelectoral::select('cedula')
-        ->whereNull('adherente')
         ->groupBy('cedula')
         ->havingRaw('COUNT(*) > 1')
         ->pluck('cedula');
