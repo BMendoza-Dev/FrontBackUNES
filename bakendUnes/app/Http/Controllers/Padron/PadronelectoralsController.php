@@ -582,16 +582,21 @@ class PadronelectoralsController extends Controller
     public function obtenerCedulasDuplicadasConAdherenteNulo()
     {
         // Paso 1: Identificar las cédulas duplicadas
-        $idsRegistrosDuplicados = DB::table('padronelectorals')
-        ->select('id')
-        ->whereIn(DB::raw('(cedula, adherente, nom_padron)'), function ($query) {
-            $query->select(DB::raw('cedula, adherente, nom_padron'))
-                  ->from('padronelectorals')
-                  ->groupBy('cedula', 'adherente', 'nom_padron')
-                  ->havingRaw('COUNT(*) > 1');
-        })
-        ->get()
-        ->pluck('id');
+        $duplicados = Padronelectoral::select('cedula', 'adherente', 'nom_padron')
+            ->groupBy('cedula', 'adherente', 'nom_padron')
+            ->havingRaw('COUNT(*) > 1')
+            ->get();
+
+        // Paso 2: Obtener los IDs de los registros que tienen esas combinaciones duplicadas
+        $idsRegistrosDuplicados = collect([]);
+        foreach ($duplicados as $duplicado) {
+            $ids = Padronelectoral::where('cedula', $duplicado->cedula)
+                ->where('adherente', $duplicado->adherente)
+                ->where('nom_padron', $duplicado->nom_padron)
+                ->pluck('id');
+
+            $idsRegistrosDuplicados = $idsRegistrosDuplicados->merge($ids);
+        }
     return response()->json($idsRegistrosDuplicados);
     }
 
