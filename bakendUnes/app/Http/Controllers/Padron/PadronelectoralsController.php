@@ -741,63 +741,60 @@ public function CargarPadron2023CeteadoIdParroquia()
             // Obtener el padrón 2023 por parroquia
             $response = Http::timeout(10000)->get('https://yosoyrc5.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
 
-            if ($response->successful()) {
-                $directoryPath = public_path('parroquia');
+                if ($response->successful()) {
+                    $directoryPath = public_path('parroquia');
 
-                // Obtener la información de la parroquia
-                $parroquia = Http::get('https://yosoyrc5.com/api/parroquias?id=' . $idparroquia)->json();
+                    // Obtener el nombre de la parroquia y reemplazar "/" por un espacio si es necesario
+                    $parroquiaNombre = $parroquia['parroquia'];
+                    if (strpos($parroquiaNombre, '/') !== false) {
+                        $parroquiaNombre = str_replace('/', ' ', $parroquiaNombre);
+                    }
 
-                // Obtener el nombre de la parroquia y reemplazar "/" por un espacio si es necesario
-                $parroquiaNombre = $parroquia['parroquia'];
-                if (strpos($parroquiaNombre, '/') !== false) {
-                    $parroquiaNombre = str_replace('/', ' ', $parroquiaNombre);
-                }
+                    $jsonFilePath = $directoryPath . '/' . $parroquiaNombre . '.json';
 
-                $jsonFilePath = $directoryPath . '/' . $parroquiaNombre . '.json';
+                    // Verificar si el directorio existe, si no, crearlo
+                    if (!file_exists($directoryPath)) {
+                        mkdir($directoryPath, 0777, true);
+                    }
 
-                // Verificar si el directorio existe, si no, crearlo
-                if (!file_exists($directoryPath)) {
-                    mkdir($directoryPath, 0777, true);
-                }
+                    // Guardar la respuesta JSON en un archivo con el nombre proporcionado
+                    file_put_contents($jsonFilePath, $response->body());
 
-                // Guardar la respuesta JSON en un archivo con el nombre proporcionado
-                file_put_contents($jsonFilePath, $response->body());
+                    // Verificar si el archivo se ha creado correctamente
+                    if (file_exists($jsonFilePath)) {
+                        // Leer el archivo JSON
+                        $json = file_get_contents($jsonFilePath);
+                        $data = json_decode($json, true);
 
-                // Verificar si el archivo se ha creado correctamente
-                if (file_exists($jsonFilePath)) {
-                    // Leer el archivo JSON
-                    $json = file_get_contents($jsonFilePath);
-                    $data = json_decode($json, true);
+                        // Iterar sobre cada objeto en el archivo JSON
+                        foreach ($data as $item) {
+                            // Buscar si ya existe un registro con la misma cédula en el mismo cantón
+                            $existingRecord = Padronelectoral::where('cedula', $item['cedula'])
+                                ->where('cantone_id', $item['cod_canton'])
+                                ->first();
 
-                    // Iterar sobre cada objeto en el archivo JSON
-                    foreach ($data as $item) {
-                        // Buscar si ya existe un registro con la misma cédula en la misma parroquia
-                        $existingRecord = Padronelectoral::where('cedula', $item['cedula'])
-                            ->where('parroquia_id', $item['cod_parroquia'])
-                            ->first();
-
-                        // Si no existe, crea un nuevo registro
-                        if (!$existingRecord) {
-                            Padronelectoral::create([
-                                'nom_padron' => $item['nom_padron'],
-                                'cedula' => $item['cedula'],
-                                'nom_recinto' => $item['nom_recinto'],
-                                'junta' => $item['junta'],
-                                'sexo' => $item['sexo'],
-                                'adherente' => null, // Define el valor de la columna adherente
-                                'provincia_id' => $item['cod_provincia'],
-                                'cantone_id' => $item['cod_canton'],
-                                'parroquia_id' => $item['cod_parroquia'],
-                            ]);
+                            // Si no existe, crea un nuevo registro
+                            if (!$existingRecord) {
+                                Padronelectoral::create([
+                                    'nom_padron' => $item['nom_padron'],
+                                    'cedula' => $item['cedula'],
+                                    'nom_recinto' => $item['nom_recinto'],
+                                    'junta' => $item['junta'],
+                                    'sexo' => $item['sexo'],
+                                    'adherente' => null, // Define el valor de la columna adherente
+                                    'provincia_id' => $item['cod_provincia'],
+                                    'cantone_id' => $item['cod_canton'],
+                                    'parroquia_id' => $item['cod_parroquia'],
+                                ]);
+                            }
                         }
+                    } else {
+                        // Maneja el caso en que el archivo no exista
+                        return response()->json(['error' => 'El archivo JSON no existe en la carpeta public.'], 500);
                     }
                 } else {
-                    // Maneja el caso en que el archivo no exista
-                    return response()->json(['error' => 'El archivo JSON no existe en la carpeta public.'], 500);
+                    return response()->json(['error' => 'La solicitud no fue exitosa'], 500);
                 }
-            } else {
-                return response()->json(['error' => 'La solicitud no fue exitosa'], 500);
-            }
         }
 
         return response()->json(['respuesta' => 'Parroquias cargadas correctamente']);
