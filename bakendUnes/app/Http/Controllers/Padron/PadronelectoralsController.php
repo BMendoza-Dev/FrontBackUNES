@@ -782,7 +782,7 @@ public function CargarPadron2023CeteadoIdParroquia()
                             // Buscar si ya existe un registro con la misma cédula en el mismo cantón
 
                             // Si no existe, crea un nuevo registro
-                            if (!$existingRecord) {
+                            
                                 Padronelectoral::create([
                                     'nom_padron' => $item['nom_padron'],
                                     'cedula' => $item['cedula'],
@@ -795,7 +795,7 @@ public function CargarPadron2023CeteadoIdParroquia()
                                     'parroquia_id' => $item['cod_parroquia'],
                                 ]);
                             }
-                        }
+                        
                     } else {
                         // Maneja el caso en que el archivo no exista
                         return response()->json(['error' => 'El archivo JSON no existe en la carpeta public.'], 500);
