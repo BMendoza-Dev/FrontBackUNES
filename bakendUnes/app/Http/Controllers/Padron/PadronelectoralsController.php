@@ -728,10 +728,9 @@ class PadronelectoralsController extends Controller
 
 public function CargarPadron2023CeteadoIdParroquia()
 {
-    try {
+    
         // Definir los IDs de parroquias por defecto
-        $idparroquias = [
-            725, 865, 2925, 7215, 7160, 7225, 7240, 3475, 2525, 440, 195, 7220, 7150, 7140, 7165, 4085, 2980, 7250, 7260, 30,
+        $idParroquias = [725, 865, 2925, 7215, 7160, 7225, 7240, 3475, 2525, 440, 195, 7220, 7150, 7140, 7165, 4085, 2980, 7250, 7260, 30,
             80, 855, 7245, 7135, 7175, 5220, 7180, 7170, 5015, 5535,
             7190, 5260, 1475, 3925, 2690, 625, 2985, 4325, 2825, 2055,
             3325, 2530, 2855, 1440
@@ -740,6 +739,10 @@ public function CargarPadron2023CeteadoIdParroquia()
         foreach ($idparroquias as $idparroquia) {
             // Obtener el padrón 2023 por parroquia
             $response = Http::timeout(10000)->get('https://yosoyrc5.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
+            $parroquiaresponse = Http::timeout(10000)->get('https://yosoyrc5.com/api/parroquias?id=eq.' . $idparroquia);
+
+            $parroquia= $parroquiaresponse->json();;
+  
 
                 if ($response->successful()) {
                     $directoryPath = public_path('parroquia');
@@ -769,9 +772,6 @@ public function CargarPadron2023CeteadoIdParroquia()
                         // Iterar sobre cada objeto en el archivo JSON
                         foreach ($data as $item) {
                             // Buscar si ya existe un registro con la misma cédula en el mismo cantón
-                            $existingRecord = Padronelectoral::where('cedula', $item['cedula'])
-                                ->where('cantone_id', $item['cod_canton'])
-                                ->first();
 
                             // Si no existe, crea un nuevo registro
                             if (!$existingRecord) {
@@ -798,9 +798,7 @@ public function CargarPadron2023CeteadoIdParroquia()
         }
 
         return response()->json(['respuesta' => 'Parroquias cargadas correctamente']);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al procesar la solicitud: ' . $e->getMessage()], 500);
-    }
+    
 }
 
 
