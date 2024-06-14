@@ -237,6 +237,8 @@ Route::get('RegistrarDatosAdherenteYRedes',[PadronelectoralsController::class, '
 //Route::get('eliminarRegistrosPorProvinciaYAdherenteNulo',[PadronelectoralsController::class, 'eliminarRegistrosPorProvinciaYAdherenteNulo']);
 Route::get('CargarPadron2023PorCanton',[PadronelectoralsController::class, 'CargarPadron2023PorCanton']);
 
+Route::get('CargarPadron2023CeteadoIdCanton',[PadronelectoralsController::class, 'CargarPadron2023CeteadoIdCanton']);
+
 
 Route::group(['middleware'=>['auth:sanctum']],function(){
     Route::get('ListarPerfiles',[PerfilesController::class, 'ListarPerfiles']);
