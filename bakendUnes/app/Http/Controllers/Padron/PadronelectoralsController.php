@@ -730,18 +730,27 @@ public function CargarPadron2023CeteadoIdParroquia()
 {
     
         // Definir los IDs de parroquias por defecto
-        $idParroquias = [725, 865, 2925, 7215, 7160, 7225, 7240, 3475, 2525, 440, 195, 7220, 7150, 7140, 7165, 4085, 2980, 7250, 7260, 30,
-            80, 855, 7245, 7135, 7175, 5220, 7180, 7170, 5015, 5535,
-            7190, 5260, 1475, 3925, 2690, 625, 2985, 4325, 2825, 2055,
-            3325, 2530, 2855, 1440]; // Puedes incluir aquí los IDs de las parroquias que deseas procesar
+        $idParroquias = [
+            725, 865, 2925, 7215, 7160, 7225, 7240, 3475, 2525, 440, 195, 7220, 7150, 7140,
+            7165, 4085, 2980, 7250, 7260, 30, 80, 855, 7245, 7135, 7175, 5220, 7180, 7170,
+            5015, 5535, 7190, 5260, 1475, 3925, 2690, 625, 2985, 4325, 2825, 2055, 3325,
+            2530, 2855, 1440
+        ]; // IDs de parroquias que deseas procesar
 
-        foreach ($idParroquias as $idparroquia) {
+        $parametros = implode(',', $idParroquias);
+        
+            // Realizar solicitud a la API con el lote de IDs de parroquias
+            $parroquiaResponse = Http::timeout(10000)->get('https://yosoyrc5.com/api/parroquias', [
+                'id' => 'in.(' . $parametros . ')'
+            ]);
+
+            $parroquias= $parroquiaResponse->json();;
+            
+        foreach ($parroquias as $parroquia) {
             // Obtener el padrón 2023 por parroquia
-            $response = Http::timeout(10000)->get('https://yosoyrc5.com/api/padron2023?cod_parroquia=eq.' . $idparroquia);
-            $parroquiaresponse = Http::timeout(10000)->get('https://yosoyrc5.com/api/parroquias?id=eq.' . $idparroquia);
 
-            $parroquia= $parroquiaresponse->json();;
-  
+            $response = Http::timeout(10000)->get('https://yosoyrc5.com/api/padron2023?cod_parroquia=eq.' . $parroquia['id']);
+            
 
                 if ($response->successful()) {
                     $directoryPath = public_path('parroquia');
@@ -794,6 +803,7 @@ public function CargarPadron2023CeteadoIdParroquia()
                 } else {
                     return response()->json(['error' => 'La solicitud no fue exitosa'], 500);
                 }
+                $cont++;
         }
 
         return response()->json(['respuesta' => 'Parroquias cargadas correctamente']);
