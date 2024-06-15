@@ -730,8 +730,7 @@ public function CargarPadron2023CeteadoIdParroquia()
 {
     
         // Definir los IDs de parroquias por defecto
-        $idParroquias = [ 7260, 30, 80, 855, 7245, 7135, 7175, 5220, 7180, 7170,
-            5015, 5535, 7190, 5260, 1475, 3925, 2690, 625, 2985, 4325, 2825, 2055, 3325,
+        $idParroquias = [  625, 2985, 4325, 2825, 2055, 3325,
             2530, 2855, 1440
         ]; // IDs de parroquias que deseas procesar
 
