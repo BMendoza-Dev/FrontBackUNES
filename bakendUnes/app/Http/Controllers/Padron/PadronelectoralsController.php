@@ -738,10 +738,7 @@ public function CargarPadron2023CeteadoIdParroquia()
     
         // Definir los IDs de parroquias por defecto
         $idParroquias = [
-            6150, // TARQUI (duplicado)
-            6095, // SUCRE
             5355, // FEBRES CORDERO
-            6150, // TARQUI (duplicado)
             6405, // PASCUALES
             5170, // CARBO/CONCEPCION
             5890, // ROCAFUERTE
