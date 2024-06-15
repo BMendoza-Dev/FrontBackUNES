@@ -239,6 +239,7 @@ Route::get('CargarPadron2023PorCanton',[PadronelectoralsController::class, 'Carg
 
 Route::get('CargarPadron2023CeteadoIdCanton',[PadronelectoralsController::class, 'CargarPadron2023CeteadoIdCanton']);
 Route::get('CargarPadron2023CeteadoIdParroquia',[PadronelectoralsController::class, 'CargarPadron2023CeteadoIdParroquia']);
+Route::get('importarregistrosyosoyrc5',[PadronelectoralsController::class, 'importarregistrosyosoyrc5']);
 
 
 
