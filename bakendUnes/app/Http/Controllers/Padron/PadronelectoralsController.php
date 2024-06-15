@@ -820,7 +820,43 @@ public function CargarPadron2023CeteadoIdParroquia()
 }
 
 
-   
+    public function importarregistrosyosoyrc5()
+        {
+        $filePath = public_path('yosoyrc5.csv'); // Ruta completa al archivo en la carpeta public
+        
+        // Verifica si el archivo existe
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'El archivo CSV no existe en la carpeta pública.');
+        }
+
+        // Abre el archivo CSV para lectura
+        $file = fopen($filePath, 'r');
+
+        // Salta la primera línea si es un encabezado
+        $header = fgetcsv($file);
+
+        while (($row = fgetcsv($file)) !== false) {
+            // Procesa cada fila del CSV
+            $cedula = $row[2]; // Suponiendo que la cedula está en la tercera columna (índice 2)
+            $nombre = $row[3]; // Suponiendo que el nombre está en la cuarta columna (índice 3)
+
+            // Verifica si la cedula ya existe en la base de datos
+            $existingAdherente = Adherente::where('cedula', $cedula)->first();
+
+            if (!$existingAdherente) {
+                // Crea un nuevo registro si la cedula no está registrada
+                Adherente::create([
+                    'cedula' => $cedula,
+                    'nombre' => $nombre,
+                    'tipo' => 'YoSoyRC5'
+                ]);
+            }
+        }
+
+        fclose($file); // Cierra el archivo después de leerlo
+
+        return redirect()->back()->with('success', 'Datos importados correctamente desde el archivo en la carpeta pública.');
+        }
 
 
 }
