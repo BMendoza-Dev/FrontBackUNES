@@ -820,7 +820,6 @@ public function CargarPadron2023CeteadoIdParroquia()
 }
 
 
-
     public function importarregistrosyosoyrc5()
         {
         $filePath = public_path('yosoyrc5.csv'); // Ruta completa al archivo en la carpeta public
