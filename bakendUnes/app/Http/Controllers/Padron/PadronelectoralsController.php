@@ -841,7 +841,7 @@ public function CargarPadron2023CeteadoIdParroquia()
             $nombre = $row[3]; // Suponiendo que el nombre está en la cuarta columna (índice 3)
 
             // Verifica si la cedula ya existe en la base de datos
-            $existingAdherente = Adherente::where('cedula', $cedula)->first();
+            $existingAdherente = Adherentes::where('cedula', $cedula)->first();
 
             if (!$existingAdherente) {
                 // Crea un nuevo registro si la cedula no está registrada
