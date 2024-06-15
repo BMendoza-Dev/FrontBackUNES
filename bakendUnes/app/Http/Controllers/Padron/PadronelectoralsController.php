@@ -354,7 +354,7 @@ class PadronelectoralsController extends Controller
                             return response()->json(['mensaje' => 'LA CEDULA  PERTENECE A UN ADHERENTE, PERO TIENE DATOS IMCOMPLETOS, POR FAVOR LLENE EL SIGUIENTE FORMULARIO PARA COMPLETAR TU REGISTRO', 'error'=>'400', 'data'=>$adherente]);
                 }
 
-                return response()->json(['nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
+                return response()->json([ 'mensaje'=>$adherente->nom_padron." ES CON CI: ".$adherente->cedula." ES ADHERENTE TIPO ".$adherente->adherente." DE LA REVOLUCIÓN CIUDADANA"   ,'nombre' => $adherente->nom_padron, 'cedula' => $adherente->cedula, 'tipo' => $adherente->adherente, 'code'=>'200' ]);
             }
 
         }
