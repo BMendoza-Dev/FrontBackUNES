@@ -845,7 +845,7 @@ public function CargarPadron2023CeteadoIdParroquia()
 
             if (!$existingAdherente) {
                 // Crea un nuevo registro si la cedula no está registrada
-                Adherente::create([
+                Adherentes::create([
                     'cedula' => $cedula,
                     'nombre' => $nombre,
                     'tipo' => 'YoSoyRC5'
