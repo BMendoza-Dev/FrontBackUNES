@@ -737,7 +737,25 @@ public function CargarPadron2023CeteadoIdParroquia()
 {
     
         // Definir los IDs de parroquias por defecto
-        $idParroquias = [ 260
+        $idParroquias = [
+            6150, // TARQUI (duplicado)
+            6095, // SUCRE
+            5355, // FEBRES CORDERO
+            6150, // TARQUI (duplicado)
+            6405, // PASCUALES
+            5170, // CARBO/CONCEPCION
+            5890, // ROCAFUERTE
+            2940, // POSORJA
+            6185, // URDANETA
+            5720, // OLMEDO/SAN ALEJO
+            2470, // MORRO
+            5695, // 9 DE OCTUBRE
+            5380, // GARCIA MORENO
+            5585, // LETAMENDI
+            4120, // TENGUEL
+            3030, // PUNA
+            5055, // AYACUCHO
+            5125  // BOLIVAR/SAGRARIO
         ]; // IDs de parroquias que deseas procesar
 
         $parametros = implode(',', $idParroquias);
