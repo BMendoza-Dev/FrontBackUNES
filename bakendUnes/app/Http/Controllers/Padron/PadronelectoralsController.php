@@ -650,7 +650,23 @@ class PadronelectoralsController extends Controller
 {
     try {
         // Definir los IDs de cantones por defecto
-        $idCantones = [65,770]; // Puedes incluir aquí los IDs de los cantones que deseas procesar
+        $idCantones = [
+            675, // PALESTINA
+            385, // EL EMPALME
+            920, // LOMAS DE SARGENTILLO
+            395, // YAGUACHI
+            435, // NARANJAL
+            125, // COLIMES
+            986, // ISIDRO AYORA
+            835, // A.BAQUERIZO MORENO
+            400, // DAULE
+            870, // SANTA LUCIA
+            95,  // BALAO
+            430, // SALITRE
+            420, // MILAGRO
+            790, // SIMON BOLIVAR
+            890  // CRNL MARCELINO MARIDUENAS
+        ]; // Puedes incluir aquí los IDs de los cantones que deseas procesar
 
         foreach ($idCantones as $idCanton) {
             // Obtener las parroquias por cantón
